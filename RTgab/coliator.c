@@ -44,6 +44,14 @@ inline long double	planetestor(t_v v, t_env *e, t_v dir, t_p *p)
 	return (d);
 }
 
+inline t_v vdc(t_v a, long double b)
+{
+	a.x /= b;
+	a.y /= b;
+	a.z /= b;
+	return (a);
+}
+
 inline long double	spheretestor(t_v v, t_env *e, t_v dir, t_s *s)
 {
 	register long double	a;
@@ -119,6 +127,24 @@ t_v tvb(t_v i, t_v dir, t_v pos, long double r)
 
 // racine(((x + vxt) − xA)2 + ((y + vyt) − yA)2 + ((z + vzt) − zA)2)
 
+inline t_v ps(t_v a, long double b)
+{
+	a.x *= b;
+	a.y *= b;
+	a.z *= b;
+	return (a);
+}
+
+inline t_v 			pv(t_v a, t_v b)
+{
+	t_v v;
+
+	v.x = a.y * b.z - a.z * b.y;
+	v.y = a.z * b.x - a.x * b.z;
+	v.z = a.x * b.y - a.y * b.x;
+	return (v);
+}
+
 inline long double	cotestor(t_v v, t_env *e, t_v dir, t_co *s)
 {
 	register long double	a;
@@ -135,15 +161,15 @@ inline long double	cotestor(t_v v, t_env *e, t_v dir, t_co *s)
 	a = vm(vmv(s->v, dir), vmv(s->v, dir))
 		+ 2 * vwaza(vmv(s->v, dir), vmv(s->v, dir))
 		- pow(cos(s->a), 2) * (vm(vmv(s->v, s->v), vmv(dir, dir))
-		+ svwaza(vmv(dir, dir), vmv(s->v, s->v)));
+		+ vwaza(vmv(dir, dir), vmv(s->v, s->v)));
 	b = 2 * (vm(vmv(dir, s->v), vmv(l, s->v))
-		+ svwaza(vmv(l, s->v), vmv(dir, s->v)))
+		+ vwaza(vmv(l, s->v), vmv(dir, s->v)))
 		- pow(cos(s->a), 2) * 2 * (vm(vmv(s->v, s->v), vmv(l, dir))
-		+ svwaza(vmv(s->v, s->v), vmv(l, dir)));
+		+ vwaza(vmv(s->v, s->v), vmv(l, dir)));
 	c = vm(vmv(s->v, l), vmv(s->v, l))
 		+ 2 * vwaza(vmv(s->v, l), vmv(s->v, l))
 		- pow(cos(s->a), 2) * (vm(vmv(s->v, s->v), vmv(l, l))
-		+ svwaza(vmv(l, l), vmv(s->v, s->v)));
+		+ vwaza(vmv(l, l), vmv(s->v, s->v)));
 	// a = pow(cos(s->a) * (vdp(dir) - vm(vmv(dir, s->v), s->v)), 2)
 	// -pow(sin(s->a) * (vm(s->v, dir)), 2);
 	// b = 2 * pow(cos(s->a) * ((vdp(dir) - vm(vmv(dir, s->v), s->v)) + (vdp(l) - vm(vmv(l, s->v), s->v))), 2)
@@ -159,10 +185,10 @@ inline long double	cotestor(t_v v, t_env *e, t_v dir, t_co *s)
 	if (!e->testor)
 		return (d);
 	l = vav(v, ps(dir, d));
-	// z = tvb(l, s->v, s->p, ddp(s->p, s->v, l) + 0.00001);
-	// l = tvb(z, normalisator(vsv(l, s->p)), s->p, ddp(s->p, normalisator(vsv(l, s->p)), z) + 0.00001);
-	l = normalisator(pv(normalisator(vsv(s->p, l)), s->v));
-	l = normalisator(pv(normalisator(vsv(s->p, l)), l));
+	z = tvb(l, s->v, s->p, ddp(s->p, s->v, l) + 0.00001);
+	l = tvb(z, normalisator(vsv(l, s->p)), s->p, ddp(s->p, normalisator(vsv(l, s->p)), z) + 0.00001);
+	// l = normalisator(pv(normalisator(vsv(s->p, l)), s->v));
+	// l = normalisator(pv(normalisator(vsv(s->p, l)), l));
 	// if (s->h != -1 && normecalculator(vsv(l, s->p)) > s->h)
 	// 	return (-1);
 	v = vsv(z, l);

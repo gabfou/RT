@@ -193,7 +193,7 @@ int 	corecuperator(char *l, t_env *e)
 	p.v.z = (float)ft_atoi2(&l[++i]) / 1000;
 	while (!(l[i] == ' ' && l[i + 1] != ' ' && l[i + 1]))
 		i++;
-	p.r = (float)ft_atoi2(&l[++i]) / 1000;
+	p.a = (float)ft_atoi2(&l[++i]) / 1000;
 	while (!(l[i] == ' ' && l[i + 1] != ' ' && l[i + 1]))
 		i++;
 	p.color.x = (float)ft_atoi2(&l[++i]) / 1000;
@@ -226,13 +226,13 @@ int 	lightrecuperator(char *l, t_env *e)
 	while (!(l[i] == ' ' && l[i + 1] != ' ' && l[i + 1]))
 		i++;
 	ft_putendl(&l[i + 1]);
-	p.x = (float)ft_atoi2(&l[++i]) / 1000;
+	p.p.x = (float)ft_atoi2(&l[++i]) / 1000;
 	while (!(l[i] == ' ' && l[i + 1] != ' ' && l[i + 1]))
 		i++;
-	p.y = (float)ft_atoi2(&l[++i]) / 1000;
+	p.p.y = (float)ft_atoi2(&l[++i]) / 1000;
 	while (!(l[i] == ' ' && l[i + 1] != ' ' && l[i + 1]))
 		i++;
-	p.z = (float)ft_atoi2(&l[++i]) / 1000;
+	p.p.z = (float)ft_atoi2(&l[++i]) / 1000;
 	while (!(l[i] == ' ' && l[i + 1] != ' ' && l[i + 1]))
 		i++;
 	p.color.x = (float)ft_atoi2(&l[++i]) / 1000;

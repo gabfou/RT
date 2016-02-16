@@ -64,12 +64,12 @@ void	init(t_env *e)
 	e->o.h = 0.35;
 	e->o.l = 0.5;
 	e->o.vpul = vpulcalculator(e->o);
-	e->r = 0;
-	e->g = 0;
-	e->b = 0;
-	e->r2 = 1;
-	e->g2 = 1;
-	e->b2 = 1;
+	e->c.x = 0;
+	e->c.y = 0;
+	e->c.z = 0;
+	e->c2.x = 1;
+	e->c2.y = 1;
+	e->c2.z = 1;
 	e->test2 = 0;
 	// printf("vpulx = %f vpuly = %f vpulz = %f\n", (double)e->o.vpul.x, (double)e->o.vpul.y, (double)e->o.vpul.z);
 }

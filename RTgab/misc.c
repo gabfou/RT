@@ -26,9 +26,9 @@ inline void		put_pixel(t_env *e, register int x, register int y, int color)
 	color1 = color >> 0;
 	color2 = color >> 8;
 	color3 = color >> 16;
-	color1 += (e->b) * 255 / M_PI; 
-	color2 += (e->g) * 255 / M_PI; 
-	color3 += (e->r) * 255 / M_PI; 
+	color1 += (e->c.x) * 255 / M_PI; 
+	color2 += (e->c.y) * 255 / M_PI; 
+	color3 += (e->c.z) * 255 / M_PI; 
 	e->addr[y * e->sizel + x * e->bpp / 8] = color1;
 	e->addr[y * e->sizel + x * e->bpp / 8 + 1] = color2;
 	e->addr[y * e->sizel + x * e->bpp / 8 + 2] = color3;
