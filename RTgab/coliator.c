@@ -159,10 +159,10 @@ inline long double	cotestor(t_v v, t_env *e, t_v dir, t_co *s)
 	if (!e->testor)
 		return (d);
 	l = vav(v, ps(dir, d));
-	// z = tvb(l, s->v, s->p, ddp(s->p, s->v, l) + 0.00001);
-	// l = tvb(z, normalisator(vsv(l, s->p)), s->p, ddp(s->p, normalisator(vsv(l, s->p)), z) + 0.00001);
-	l = normalisator(pv(normalisator(vsv(s->p, l)), s->v));
-	l = normalisator(pv(normalisator(vsv(s->p, l)), l));
+	z = tvb(l, s->v, s->p, ddp(s->p, s->v, l) + 0.00001);
+	l = tvb(z, normalisator(vsv(l, s->p)), s->p, ddp(s->p, normalisator(vsv(l, s->p)), z) + 0.00001);
+	//	l = normalisator(pv(normalisator(vsv(s->p, l)), s->v));
+	//	l = normalisator(pv(normalisator(vsv(s->p, l)), l));
 	// if (s->h != -1 && normecalculator(vsv(l, s->p)) > s->h)
 	// 	return (-1);
 	v = vsv(z, l);
