@@ -12,10 +12,21 @@
 
 #include "le.h"
 
-long double ifpos(long double x)
+inline t_v	vdc(t_v a, long double b)
 {
-	return ((x > 0) ? x : -x);
+	t_v v;
 
+	v.x = a.x / b;
+	v.y = a.y / b;
+	v.z = a.z / b;
+	return (v);
+}
+
+long double	ifpos(long double x, int i)
+{
+	if (i)
+		return ((x > 0) ? x : -x);
+	return ((x > 0) ? x : -x);
 }
 
 inline int		lumierator(t_l *l, t_env *e, t_v v, t_v p)
@@ -26,53 +37,33 @@ inline int		lumierator(t_l *l, t_env *e, t_v v, t_v p)
 	t_v						l2;
 
 	if (!l)
+	{
+		e->test3 = 1;
 		return (0);
-	(void)tmp;
-	vl.x = p.x - l->p.x;
-	vl.y = p.y - l->p.y;
-	vl.z = p.z - l->p.z;
+	}
+	vl = vsv(p, l->p);
 	tmp2 = vl.x * vl.x + vl.y * vl.y + vl.z * vl.z;
 	vl = normalisator(vl);
-	l2.x = l->p.x;
-	l2.y = l->p.y;
-	l2.z = l->p.z;
-	e->test2 = 0;
+	l2 = l->p;
+	e->test3 = 0;
 	tmp = testall(0, l2, e, vl);
+	// tmp = e->d;
 //	e->test2 = 1;
 	if (!(tmp * tmp < tmp2 - 0.000001))
 	{
-		e->c.x += ifpos(M_PI_2 - acos(v.x * vl.x + v.y * vl.y + v.z * vl.z)) / e->l * l->color.x * 2;
-		e->c.y += ifpos(M_PI_2 - acos(v.x * vl.x + v.y * vl.y + v.z * vl.z)) / e->l * l->color.y * 2;
-		e->c.z += ifpos(M_PI_2 - acos(v.x * vl.x + v.y * vl.y + v.z * vl.z)) / e->l * l->color.z * 2;
+		e->c.x += ifpos(M_PI_2 - acos(v.x * vl.x + v.y * vl.y + v.z * vl.z), e->test3) / e->l * l->color.x * 2;
+		e->c.y += ifpos(M_PI_2 - acos(v.x * vl.x + v.y * vl.y + v.z * vl.z), e->test3) / e->l * l->color.y * 2;
+		e->c.z += ifpos(M_PI_2 - acos(v.x * vl.x + v.y * vl.y + v.z * vl.z), e->test3) / e->l * l->color.z * 2;
 	}
+	e->test3 = 1;
 	return (1);
-}
-
-t_p	planenrecuperatorormator()
-{
-	t_p p;
-
-	p.p.x = 0;
-	p.p.y = 0;
-	p.p.z = 2.2;
-	p.v.x = 0;
-	p.v.y = 0;
-	p.v.z = 1;
-	p.v = normalisator(p.v);
-	return (p);
 }
 
 void	rayonator(t_env *e, int x, int y)
 {
-	t_v		i;
-
-	(void)i;
 	e->c.x = 0;
 	e->c.y = 0;
 	e->c.z = 0;
-	// e->r3 = 0;
-	// e->g3 = 0;
-	// e->b3 = 0;
 	e->d = 0xf0000;
 	testall(1, pixelpos(e->o, x, y, e), e, e->o.dir);
 	e->c.x *= e->c2.x;
@@ -85,13 +76,25 @@ void	panoramiquator(t_env *e)
 {
 	register int	i;
 	register int	j;
+	register int	k;
 
+	k = 1;
 	i = -1;
 	while (++i < TH)
 	{
 		j = -1;
 		while (++j < TV)
+		{
 			rayonator(e, j, i);
+			if (j * i == (int)(TH * TV) / 100 * k)
+			{
+				ft_putnbr(k);
+				ft_putendl("%");
+				k++;
+			}
+
+		}
 	}
+	// exit(0);
 	ft_putendl("100%");
 }

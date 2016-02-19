@@ -118,7 +118,7 @@ int 	cyrecuperator(char *l, t_env *e)
 	while (l[++i])
 		if (l[i] == ' ' && l[i + 1] != ' ' && l[i + 1])
 			j++;
-	if (j != 10)
+	if (j != 10 && j != 12)
 		error("pb d argument cy");
 	i = 0;
 	while (!(l[i] == ' ' && l[i + 1] != ' ' && l[i + 1]))
@@ -152,6 +152,20 @@ int 	cyrecuperator(char *l, t_env *e)
 	while (!(l[i] == ' ' && l[i + 1] != ' ' && l[i + 1]))
 		i++;
 	p.color.z = (float)ft_atoi2(&l[++i]) / 1000;
+	if (j == 12)
+	{
+		while (!(l[i] == ' ' && l[i + 1] != ' ' && l[i + 1]))
+			i++;
+		p.h = (float)ft_atoi2(&l[++i]) / 1000;
+		while (!(l[i] == ' ' && l[i + 1] != ' ' && l[i + 1]))
+			i++;
+		p.b = (float)ft_atoi2(&l[++i]) / 1000;
+	}
+	else
+	{
+		p.h = -1;
+		p.b = -1;
+	}
 	p.v = normalisator(p.v);
 	cyguardator(&p, -1);
 	return (0);
@@ -169,7 +183,7 @@ int 	corecuperator(char *l, t_env *e)
 	while (l[++i])
 		if (l[i] == ' ' && l[i + 1] != ' ' && l[i + 1])
 			j++;
-	if (j != 10)
+	if (j != 10 && j != 12)
 		error("pb d argument co");
 	i = 0;
 	while (!(l[i] == ' ' && l[i + 1] != ' ' && l[i + 1]))
@@ -193,7 +207,7 @@ int 	corecuperator(char *l, t_env *e)
 	p.v.z = (float)ft_atoi2(&l[++i]) / 1000;
 	while (!(l[i] == ' ' && l[i + 1] != ' ' && l[i + 1]))
 		i++;
-	p.a = (float)ft_atoi2(&l[++i]) / 1000;
+	p.a = (float)ft_atoi2(&l[++i]) / 1000 * M_PI;
 	while (!(l[i] == ' ' && l[i + 1] != ' ' && l[i + 1]))
 		i++;
 	p.color.x = (float)ft_atoi2(&l[++i]) / 1000;
@@ -203,6 +217,20 @@ int 	corecuperator(char *l, t_env *e)
 	while (!(l[i] == ' ' && l[i + 1] != ' ' && l[i + 1]))
 		i++;
 	p.color.z = (float)ft_atoi2(&l[++i]) / 1000;
+	if (j == 12)
+	{
+		while (!(l[i] == ' ' && l[i + 1] != ' ' && l[i + 1]))
+			i++;
+		p.h = (float)ft_atoi2(&l[++i]) / 1000;
+		while (!(l[i] == ' ' && l[i + 1] != ' ' && l[i + 1]))
+			i++;
+		p.b = (float)ft_atoi2(&l[++i]) / 1000;
+	}
+	else
+	{
+		p.h = -1;
+		p.b = -1;
+	}
 	p.v = normalisator(p.v);
 	coguardator(&p, -1);
 	return (0);
@@ -316,6 +344,11 @@ int		superparsator(t_env *e)
 		else if (l[0] == 'c' && l[1] == 'y')
 		{
 			if (cyrecuperator(l, e))
+				break ;
+		}
+		else if (l[0] == 'c' && l[1] == 'o')
+		{
+			if (corecuperator(l, e))
 				break ;
 		}
 		else if (l[0] == 'c' && l[1] == 'a' && l[2] == 'm')

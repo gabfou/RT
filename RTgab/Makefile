@@ -22,7 +22,9 @@ SRC = rayonator.c \
 	  recuperatoraux.c \
 	  translator.c \
 	  proprator.c \
-	  proprator2.c
+	  proprator2.c \
+	  propretor3.c \
+	  pars2.c
 
 
 all : $(NAME)

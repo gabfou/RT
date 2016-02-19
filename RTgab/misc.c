@@ -26,9 +26,9 @@ inline void		put_pixel(t_env *e, register int x, register int y, int color)
 	color1 = color >> 0;
 	color2 = color >> 8;
 	color3 = color >> 16;
-	color1 += (e->c.x) * 255 / M_PI; 
-	color2 += (e->c.y) * 255 / M_PI; 
-	color3 += (e->c.z) * 255 / M_PI; 
+	color1 += (e->c.z) * 255 / M_PI;
+	color2 += (e->c.y) * 255 / M_PI;
+	color3 += (e->c.x) * 255 / M_PI;
 	e->addr[y * e->sizel + x * e->bpp / 8] = color1;
 	e->addr[y * e->sizel + x * e->bpp / 8 + 1] = color2;
 	e->addr[y * e->sizel + x * e->bpp / 8 + 2] = color3;
@@ -41,9 +41,6 @@ inline t_v		vpulcalculator(t_cam c)
 	r.x = c.pos.x + ((c.dir.x * c.d) + (c.up.x * (c.h / 2))) - (c.right.x * (c.l / 2));
 	r.y = c.pos.y + ((c.dir.y * c.d) + (c.up.y * (c.h / 2))) - (c.right.y * (c.l / 2));
 	r.z = c.pos.z + ((c.dir.z * c.d) + (c.up.z * (c.h / 2))) - (c.right.z * (c.l / 2));
-	// r.x = c.pos.x + (1.0 * (c.l / 2.0));
-	// r.y = c.pos.y + (1.0 * (c.h / 2.0)));
-	// r.z = c.pos.z + ((c.dir.z * c.d);
 	return (r);
 }
 
@@ -54,9 +51,6 @@ inline t_v		pixelpos(t_cam c, long double x, long double y, t_env *e)
 	r.x = c.vpul.x + c.right.x * (c.l / TV) * x - c.up.x * (c.h / TH) * y;
 	r.y = c.vpul.y + c.right.y * (c.l / TV) * x - c.up.y * (c.h / TH) * y;
 	r.z = c.vpul.z + c.right.z * (c.l / TV) * x - c.up.z * (c.h / TH) * y;
-	// r.x = c.vpul.x + 1.0 * (c.l / (float)TV) * x;
-	// r.y = c.vpul.y - 1.0 * (c.h / (float)TH) * y;
-	// r.z = c.vpul.z;
 	e->o.dir.x = r.x - c.pos.x + c.dir.x;
 	e->o.dir.y = r.y - c.pos.y + c.dir.y;
 	e->o.dir.z = r.z - c.pos.z + c.dir.z;

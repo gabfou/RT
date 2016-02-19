@@ -12,35 +12,36 @@
 
 #include "le.h"
 
-void	initcam(t_env *e)
+t_cam	initcam(t_cam c)
 {
 
-	if (e->o.dir.x != 0)
+	if (c.dir.x != 0)
 	{
-		e->o.right.x =  e->o.dir.z / e->o.dir.x;
-		e->o.right.y = 0;
-		e->o.right.z = 1;
-		e->o.right = normalisator(e->o.right);
+		c.right.x =  c.dir.z / c.dir.x;
+		c.right.y = 0;
+		c.right.z = 1;
+		c.right = normalisator(c.right);
 	}
 	else
 	{
-		e->o.right.x = 1;
-		e->o.right.y = 0;
-		e->o.right.z = 0;
+		c.right.x = 1;
+		c.right.y = 0;
+		c.right.z = 0;
 	}
-	if (e->o.dir.x != 0)
+	if (c.dir.x != 0)
 	{
-		e->o.up.x =  e->o.right.z / e->o.right.x;
-		e->o.up.y = (e->o.dir.x * e->o.up.x + e->o.dir.z) / e->o.right.x;
-		e->o.up.z = 1;
-		e->o.up = normalisator(e->o.up);
+		c.up.x =  c.right.z / c.right.x;
+		c.up.y = (c.dir.x * c.up.x + c.dir.z) / c.right.x;
+		c.up.z = 1;
+		c.up = normalisator(c.up);
 	}
 	else
 	{
-		e->o.up.x = 0;
-		e->o.up.y = 1;
-		e->o.up.z = 0;
+		c.up.x = 0;
+		c.up.y = 1;
+		c.up.z = 0;
 	}
+	return (c);
 }
 
 void	init(t_env *e)
@@ -53,7 +54,7 @@ void	init(t_env *e)
 	e->o.dir.y = 0;
 	e->o.dir.z = 1;
 	superparsator(e);
-	initcam(e);
+	e->o = initcam(e->o);
 	if (e->l == 0)
 		error("pas de lumiere");
 	e->mlx = mlx_init();
