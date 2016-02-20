@@ -88,7 +88,6 @@ static int	key_hook(int keycode, t_env *e)
 
 static int	loop_hook(t_env *e)
 {
-	panoramiquator(e);
 	mlx_put_image_to_window(e->mlx, e->win, e->img, 0, 0);
 	mlx_do_sync(e->mlx);
 	return (1);
@@ -101,6 +100,7 @@ int			main(void)
 	init(&e);
 	mlx_key_hook(e.win, key_hook, &e);
 	mlx_hook(e.win, 2, 1, key_hook, &e);
+	panoramiquator(&e);
 	mlx_loop_hook(e.mlx, loop_hook, &e);
 	mlx_loop(e.mlx);
 	return (0);
