@@ -1,0 +1,25 @@
+camera	{
+	pos_x: 0,
+	pos_y: 0,
+	pos_z: 10
+}
+
+window	{
+	x: 2048,
+	y: 1024
+}
+
+light	{
+	pos_x: 100,
+	pos_y: 50,
+	pos_z: 0,
+	color: 0xff0000
+}
+
+sphere	{
+	pos_x: 500,
+	pos_y: 300,
+	pos_z: 10,
+	radius: 100,
+	color: 0xff0000
+}
