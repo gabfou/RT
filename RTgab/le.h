@@ -115,6 +115,7 @@ typedef struct	s_env
 	int				test3;
 	t_v				pl;
 	t_v				vl;
+	int				pixelmirror;
 }				t_env;
 
 t_v			vdc(t_v a, long double b);

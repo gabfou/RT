@@ -39,6 +39,7 @@ inline long double	planetestor(t_v v, t_env *e, t_v dir, t_p *p)
 	t.y = -p->v.y;
 	t.z = -p->v.z;
 	e->test3 = 0;
+	e->pixelmirror = 1;
 	e->vl = t;
 	e->pl = l;
 	return (d);
@@ -67,6 +68,7 @@ inline long double	spheretestor(t_v v, t_env *e, t_v dir, t_s *s)
 		return (c);
 	l = vav(v, ps(dir, c));
 	v = vdc(vsv(s->p, l), s->r);
+	e->pixelmirror = 0;
 	e->vl = v;
 	e->pl = l;
 	e->c2 = s->color;
@@ -94,8 +96,16 @@ t_v tvb(t_v i, t_v dir, t_v pos, long double r)
 		return (l);
 	}
 	ft_putendl("tvb fail");
-	exit (-1);
+	// exit (-1);
 	return (l);
+}
+
+ t_v		vector_proj_vector(t_v vector1, t_v vector2) // project vector 1 in vector 2
+{
+	t_v	ret;
+
+	ret = ps(vector2, vm(vector1, vector2) / vm(vector2, vector2));
+	return (ret);	
 }
 
 // ((px + vxt) * dx + (py + vyt) * dy + (pz + vzt) * dz) * ((px + vxt) * dx + (py + vyt) * dy + (pz + vzt) * dz) - (dx2 + dy2 + dz2) * ((px + vxt)2 + (py + vyt)2 + (pz + vzt)2) * 0//cos(truc)2
@@ -119,6 +129,19 @@ t_v tvb(t_v i, t_v dir, t_v pos, long double r)
 
 // racine(((x + vxt) − xA)2 + ((y + vyt) − yA)2 + ((z + vzt) − zA)2)
 
+	// a = vm(vmv(s->v, dir), vmv(s->v, dir))
+	// 	+ 2 * vwaza(vmv(s->v, dir), vmv(s->v, dir))
+	// 	- pow(cos(s->a), 2) * (vm(vmv(s->v, s->v), vmv(dir, dir))
+	// 	+ svwaza(vmv(dir, dir), vmv(s->v, s->v)));
+	// b = 2 * (vm(vmv(dir, s->v), vmv(l, s->v))
+	// 	+ svwaza(vmv(l, s->v), vmv(dir, s->v)))
+	// 	- pow(cos(s->a), 2) * 2 * (vm(vmv(s->v, s->v), vmv(l, dir))
+	// 	+ svwaza(vmv(s->v, s->v), vmv(l, dir)));
+	// c = vm(vmv(s->v, l), vmv(s->v, l))
+	// 	+ 2 * vwaza(vmv(s->v, l), vmv(s->v, l))
+	// 	- pow(cos(s->a), 2) * (vm(vmv(s->v, s->v), vmv(l, l))
+	// 	+ svwaza(vmv(l, l), vmv(s->v, s->v)));
+
 inline long double	cotestor(t_v v, t_env *e, t_v dir, t_co *s)
 {
 	register long double	a;
@@ -132,24 +155,9 @@ inline long double	cotestor(t_v v, t_env *e, t_v dir, t_co *s)
 	if (s == NULL)
 		return (-2);
 	l = vsv(v, s->p);
-	a = vm(vmv(s->v, dir), vmv(s->v, dir))
-		+ 2 * vwaza(vmv(s->v, dir), vmv(s->v, dir))
-		- pow(cos(s->a), 2) * (vm(vmv(s->v, s->v), vmv(dir, dir))
-		+ svwaza(vmv(dir, dir), vmv(s->v, s->v)));
-	b = 2 * (vm(vmv(dir, s->v), vmv(l, s->v))
-		+ svwaza(vmv(l, s->v), vmv(dir, s->v)))
-		- pow(cos(s->a), 2) * 2 * (vm(vmv(s->v, s->v), vmv(l, dir))
-		+ svwaza(vmv(s->v, s->v), vmv(l, dir)));
-	c = vm(vmv(s->v, l), vmv(s->v, l))
-		+ 2 * vwaza(vmv(s->v, l), vmv(s->v, l))
-		- pow(cos(s->a), 2) * (vm(vmv(s->v, s->v), vmv(l, l))
-		+ svwaza(vmv(l, l), vmv(s->v, s->v)));
-	// a = pow(cos(s->a) * (vdp(dir) - vm(vmv(dir, s->v), s->v)), 2)
-	// -pow(sin(s->a) * (vm(s->v, dir)), 2);
-	// b = 2 * pow(cos(s->a) * ((vdp(dir) - vm(vmv(dir, s->v), s->v)) + (vdp(l) - vm(vmv(l, s->v), s->v))), 2)
-	// -2 * pow(sin(s->a) * vm(s->v, dir) * vm(s->v, l), 2);
-	// c = pow(cos(s->a) * (vdp(l) - vm(vmv(l, s->v), s->v)), 2)
-	// -pow(sin(s->a) * vm(s->v, l), 2);
+	a = vm(dir, dir) - (1.0 + tan(s->a) * tan(s->a)) * (vm(dir, s->v) *  vm(dir, s->v));
+	b = 2 * (vm(dir, l) - (1.0 + tan(s->a) * tan(s->a)) * (vm(dir, s->v) * vm(l, s->v)));
+	c = vm(l, l) - (1.0 + tan(s->a) * tan(s->a)) * (vm(l, s->v) * vm(l, s->v));
 	if ((d = (b * b - 4.0 * a * c)) < 0)
 		return (-1);
 	d = ft_min(((-b + sqrt(d)) / (2 * a)), ((-b - sqrt(d)) / (2 * a)));
@@ -161,14 +169,8 @@ inline long double	cotestor(t_v v, t_env *e, t_v dir, t_co *s)
 	e->d = d;
 	if (!e->testor)
 		return (d);
-	z = tvb(l, s->v, s->p, ddp(s->p, s->v, l) + 0.00001);
-	l = tvb(z, normalisator(vsv(l, s->p)), s->p, ddp(s->p, normalisator(vsv(l, s->p)), z) + 0.00001);
-	//	l = normalisator(pv(normalisator(vsv(s->p, l)), s->v));
-	//	l = normalisator(pv(normalisator(vsv(s->p, l)), l));
-	// if (!e->testor)
-	// 	return (d);
-	v = vsv(z, l);
-	v = normalisator(v);
+	v = normalisator(vsv(vector_proj_vector(normalisator(vsv(s->p, l)), s->v), normalisator(vsv(s->p, l))));
+	e->pixelmirror = 0;
 	e->vl = v;
 	e->pl = l;
 	e->c2 = s->color;
@@ -191,6 +193,7 @@ inline long double	cytestor(t_v v, t_env *e, t_v dir, t_cy *s)
 	register long double	d;
 	t_v						l;
 	t_v						z;
+	double dist;
 
 	if (s == NULL)
 		return (-2);
@@ -210,9 +213,16 @@ inline long double	cytestor(t_v v, t_env *e, t_v dir, t_cy *s)
 	e->d = d;
 	if (!e->testor)
 		return(d);
-	z = tvb(l, s->v, s->p, s->r + 0.00001);
+	// z = tvb(l, s->v, s->p, s->r + 0.00001);
+	// v = vsv(z, l);
+	// v = normalisator(v);
+	// v = normalisator(vsv((vsv(ps(dir, e->d), s->p)),
+	// 	(ps(s->v, vm(dir, s->v) * e->d + vm(vsv(v, s->p), s->v)))));
+	dist = sqrt(pow(normecalculator(vsv(s->p, l)), 2) - pow(s->r, 2));
+	z = vav(s->p, ps(s->v, dist));
 	v = vsv(z, l);
 	v = normalisator(v);
+	e->pixelmirror = 0;
 	e->vl = v;
 	e->pl = l;
 	e->c2 = s->color;
@@ -238,6 +248,18 @@ inline long double	testall(register int i, t_v p, t_env *e, t_v dir)
 	j = 1;
 	while ((tmp = cotestor(p, e, dir, coguardator(NULL, j))) != -2)
 		j++;
+	// if (e->d < 0xf0000 && e->pixelmirror == 1 && e->testor == 1)
+	// {
+	// 	e->c.x = 0;
+	// 	e->c.y = 0;
+	// 	e->c.z = 0;
+	// 	e->pl.x += e->vl.x * 1.0;
+	// 	e->pl.y += e->vl.y * 1.0;
+	// 	e->pl.z += e->vl.z * 1.0;
+	// 	e->d = 0xf0000;
+	// 	e->pixelmirror = 0;
+	// 	return (testall(1, e->pl, e, e->vl));
+	// }
 	if (e->d < 0xf0000 && e->testor)
 	{
 		e->testor = 0;
