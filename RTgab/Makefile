@@ -24,7 +24,8 @@ SRC = rayonator.c \
 	  proprator.c \
 	  proprator2.c \
 	  propretor3.c \
-	  pars2.c
+	  pars2.c \
+	  opticator.c
 
 
 all : $(NAME)

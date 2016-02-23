@@ -35,12 +35,13 @@ inline long double	planetestor(t_v v, t_env *e, t_v dir, t_p *p)
 		return (d);
 	l = vav(v, ps(dir, d));
 	e->c2 = p->color;
-	t.x = -p->v.x;
-	t.y = -p->v.y;
-	t.z = -p->v.z;
+	t.x = p->v.x;
+	t.y = p->v.y;
+	t.z = p->v.z;
 	e->test3 = 0;
-	e->pixelmirror = 1;
+	e->pixelmirror = 0;
 	e->vl = t;
+	// printf("%Lf\n", e->vl.z);
 	e->pl = l;
 	return (d);
 }
@@ -68,7 +69,7 @@ inline long double	spheretestor(t_v v, t_env *e, t_v dir, t_s *s)
 		return (c);
 	l = vav(v, ps(dir, c));
 	v = vdc(vsv(s->p, l), s->r);
-	e->pixelmirror = 0;
+	e->pixelmirror = 1;
 	e->vl = v;
 	e->pl = l;
 	e->c2 = s->color;
@@ -218,9 +219,15 @@ inline long double	cytestor(t_v v, t_env *e, t_v dir, t_cy *s)
 	// v = normalisator(v);
 	// v = normalisator(vsv((vsv(ps(dir, e->d), s->p)),
 	// 	(ps(s->v, vm(dir, s->v) * e->d + vm(vsv(v, s->p), s->v)))));
-	dist = sqrt(pow(normecalculator(vsv(s->p, l)), 2) - pow(s->r, 2));
+	a = normecalculator(vsv(s->p, l));
+	dist = sqrt(pow(a, 2) - pow(s->r, 2));
 	z = vav(s->p, ps(s->v, dist));
 	v = vsv(z, l);
+	if (!((a = normecalculator(v)) > s->r - 0.00000001 && a < s->r + 0.00000001))
+	{
+		z = vav(s->p, ps(s->v, -dist));
+		v = vsv(z, l);
+	}
 	v = normalisator(v);
 	e->pixelmirror = 0;
 	e->vl = v;
@@ -248,18 +255,18 @@ inline long double	testall(register int i, t_v p, t_env *e, t_v dir)
 	j = 1;
 	while ((tmp = cotestor(p, e, dir, coguardator(NULL, j))) != -2)
 		j++;
-	// if (e->d < 0xf0000 && e->pixelmirror == 1 && e->testor == 1)
-	// {
-	// 	e->c.x = 0;
-	// 	e->c.y = 0;
-	// 	e->c.z = 0;
-	// 	e->pl.x += e->vl.x * 1.0;
-	// 	e->pl.y += e->vl.y * 1.0;
-	// 	e->pl.z += e->vl.z * 1.0;
-	// 	e->d = 0xf0000;
-	// 	e->pixelmirror = 0;
-	// 	return (testall(1, e->pl, e, e->vl));
-	// }
+	if (e->d < 0xf0000 && e->pixelmirror == 1 && e->testor == 1)
+	{
+		e->c.x = 0;
+		e->c.y = 0;
+		e->c.z = 0;
+		e->pl.x += -e->vl.x * 1.0;
+		e->pl.y += -e->vl.y * 1.0;
+		e->pl.z += -e->vl.z * 1.0;
+		e->d = 0xf0000;
+		e->pixelmirror = 0;
+		return (testall(1, e->pl, e, ps(e->vl, -1)/*miroiratorvcalculator(dir, ps(e->vl, -1))*/));
+	}
 	if (e->d < 0xf0000 && e->testor)
 	{
 		e->testor = 0;

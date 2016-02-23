@@ -118,6 +118,7 @@ typedef struct	s_env
 	int				pixelmirror;
 }				t_env;
 
+t_v			miroiratorvcalculator(t_v ray, t_v norm);
 t_v			vdc(t_v a, long double b);
 long double	svwaza(t_v a, t_v b);
 long double	ddp(t_v d, t_v v, t_v p);
