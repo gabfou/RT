@@ -1,0 +1,20 @@
+cam 0 -30 0 1 2 0 0
+#lum 0 0 0 255 255 255
+lum 0 -10 10 255 0 0
+lum 0 -10 -10 0 255 0
+lum 0 10 10 0 0 255
+lum 0 10 -10 255 255 255
+sphere 15 0 0 1 1
+sphere 20 -3 3 3 1
+sphere 20 3 -3 3 1
+sphere 20 -3 -3 3 1
+sphere 20 3 3 3 1
+sphere 20 0 3 2 1
+sphere 20 0 -3 2 1
+sphere 20 -3 0 2 1
+sphere 20 3 0 2 1
+plane 25 0 0 -1 0 0 1
+plane 25 -8 0 -1 1 0 1
+plane 25 8 0 -1 -1 0 1
+plane 25 0 -8 -1 0 1 1
+plane 25 0 8 -1 0 -1 1
