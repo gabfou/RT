@@ -18,8 +18,9 @@
 # include "libft/libft.h"
 # include "get_next_line.h"
 # include "math.h"
-#include <stdio.h>
-
+# include <stdio.h>
+# include "rt.h"
+# include <pthread.h>
 
 # define TV 1280
 # define TH 800
@@ -168,5 +169,7 @@ t_t			inversator(t_t t);
 t_t			mtranslator(t_v pos, t_v dir);
 t_v			vtranslator(t_v v, t_t t);
 t_v			ptranslator(t_v p, t_t t);
+void		*t(void *e);
+void		loadator(int h, int l, t_env *e, int nb);
 
 #endif

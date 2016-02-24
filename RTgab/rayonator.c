@@ -77,22 +77,18 @@ void	panoramiquator(t_env *e)
 	register int	i;
 	register int	j;
 	register int	k;
+	register int	l;
 
 	k = 1;
 	i = -1;
+	l = 0;
 	while (++i < TH)
 	{
 		j = -1;
 		while (++j < TV)
 		{
 			rayonator(e, j, i);
-			if (j * i == (int)(TH * TV) / 100 * k)
-			{
-				ft_putnbr(k);
-				ft_putendl("%");
-				k++;
-			}
-
+			loadator(TH, TV, e, l++);
 		}
 	}
 	// exit(0);

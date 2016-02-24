@@ -24,6 +24,7 @@ SRC =  rtv1.c \
 	   sphere.c \
 	   creator.c \
 	   auxi.c \
+	   hud.c \
 	   
 
 

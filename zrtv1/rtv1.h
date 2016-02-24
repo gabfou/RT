@@ -136,7 +136,7 @@ typedef	struct		s_env
 	void			*mlx;
 	void			*win;
 	void			*image;
-	char			*img; 
+	char			*img;
 	int				**t;
 	int				bpp;
 	int				endiant;
@@ -190,4 +190,6 @@ double			ft_min(double a, double b);
 t_vec			*vec_mult(t_vec *v1, double x);
 t_vec			*vector_proj_vector(t_vec *v1, t_vec *v2);
 void			check_con(t_con *con, t_pd *s, t_inter *inter);
+void			loadator(int h, int l, t_env *e, int nb);
+
 #endif

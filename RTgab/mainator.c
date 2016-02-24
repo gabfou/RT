@@ -44,6 +44,14 @@ t_cam	initcam(t_cam c)
 	return (c);
 }
 
+void *niark(void *e)
+{
+	ft_putendl("niarkdebut");
+	panoramiquator(e);
+	ft_putendl("niarkfin");
+	return (NULL);
+}
+
 void	init(t_env *e)
 {
 	e->l = 0;
@@ -96,10 +104,12 @@ static int	loop_hook(t_env *e)
 int			main(void)
 {
 	t_env e;
+	pthread_t t;
 
 	init(&e);
 	mlx_key_hook(e.win, key_hook, &e);
 	mlx_hook(e.win, 2, 1, key_hook, &e);
+	// pthread_create(&t, NULL, niark, &e);
 	panoramiquator(&e);
 	mlx_loop_hook(e.mlx, loop_hook, &e);
 	mlx_loop(e.mlx);

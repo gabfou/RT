@@ -97,10 +97,12 @@ void		creator(t_env *env)
 	double		x;
 	double		y;
 	t_pd	*pd;
+	int			l;
 
 	ft_putendl("creator");
 	ft_check(env);
 	y = 0;
+	l = 0;
 	pd = new_t_pd();
 	pd->pos = env->cam->pos;
 	pd->dir = new_t_vec(0,0,0);
@@ -122,6 +124,7 @@ void		creator(t_env *env)
 			set_inter_pos(env->inter, pd);
 			luminator(env);
 			pixel_to_image(env, x, y, env->fcolor);
+			loadator(H_SIZE, L_SIZE, env, l++);
 			x += 1;
 		}
 		y += 1;

@@ -69,7 +69,7 @@ inline long double	spheretestor(t_v v, t_env *e, t_v dir, t_s *s)
 		return (c);
 	l = vav(v, ps(dir, c));
 	v = vdc(vsv(s->p, l), s->r);
-	e->pixelmirror = 1;
+	e->pixelmirror = 0;
 	e->vl = v;
 	e->pl = l;
 	e->c2 = s->color;
@@ -150,9 +150,7 @@ inline long double	cotestor(t_v v, t_env *e, t_v dir, t_co *s)
 	register long double 	c;
 	register long double	d;
 	t_v						l;
-	t_v						z;
 
-	(void)l;
 	if (s == NULL)
 		return (-2);
 	l = vsv(v, s->p);
@@ -170,9 +168,8 @@ inline long double	cotestor(t_v v, t_env *e, t_v dir, t_co *s)
 	e->d = d;
 	if (!e->testor)
 		return (d);
-	v = normalisator(vsv(vector_proj_vector(normalisator(vsv(s->p, l)), s->v), normalisator(vsv(s->p, l))));
 	e->pixelmirror = 0;
-	e->vl = v;
+	e->vl = normalisator(vsv(vector_proj_vector(normalisator(vsv(s->p, l)), s->v), normalisator(vsv(s->p, l))));
 	e->pl = l;
 	e->c2 = s->color;
 	return (d);
