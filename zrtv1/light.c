@@ -72,9 +72,9 @@ double	l_color(double i, double a)
 
 int		comparator_pos(t_inter *inter, t_inter *einter)
 {
-	if ((inter->pos->x > einter->pos->x - 0.00000000001 && inter->pos->x < einter->pos->x + 0.00000000001) 
-		&& (inter->pos->y > einter->pos->y - 0.00000000001 && inter->pos->y < einter->pos->y + 0.00000000001) 
-		&& (inter->pos->z > einter->pos->z - 0.00000000001 && inter->pos->z < einter->pos->z + 0.00000000001))
+	if ((inter->pos->x > einter->pos->x - 0.0000001 && inter->pos->x < einter->pos->x + 0.0000001) 
+		&& (inter->pos->y > einter->pos->y - 0.0000001 && inter->pos->y < einter->pos->y + 0.0000001) 
+		&& (inter->pos->z > einter->pos->z - 0.0000001 && inter->pos->z < einter->pos->z + 0.0000001))
 	{
 		return (1);
 	}
@@ -116,26 +116,11 @@ void		luminator(t_env *e)
 			continue;
 		}
 		normalizator(inter->norm);
-		angle = (lvec->dir->x * e->inter->norm->x) + (lvec->dir->y * e->inter->norm->y) + (lvec->dir->z * e->inter->norm->z);
-		angle = acos(angle);
-		angle = fabs(angle * 180 / M_PI);
-		angle = angle / 360 * 256;
-		//angle = 256 - angle;
-	//	printf("angle = %f\n", angle);
-		 if (angle >= 0)
-		 {
-			angle = (angle > 0) ? angle : 0;
-			r = l_color(1 * ((e->light->color >> 16) & 0xFF), angle);
-			g = l_color(1 * ((e->light->color >> 8) & 0xFF), angle);
-			b = l_color(1 * ((e->light->color >> 0) & 0xFF), angle);
-			// r = angle + 256 / 2;
-			// g = 0;
-			// b = 0;
-			r = (r > 255)? 255: r;
-			g = (g > 255)? 255: g;
-			b = (b > 255)? 255: b;
-			e->fcolor += get_color(r, g, b);
-		}
+			angle = M_PI_2 - acos(dot_prod(lvec->dir, e->inter->norm));
+			angle = (angle > 0) ? angle : -angle;
+			e->fcolor += get_color(angle / 4 * ((e->light->color >> 0) & 0xFF) * 2 / M_PI,
+								   angle / 4 * ((e->light->color >> 8) & 0xFF) * 2 / M_PI,
+								   angle / 4 * ((e->light->color >> 16) & 0xFF) * 2 / M_PI);
 		e->light = e->light->next;
 	}
 	e->light = ltmp;
