@@ -144,7 +144,6 @@ typedef	struct		s_env
 
 	t_cam			*cam;
 	t_screen		*screen;
-
 	t_item			*item;
 	t_light			*light;
 	t_inter			*inter;

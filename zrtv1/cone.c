@@ -18,8 +18,8 @@ t_con	*t_con_creator(double x, double y, double z, double x1, double y1, double 
 
 	con = malloc(sizeof(t_con));
 	con->pos = new_t_vec(x, y, z);
-	con->dir = new_t_vec(x1, y1, z1);
-	con->ang = ang;
+	con->dir = normalizator_ret(new_t_vec(x1, y1, z1));
+	con->ang = ang / 180 * M_PI;
 	return (con);
 }
 

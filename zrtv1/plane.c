@@ -25,7 +25,7 @@ t_pd	*t_plane_creator(double x, double y, double z, double dx, double dy, double
 
 	plane = malloc(sizeof(t_pd));
 	plane->pos = new_t_vec(x, y, z);
-	plane->dir = new_t_vec(dx, dy, dz);
+	plane->dir = normalizator_ret(new_t_vec(dx, dy, dz));
 	return (plane);
 }
 

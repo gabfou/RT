@@ -18,7 +18,7 @@ t_cyl	*t_cyl_creator(double x, double y, double z, double x1, double y1, double 
 
 	cyl = malloc(sizeof(t_cyl));
 	cyl->pos = new_t_vec(x, y, z);
-	cyl->dir = new_t_vec(x1, y1, z1);
+	cyl->dir = normalizator_ret(new_t_vec(x1, y1, z1));
 	cyl->ray = ray;
 	return (cyl);
 }
