@@ -56,7 +56,7 @@ t_item			*fill_t_item(char **t, t_item *item)
 	{
 		ft_putendl("cECI EST UN CONE");
 		item->con = t_con_creator(ft_fatoi(t[1]), ft_fatoi(t[2]),
-		ft_fatoi(t[3]), ft_fatoi(t[4]), ft_fatoi(t[5]), ft_fatoi(t[6]), ft_fatoi(t[7]) / 180 * M_PI);
+		ft_fatoi(t[3]), ft_fatoi(t[4]), ft_fatoi(t[5]), ft_fatoi(t[6]), ft_fatoi(t[7]));
 		item->mat = new_t_mat(t[8]);
 		item->mat->diff = new_t_color(1, 1, 1);
 	}
