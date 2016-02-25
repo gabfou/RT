@@ -112,9 +112,9 @@ void		luminator(t_env *e)
 		normalizator(inter->norm);
 			angle = M_PI_2 - acos(dot_prod(lvec->dir, e->inter->norm));
 			angle = (angle > 0) ? angle : -angle;
-			e->fcolor += get_color(angle / e->lightcounter * ((e->light->color >> 0) & 0xFF) * 2 / M_PI,
-								   angle / e->lightcounter * ((e->light->color >> 8) & 0xFF) * 2 / M_PI,
-								   angle / e->lightcounter * ((e->light->color >> 16) & 0xFF) * 2 / M_PI);
+			e->fcolor += get_color(angle / 4 * ((e->light->color >> 0) & 0xFF) * 2 / M_PI,
+								   angle / 4 * ((e->light->color >> 8) & 0xFF) * 2 / M_PI,
+								   angle / 4 * ((e->light->color >> 16) & 0xFF) * 2 / M_PI);
 		e->light = e->light->next;
 	}
 	e->light = ltmp;
