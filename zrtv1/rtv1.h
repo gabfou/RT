@@ -141,9 +141,11 @@ typedef	struct		s_env
 	int				bpp;
 	int				endiant;
 	int				sline;
+	int				lightcounter;
 
 	t_cam			*cam;
 	t_screen		*screen;
+
 	t_item			*item;
 	t_light			*light;
 	t_inter			*inter;
