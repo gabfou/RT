@@ -86,9 +86,6 @@ void		luminator(t_env *e)
 	t_pd			*lvec;
 	float			angle;
 	t_inter			*inter;
-	unsigned char	r;
-	unsigned char	g;
-	unsigned char	b;
 	t_light			*ltmp;
 
 	ltmp = e->light;
@@ -99,9 +96,6 @@ void		luminator(t_env *e)
 	}
 	while (e->light != NULL)
 	{
-		r = 0;
-		g = 0;
-		b = 0;
 		inter = new_t_inter();
 		lvec = new_t_pd();
 		lvec->pos = e->light->pos;
