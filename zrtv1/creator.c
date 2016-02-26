@@ -129,4 +129,5 @@ void		creator(t_env *env)
 		}
 		y += 1;
 	}
+	antialiasing(env);
 }
