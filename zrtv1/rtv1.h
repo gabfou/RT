@@ -184,6 +184,7 @@ t_vec			*prod_vector(t_vec *v1, t_vec *v2);
 t_cyl			*t_cyl_creator(double x, double y, double z, double x1, double y1, double z1, double ray);
 t_con			*t_con_creator(double x, double y, double z, double x1, double y1, double z1, double ang);
 t_vec			*sub_vec(t_vec *v1, t_vec *v2);
+t_vec			*add_vec(t_vec *v1, t_vec *v2);
 double			dot_prod(t_vec *v1, t_vec *v2);
 double			ft_min(double a, double b);
 t_vec			*vec_mult(t_vec *v1, double x);
@@ -191,5 +192,8 @@ t_vec			*vector_proj_vector(t_vec *v1, t_vec *v2);
 void			check_con(t_con *con, t_pd *s, t_inter *inter);
 void			loadator(int h, int l, t_env *e, int nb);
 void			antialiasing(t_env *s);
+double			get_dist(t_vec *v1, t_vec *v2);
+t_vec			*set_new_pos(t_vec *dir, t_vec *pos, double dist);
+void			check_cyl(t_cyl *cyl, t_pd *s, t_inter *inter);
 
 #endif

@@ -12,6 +12,11 @@
 
 #include "rtv1.h"
 
+double		get_dist(t_vec *v1, t_vec *v2)
+{
+	return (fabs(sqrt(carre(v1->x - v2->x) + carre(v1->y - v2->y) + carre(v1->z - v2->z))));
+}
+
 t_vec		*vec_mult(t_vec *v1, double x)
 {
 	return (new_t_vec(v1->x * x , v1->y * x, v1->z * x));
@@ -25,6 +30,11 @@ t_vec		*prod_vector(t_vec *v1, t_vec *v2)
 t_vec		*sub_vec(t_vec *v1, t_vec *v2)
 {
 	return (new_t_vec(v1->x - v2->x , v1->y - v2->y, v1->z - v2->z));
+}
+
+t_vec		*add_vec(t_vec *v1, t_vec *v2)
+{
+	return (new_t_vec(v1->x + v2->x , v1->y + v2->y, v1->z + v2->z));
 }
 
 double		dot_prod(t_vec *v1, t_vec *v2)
@@ -128,6 +138,11 @@ double	ft_fatoi(char *s)
 double	carre(double x)
 {
 	return (x * x);
+}
+
+t_vec	*set_new_pos(t_vec *dir, t_vec *pos, double dist)
+{
+	return (new_t_vec(pos->x + (dir->x * dist), pos->y + (dir->y * dist), pos->z + (dir->z * dist)));
 }
 
 void	set_inter_pos(t_inter *inter, t_pd *pd)

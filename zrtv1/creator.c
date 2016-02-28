@@ -27,10 +27,10 @@ void		impactor(t_env *env, t_pd *pd, t_inter *inter)
 		{
 			check_plane(env->item, pd, inter);
 		}
-		/*else if (env->item->cyl != NULL)
+		else if (env->item->cyl != NULL)
 		{
-			check_cyl(env->item, pd, inter);
-		}*/
+			check_cyl(env->item->cyl, pd, inter);
+		}
 		else if (env->item->con != NULL)
 		{
 			check_con(env->item->con, pd, inter);
@@ -129,5 +129,5 @@ void		creator(t_env *env)
 		}
 		y += 1;
 	}
-	antialiasing(env);
+	//antialiasing(env);
 }

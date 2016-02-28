@@ -25,7 +25,6 @@ SRC =  rtv1.c \
 	   creator.c \
 	   auxi.c \
 	   hud.c \
-	   antialiasing.c \
 	   
 
 

@@ -63,7 +63,7 @@ void	normalizator(t_vec *vec)
 
 double	l_color(double i, double a)
 {
-	return (i * (a / 256));
+	return (i * (a / 255));
 //	printf("i = %f a = %f\n",i, a);
 	if ((i - a) > 0)
 		return (i - a);
