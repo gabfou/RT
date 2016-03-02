@@ -30,7 +30,7 @@ t_item			*fill_t_item(char **t, t_item *item)
 {
 	if (strcmp(t[0], "sphere") == 0)
 	{
-		ft_putendl("CECI EST UNE SPHERE");
+		// ft_putendl("CECI EST UNE SPHERE");
 		item->sp = new_t_sphere(ft_fatoi(t[1]), ft_fatoi(t[2]),
 		ft_fatoi(t[3]), ft_fatoi(t[4]));
 		item->mat = new_t_mat(t[5]);
@@ -38,7 +38,7 @@ t_item			*fill_t_item(char **t, t_item *item)
 	}
 	if (strcmp(t[0], "plane") == 0)
 	{
-		ft_putendl("cECI EST UNE PLAN");
+		// ft_putendl("cECI EST UNE PLAN");
 		item->pl = t_plane_creator(ft_fatoi(t[1]), ft_fatoi(t[2]),
 		ft_fatoi(t[3]), ft_fatoi(t[4]), ft_fatoi(t[5]), ft_fatoi(t[6]));
 		item->mat = new_t_mat(t[7]);
@@ -46,7 +46,7 @@ t_item			*fill_t_item(char **t, t_item *item)
 	}
 	if (strcmp(t[0], "cyl") == 0)
 	{
-		ft_putendl("cECI EST UN CYLINDRE");
+		// ft_putendl("cECI EST UN CYLINDRE");
 		item->cyl = t_cyl_creator(ft_fatoi(t[1]), ft_fatoi(t[2]),
 		ft_fatoi(t[3]), ft_fatoi(t[4]), ft_fatoi(t[5]), ft_fatoi(t[6]), ft_fatoi(t[7]));
 		item->mat = new_t_mat(t[8]);
@@ -54,7 +54,7 @@ t_item			*fill_t_item(char **t, t_item *item)
 	}
 	if (strcmp(t[0], "cone") == 0)
 	{
-		ft_putendl("cECI EST UN CONE");
+		// ft_putendl("cECI EST UN CONE");
 		item->con = t_con_creator(ft_fatoi(t[1]), ft_fatoi(t[2]),
 		ft_fatoi(t[3]), ft_fatoi(t[4]), ft_fatoi(t[5]), ft_fatoi(t[6]), ft_fatoi(t[7]));
 		item->mat = new_t_mat(t[8]);
@@ -78,7 +78,7 @@ t_screen		*set_screen(t_cam *cam)
 	y = cam->dir->y * SCR_DIST - cam->up->y * SCR_H - cam->right->y * SCR_L;
 	z = cam->dir->z * SCR_DIST - cam->up->z * SCR_H - cam->right->z * SCR_L;
 	screen->upleft = new_t_vec(x, y, z) ;
-	print_vec(screen->upleft);
+	// print_vec(screen->upleft);
 	return (screen);
 }
 
@@ -93,12 +93,12 @@ t_cam			*set_cam(char **t)
 	normalizator(cam->dir);
 	cam->up = new_t_vec(0, 1, 0);
 	cam->right = prod_vector(cam->dir, cam->up);
-	ft_putendl("right");
+	// ft_putendl("right");
 	normalizator(cam->right);
-	print_vec(cam->right);
+	// print_vec(cam->right);
 	cam->up = prod_vector(cam->dir, cam->right);
-	ft_putendl("up");
-	print_vec(cam->up);
+	// ft_putendl("up");
+	// print_vec(cam->up);
 	return (cam);
 }
 
@@ -153,31 +153,31 @@ void			mega_initiator(t_env *e, char *name)
 	int		i;
 	char	**line;
 
-	ft_putendl("MEGA UNIT0");
+	// ft_putendl("MEGA UNIT0");
 	i = 0;
 	e->item = new_t_item();
 	item = e->item; 
 	e->light = new_t_light();
 	light = e->light;
-	ft_putendl("MEGA UNIT1");
+	// ft_putendl("MEGA UNIT1");
 	t = file_to_tab(name);
-	ft_putendl("MEGA UNIT 2");
-	ft_puttab(t);
+	// ft_putendl("MEGA UNIT 2");
+	// ft_puttab(t);
 	while (t[i] && t[i][0] != '\0')
 	{
-		ft_putendl("line pre split");
-		ft_putendl(t[i]);
+		// ft_putendl("line pre split");
+		// ft_putendl(t[i]);
 		line = ft_strsplit(t[i], ' ');
 		if(line[0][0] == '#')
 		{
 			i++;
 			continue;
 		}
-		ft_putendl("la ligne est");
-		ft_puttab(line);
+		// ft_putendl("la ligne est");
+		// ft_puttab(line);
 		if (strcmp(line[0], "cam") == 0)
 		{
-			ft_putendl("CAM");
+			// ft_putendl("CAM");
 			if (tlen(line) != 8)
 				ft_error("mauvais format de fichier CAM");
 			e->cam = set_cam(line);
@@ -186,7 +186,7 @@ void			mega_initiator(t_env *e, char *name)
 		}
 		else if (strcmp(line[0], "sphere") == 0 || strcmp(line[0], "plane") == 0 || strcmp(line[0], "cyl") == 0 || strcmp(line[0], "cone") == 0)
 		{
-			ft_putendl("ITEM");
+			// ft_putendl("ITEM");
 			if (strcmp(line[0], "sphere") == 0 && tlen(line) != 6)
 				ft_error("mauvais format de fichier SPHERE");
 			if (strcmp(line[0], "plane") == 0 && tlen(line) != 8)
@@ -203,7 +203,7 @@ void			mega_initiator(t_env *e, char *name)
 		}
 		else if (strcmp(line[0], "lum") == 0)
 		{
-			ft_putendl("LIGHT");
+			// ft_putendl("LIGHT");
 			if (tlen(line) != 7)
 				ft_error("mauvais format de fichier LUM");
 			check.light++;

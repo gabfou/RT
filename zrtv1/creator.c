@@ -12,32 +12,33 @@
 
 #include "rtv1.h"
 
-void		impactor(t_env *env, t_pd *pd, t_inter *inter)
+void		impactor(t_env *env, t_pd *pd, t_thr *f, t_inter *inter)
 {
 	t_item	*lst;
 
-	lst = env->item;
-	while (env->item != NULL)
+	(void)env;
+	lst = f->item;
+	while (f->item != NULL)
 	{
-		if (env->item->sp != NULL)
+		if (f->item->sp != NULL)
 		{
-			check_sphere(env->item, pd, inter);
+			check_sphere(f->item, pd, inter);
 		}
-		else if (env->item->pl != NULL)
+		else if (f->item->pl != NULL)
 		{
-			check_plane(env->item, pd, inter);
+			check_plane(f->item, pd, inter);
 		}
-		else if (env->item->cyl != NULL)
+		else if (f->item->cyl != NULL)
 		{
-			check_cyl(env->item->cyl, pd, inter);
+			check_cyl(f->item->cyl, pd, inter);
 		}
-		else if (env->item->con != NULL)
+		else if (f->item->con != NULL)
 		{
-			check_con(env->item->con, pd, inter);
+			check_con(f->item->con, pd, inter);
 		}
-		env->item = env->item->next;
+		f->item = f->item->next;
 	}
-	env->item = lst;
+	f->item = lst;
 }
 
 void		t_inter_set(t_inter *inter)
@@ -48,6 +49,7 @@ void		t_inter_set(t_inter *inter)
 	inter->pos->x = 0;
 	inter->pos->y = 0;
 	inter->pos->z = 0;
+	inter->t = -1;
 }
 
 void		calc_dir(t_env *env, t_vec *dir, float x, float y)
@@ -92,42 +94,72 @@ void		ft_check(t_env *env)
 	ft_putendl("CHECK FINITO");
 }
 
-void		creator(t_env *env)
+void		creator(t_cor *c)
 {
 	double		x;
 	double		y;
-	t_pd	*pd;
+	t_pd		*pd;
+	t_thr		*f;
 	int			l;
 
-	ft_putendl("creator");
-	ft_check(env);
-	y = 0;
+	// ft_check(env);
+	f = malloc(sizeof(t_thr));
+	f->minx = c->minx;
+	f->maxx = c->maxx;
+	f->miny = c->miny;
+	f->maxy = c->maxy;
+	f->item = c->env->item;
+	f->light = c->env->light;
+	printf("xmin = %f xmax = %f ymin = %f ymax = %f\n", f->minx, f->maxx, f->miny, f->maxy);
+	//usleep(10000);
+	// ft_putendl("thread check");
+	// printf("xmin = %f xmax = %f ymin = %f ymax = %f\n",f->minx, f->maxx, f->miny, f->maxy);
+	// ft_putendl("DEBUUUT");
 	l = 0;
+	y = f->miny;
 	pd = new_t_pd();
-	pd->pos = env->cam->pos;
+	//pd->pos = c->env->cam->pos;
 	pd->dir = new_t_vec(0,0,0);
-	while (y < H_SIZE)
+	// ft_putendl("LAAAAAAAAA");
+	while (y < f->maxy)
 	{
-		x = 0;
-		while (x < L_SIZE)
+		x = f->minx;
+		while (x < f->maxx)
 		{
-			pd->pos = env->cam->pos;
-			env->fcolor = 0x000000;
-			env->inter = new_t_inter();
-			t_inter_set(env->inter);
-			calc_dir(env, pd->dir, x, y);
-			//printf("\nx = %f y = %f", x, y );
+	//		ft_putendl("boucle");
+			pd->pos = c->env->cam->pos;
+			f->fcolor = 0x000000;
+			f->inter = new_t_inter();
+			t_inter_set(f->inter);
+			calc_dir(c->env, pd->dir, x, y);
+			// printf("\nx = %f y = %f", x, y );
 			//if (x == 1 && ((int)y % 100 == 0))
 				//print_vec(pd->dir);
 			//print_vec(pd->pos);
-			impactor(env, pd, env->inter);
-			set_inter_pos(env->inter, pd);
-			luminator(env);
-			pixel_to_image(env, x, y, env->fcolor);
-			loadator(H_SIZE, L_SIZE, env, l++);
+			impactor(c->env, pd, f, f->inter);
+			set_inter_pos(f->inter, pd);
+			luminator(c->env, f);
+			//if (f-> inter->t > 0 )
+			//	pixel_to_image(c->env, x, y, 0xFF0000);
+			pixel_to_image(c->env, x, y, f->fcolor);
+			//if (f->fcolor == 0)
+			//	printf("\nx = %f y = %f", x, y );
+			// if (x == f->minx && y == f->miny)
+			// 	printf("color = %d\n", f->fcolor);
+
+
+			// if (f->minx == 0 && f->miny == 0)
+			// { 
+			// 	ft_putendl("pre");
+			// 	loadator(H_SIZE, L_SIZE, c->env, l++);
+			// 	ft_putendl("post");
+			// }
+			
 			x += 1;
 		}
 		y += 1;
 	}
 	//antialiasing(env);
+	c->env->i++;
+	pthread_exit(NULL);
 }

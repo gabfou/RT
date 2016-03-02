@@ -25,6 +25,7 @@ SRC =  rtv1.c \
 	   creator.c \
 	   auxi.c \
 	   hud.c \
+	   thread.c \
 	   
 
 

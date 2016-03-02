@@ -30,7 +30,7 @@ void		set_normal_cyl(t_cyl *cyl, t_inter *inter)
 	t_vec		*center;
 
 	dist1 = get_dist(cyl->pos, inter->pos);
-	dist2 = sqrt(carre(dist1) - carre(cyl->ray));
+	dist2 = sqrt((dist1 * dist1) - (cyl->ray * cyl->ray));
 	center = set_new_pos(cyl->pos, cyl->dir, dist2);
 	dist1 = get_dist(center, inter->pos);
 	if (dist1 >= cyl->ray - 0.00001 && dist1 <= cyl->ray + 0.00001)

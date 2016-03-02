@@ -69,13 +69,16 @@ void		pixel_to_image(t_env *s, int x, int y, unsigned int color)
 
 int			expose_hook(t_env *env)
 {
-	if (env->done == 0)
+	/*if (env->done == 0)
 	{
 		creator(env);
 		ft_putendl("fini");
-	}
-	mlx_put_image_to_window (env->mlx, env->win, env->image, 0, 0);
-	env->done = 1;
+	}*/
+	//ft_putendl("print");
+	//loadator(H_SIZE, L_SIZE, env, env->l++);
+	if (env->i == 8)
+		mlx_put_image_to_window (env->mlx, env->win, env->image, 0, 0);
+	//env->done = 1;
 	return (0);
 }
 
@@ -94,24 +97,27 @@ int			main(int argc, char **argv)
 	if (argc != 2)
 		ft_error("probleme d'argument");
 	recuperator(&env, argv[1]);
-	parser_test(&env);
+	env.l = 0;
+	// parser_test(&env);
 	env.done = 0;
-	ft_putendl("post recup");
+	// ft_putendl("post recup");
 	env.mlx = mlx_init();
-	ft_putendl("post1");
+	// ft_putendl("post1");
 	env.win = mlx_new_window(env.mlx, L_SIZE, H_SIZE, "RTV1");
-	ft_putendl("post2");
+	// ft_putendl("post2");
 	env.image = mlx_new_image(env.mlx, L_SIZE, H_SIZE);
-	ft_putendl("post3");
+	// ft_putendl("post3");
 	env.img = mlx_get_data_addr(env.image, &env.bpp, &env.sline, &env.endiant);
-	 ft_putendl("post4");
+	env.i = 1;
+	thread_master(&env);
+	// ft_putendl("TOUTAETECREE TRAKIL");
 	ft_bzero(env.img, H_SIZE * L_SIZE * 4);
-	ft_putendl("post5");
+	// ft_putendl("post5");
 	mlx_hook(env.win, 2, 1, key_down_hook, &env);
-	ft_putendl("post6");
+	// ft_putendl("post6");
 	mlx_loop_hook(env.mlx, expose_hook, &env);
-	ft_putendl("post7");
+	// ft_putendl("post7");
 	mlx_loop(env.mlx);
-	ft_putendl("post8");
+	// ft_putendl("post8");
 	return (0);
 }

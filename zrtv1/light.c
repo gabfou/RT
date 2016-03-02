@@ -81,42 +81,43 @@ int		comparator_pos(t_inter *inter, t_inter *einter)
 	return (0);
 }
 
-void		luminator(t_env *e)
+void		luminator(t_env *e, t_thr *f)
 {
 	t_pd			*lvec;
 	float			angle;
 	t_inter			*inter;
 	t_light			*ltmp;
 
-	ltmp = e->light;
-	if (e->inter->t <= 0)
+	ltmp = f->light;
+	if (f->inter->t <= 0)
 	{
-		e->fcolor = 0x000000;
+		f->fcolor = 0x000000;
 		return ;
 	}
-	while (e->light != NULL)
+	while (f->light != NULL)
 	{
+	//	ft_putendl("light");
 		inter = new_t_inter();
 		lvec = new_t_pd();
-		lvec->pos = e->light->pos;
-		lvec->dir = new_t_vec(e->inter->pos->x - e->light->pos->x, e->inter->pos->y - e->light->pos->y, e->inter->pos->z - e->light->pos->z);
+		lvec->pos = f->light->pos;
+		lvec->dir = new_t_vec(f->inter->pos->x - f->light->pos->x, f->inter->pos->y - f->light->pos->y, f->inter->pos->z - f->light->pos->z);
 		normalizator(lvec->dir);
-		impactor(e, lvec, inter);
+		impactor(e, lvec, f, inter);
 		set_inter_pos(inter, lvec);
-		if (comparator_pos(inter, e->inter) == 0)
+		if (comparator_pos(inter, f->inter) == 0)
 		{
-			e->light = e->light->next;
-			//e->fcolor = 0xFF0000;
+			f->light = f->light->next;
 			continue;
 		}
 		normalizator(inter->norm);
-			angle = M_PI_2 - acos(dot_prod(lvec->dir, e->inter->norm));
+			angle = M_PI_2 - acos(dot_prod(lvec->dir, f->inter->norm));
 			angle = (angle > 0) ? angle : -angle;
-			e->fcolor += get_color(angle / 4 * ((e->light->color >> 0) & 0xFF) * 2 / M_PI,
-								   angle / 4 * ((e->light->color >> 8) & 0xFF) * 2 / M_PI,
-								   angle / 4 * ((e->light->color >> 16) & 0xFF) * 2 / M_PI);
-		e->light = e->light->next;
+			f->fcolor += get_color(angle / 4 * ((f->light->color >> 0) & 0xFF) * 2 / M_PI,
+								   angle / 4 * ((f->light->color >> 8) & 0xFF) * 2 / M_PI,
+								   angle / 4 * ((f->light->color >> 16) & 0xFF) * 2 / M_PI);
+		f->light = f->light->next;
 	}
-	e->light = ltmp;
+	f->light = ltmp;
+	//printf("%d\n", f->fcolor);
 	return ;
 }

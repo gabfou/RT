@@ -102,7 +102,7 @@ double	fatoi_aux(char *str, double *si, double *di)
 		i++;
 	}
 	*di = i;
-	printf("di =%f\n", *di);
+	// printf("di =%f\n", *di);
 	return (k);
 }
 
@@ -123,15 +123,15 @@ double	ft_fatoi(char *s)
 	di = 0;
 	if (s[i] && s[i] == '.')
 		d2 = fatoi_aux(&s[i + 1], &si, &di);
-	printf("s = %f d1 = %f d2 = %f\n",si, d1 ,d2);
-	printf("di =%f\n", di);
+	// printf("s = %f d1 = %f d2 = %f\n",si, d1 ,d2);
+	// printf("di =%f\n", di);
 	while (di > 0)
 	{
 		d2 = d2 / 10;
 		di--;
 	}
-	printf("s = %f d1 = %f d2 = %f\n",si, d1 ,d2);
-	printf("fatoi = %f\n", si * (d1 + d2));
+	// printf("s = %f d1 = %f d2 = %f\n",si, d1 ,d2);
+	// printf("fatoi = %f\n", si * (d1 + d2));
 	return (si * (d1 + d2));
 }
 
