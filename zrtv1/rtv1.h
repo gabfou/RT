@@ -18,9 +18,10 @@
 # include "libft/get_next_line.h"
 # include <unistd.h>
 # include <math.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <errno.h>
+# include <fcntl.h>
+# include <stdio.h>
+# include <errno.h>
+# include <pthread.h>
 
 # define L_SIZE		960
 # define H_SIZE		960
@@ -131,6 +132,18 @@ typedef	struct		s_cam
 	double			angle;
 }					t_cam;
 
+typedef	struct		s_thr
+{
+	double			minx;
+	double			maxx;
+	double			miny;
+	double			maxy;
+	unsigned int	fcolor;
+	t_inter			*inter;
+	t_item			*item;
+	t_light			*light;
+}					t_thr;
+
 typedef	struct		s_env
 {
 	void			*mlx;
@@ -149,7 +162,18 @@ typedef	struct		s_env
 	t_inter			*inter;
 	unsigned int	fcolor;
 	int				done;
+	int				l;
+	int				i;
 }					t_env;
+
+typedef struct		s_cor
+{
+	int				minx;
+	int				maxx;
+	int				miny;
+	int				maxy;
+	t_env			*env;
+}					t_cor;
 
 void			recuperator(t_env *e, char *name);
 void			mega_initiator(t_env *e, char *name);
@@ -165,7 +189,7 @@ t_sphere		*new_t_sphere(double x, double y, double z, double r);
 unsigned int	get_color(int r, int g, int b);
 t_light			*new_t_light();
 t_vec			*new_t_vec(double x, double y, double z);
-void			creator(t_env *env);
+void			creator(t_cor *c);
 t_inter			*new_t_inter();
 double			carre(double x);
 void			set_inter_pos(t_inter *inter, t_pd *pd);
@@ -175,8 +199,11 @@ void			check_plane(t_item *item, t_pd *s, t_inter *inter);
 void			normalizator(t_vec *vec);
 t_vec			*normalizator_ret(t_vec *vec);
 double			ft_fatoi(char *s);
-void			impactor(t_env *env, t_pd *pd, t_inter *inter);
-void			luminator(t_env *e);
+
+void			impactor(t_env *env, t_pd *pd, t_thr *f, t_inter *inter);
+
+void			luminator(t_env *e, t_thr *f);
+
 t_light			*fill_t_light(char **t, t_light *light);
 void			print_vec(t_vec *vec);
 void			ft_puttab(char **tab);
@@ -196,4 +223,6 @@ double			get_dist(t_vec *v1, t_vec *v2);
 t_vec			*set_new_pos(t_vec *dir, t_vec *pos, double dist);
 void			check_cyl(t_cyl *cyl, t_pd *s, t_inter *inter);
 
+
+int				thread_master(t_env *env);
 #endif
