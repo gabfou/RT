@@ -12,7 +12,7 @@
 
 #include "rtv1.h"
 
-t_con	*t_con_creator(double x, double y, double z, double x1, double y1, double z1, double ang)
+t_con	*t_con_creator(float x, float y, float z, float x1, float y1, float z1, float ang)
 {
 	t_con	*con;
 
@@ -31,10 +31,10 @@ void	set_normal_con(t_con *con, t_inter *inter)
 
 void		check_con(t_con *con, t_pd *s, t_inter *inter)
 {
-	register long double	a;
-	register long double	b;
-	register long double 	c;
-	double					t;
+	float	a;
+	float	b;
+	float 	c;
+	float					t;
 	t_vec					*l;
 
  	//ft_putendl("CONE START");
@@ -62,12 +62,12 @@ void		check_con(t_con *con, t_pd *s, t_inter *inter)
 
 /*
 
-inline long double	cotestor(t_vec v, t_env *e, t_vec dir, t_con *s)
+inline long float	cotestor(t_vec v, t_env *e, t_vec dir, t_con *s)
 {
-	register long double	a;
-	register long double	b;
-	register long double 	c;
-	register long double	d;
+	register long float	a;
+	register long float	b;
+	register long float 	c;
+	register long float	d;
 	t_vec						l;
 
 	(void)l;

@@ -12,12 +12,12 @@
 
 #include "rtv1.h"
 
-double		get_dist(t_vec *v1, t_vec *v2)
+float		get_dist(t_vec *v1, t_vec *v2)
 {
-	return (fabs(sqrt(carre(v1->x - v2->x) + carre(v1->y - v2->y) + carre(v1->z - v2->z))));
+	return (sqrt(carre(v2->x - v1->x) + carre(v2->y - v1->y) + carre(v2->z - v1->z)));
 }
 
-t_vec		*vec_mult(t_vec *v1, double x)
+t_vec		*vec_mult(t_vec *v1, float x)
 {
 	return (new_t_vec(v1->x * x , v1->y * x, v1->z * x));
 }
@@ -37,7 +37,7 @@ t_vec		*add_vec(t_vec *v1, t_vec *v2)
 	return (new_t_vec(v1->x + v2->x , v1->y + v2->y, v1->z + v2->z));
 }
 
-double		dot_prod(t_vec *v1, t_vec *v2)
+float		dot_prod(t_vec *v1, t_vec *v2)
 {
 	return (v1->x * v2->x + v1->y * v2->y + v1->z * v2->z);
 }
@@ -50,7 +50,7 @@ t_vec		*vector_proj_vector(t_vec *v1, t_vec *v2) // project vector 1 in vector 2
 	return (ret);
 }
 
-double		ft_min(double a, double b)
+float		ft_min(float a, float b)
 {
 	if (a > b)
 		return (b);
@@ -76,10 +76,10 @@ void		print_vec(t_vec *vec)
 	printf("z = [%f]\n\n", vec->z);
 }
 
-double	fatoi_aux(char *str, double *si, double *di)
+float	fatoi_aux(char *str, float *si, float *di)
 {
 	int	i;
-	double	k;
+	float	k;
 
 	i = 0;
 	k = 0;
@@ -106,13 +106,13 @@ double	fatoi_aux(char *str, double *si, double *di)
 	return (k);
 }
 
-double	ft_fatoi(char *s)
+float	ft_fatoi(char *s)
 {
-	double	d1;
-	double	d2;
+	float	d1;
+	float	d2;
 	int		i;
-	double	si;
-	double	di;
+	float	si;
+	float	di;
 
 	i = 0;
 	d2 = 0;
@@ -135,12 +135,12 @@ double	ft_fatoi(char *s)
 	return (si * (d1 + d2));
 }
 
-double	carre(double x)
+float	carre(float x)
 {
 	return (x * x);
 }
 
-t_vec	*set_new_pos(t_vec *dir, t_vec *pos, double dist)
+t_vec	*set_new_pos(t_vec *dir, t_vec *pos, float dist)
 {
 	return (new_t_vec(pos->x + (dir->x * dist), pos->y + (dir->y * dist), pos->z + (dir->z * dist)));
 }
@@ -152,7 +152,7 @@ void	set_inter_pos(t_inter *inter, t_pd *pd)
 	inter->pos->z = (pd->pos->z + (pd->dir->z * inter->t));
 }
 
-int		check_t(t_inter *inter, double t)
+int		check_t(t_inter *inter, float t)
 {
 
 	//ft_putendl("check t");

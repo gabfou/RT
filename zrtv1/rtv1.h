@@ -36,9 +36,9 @@
 
 typedef	struct		s_color
 {
-	double				r;
-	double				g;
-	double				b;
+	float				r;
+	float				g;
+	float				b;
 }					t_color;
 
 typedef	struct		s_mat
@@ -56,29 +56,29 @@ typedef	struct		s_mat
 
 typedef	struct		s_vec
 {
-	double			x;
-	double			y;
-	double			z;
+	float			x;
+	float			y;
+	float			z;
 }					t_vec;
 
 typedef	struct		s_sphere
 {
 	t_vec			*c;
-	double			ray;
+	float			ray;
 }					t_sphere;
 
 typedef	struct		s_cyl
 {
 	t_vec			*pos;
 	t_vec			*dir;
-	double			ray;
+	float			ray;
 }					t_cyl;
 
 typedef	struct		s_con
 {
 	t_vec			*pos;
 	t_vec			*dir;
-	double			ang;
+	float			ang;
 }					t_con;
 
 typedef	struct		s_light
@@ -113,7 +113,7 @@ typedef	struct		s_check
 
 typedef	struct		s_inter
 {
-	double			t;
+	float			t;
 	t_vec			*norm;
 	t_vec			*pos;
 }					t_inter;
@@ -129,15 +129,15 @@ typedef	struct		s_cam
 	t_vec			*dir;
 	t_vec			*up;
 	t_vec			*right;
-	double			angle;
+	float			angle;
 }					t_cam;
 
 typedef	struct		s_thr
 {
-	double			minx;
-	double			maxx;
-	double			miny;
-	double			maxy;
+	float			minx;
+	float			maxx;
+	float			miny;
+	float			maxy;
 	unsigned int	fcolor;
 	t_inter			*inter;
 	t_item			*item;
@@ -182,23 +182,23 @@ int				expose_hook(t_env *env);
 int				key_down_hook(int keycode, t_env *env);
 int				main(int argc, char **argv);
 t_pd			*new_t_pd();
-t_color			*new_t_color(double r, double g, double b);
+t_color			*new_t_color(float r, float g, float b);
 t_mat			*new_t_mat(char *name);
-t_pd			*t_plane_creator(double x, double y, double z, double dx, double dy, double dz);
-t_sphere		*new_t_sphere(double x, double y, double z, double r);
+t_pd			*t_plane_creator(float x, float y, float z, float dx, float dy, float dz);
+t_sphere		*new_t_sphere(float x, float y, float z, float r);
 unsigned int	get_color(int r, int g, int b);
 t_light			*new_t_light();
-t_vec			*new_t_vec(double x, double y, double z);
+t_vec			*new_t_vec(float x, float y, float z);
 void			creator(t_cor *c);
 t_inter			*new_t_inter();
-double			carre(double x);
+float			carre(float x);
 void			set_inter_pos(t_inter *inter, t_pd *pd);
-int				check_t(t_inter *inter, double t);
+int				check_t(t_inter *inter, float t);
 void			check_sphere(t_item *item, t_pd *s, t_inter *inter);
 void			check_plane(t_item *item, t_pd *s, t_inter *inter);
 void			normalizator(t_vec *vec);
 t_vec			*normalizator_ret(t_vec *vec);
-double			ft_fatoi(char *s);
+float			ft_fatoi(char *s);
 
 void			impactor(t_env *env, t_pd *pd, t_thr *f, t_inter *inter);
 
@@ -208,21 +208,21 @@ t_light			*fill_t_light(char **t, t_light *light);
 void			print_vec(t_vec *vec);
 void			ft_puttab(char **tab);
 t_vec			*prod_vector(t_vec *v1, t_vec *v2);
-t_cyl			*t_cyl_creator(double x, double y, double z, double x1, double y1, double z1, double ray);
-t_con			*t_con_creator(double x, double y, double z, double x1, double y1, double z1, double ang);
+t_cyl			*t_cyl_creator(float x, float y, float z, float x1, float y1, float z1, float ray);
+t_con			*t_con_creator(float x, float y, float z, float x1, float y1, float z1, float ang);
 t_vec			*sub_vec(t_vec *v1, t_vec *v2);
 t_vec			*add_vec(t_vec *v1, t_vec *v2);
-double			dot_prod(t_vec *v1, t_vec *v2);
-double			ft_min(double a, double b);
-t_vec			*vec_mult(t_vec *v1, double x);
+float			dot_prod(t_vec *v1, t_vec *v2);
+float			ft_min(float a, float b);
+t_vec			*vec_mult(t_vec *v1, float x);
 t_vec			*vector_proj_vector(t_vec *v1, t_vec *v2);
 void			check_con(t_con *con, t_pd *s, t_inter *inter);
 void			loadator(int h, int l, t_env *e, int nb);
 void			antialiasing(t_env *s);
-double			get_dist(t_vec *v1, t_vec *v2);
-t_vec			*set_new_pos(t_vec *dir, t_vec *pos, double dist);
+float			get_dist(t_vec *v1, t_vec *v2);
+t_vec			*set_new_pos(t_vec *dir, t_vec *pos, float dist);
 void			check_cyl(t_cyl *cyl, t_pd *s, t_inter *inter);
 
-
+void			enregistrator(t_env *env);
 int				thread_master(t_env *env);
 #endif

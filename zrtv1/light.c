@@ -38,7 +38,7 @@ t_light			*fill_t_light(char **t, t_light *light)
 
 t_vec	*normalizator_ret(t_vec *vec)
 {
-	double	lenght;
+	float	lenght;
 
 	lenght = sqrt(carre(vec->x) + carre(vec->y) + carre(vec->z));
 	if (lenght == 0)
@@ -51,7 +51,7 @@ t_vec	*normalizator_ret(t_vec *vec)
 
 void	normalizator(t_vec *vec)
 {
-	double	lenght;
+	float	lenght;
 
 	lenght = sqrt(carre(vec->x) + carre(vec->y) + carre(vec->z));
 	if (lenght == 0)
@@ -61,7 +61,7 @@ void	normalizator(t_vec *vec)
 	vec->z = vec->z / lenght;
 }
 
-double	l_color(double i, double a)
+float	l_color(float i, float a)
 {
 	return (i * (a / 255));
 //	printf("i = %f a = %f\n",i, a);
@@ -72,9 +72,9 @@ double	l_color(double i, double a)
 
 int		comparator_pos(t_inter *inter, t_inter *einter)
 {
-	if ((inter->pos->x > einter->pos->x - 0.0000001 && inter->pos->x < einter->pos->x + 0.0000001) 
-		&& (inter->pos->y > einter->pos->y - 0.0000001 && inter->pos->y < einter->pos->y + 0.0000001) 
-		&& (inter->pos->z > einter->pos->z - 0.0000001 && inter->pos->z < einter->pos->z + 0.0000001))
+	if ((inter->pos->x > einter->pos->x - 0.1 && inter->pos->x < einter->pos->x + 0.1) 
+		&& (inter->pos->y > einter->pos->y - 0.1 && inter->pos->y < einter->pos->y + 0.1) 
+		&& (inter->pos->z > einter->pos->z - 0.1 && inter->pos->z < einter->pos->z + 0.1))
 	{
 		return (1);
 	}

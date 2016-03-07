@@ -75,9 +75,13 @@ int			expose_hook(t_env *env)
 		ft_putendl("fini");
 	}*/
 	//ft_putendl("print");
-	//loadator(H_SIZE, L_SIZE, env, env->l++);
-	if (env->i == 8)
+	if (env->i == 9)
 		mlx_put_image_to_window (env->mlx, env->win, env->image, 0, 0);
+	 else
+	 {
+	 	printf("env->l = %d\n", env->l);
+	 	loadator(H_SIZE, L_SIZE, env, env->l);
+	 }
 	//env->done = 1;
 	return (0);
 }
@@ -85,6 +89,9 @@ int			expose_hook(t_env *env)
 int			key_down_hook(int keycode, t_env *env)
 {
 	(void)env;
+	printf("keycode = %d\n", keycode);
+	if (keycode == 1)
+	 	enregistrator(env);
 	if ((int)keycode == 53)
 		exit (0);
 	return (0);

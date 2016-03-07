@@ -12,7 +12,7 @@
 
 #include "rtv1.h"
 
-t_cyl	*t_cyl_creator(double x, double y, double z, double x1, double y1, double z1, double ray)
+t_cyl	*t_cyl_creator(float x, float y, float z, float x1, float y1, float z1, float ray)
 {
 	t_cyl	*cyl;
 
@@ -25,31 +25,33 @@ t_cyl	*t_cyl_creator(double x, double y, double z, double x1, double y1, double 
 
 void		set_normal_cyl(t_cyl *cyl, t_inter *inter)
 {
-	double		dist1;
-	double		dist2;
-	t_vec		*center;
+	inter->norm = normalizator_ret(sub_vec(vector_proj_vector(normalizator_ret(sub_vec(cyl->pos, inter->pos)), cyl->dir),
+	 normalizator_ret(sub_vec(cyl->pos, inter->pos))));
+	// float		dist1;
+	// float		dist2;
+	// t_vec		*center;
 
-	dist1 = get_dist(cyl->pos, inter->pos);
-	dist2 = sqrt((dist1 * dist1) - (cyl->ray * cyl->ray));
-	center = set_new_pos(cyl->pos, cyl->dir, dist2);
-	dist1 = get_dist(center, inter->pos);
-	if (dist1 >= cyl->ray - 0.00001 && dist1 <= cyl->ray + 0.00001)
-	{
-		inter->norm = normalizator_ret(sub_vec(inter->pos, center));
-		return ;
-	}
-	center = set_new_pos(cyl->pos, cyl->dir, -dist2);
-	dist1 = get_dist(center, inter->pos);
-	inter->norm = normalizator_ret(sub_vec(inter->pos, center));
-	return ;
+	// dist1 = get_dist(cyl->pos, inter->pos);
+	// dist2 = sqrt((dist1 * dist1) - (cyl->ray * cyl->ray));
+	// center = set_new_pos(cyl->pos, cyl->dir, dist2);
+	// dist1 = get_dist(center, inter->pos);
+	// if (dist1 > cyl->ray - 0.1 && dist1 < cyl->ray + 0.1)
+	// {
+	// 	inter->norm = normalizator_ret(sub_vec(inter->pos, center));
+	// 	return ;
+	// }
+	// center = set_new_pos(cyl->pos, cyl->dir, -dist2);
+	// dist1 = get_dist(center, inter->pos);
+	// inter->norm = normalizator_ret(sub_vec(inter->pos, center));
+	// return ;
 }
 
 void		check_cyl(t_cyl *cyl, t_pd *s, t_inter *inter)
 {
-	register long double	a;
-	register long double	b;
-	register long double 	c;
-	double					t;
+	float	a;
+	float	b;
+	float 	c;
+	float					t;
 	t_vec					*l;
 
 
@@ -86,15 +88,15 @@ s->p = cyl->pos;
 s->r = cyl->ray;
 */
 /*
-inline long double	cytestor(t_v v, t_env *e, t_v dir, t_cy *s)
+inline long float	cytestor(t_v v, t_env *e, t_v dir, t_cy *s)
 {
-	register long double	a;
-	register long double	b;
-	register long double 	c;
-	register long double	d;
+	register long float	a;
+	register long float	b;
+	register long float 	c;
+	register long float	d;
 	t_v						l;
 	t_v						z;
-	double dist;
+	float dist;
 
 	if (s == NULL)
 		return (-2);

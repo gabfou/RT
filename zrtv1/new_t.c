@@ -12,7 +12,7 @@
 
 #include "rtv1.h"
 
-t_vec		*new_t_vec(double x, double y, double z)
+t_vec		*new_t_vec(float x, float y, float z)
 {
 	t_vec		*pos;
 
@@ -33,7 +33,7 @@ t_pd		*new_t_pd()
 	return (cam);
 }
 
-t_color		*new_t_color(double r, double g, double b)
+t_color		*new_t_color(float r, float g, float b)
 {
 	t_color	*color;
 

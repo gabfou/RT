@@ -82,9 +82,9 @@ float			**mat_inversator(float **m)
 
 float		**eulerator(t_cam *cam)
 {
-	double	alpha;
-	double	beta;
-	double	gamma;
+	float	alpha;
+	float	beta;
+	float	gamma;
 	float	**mat;
 	float	**mat2;
 	int		i;

@@ -26,6 +26,7 @@ SRC =  rtv1.c \
 	   auxi.c \
 	   hud.c \
 	   thread.c \
+	   enregistrator.c \
 	   
 
 

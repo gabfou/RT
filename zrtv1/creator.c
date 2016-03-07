@@ -111,7 +111,7 @@ void		creator(t_cor *c)
 	f->item = c->env->item;
 	f->light = c->env->light;
 	printf("xmin = %f xmax = %f ymin = %f ymax = %f\n", f->minx, f->maxx, f->miny, f->maxy);
-	//usleep(10000);
+	usleep(10000);
 	// ft_putendl("thread check");
 	// printf("xmin = %f xmax = %f ymin = %f ymax = %f\n",f->minx, f->maxx, f->miny, f->maxy);
 	// ft_putendl("DEBUUUT");
@@ -154,7 +154,7 @@ void		creator(t_cor *c)
 			// 	loadator(H_SIZE, L_SIZE, c->env, l++);
 			// 	ft_putendl("post");
 			// }
-			
+			c->env->l++;
 			x += 1;
 		}
 		y += 1;

@@ -20,7 +20,7 @@ void	set_normal_sphere(t_inter *inter, t_item *item)
 	normalizator(inter->norm);
 }
 
-t_sphere	*new_t_sphere(double x, double y, double z, double r)
+t_sphere	*new_t_sphere(float x, float y, float z, float r)
 {
 	t_sphere	*sphere;
 
@@ -32,11 +32,11 @@ t_sphere	*new_t_sphere(double x, double y, double z, double r)
 
 void		check_sphere(t_item *item, t_pd *s, t_inter *inter)
 {
-	double	a;
-	double	b;
-	double	c;
-	double	del;
-	double	t;
+	float	a;
+	float	b;
+	float	c;
+	float	del;
+	float	t;
 
 	// ft_putendl("pre calcul");
 	// print_vec(s->dir);
