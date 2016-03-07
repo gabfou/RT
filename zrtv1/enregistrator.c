@@ -12,6 +12,19 @@
 
 #include "rtv1.h"
 
+void		ft_putstr_l(char *str, int lenght)
+{
+	int	i;
+
+	i = 0;
+	while (i < lenght)
+	{
+		printf("%d\n", str);
+		//write(1, &str[i], 1);
+		i = i + 4;
+	}
+}
+
 void		enregistrator(t_env *env)
 {
 	(void)env;
@@ -59,5 +72,5 @@ void		enregistrator(t_env *env)
 	i = 29;
 	while (++i < 50)
 		bmp[i] = 0;
-	ft_putendl(env->img);
+	ft_putstr_l(env->img, 2000);
 }
