@@ -96,6 +96,8 @@ t_token		*get_token(t_list **tokens);
 void		next_elem(t_list **elems);
 void		print_tokens(t_list *tokens);
 
+int			parsetout(int fd);
+
 
 void	fatal_error(const char *name, const char *error, const char *info);
 

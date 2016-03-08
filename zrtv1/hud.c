@@ -46,9 +46,9 @@ void	loadator(int h, int l, t_env *e, int nb) // ca c est la bar
 	{
 		while (nb > ((int)(h * l) / 100) * k)
 			k++;
-		ft_putnbr(k);
-		ft_putendl("%");
-		k++;
+		// ft_putnbr(k);
+		// ft_putendl("%");
+		// k++;
 		mlx_clear_window(e->mlx, e->win);
 		loadatorprovisoirauxi(k, l, h, e);
 		r[0] = (k / 10) % 10 + '0';

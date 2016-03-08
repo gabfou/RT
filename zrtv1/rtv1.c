@@ -69,6 +69,7 @@ void		pixel_to_image(t_env *s, int x, int y, unsigned int color)
 
 int			expose_hook(t_env *env)
 {
+	int i;
 	/*if (env->done == 0)
 	{
 		creator(env);
@@ -76,10 +77,17 @@ int			expose_hook(t_env *env)
 	}*/
 	//ft_putendl("print");
 	if (env->i == 9)
+	{
+		i = -1;
+		while (++i < 2)
+			antialiasing(env);
+		env->i++;
+	}
+	if (env->i > 9)
 		mlx_put_image_to_window (env->mlx, env->win, env->image, 0, 0);
 	 else
 	 {
-	 	printf("env->l = %d\n", env->l);
+	 	// printf("env->l = %d\n", env->l);
 	 	loadator(H_SIZE, L_SIZE, env, env->l);
 	 }
 	//env->done = 1;
@@ -97,13 +105,36 @@ int			key_down_hook(int keycode, t_env *env)
 	return (0);
 }
 
+void imgrecuperator(char *str, t_env *e)
+{
+	int fd;
+	int ret;
+	char bidon[51];
+
+	(void)bidon;
+	fd = open(str, O_RDONLY);
+	if (fd == -1)
+		ft_error("imgrecuperatorfailprepre");
+	// ret = read(fd, bidon, 51);
+	// if (ret == -1)
+	// 	ft_error("imgrecuperatorfailpre");
+	ret = read(fd, (e->img), L_SIZE * H_SIZE * 4);
+	if (ret == -1)
+		ft_error("imgrecuperatorfail");
+	ft_putendl("imgrecuperatorfin");
+	close (fd);
+}
+
 int			main(int argc, char **argv)
 {
-	t_env env;
+	t_env	env;
+	int		i;
 
 	if (argc != 2)
 		ft_error("probleme d'argument");
-	recuperator(&env, argv[1]);
+	i = ft_strlen(argv[1]) - 4;
+	if (!(i > 0 && argv[1][i++] == '.' && argv[1][i++] == 'b' && argv[1][i++] == 'm' && argv[1][i++] == 'p'))
+		recuperator(&env, argv[1]);
 	env.l = 0;
 	// parser_test(&env);
 	env.done = 0;
@@ -116,9 +147,13 @@ int			main(int argc, char **argv)
 	// ft_putendl("post3");
 	env.img = mlx_get_data_addr(env.image, &env.bpp, &env.sline, &env.endiant);
 	env.i = 1;
-	thread_master(&env);
+	i = ft_strlen(argv[1]) - 4;
+	if (!(i > 0 && argv[1][i++] == '.' && argv[1][i++] == 'b' && argv[1][i++] == 'm' && argv[1][i++] == 'p'))
+		thread_master(&env);
+	else
+		imgrecuperator(argv[1], &env);
 	// ft_putendl("TOUTAETECREE TRAKIL");
-	ft_bzero(env.img, H_SIZE * L_SIZE * 4);
+	// ft_bzero(env.img, H_SIZE * L_SIZE * 4);
 	// ft_putendl("post5");
 	mlx_hook(env.win, 2, 1, key_down_hook, &env);
 	// ft_putendl("post6");

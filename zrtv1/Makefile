@@ -27,6 +27,7 @@ SRC =  rtv1.c \
 	   hud.c \
 	   thread.c \
 	   enregistrator.c \
+	   antialiasing.c \
 	   
 
 
