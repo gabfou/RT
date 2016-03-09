@@ -26,8 +26,8 @@ int			thread_master(t_env *env)
 
 	y = 0;
 	i = 0;
-	px = L_SIZE/4;
-	py = H_SIZE/2;
+	px = L_SIZE;
+	py = H_SIZE / NBTHREAD;
 	pointf = &(creator);
 	while (y < H_SIZE)
 	{

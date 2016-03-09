@@ -33,6 +33,7 @@
 # define SCR_DIST	2
 # define L_IND		SCR_L / L_RES
 # define H_IND		SCR_H / H_RES
+# define NBTHREAD 4
 
 typedef	struct		s_color
 {

@@ -76,14 +76,14 @@ int			expose_hook(t_env *env)
 		ft_putendl("fini");
 	}*/
 	//ft_putendl("print");
-	if (env->i == 9)
+	if (env->i == NBTHREAD + 1)
 	{
 		i = -1;
-		while (++i < 2)
+		while (++i < 0)
 			antialiasing(env);
 		env->i++;
 	}
-	if (env->i > 9)
+	if (env->i > NBTHREAD + 1)
 		mlx_put_image_to_window (env->mlx, env->win, env->image, 0, 0);
 	 else
 	 {
