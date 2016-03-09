@@ -43,19 +43,18 @@ void		enregistrator(t_env *env)
 	bmp[4] = (unsigned char)(size >> 16);
 	bmp[5] = (unsigned char)(size >> 24);
 	i = 5;
-	while (++i < 14)
-		bmp[i] = 0;
-	// bmp[6] = 0;
-	// bmp[7] = 0;
-	// bmp[8] = 0;
-	// bmp[9] = 0;
-	// bmp[10] = 0;
-	// bmp[11] = 0;
-	// bmp[12] = 0;
-	// bmp[13] = 0;
-
-	bmp[14] = 40;
-	bmp[15] = 0;
+	// while (++i < 14)
+	// 	bmp[i] = 0;
+	bmp[6] = 0;
+	bmp[7] = 0;
+	bmp[8] = 0;
+	bmp[9] = 0;
+	bmp[10] = 55;
+	bmp[11] = 0;
+	bmp[12] = 0;
+	bmp[13] = 0;
+	bmp[14] = 0;
+	bmp[15] = 28;
 	bmp[16] = 0;
 	bmp[17] = 0;
 	bmp[18] = (unsigned char)(L_SIZE);
@@ -71,16 +70,53 @@ void		enregistrator(t_env *env)
 	bmp[28] = 32;
 	bmp[29] = 0;
 	i = 29;
-	while (++i < 50)
+	while (++i < 54)
 		bmp[i] = 0;
-	while (++i - 51 < size)
+	while (++i - 55 < size)
 	{	// write(1, &(env->img[i]), 1);
-		bmp[i] = env->img[i - 51];
+		bmp[i] = env->img[i - 55];
 		// i = i + 4;
 	}
 	i = open("niark.bmp", O_CREAT | O_WRONLY);
 	// j = -1;
 	// while (++j < H_SIZE)
-	write(i, bmp, size + 50);
+	write(i, bmp, size + 55);
 	// ft_putstr_l(env->img, 51);
 }
+
+// #include "reader.h"
+// #include <unistd.h>
+// #include <fcntl.h>
+// #include <stdio.h>
+// #include <stdlib.h>
+
+// void	enregistrator(t_env *e)
+// {
+// 	t_header		fh;
+// 	t_header_info	ih;
+
+// 	int	fd_img;
+
+// 	fd_img = open("./mickey.bmp", O_RDONLY);
+
+// 	read(fd_img, &fh, sizeof(t_header));
+// 	read(fd_img, &ih, sizeof(t_header_info));
+
+// 	printf("fM1 = %c, fM2 = %c, bfS = %u, un1 = %hu, un2 = %hu, iDO = %u\n", fh.fileMarker1, fh.fileMarker2, fh.bfSize, fh.unused1, fh.unused2, fh.imageDataOffset);                                                                         
+//     printf("w = %d, h = %d\n", ih.width, ih.height);
+
+//     char	*image;
+
+//     image = (char *)malloc(sizeof(char) * (fh.bfSize + 1));
+
+//     read(fd_img, image, fh.bfSize);
+
+//     int		fd;
+//     fd = open("./my_micky.bmp", O_RDWR | O_CREAT);
+
+//     write(fd, &fh, sizeof(t_header));
+//     write(fd, &ih, sizeof(t_header_info));
+//     write(fd, image, fh.bfSize);
+
+// 	return (0);
+// }
