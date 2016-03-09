@@ -29,34 +29,22 @@ void		enregistrator(t_env *env)
 {
 	(void)env;
 	int	size;
-	unsigned char bmp[ L_SIZE * H_SIZE * 4 + 1000];
+	unsigned char bmp[L_SIZE * H_SIZE * 4 + 55];
 	int i;
 	int j;
 	int k;
 
 	ft_putendl("ENREGISTRATOR");
 	size = L_SIZE * H_SIZE * 4;
+	ft_bzero(bmp, L_SIZE * H_SIZE * 4 + 55);
 	bmp[0] = 'B';
 	bmp[1] = 'M';
 	bmp[2] = (unsigned char)(size);
 	bmp[3] = (unsigned char)(size >>  8);
 	bmp[4] = (unsigned char)(size >> 16);
 	bmp[5] = (unsigned char)(size >> 24);
-	i = 5;
-	// while (++i < 14)
-	// 	bmp[i] = 0;
-	bmp[6] = 0;
-	bmp[7] = 0;
-	bmp[8] = 0;
-	bmp[9] = 0;
 	bmp[10] = 55;
-	bmp[11] = 0;
-	bmp[12] = 0;
-	bmp[13] = 0;
-	bmp[14] = 0;
 	bmp[15] = 28;
-	bmp[16] = 0;
-	bmp[17] = 0;
 	bmp[18] = (unsigned char)(L_SIZE);
 	bmp[19] = (unsigned char)(L_SIZE >>  8);
 	bmp[20] = (unsigned char)(L_SIZE >> 16);
@@ -66,12 +54,8 @@ void		enregistrator(t_env *env)
 	bmp[24] = (unsigned char)(H_SIZE >> 16);
 	bmp[25] = (unsigned char)(H_SIZE >> 24);
 	bmp[26] = 1;
-	bmp[27] = 0;
 	bmp[28] = 32;
-	bmp[29] = 0;
-	i = 29;
-	while (++i < 54)
-		bmp[i] = 0;
+	i = 54;
 	j = -1;
 	while (++j < H_SIZE)
 	{
