@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jromagna <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: ibuchwal <ibuchwal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/10/23 23:09:04 by jromagna          #+#    #+#              #
-#    Updated: 2015/10/23 23:09:06 by jromagna         ###   ########.fr        #
+#    Updated: 2016/03/09 20:56:22 by ibuchwal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,12 +28,16 @@ SRC =  rtv1.c \
 	   thread.c \
 	   enregistrator.c \
 	   antialiasing.c \
+	   read_token.c	\
+	   errors.c	\
+	   tokens.c
 	   
 
 
 OBJ = $(SRC:.c=.o)
 CC = clang
-CFLAGS = -Wall -Wextra -Werror -O3 -g
+CFLAGS = -Wall -Wextra -Werror -g3
+LFLAGS = -L libft -lpthread -lft -lmlx -framework OpenGL -framework AppKit
 
 all: $(NAME)
 
@@ -42,7 +46,7 @@ $(NAME): $(OBJ)
 	@make -C libft
 	@echo "libft ok"
 	@echo "comp start"
-	@$(CC) $(CFLAGS) -L libft -lpthread -lft -lmlx -framework OpenGL -framework AppKit $(OBJ) -o $(NAME)
+	@$(CC) $(CFLAGS) $(LFLAGS) $(OBJ) -o $(NAME)
 	@echo "ALL DONE"
 
 norm:
