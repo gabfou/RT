@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jromagna <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ibuchwal <ibuchwal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/30 17:36:31 by jromagna          #+#    #+#             */
-/*   Updated: 2015/10/30 17:36:33 by jromagna         ###   ########.fr       */
+/*   Updated: 2016/03/09 20:53:49 by ibuchwal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_item			*new_t_item()
 
 t_item			*fill_t_item(char **t, t_item *item)
 {
-	if (strcmp(t[0], "sphere") == 0)
+	if (ft_strcmp(t[0], "sphere") == 0)
 	{
 		// ft_putendl("CECI EST UNE SPHERE");
 		item->sp = new_t_sphere(ft_fatoi(t[1]), ft_fatoi(t[2]),
@@ -36,7 +36,7 @@ t_item			*fill_t_item(char **t, t_item *item)
 		item->mat = new_t_mat(t[5]);
 		item->mat->diff = new_t_color(1, 1, 1);
 	}
-	if (strcmp(t[0], "plane") == 0)
+	if (ft_strcmp(t[0], "plane") == 0)
 	{
 		// ft_putendl("cECI EST UNE PLAN");
 		item->pl = t_plane_creator(ft_fatoi(t[1]), ft_fatoi(t[2]),
@@ -44,7 +44,7 @@ t_item			*fill_t_item(char **t, t_item *item)
 		item->mat = new_t_mat(t[7]);
 		item->mat->diff = new_t_color(1, 1, 1);
 	}
-	if (strcmp(t[0], "cyl") == 0)
+	if (ft_strcmp(t[0], "cyl") == 0)
 	{
 		// ft_putendl("cECI EST UN CYLINDRE");
 		item->cyl = t_cyl_creator(ft_fatoi(t[1]), ft_fatoi(t[2]),
@@ -52,7 +52,7 @@ t_item			*fill_t_item(char **t, t_item *item)
 		item->mat = new_t_mat(t[8]);
 		item->mat->diff = new_t_color(1, 1, 1);
 	}
-	if (strcmp(t[0], "cone") == 0)
+	if (ft_strcmp(t[0], "cone") == 0)
 	{
 		// ft_putendl("cECI EST UN CONE");
 		item->con = t_con_creator(ft_fatoi(t[1]), ft_fatoi(t[2]),
@@ -175,7 +175,7 @@ void			mega_initiator(t_env *e, char *name)
 		}
 		// ft_putendl("la ligne est");
 		// ft_puttab(line);
-		if (strcmp(line[0], "cam") == 0)
+		if (ft_strcmp(line[0], "cam") == 0)
 		{
 			// ft_putendl("CAM");
 			if (tlen(line) != 8)
@@ -184,16 +184,16 @@ void			mega_initiator(t_env *e, char *name)
 			e->screen = set_screen(e->cam);
 			check.cam++;
 		}
-		else if (strcmp(line[0], "sphere") == 0 || strcmp(line[0], "plane") == 0 || strcmp(line[0], "cyl") == 0 || strcmp(line[0], "cone") == 0)
+		else if (ft_strcmp(line[0], "sphere") == 0 || ft_strcmp(line[0], "plane") == 0 || ft_strcmp(line[0], "cyl") == 0 || ft_strcmp(line[0], "cone") == 0)
 		{
 			// ft_putendl("ITEM");
-			if (strcmp(line[0], "sphere") == 0 && tlen(line) != 6)
+			if (ft_strcmp(line[0], "sphere") == 0 && tlen(line) != 6)
 				ft_error("mauvais format de fichier SPHERE");
-			if (strcmp(line[0], "plane") == 0 && tlen(line) != 8)
+			if (ft_strcmp(line[0], "plane") == 0 && tlen(line) != 8)
 				ft_error("mauvais format de fichier PLAN");
-			if (strcmp(line[0], "cyl") == 0 && tlen(line) != 9)
+			if (ft_strcmp(line[0], "cyl") == 0 && tlen(line) != 9)
 				ft_error("mauvais format de fichier PLAN");
-			if (strcmp(line[0], "cone") == 0 && tlen(line) != 9)
+			if (ft_strcmp(line[0], "cone") == 0 && tlen(line) != 9)
 				ft_error("mauvais format de fichier PLAN");
 			check.item++;
 			if (e->item->next != NULL)
@@ -201,7 +201,7 @@ void			mega_initiator(t_env *e, char *name)
 			e->item = fill_t_item(line, e->item);
 			e->item->next = new_t_item();
 		}
-		else if (strcmp(line[0], "lum") == 0)
+		else if (ft_strcmp(line[0], "lum") == 0)
 		{
 			// ft_putendl("LIGHT");
 			if (tlen(line) != 7)
@@ -264,7 +264,7 @@ void			get_file(t_env *e, char *name)
 		printf("ligne gnl%d = %s\n", i, file[j]);
 		t = ft_strsplit(file[j], ' ');
 		ft_puttab(t);
-		if (strcmp(t[0], "cam") == 0)
+		if (ft_strcmp(t[0], "cam") == 0)
 		{
 			ft_putendl("CAM");
 			if (tlen(t) != 8)
@@ -273,12 +273,12 @@ void			get_file(t_env *e, char *name)
 			e->screen = set_screen(e->cam);
 			check.cam++;
 		}
-		else if (strcmp(t[0], "sphere") == 0 || strcmp(t[0], "plane") == 0)
+		else if (ft_strcmp(t[0], "sphere") == 0 || ft_strcmp(t[0], "plane") == 0)
 		{
 			ft_putendl("ITEM");
-			if (strcmp(t[0], "sphere") == 0 && tlen(t) != 6)
+			if (ft_strcmp(t[0], "sphere") == 0 && tlen(t) != 6)
 				ft_error("mauvais format de fichier2");
-			if (strcmp(t[0], "plane") == 0 && tlen(t) != 8)
+			if (ft_strcmp(t[0], "plane") == 0 && tlen(t) != 8)
 				ft_error("mauvais format de fichier3");
 			check.item++;
 			if (e->item->next != NULL)
@@ -286,7 +286,7 @@ void			get_file(t_env *e, char *name)
 			e->item = fill_t_item(t, e->item);
 			e->item->next = new_t_item();
 		}
-		else if (strcmp(t[0], "lum") == 0)
+		else if (ft_strcmp(t[0], "lum") == 0)
 		{
 			ft_putendl("LIGHT");
 			if (tlen(t) != 7)
