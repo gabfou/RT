@@ -31,9 +31,9 @@ void		enregistrator(t_env *env)
 	int	size;
 	unsigned char bmp[ L_SIZE * H_SIZE * 4 + 1000];
 	int i;
-	// int j;
+	int j;
+	int k;
 
-	//unsigned char bmppad[3] = {0,0,0};
 	ft_putendl("ENREGISTRATOR");
 	size = L_SIZE * H_SIZE * 4;
 	bmp[0] = 'B';
@@ -72,51 +72,23 @@ void		enregistrator(t_env *env)
 	i = 29;
 	while (++i < 54)
 		bmp[i] = 0;
-	while (++i - 55 < size)
-	{	// write(1, &(env->img[i]), 1);
-		bmp[i] = env->img[i - 55];
-		// i = i + 4;
+	j = -1;
+	while (++j < H_SIZE)
+	{
+		k = -1;
+		while (++k < L_SIZE)
+		{
+			bmp[++i] = env->img[(H_SIZE - j) * env->sline + k * env->bpp / 8];
+			bmp[++i] = env->img[(H_SIZE - j) * env->sline + k * env->bpp / 8 + 1];
+			bmp[++i] = env->img[(H_SIZE - j) * env->sline + k * env->bpp / 8 + 2];
+			bmp[++i] = env->img[(H_SIZE - j) * env->sline + k * env->bpp / 8 + 3];
+		}
 	}
+	// while (++i - 55 < size)
+	// {
+	// 	bmp[i] = env->img[i - 55];
+	// }
 	i = open("niark.bmp", O_CREAT | O_WRONLY);
-	// j = -1;
-	// while (++j < H_SIZE)
 	write(i, bmp, size + 55);
 	// ft_putstr_l(env->img, 51);
 }
-
-// #include "reader.h"
-// #include <unistd.h>
-// #include <fcntl.h>
-// #include <stdio.h>
-// #include <stdlib.h>
-
-// void	enregistrator(t_env *e)
-// {
-// 	t_header		fh;
-// 	t_header_info	ih;
-
-// 	int	fd_img;
-
-// 	fd_img = open("./mickey.bmp", O_RDONLY);
-
-// 	read(fd_img, &fh, sizeof(t_header));
-// 	read(fd_img, &ih, sizeof(t_header_info));
-
-// 	printf("fM1 = %c, fM2 = %c, bfS = %u, un1 = %hu, un2 = %hu, iDO = %u\n", fh.fileMarker1, fh.fileMarker2, fh.bfSize, fh.unused1, fh.unused2, fh.imageDataOffset);                                                                         
-//     printf("w = %d, h = %d\n", ih.width, ih.height);
-
-//     char	*image;
-
-//     image = (char *)malloc(sizeof(char) * (fh.bfSize + 1));
-
-//     read(fd_img, image, fh.bfSize);
-
-//     int		fd;
-//     fd = open("./my_micky.bmp", O_RDWR | O_CREAT);
-
-//     write(fd, &fh, sizeof(t_header));
-//     write(fd, &ih, sizeof(t_header_info));
-//     write(fd, image, fh.bfSize);
-
-// 	return (0);
-// }
