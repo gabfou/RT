@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jromagna <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ibuchwal <ibuchwal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/23 22:07:13 by jromagna          #+#    #+#             */
-/*   Updated: 2015/10/23 22:07:14 by jromagna         ###   ########.fr       */
+/*   Updated: 2016/03/09 20:51:04 by ibuchwal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,14 @@ int			expose_hook(t_env *env)
 		ft_putendl("fini");
 	}*/
 	//ft_putendl("print");
-	if (env->i == 9)
+	if (env->i == NBTHREAD + 1)
 	{
 		i = -1;
-		while (++i < 2)
+		while (++i < 0)
 			antialiasing(env);
 		env->i++;
 	}
-	if (env->i > 9)
+	if (env->i > NBTHREAD + 1)
 		mlx_put_image_to_window (env->mlx, env->win, env->image, 0, 0);
 	 else
 	 {

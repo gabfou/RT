@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jromagna <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ibuchwal <ibuchwal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/23 22:25:40 by jromagna          #+#    #+#             */
-/*   Updated: 2015/10/23 22:25:42 by jromagna         ###   ########.fr       */
+/*   Updated: 2016/03/09 20:54:57 by ibuchwal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 # define RTV1_H
 # include <mlx.h>
 # include "libft/libft.h"
-# include "libft/get_next_line.h"
+# include "parser.h"
+// # include "libft/get_next_line.h"
 # include <unistd.h>
 # include <math.h>
 # include <fcntl.h>
@@ -33,6 +34,7 @@
 # define SCR_DIST	2
 # define L_IND		SCR_L / L_RES
 # define H_IND		SCR_H / H_RES
+# define NBTHREAD 4
 
 typedef	struct		s_color
 {

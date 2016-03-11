@@ -29,35 +29,22 @@ void		enregistrator(t_env *env)
 {
 	(void)env;
 	int	size;
-	unsigned char bmp[ L_SIZE * H_SIZE * 4 + 1000];
+	unsigned char bmp[L_SIZE * H_SIZE * 4 + 55];
 	int i;
-	// int j;
+	int j;
+	int k;
 
-	//unsigned char bmppad[3] = {0,0,0};
 	ft_putendl("ENREGISTRATOR");
 	size = L_SIZE * H_SIZE * 4;
+	ft_bzero(bmp, L_SIZE * H_SIZE * 4 + 55);
 	bmp[0] = 'B';
 	bmp[1] = 'M';
 	bmp[2] = (unsigned char)(size);
 	bmp[3] = (unsigned char)(size >>  8);
 	bmp[4] = (unsigned char)(size >> 16);
 	bmp[5] = (unsigned char)(size >> 24);
-	i = 5;
-	while (++i < 14)
-		bmp[i] = 0;
-	// bmp[6] = 0;
-	// bmp[7] = 0;
-	// bmp[8] = 0;
-	// bmp[9] = 0;
-	// bmp[10] = 0;
-	// bmp[11] = 0;
-	// bmp[12] = 0;
-	// bmp[13] = 0;
-
-	bmp[14] = 40;
-	bmp[15] = 0;
-	bmp[16] = 0;
-	bmp[17] = 0;
+	bmp[10] = 55;
+	bmp[15] = 28;
 	bmp[18] = (unsigned char)(L_SIZE);
 	bmp[19] = (unsigned char)(L_SIZE >>  8);
 	bmp[20] = (unsigned char)(L_SIZE >> 16);
@@ -67,20 +54,25 @@ void		enregistrator(t_env *env)
 	bmp[24] = (unsigned char)(H_SIZE >> 16);
 	bmp[25] = (unsigned char)(H_SIZE >> 24);
 	bmp[26] = 1;
-	bmp[27] = 0;
 	bmp[28] = 32;
-	bmp[29] = 0;
-	i = 29;
-	while (++i < 50)
-		bmp[i] = 0;
-	while (++i - 51 < size)
-	{	// write(1, &(env->img[i]), 1);
-		bmp[i] = env->img[i - 51];
-		// i = i + 4;
+	i = 54;
+	j = -1;
+	while (++j < H_SIZE)
+	{
+		k = -1;
+		while (++k < L_SIZE)
+		{
+			bmp[++i] = env->img[(H_SIZE - j) * env->sline + k * env->bpp / 8];
+			bmp[++i] = env->img[(H_SIZE - j) * env->sline + k * env->bpp / 8 + 1];
+			bmp[++i] = env->img[(H_SIZE - j) * env->sline + k * env->bpp / 8 + 2];
+			bmp[++i] = env->img[(H_SIZE - j) * env->sline + k * env->bpp / 8 + 3];
+		}
 	}
+	// while (++i - 55 < size)
+	// {
+	// 	bmp[i] = env->img[i - 55];
+	// }
 	i = open("niark.bmp", O_CREAT | O_WRONLY);
-	// j = -1;
-	// while (++j < H_SIZE)
-	write(i, bmp, size + 50);
+	write(i, bmp, size + 55);
 	// ft_putstr_l(env->img, 51);
 }
