@@ -102,27 +102,8 @@ int			key_down_hook(int keycode, t_env *env)
 	 	enregistrator(env);
 	if ((int)keycode == 53)
 		exit (0);
+	ft_putchar(keytochar(keycode));
 	return (0);
-}
-
-void imgrecuperator(char *str, t_env *e)
-{
-	int fd;
-	int ret;
-	char bidon[51];
-
-	(void)bidon;
-	fd = open(str, O_RDONLY);
-	if (fd == -1)
-		ft_error("imgrecuperatorfailprepre");
-	// ret = read(fd, bidon, 51);
-	// if (ret == -1)
-	// 	ft_error("imgrecuperatorfailpre");
-	ret = read(fd, (e->img), L_SIZE * H_SIZE * 4);
-	if (ret == -1)
-		ft_error("imgrecuperatorfail");
-	ft_putendl("imgrecuperatorfin");
-	close (fd);
 }
 
 int			main(int argc, char **argv)
@@ -135,23 +116,13 @@ int			main(int argc, char **argv)
 	i = ft_strlen(argv[1]) - 4;
 	if (!(i > 0 && argv[1][i++] == '.' && argv[1][i++] == 'b' && argv[1][i++] == 'm' && argv[1][i++] == 'p'))
 		recuperator(&env, argv[1]);
-	env.l = 0;
-	// parser_test(&env);
-	env.done = 0;
-	// ft_putendl("post recup");
-	env.mlx = mlx_init();
-	// ft_putendl("post1");
-	env.win = mlx_new_window(env.mlx, L_SIZE, H_SIZE, "RTV1");
-	// ft_putendl("post2");
-	env.image = mlx_new_image(env.mlx, L_SIZE, H_SIZE);
-	// ft_putendl("post3");
-	env.img = mlx_get_data_addr(env.image, &env.bpp, &env.sline, &env.endiant);
-	env.i = 1;
+	init(&env);
+	// ft_putendl(env.ktc);
 	i = ft_strlen(argv[1]) - 4;
 	if (!(i > 0 && argv[1][i++] == '.' && argv[1][i++] == 'b' && argv[1][i++] == 'm' && argv[1][i++] == 'p'))
 		thread_master(&env);
 	else
-		imgrecuperator(argv[1], &env);
+		readerbmp32(argv[1], &env);
 	// ft_putendl("TOUTAETECREE TRAKIL");
 	// ft_bzero(env.img, H_SIZE * L_SIZE * 4);
 	// ft_putendl("post5");

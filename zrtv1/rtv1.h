@@ -239,8 +239,13 @@ t_vec			*set_new_pos(t_vec *dir, t_vec *pos, float dist);
 
 void			check_cyl(t_item *item, t_pd *s, t_inter *inter);
 
+void			readerbmp32(char *name, t_env *e);
 void			enregistrator(t_env *env);
 int				thread_master(t_env *env);
 
 t_trans			*new_t_trans(float t, float colabs);
+
+void			init(t_env *env);
+
+char			keytochar(int key);
 #endif
