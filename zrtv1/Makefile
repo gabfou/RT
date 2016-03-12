@@ -31,7 +31,12 @@ SRC =  rtv1.c \
 	   read_token.c	\
 	   errors.c	\
 	   tokens.c \
+<<<<<<< HEAD
 	   transparencator.c
+=======
+	   reader.c \
+	   init.c
+>>>>>>> aaf2ca47d2882ef8432acde67983708455d9efd3
 	   
 
 
