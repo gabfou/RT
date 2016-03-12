@@ -244,13 +244,10 @@ void			enregistrator(t_env *env);
 int				thread_master(t_env *env);
 
 t_trans			*new_t_trans(float t, float colabs);
-<<<<<<< HEAD
 float			transparencator(unsigned int color, float trans);
 float			trans_calculator(t_trans *trans, float	t);
-=======
 
 void			init(t_env *env);
 
 char			keytochar(int key);
->>>>>>> aaf2ca47d2882ef8432acde67983708455d9efd3
 #endif
