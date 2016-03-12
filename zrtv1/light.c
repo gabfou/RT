@@ -14,7 +14,7 @@
 
 unsigned int	get_color(int r, int g, int b)
 {
-	return ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
+	return ((r & 0xff) + ((g & 0xff) << 8) + ((b & 0xff) << 16));
 }
 
 t_light			*new_t_light()
@@ -87,7 +87,9 @@ void		luminator(t_env *e, t_thr *f)
 	float			angle;
 	t_inter			*inter;
 	t_light			*ltmp;
+	float			trans;
 
+	//ft_putendl("light");
 	ltmp = f->light;
 	if (f->inter->t <= 0)
 	{
@@ -103,21 +105,39 @@ void		luminator(t_env *e, t_thr *f)
 		lvec->dir = new_t_vec(f->inter->pos->x - f->light->pos->x, f->inter->pos->y - f->light->pos->y, f->inter->pos->z - f->light->pos->z);
 		normalizator(lvec->dir);
 		impactor(e, lvec, f, inter);
+		//ft_putendl("light 2");
 		set_inter_pos(inter, lvec);
 		if (comparator_pos(inter, f->inter) == 0)
 		{
 			f->light = f->light->next;
 			continue;
 		}
+		//ft_putendl("light 3");
 		normalizator(inter->norm);
-			angle = M_PI_2 - acos(dot_prod(lvec->dir, f->inter->norm));
-			angle = (angle > 0) ? angle : -angle;
-			f->fcolor += get_color(angle / 4 * ((f->light->color >> 0) & 0xFF) * 2 / M_PI,
-								   angle / 4 * ((f->light->color >> 8) & 0xFF) * 2 / M_PI,
-								   angle / 4 * ((f->light->color >> 16) & 0xFF) * 2 / M_PI);
+		angle = M_PI_2 - acos(dot_prod(lvec->dir, f->inter->norm));
+		angle = (angle > 0) ? angle : -angle;
+		//ft_putendl("light 4");
+		trans = 0;
+		if (inter->trans != NULL)
+		{
+			trans = trans_calculator(inter->trans, inter->t);
+		//	f->light->color = transparencator(f->light->color, trans);
+		}
+		f->fcolor += get_color(angle / 4 * ((f->light->color >> 0) & 0xFF) * 2 / M_PI,
+							angle / 4 * ((f->light->color >> 8) & 0xFF) * 2 / M_PI,
+							angle / 4 * ((f->light->color >> 16) & 0xFF) * 2 / M_PI);
 		f->light = f->light->next;
 	}
 	f->light = ltmp;
+	trans = 0;
+	if (f->inter->trans != NULL)
+	{
+		trans = trans_calculator(f->inter->trans, f->inter->t);
+		f->fcolor = transparencator(f->fcolor, trans);
+	}
+		// f->fcolor = get_color(((f->fcolor >> 0) & 0xFF)  * f->inter->colorabs->r / 100,
+		// 					((f->fcolor >> 8) & 0xFF)  * f->inter->colorabs->g / 100,
+	 // 						((f->fcolor >> 16) & 0xFF)  * f->inter->colorabs->b / 100);
 	//printf("%d\n", f->fcolor);
 	return ;
 }

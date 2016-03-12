@@ -46,7 +46,7 @@ void		set_normal_cyl(t_cyl *cyl, t_inter *inter)
 	// return ;
 }
 
-void		check_cyl(t_cyl *cyl, t_pd *s, t_inter *inter)
+void		check_cyl(t_item *item, t_pd *s, t_inter *inter)
 {
 	float	a;
 	float	b;
@@ -55,24 +55,24 @@ void		check_cyl(t_cyl *cyl, t_pd *s, t_inter *inter)
 	t_vec					*l;
 
 
-	//d = dot_prod(cyl->dir, cyl->dir);
+	//d = dot_prod(item->cyl->dir, item->cyl->dir);
 
-	l = sub_vec(s->pos, cyl->pos);
+	l = sub_vec(s->pos, item->cyl->pos);
 
-	a = dot_prod(s->dir, s->dir) - (dot_prod(s->dir, cyl->dir) *  dot_prod(s->dir, cyl->dir));
+	a = dot_prod(s->dir, s->dir) - (dot_prod(s->dir, item->cyl->dir) *  dot_prod(s->dir, item->cyl->dir));
 
-	b = 2 * (dot_prod(s->dir, l) - (dot_prod(s->dir, cyl->dir) * dot_prod(l, cyl->dir)));
+	b = 2 * (dot_prod(s->dir, l) - (dot_prod(s->dir, item->cyl->dir) * dot_prod(l, item->cyl->dir)));
 
-	c = dot_prod(l, l) - (dot_prod(l, cyl->dir) * dot_prod(l, cyl->dir)) - cyl->ray * cyl->ray;
+	c = dot_prod(l, l) - (dot_prod(l, item->cyl->dir) * dot_prod(l, item->cyl->dir)) - item->cyl->ray * item->cyl->ray;
 
 	if ((t = (b * b - 4.0 * a * c)) <= 0)
 		return ;
 
 	t = ft_min(((-b + sqrt(t)) / (2 * a)), ((-b - sqrt(t)) / (2 * a)));
-	if (check_t(inter, t) == 1)
+	if (check_t(inter, t, item->mat->trans) == 1)
 	{
 		set_inter_pos(inter, s);
-		set_normal_cyl(cyl, inter);
+		set_normal_cyl(item->cyl, inter);
 	}
 	return ;
 }

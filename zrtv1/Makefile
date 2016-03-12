@@ -30,7 +30,8 @@ SRC =  rtv1.c \
 	   antialiasing.c \
 	   read_token.c	\
 	   errors.c	\
-	   tokens.c
+	   tokens.c \
+	   transparencator.c
 	   
 
 

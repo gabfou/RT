@@ -29,7 +29,7 @@ void	set_normal_con(t_con *con, t_inter *inter)
 	 normalizator_ret(sub_vec(con->pos, inter->pos))));
 }
 
-void		check_con(t_con *con, t_pd *s, t_inter *inter)
+void		check_con(t_item *item, t_pd *s, t_inter *inter)
 {
 	float	a;
 	float	b;
@@ -38,23 +38,23 @@ void		check_con(t_con *con, t_pd *s, t_inter *inter)
 	t_vec					*l;
 
  	//ft_putendl("CONE START");
-	l = sub_vec(s->pos, con->pos);
+	l = sub_vec(s->pos, item->con->pos);
 
-	a = dot_prod(s->dir, s->dir) - (1.0 + tan(con->ang) * tan(con->ang)) * (dot_prod(s->dir, con->dir) *  dot_prod(s->dir, con->dir));
+	a = dot_prod(s->dir, s->dir) - (1.0 + tan(item->con->ang) * tan(item->con->ang)) * (dot_prod(s->dir, item->con->dir) *  dot_prod(s->dir, item->con->dir));
 
-	b = 2 * (dot_prod(s->dir, l) - (1.0 + tan(con->ang) * tan(con->ang)) * (dot_prod(s->dir, con->dir) * dot_prod(l, con->dir)));
+	b = 2 * (dot_prod(s->dir, l) - (1.0 + tan(item->con->ang) * tan(item->con->ang)) * (dot_prod(s->dir, item->con->dir) * dot_prod(l, item->con->dir)));
 
-	c = dot_prod(l, l) - (1.0 + tan(con->ang) * tan(con->ang)) * (dot_prod(l, con->dir) * dot_prod(l, con->dir));
+	c = dot_prod(l, l) - (1.0 + tan(item->con->ang) * tan(item->con->ang)) * (dot_prod(l, item->con->dir) * dot_prod(l, item->con->dir));
 
 	if ((t = (b * b - 4.0 * a * c)) <= 0)
 		return ;
 
 	t = ft_min(((-b + sqrt(t)) / (2 * a)), ((-b - sqrt(t)) / (2 * a)));
 
-	if (check_t(inter, t) == 1)
+	if (check_t(inter, t, item->mat->trans) == 1)
 	{
 		set_inter_pos(inter, s);
-		set_normal_con(con, inter);
+		set_normal_con(item->con, inter);
 	}
 	//ft_putendl("CONE FINITO");
 	return ;
