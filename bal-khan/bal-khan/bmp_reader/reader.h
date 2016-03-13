@@ -40,7 +40,7 @@ typedef struct		s_header
 	unsigned int	bi_clr_important;
 }					t_header;
 
-void    write_header(int fd, t_env *e);
-void    init_image(int *fd, t_env *e);
+void	write_header(int fd, t_env *e);
+void	init_image(int *fd, t_env *e);
 
 #endif
