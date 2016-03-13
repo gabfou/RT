@@ -152,19 +152,36 @@ void	set_inter_pos(t_inter *inter, t_pd *pd)
 	inter->pos->z = (pd->pos->z + (pd->dir->z * inter->t));
 }
 
-int		check_t(t_inter *inter, float t)
+int		check_t(t_inter *inter, float t, float trans)
 {
-
+	t_trans	*tmp;
 	//ft_putendl("check t");
 //	printf("IUHIPUHGIUO%f %f\n", inter->t, t);
-	//ft_putendl("check t");
+	if (trans > 0)
+	{
+	//	ft_putendl("check trans");
+		tmp = inter->trans;
+		if (inter->trans == NULL)
+		{
+			inter->trans = new_t_trans(t, trans);
+	//		ft_putendl("FIN 1");
+			return (0);
+		}
+		while (tmp->next != NULL)
+			tmp = tmp->next;
+		tmp->next = new_t_trans(t, trans);
+		//ft_putendl("FIN 2");
+		return (0);
+	}
 	if ((inter->t > t && t > 0) || inter->t < 0)
 	{
 		inter->t = t;
 		//ft_putstr(".");
 		//printf("%f\n", inter->t);
+	//	ft_putendl("FIN 3");
 		return (1);
 	}
 	//ft_putendl("pas contact");
+//	ft_putendl("FIN 4");
 	return (0);
 }

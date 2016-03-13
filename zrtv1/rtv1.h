@@ -34,7 +34,7 @@
 # define SCR_DIST	2
 # define L_IND		SCR_L / L_RES
 # define H_IND		SCR_H / H_RES
-# define NBTHREAD 4
+# define NBTHREAD	4
 
 typedef	struct		s_color
 {
@@ -113,11 +113,19 @@ typedef	struct		s_check
 	int				light;
 }					t_check;
 
+typedef struct		s_trans
+{
+	float			colabs;
+	float			t;
+	struct		s_trans			*next;
+}					t_trans;
+
 typedef	struct		s_inter
 {
 	float			t;
 	t_vec			*norm;
 	t_vec			*pos;
+	t_trans			*trans;
 }					t_inter;
 
 typedef	struct		s_screen
@@ -166,6 +174,7 @@ typedef	struct		s_env
 	int				done;
 	int				l;
 	int				i;
+	
 }					t_env;
 
 typedef struct		s_cor
@@ -195,7 +204,9 @@ void			creator(t_cor *c);
 t_inter			*new_t_inter();
 float			carre(float x);
 void			set_inter_pos(t_inter *inter, t_pd *pd);
-int				check_t(t_inter *inter, float t);
+
+int				check_t(t_inter *inter, float t, float trans);
+
 void			check_sphere(t_item *item, t_pd *s, t_inter *inter);
 void			check_plane(t_item *item, t_pd *s, t_inter *inter);
 void			normalizator(t_vec *vec);
@@ -218,13 +229,25 @@ float			dot_prod(t_vec *v1, t_vec *v2);
 float			ft_min(float a, float b);
 t_vec			*vec_mult(t_vec *v1, float x);
 t_vec			*vector_proj_vector(t_vec *v1, t_vec *v2);
-void			check_con(t_con *con, t_pd *s, t_inter *inter);
+
+void			check_con(t_item *item, t_pd *s, t_inter *inter);
+
 void			loadator(int h, int l, t_env *e, int nb);
 void			antialiasing(t_env *s);
 float			get_dist(t_vec *v1, t_vec *v2);
 t_vec			*set_new_pos(t_vec *dir, t_vec *pos, float dist);
-void			check_cyl(t_cyl *cyl, t_pd *s, t_inter *inter);
 
+void			check_cyl(t_item *item, t_pd *s, t_inter *inter);
+
+void			readerbmp32(char *name, t_env *e);
 void			enregistrator(t_env *env);
 int				thread_master(t_env *env);
+
+t_trans			*new_t_trans(float t, float colabs);
+float			transparencator(unsigned int color, float trans);
+float			trans_calculator(t_trans *trans, float	t);
+
+void			init(t_env *env);
+
+char			keytochar(int key);
 #endif

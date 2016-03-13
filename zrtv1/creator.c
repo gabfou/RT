@@ -30,11 +30,11 @@ void		impactor(t_env *env, t_pd *pd, t_thr *f, t_inter *inter)
 		}
 		else if (f->item->cyl != NULL)
 		{
-			check_cyl(f->item->cyl, pd, inter);
+			check_cyl(f->item, pd, inter);
 		}
 		else if (f->item->con != NULL)
 		{
-			check_con(f->item->con, pd, inter);
+			check_con(f->item, pd, inter);
 		}
 		f->item = f->item->next;
 	}
@@ -126,7 +126,7 @@ void		creator(t_cor *c)
 		x = f->minx;
 		while (x < f->maxx)
 		{
-	//		ft_putendl("boucle");
+			//ft_putendl("boucle");
 			pd->pos = c->env->cam->pos;
 			f->fcolor = 0x000000;
 			f->inter = new_t_inter();
@@ -140,7 +140,7 @@ void		creator(t_cor *c)
 			set_inter_pos(f->inter, pd);
 			luminator(c->env, f);
 			//if (f-> inter->t > 0 )
-			//	pixel_to_image(c->env, x, y, 0xFF0000);
+			//	pixel_to_image(c->env, x, y, 0xFF0000); 
 			pixel_to_image(c->env, x, y, f->fcolor);
 			//if (f->fcolor == 0)
 			//	printf("\nx = %f y = %f", x, y );

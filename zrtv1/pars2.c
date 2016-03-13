@@ -35,6 +35,7 @@ t_item			*fill_t_item(char **t, t_item *item)
 		ft_fatoi(t[3]), ft_fatoi(t[4]));
 		item->mat = new_t_mat(t[5]);
 		item->mat->diff = new_t_color(1, 1, 1);
+		item->mat->trans = 50;
 	}
 	if (ft_strcmp(t[0], "plane") == 0)
 	{

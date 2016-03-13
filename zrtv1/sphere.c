@@ -54,7 +54,7 @@ void		check_sphere(t_item *item, t_pd *s, t_inter *inter)
 	{
 		t = ((-b + sqrt(del)) / (2 * a) > (-b - sqrt(del)) / (2 * a))?
 		(-b - sqrt(del)) / (2 * a) : (-b + sqrt(del)) / (2 * a);
-		if (check_t(inter, t) == 1)
+		if (check_t(inter, t, item->mat->trans) == 1)
 		{
 			set_inter_pos(inter, s);
 			set_normal_sphere(inter, item);

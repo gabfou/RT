@@ -12,6 +12,17 @@
 
 #include "rtv1.h"
 
+t_trans			*new_t_trans(float t, float colabs)
+{
+	t_trans	*trans;
+
+	trans = (t_trans *)malloc(sizeof(t_trans));
+	trans->t = t;
+	trans->colabs = colabs;
+	trans->next = NULL;
+	return (trans);
+}
+
 t_vec		*new_t_vec(float x, float y, float z)
 {
 	t_vec		*pos;
@@ -69,5 +80,6 @@ t_inter		*new_t_inter()
 	inter->t = -1;
 	inter->norm = new_t_vec(0, 0, 0);
 	inter->pos = new_t_vec(0, 0, 0);
+	inter->trans = NULL;
 	return (inter);
 }
