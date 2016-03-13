@@ -1,0 +1,42 @@
+
+
+int	main(void)
+
+	t_header		fh;
+	t_header_info	ih;
+
+	int	fd_img;
+
+	fd_img = open("./imaage.bmp", O_RDONLY);
+printf("before before : <%ld>\n", sizeof(t_header));
+	read(fd_img, &fh, 14);
+printf("after before\n");
+	read(fd_img, &ih, sizeof(t_header_info));
+printf("before\n");
+	printf("fM1 = %c, fM2 = %c, bfS = %u, un1 = %hu, un2 = %hu, iDO = %u, bit_pix = %u\n", fh.file_marker1, fh.file_marker2, fh.bf_size, fh.unused1, fh.unused2, fh.image_data_offset, ih.bit_pix);
+printf("after\n");
+    printf("w = %d, h = %d\n", ih.width, ih.height);
+
+    unsigned char	*image;
+
+    image = (unsigned char *)malloc(sizeof(char) * (fh.bf_size));
+
+    read(fd_img, image, fh.bf_size);
+
+    int		fd;
+    fd = open("./my_micky.bmp", O_RDWR | O_CREAT);
+
+    write(fd, &fh, sizeof(t_header));
+    write(fd, &ih, sizeof(t_header_info));
+    int	i;
+    printf("%d\n", fh.image_data_offset);
+    i = -1;
+    while (++i < fh.bf_size - fh.image_data_offset)
+    {
+        //printf("r = %u\n", image[i]);
+    	image[i] = image[i];
+    }printf("%d\n%d\n%d\n", i, ih.width*ih.height, i / 3);
+    write(fd, image, fh.bf_size);
+
+	return (0);
+}
