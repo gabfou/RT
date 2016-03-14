@@ -126,14 +126,14 @@ void	comander(int key)
 		return;
 	}
 	if (i == -1)
-		bzero(stat, 10000);
+		ft_bzero(stat, 10000);
 	if (i == -1)
 		i = 0;
 	if (keyret == -1)
 	{
 		write(1, "\nniark\n", 7);
 		ft_putendl(stat);
-		ft_bzero(stat);
+		ft_bzero(stat, 10000);
 	}
 	else
 		stat[i++] = keyret;
