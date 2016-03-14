@@ -1,0 +1,17 @@
+dans la fonction qui ecrit l'image : 
+
+creer un int fd,
+apeller la fonction init_image() avec l'addresse de fd et un pointeur vers une struct d'env qui contient width et height que j'ai apelle s_x et s_y (a vous de changer le nom)
+
+apres avoir calcule tous les points de l'image, 
+faire un apell a write(fd, votre_image_mlx, height * width * 4);
+
+close le fd
+
+Note :
+
+l'image est a l'envers, que ce pastis ?
+les images bmp sont stockees a l'envers ...
+la solution est de stocker une deuxieme image en stockant les y de bas en haut
+(la premiere image sert a afficher dans la fenetre)
+ou alors de calculer les pixels de y de bas en haut et afficher l'image a l'envers c'est vous qui voyez
