@@ -6,7 +6,7 @@
 #    By: ibuchwal <ibuchwal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/10/23 23:09:04 by jromagna          #+#    #+#              #
-#    Updated: 2016/03/12 23:04:49 by gfournie         ###   ########.fr        #
+#    Updated: 2016/03/14 23:44:39 by ibuchwal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRC =  rtv1.c \
 	   read_token.c	\
 	   errors.c	\
 	   tokens.c \
+	   parser.c \
 	   transparencator.c \
 	   reader.c \
 	   init.c

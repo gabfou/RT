@@ -6,7 +6,7 @@
 /*   By: ibuchwal <ibuchwal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/23 22:07:13 by jromagna          #+#    #+#             */
-/*   Updated: 2016/03/09 20:51:04 by ibuchwal         ###   ########.fr       */
+/*   Updated: 2016/03/14 23:49:26 by ibuchwal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,12 +111,15 @@ int			main(int argc, char **argv)
 	t_env	env;
 	int		i;
 
-	if (argc != 2)
-		ft_error("probleme d'argument");
-	i = ft_strlen(argv[1]) - 4;
-	if (!(i > 0 && argv[1][i++] == '.' && argv[1][i++] == 'b' && argv[1][i++] == 'm' && argv[1][i++] == 'p'))
-		recuperator(&env, argv[1]);
-	init(&env);
+	// if (argc != 2)
+	// 	ft_error("probleme d'argument");
+	// i = ft_strlen(argv[1]) - 4;
+	// if (!(i > 0 && argv[1][i++] == '.' && argv[1][i++] == 'b' && argv[1][i++] == 'm' && argv[1][i++] == 'p'))
+	// 	recuperator(&env, argv[1]);
+	init(&env, argc, argv);
+	print_params(env);
+	init_env(&env);
+	// init(&env);
 	// ft_putendl(env.ktc);
 	i = ft_strlen(argv[1]) - 4;
 	if (!(i > 0 && argv[1][i++] == '.' && argv[1][i++] == 'b' && argv[1][i++] == 'm' && argv[1][i++] == 'p'))

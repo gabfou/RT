@@ -1,0 +1,70 @@
+cam {
+	x: 0,
+	y: -30,
+	z: 0,
+	dir_x: 1,
+	dir_y: 2,
+	dir_z: 0,
+	rot: 0
+}
+
+lum {
+	x: 0,
+	y: -10,
+	z: 10,
+	r: 255,
+	g: 0,
+	b: 0
+}
+
+sphere {
+	x: 15,
+	y: 0,
+	z: 0,
+	r: 255,
+	g: 0,
+	b: 0,
+	rad: 1,
+#	mat: 1,
+}
+
+plane {
+	x: 25,
+	y: 0,
+	z: 0,
+	r: 255,
+	g: 0,
+	b: 0,
+	dir_x: -1,
+	dir_y: 0,
+	dir_z: 0,
+	mat: 1
+}
+
+cone {
+	x: 20,
+	y: -3,
+	z: 3,
+	r: 255,
+	g: 0,
+	b: 0,
+	dir_x: 1,
+	dir_y: 1,
+	dir_z: -1,
+	angle: 10,
+	mat: 1
+}
+
+cyl {
+	x: 20,
+	y: 0,
+	z: -2,
+	r: 255,
+	g: 0,
+	b: 0,
+	dir_x: 0,
+	dir_y: 1,
+	dir_z: 0,
+	rad: 1,
+	mat: 1
+}

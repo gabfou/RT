@@ -6,7 +6,7 @@
 /*   By: ibuchwal <ibuchwal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/23 22:25:40 by jromagna          #+#    #+#             */
-/*   Updated: 2016/03/09 20:54:57 by ibuchwal         ###   ########.fr       */
+/*   Updated: 2016/03/14 23:52:32 by ibuchwal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,7 +247,12 @@ t_trans			*new_t_trans(float t, float colabs);
 float			transparencator(unsigned int color, float trans);
 float			trans_calculator(t_trans *trans, float	t);
 
-void			init(t_env *env);
+
+void			print_params(t_env env);
+int				parse_exp(t_list **tokens, t_env *par);
+void			init(t_env *env, int argc, char **argv);
+void			init_env(t_env *env);
+t_screen		*set_screen(t_cam *cam);
 
 char			keytochar(int key);
 #endif
