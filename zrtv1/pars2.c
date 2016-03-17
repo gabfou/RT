@@ -64,24 +64,37 @@ t_item			*fill_t_item(char **t, t_item *item)
 	return (item);
 }
 
-t_screen		*set_screen(t_cam *cam)
-{
-	t_screen	*screen;
-	float		x;
-	float		y;
-	float		z;
+// t_vec		*set_screen(t_cam *cam)
+// {
+// 	float		x;
+// 	float		y;
+// 	float		z;
 
-	screen = malloc(sizeof(t_screen));
-	normalizator(cam->dir);
-	normalizator(cam->up);
-	normalizator(cam->right);
-	x = cam->dir->x * SCR_DIST - cam->up->x * SCR_H - cam->right->x * SCR_L;
-	y = cam->dir->y * SCR_DIST - cam->up->y * SCR_H - cam->right->y * SCR_L;
-	z = cam->dir->z * SCR_DIST - cam->up->z * SCR_H - cam->right->z * SCR_L;
-	screen->upleft = new_t_vec(x, y, z) ;
-	// print_vec(screen->upleft);
-	return (screen);
-}
+// 	x = cam->dir->x * SCR_DIST - cam->up->x * SCR_H - cam->right->x * SCR_L;
+// 	y = cam->dir->y * SCR_DIST - cam->up->y * SCR_H - cam->right->y * SCR_L;
+// 	z = cam->dir->z * SCR_DIST - cam->up->z * SCR_H - cam->right->z * SCR_L;
+// 	return (new_t_vec(x, y, z));
+// 	// print_vec(screen->upleft);
+// }
+
+// t_screen		*set_screen(t_cam *cam)
+// {
+// 	t_screen	*screen;
+// 	float		x;
+// 	float		y;
+// 	float		z;
+
+// 	screen = malloc(sizeof(t_screen));
+// 	normalizator(cam->dir);
+// 	normalizator(cam->up);
+// 	normalizator(cam->right);
+// 	x = cam->dir->x * SCR_DIST - cam->up->x * SCR_H - cam->right->x * SCR_L;
+// 	y = cam->dir->y * SCR_DIST - cam->up->y * SCR_H - cam->right->y * SCR_L;
+// 	z = cam->dir->z * SCR_DIST - cam->up->z * SCR_H - cam->right->z * SCR_L;
+// 	screen->upleft = new_t_vec(x, y, z) ;
+// 	// print_vec(screen->upleft);
+// 	return (screen);
+// }
 
 t_cam			*set_cam(char **t)
 {
@@ -145,88 +158,88 @@ char			**file_to_tab(char *name)
 	return (file);
 }
 
-void			mega_initiator(t_env *e, char *name)
-{
-	t_item	*item;
-	t_light	*light;
-	char	**t;
-	t_check	check;
-	int		i;
-	char	**line;
+// void			mega_initiator(t_env *e, char *name)
+// {
+// 	t_item	*item;
+// 	t_light	*light;
+// 	char	**t;
+// 	t_check	check;
+// 	int		i;
+// 	char	**line;
 
-	// ft_putendl("MEGA UNIT0");
-	i = 0;
-	e->item = new_t_item();
-	item = e->item; 
-	e->light = new_t_light();
-	light = e->light;
-	// ft_putendl("MEGA UNIT1");
-	t = file_to_tab(name);
-	// ft_putendl("MEGA UNIT 2");
-	// ft_puttab(t);
-	while (t[i] && t[i][0] != '\0')
-	{
-		// ft_putendl("line pre split");
-		// ft_putendl(t[i]);
-		line = ft_strsplit(t[i], ' ');
-		if(line[0][0] == '#')
-		{
-			i++;
-			continue;
-		}
-		// ft_putendl("la ligne est");
-		// ft_puttab(line);
-		if (ft_strcmp(line[0], "cam") == 0)
-		{
-			// ft_putendl("CAM");
-			if (tlen(line) != 8)
-				ft_error("mauvais format de fichier CAM");
-			e->cam = set_cam(line);
-			e->screen = set_screen(e->cam);
-			check.cam++;
-		}
-		else if (ft_strcmp(line[0], "sphere") == 0 || ft_strcmp(line[0], "plane") == 0 || ft_strcmp(line[0], "cyl") == 0 || ft_strcmp(line[0], "cone") == 0)
-		{
-			// ft_putendl("ITEM");
-			if (ft_strcmp(line[0], "sphere") == 0 && tlen(line) != 6)
-				ft_error("mauvais format de fichier SPHERE");
-			if (ft_strcmp(line[0], "plane") == 0 && tlen(line) != 8)
-				ft_error("mauvais format de fichier PLAN");
-			if (ft_strcmp(line[0], "cyl") == 0 && tlen(line) != 9)
-				ft_error("mauvais format de fichier PLAN");
-			if (ft_strcmp(line[0], "cone") == 0 && tlen(line) != 9)
-				ft_error("mauvais format de fichier PLAN");
-			check.item++;
-			if (e->item->next != NULL)
-				e->item = e->item->next;
-			e->item = fill_t_item(line, e->item);
-			e->item->next = new_t_item();
-		}
-		else if (ft_strcmp(line[0], "lum") == 0)
-		{
-			// ft_putendl("LIGHT");
-			if (tlen(line) != 7)
-				ft_error("mauvais format de fichier LUM");
-			check.light++;
-			if (e->light->next != NULL)
-				e->light = e->light->next;
-			e->light = fill_t_light(line, e->light);
-			e->light->next = new_t_light();
-		}
-		else
-		{
-			printf(" ERROR ligne gnl%d = %s\n", i, line[0]);
-			ft_error("mauvais format de fichier TOUT");
-		}
-		i++;
-	}
-	e->light->next = NULL;
-	e->item->next = NULL;
-	e->light = light;
-	e->item = item;
-	check_check(check);
-}/*
-
+// 	// ft_putendl("MEGA UNIT0");
+// 	i = 0;
+// 	e->item = new_t_item();
+// 	item = e->item; 
+// 	e->light = new_t_light();
+// 	light = e->light;
+// 	// ft_putendl("MEGA UNIT1");
+// 	t = file_to_tab(name);
+// 	// ft_putendl("MEGA UNIT 2");
+// 	// ft_puttab(t);
+// 	while (t[i] && t[i][0] != '\0')
+// 	{
+// 		// ft_putendl("line pre split");
+// 		// ft_putendl(t[i]);
+// 		line = ft_strsplit(t[i], ' ');
+// 		if(line[0][0] == '#')
+// 		{
+// 			i++;
+// 			continue;
+// 		}
+// 		// ft_putendl("la ligne est");
+// 		// ft_puttab(line);
+// 		if (ft_strcmp(line[0], "cam") == 0)
+// 		{
+// 			// ft_putendl("CAM");
+// 			if (tlen(line) != 8)
+// 				ft_error("mauvais format de fichier CAM");
+// 			e->cam = set_cam(line);
+// 			e->screen = set_screen(e->cam);
+// 			check.cam++;
+// 		}
+// 		else if (ft_strcmp(line[0], "sphere") == 0 || ft_strcmp(line[0], "plane") == 0 || ft_strcmp(line[0], "cyl") == 0 || ft_strcmp(line[0], "cone") == 0)
+// 		{
+// 			// ft_putendl("ITEM");
+// 			if (ft_strcmp(line[0], "sphere") == 0 && tlen(line) != 6)
+// 				ft_error("mauvais format de fichier SPHERE");
+// 			if (ft_strcmp(line[0], "plane") == 0 && tlen(line) != 8)
+// 				ft_error("mauvais format de fichier PLAN");
+// 			if (ft_strcmp(line[0], "cyl") == 0 && tlen(line) != 9)
+// 				ft_error("mauvais format de fichier PLAN");
+// 			if (ft_strcmp(line[0], "cone") == 0 && tlen(line) != 9)
+// 				ft_error("mauvais format de fichier PLAN");
+// 			check.item++;
+// 			if (e->item->next != NULL)
+// 				e->item = e->item->next;
+// 			e->item = fill_t_item(line, e->item);
+// 			e->item->next = new_t_item();
+// 		}
+// 		else if (ft_strcmp(line[0], "lum") == 0)
+// 		{
+// 			// ft_putendl("LIGHT");
+// 			if (tlen(line) != 7)
+// 				ft_error("mauvais format de fichier LUM");
+// 			check.light++;
+// 			if (e->light->next != NULL)
+// 				e->light = e->light->next;
+// 			e->light = fill_t_light(line, e->light);
+// 			e->light->next = new_t_light();
+// 		}
+// 		else
+// 		{
+// 			printf(" ERROR ligne gnl%d = %s\n", i, line[0]);
+// 			ft_error("mauvais format de fichier TOUT");
+// 		}
+// 		i++;
+// 	}
+// 	e->light->next = NULL;
+// 	e->item->next = NULL;
+// 	e->light = light;
+// 	e->item = item;
+// 	check_check(check);
+// }
+/*
 void			get_file(t_env *e, char *name)
 {
 	char	**t;
