@@ -12,6 +12,44 @@
 
 #include "rtv1.h"
 
+int		modif_sphere(t_env *env, int i, char *line)
+{
+	t_item		*item;
+
+	// if (i == -2)
+	// {
+	// 	item = new_t_item();
+	// 	item->sp = new_t_sphere(0, 0, 0, 0);
+	// 	item->mat = (t_mat*)malloc(sizeof(t_mat));
+	// 	item->mat->diff = new_t_color(1, 1, 1);
+	// 	itemadator(env, item);
+	// 	return(itemadator(env, item));
+	// }
+	item = env->item;
+	while(item && i-- > 0)
+		item = item->next;
+	if (line[0] == 'x' && line[1] == ' ')
+		item->sp->c->x = ft_fatoi(&line[2]);
+	else if (line[0] == 'y' && line[1] == ' ')
+		item->sp->c->y = ft_fatoi(&line[2]);
+	else if (line[0] == 'z' && line[1] == ' ')
+		item->sp->c->z = ft_fatoi(&line[2]);
+	// else if (ft_strcmp(line, "r") == 0)
+	// 	rgb.r = token_to_float(tokens);
+	// else if (ft_strcmp(line, "g") == 0)
+	// 	rgb.g = token_to_float(tokens);
+	// else if (ft_strcmp(line, "b") == 0)
+	// 	rgb.b = token_to_float(tokens);
+	else if (line[0] == 'r' && line[1] == 'a' && line[2] == 'd' && line[3] == ' ')
+		item->sp->ray = ft_fatoi(&line[4]);
+	// else if (ft_strcmp(line, "mat") == 0)
+	// {
+	// 	next_elem(tokens);
+	// 	mat = new_t_mat(get_token(tokens)->lexeme);
+	// }
+	return (-1);
+}
+
 void	set_normal_sphere(t_inter *inter, t_item *item)
 {
 	inter->norm->x = inter->pos->x - item->sp->c->x;

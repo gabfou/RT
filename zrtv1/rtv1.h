@@ -204,6 +204,8 @@ void			creator(t_cor *c);
 t_inter			*new_t_inter();
 float			carre(float x);
 void			set_inter_pos(t_inter *inter, t_pd *pd);
+int				itemadator(t_env *env, t_item *item);
+t_item			*new_t_item();
 
 int				check_t(t_inter *inter, float t, float trans);
 
@@ -255,4 +257,7 @@ void			init_env(t_env *env);
 t_screen		*set_screen(t_cam *cam);
 
 char			keytochar(int key);
+void			comander(int key, t_env *env);
+int				modif_sphere(t_env *env, int i, char *line);
+
 #endif

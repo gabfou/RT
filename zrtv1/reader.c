@@ -101,6 +101,7 @@ char		*initkeytochar()
 	tab[82] = '0';
 	tab[36] = -1;
 	tab[49] = ' ';
+	tab[51] = -2;
 	return (tab);
 }
 
@@ -113,28 +114,62 @@ char		keytochar(int key)
 	return (tab[key]);
 }
 
-void	comander(int key)
+void	comadator(char *line, t_env *env)
+{
+	static char last[10000];
+	static int	i = -1;
+
+	if (ft_strcmp(line, "reset") == 0)
+		ft_strcpy(last, "reset");
+	if (ft_strcmp(line, "printlast") == 0)
+		ft_putendl(last);
+	if (ft_strcmp(line, "refresh") == 0)
+	{
+		thread_master(env);
+	}
+	if (ft_strcmp(line, "s") == 0)
+	 	enregistrator(env);
+	if (ft_strcmp(line, "newsphere") == 0)
+		i = modif_sphere(env, -2, line);
+	if (ft_strcmp(line, "clear") == 0)
+		mlx_clear_window(env->mlx, env->win);
+	if (ft_strcmp(line, "printparam") == 0)
+		print_params(*env);
+	// modif_sphere(env, i, line);
+}
+
+void	comander(int key, t_env *env)
 {
 	static char	stat[10000];
 	char		keyret;
 	static int	i = -1;
 
 	keyret = keytochar(key);
-	if (keyret == 0)
-	{
-		ft_putendl("what?");
-		return;
-	}
 	if (i == -1)
 		ft_bzero(stat, 10000);
 	if (i == -1)
 		i = 0;
+	if (keyret == 0 || i > 9998)
+	{
+		ft_putendl("what?");
+		return;
+	}
 	if (keyret == -1)
 	{
-		write(1, "\nniark\n", 7);
-		ft_putendl(stat);
+		write(1, "\n", 1);
+		// ft_putendl(stat);
+		comadator(stat, env);
 		ft_bzero(stat, 10000);
+		i = 0;
 	}
+	else if (keyret == -2 && i != 0)
+		stat[--i] = 0;
 	else
+	{
+		// ft_putchar(keyret);
 		stat[i++] = keyret;
+	}
+	mlx_clear_window(env->mlx, env->win);
+	mlx_put_image_to_window(env->mlx, env->win, env->image, 0, 0);
+	mlx_string_put(env->mlx, env->win, L_SIZE / 2 - 20, H_SIZE / 2, 0xFFFFFF, stat);
 }

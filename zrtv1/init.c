@@ -238,7 +238,6 @@ void		init_sphere(t_env *env, t_list **tokens)
 {
 	UNUSED(env);
 	t_item		*item;
-	t_item		*copy;
 	t_vec		pos;
 	t_color		rgb;
 	float		rad;
@@ -280,22 +279,13 @@ void		init_sphere(t_env *env, t_list **tokens)
 	item->sp = new_t_sphere(pos.x, pos.y, pos.z, rad);
 	item->mat = mat;
 	item->mat->diff = new_t_color(1, 1, 1);
-	if (!env->item)
-		env->item = item;
-	else
-	{
-		copy = env->item;
-		while (copy->next)
-			copy = copy->next;
-		copy->next = item;
-	}
+	itemadator(env, item);
 }
 
 void		init_plane(t_env *env, t_list **tokens)
 {
 	UNUSED(env);
 	t_item		*item;
-	t_item		*copy;
 	t_vec		pos;
 	t_vec		dir;
 	t_color		rgb;
@@ -343,22 +333,13 @@ void		init_plane(t_env *env, t_list **tokens)
 	item->pl = t_plane_creator(pos.x, pos.y, pos.z, dir.x, dir.y, dir.z);
 	item->mat = mat;
 	item->mat->diff = new_t_color(1, 1, 1);
-	if (!env->item)
-		env->item = item;
-	else
-	{
-		copy = env->item;
-		while (copy->next)
-			copy = copy->next;
-		copy->next = item;
-	}
+	itemadator(env, item);
 }
 
 void		init_cone(t_env *env, t_list **tokens)
 {
 	UNUSED(env);
 	t_item		*item;
-	t_item		*copy;
 	t_vec		pos;
 	t_vec		dir;
 	t_color		rgb;
@@ -410,21 +391,12 @@ void		init_cone(t_env *env, t_list **tokens)
 	item->con = t_con_creator(pos.x, pos.y, pos.z, dir.x, dir.y, dir.z, angle);
 	item->mat = mat;
 	item->mat->diff = new_t_color(1, 1, 1);
-	if (!env->item)
-		env->item = item;
-	else
-	{
-		copy = env->item;
-		while (copy->next)
-			copy = copy->next;
-		copy->next = item;
-	}
+	itemadator(env, item);
 }
 
 void		init_cyl(t_env *env, t_list **tokens)
 {
 	t_item		*item;
-	t_item		*copy;
 	t_vec		pos;
 	t_vec		dir;
 	t_color		rgb;
@@ -476,15 +448,7 @@ void		init_cyl(t_env *env, t_list **tokens)
 	item->cyl = t_cyl_creator(pos.x, pos.y, pos.z, dir.x, dir.y, dir.z, rad);
 	item->mat = mat;
 	item->mat->diff = new_t_color(1, 1, 1);
-	if (!env->item)
-		env->item = item;
-	else
-	{
-		copy = env->item;
-		while (copy->next)
-			copy = copy->next;
-		copy->next = item;
-	}
+	itemadator(env, item);
 }
 
 void		init_env(t_env *env)

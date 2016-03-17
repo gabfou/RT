@@ -34,7 +34,8 @@ SRC =  rtv1.c \
 	   parser.c \
 	   transparencator.c \
 	   reader.c \
-	   init.c
+	   init.c \
+	   misc.c
 
 OBJ = $(SRC:.c=.o)
 CC = clang
