@@ -62,10 +62,10 @@ void		enregistrator(t_env *env)
 		k = -1;
 		while (++k < L_SIZE)
 		{
-			bmp[++i] = env->limg->img[(H_SIZE - j) * env->sline + k * env->bpp / 8];
-			bmp[++i] = env->limg->img[(H_SIZE - j) * env->sline + k * env->bpp / 8 + 1];
-			bmp[++i] = env->limg->img[(H_SIZE - j) * env->sline + k * env->bpp / 8 + 2];
-			bmp[++i] = env->limg->img[(H_SIZE - j) * env->sline + k * env->bpp / 8 + 3];
+			bmp[++i] = env->limg->img[(H_SIZE - j) * env->limg->sline + k * env->limg->bpp / 8];
+			bmp[++i] = env->limg->img[(H_SIZE - j) * env->limg->sline + k * env->limg->bpp / 8 + 1];
+			bmp[++i] = env->limg->img[(H_SIZE - j) * env->limg->sline + k * env->limg->bpp / 8 + 2];
+			bmp[++i] = env->limg->img[(H_SIZE - j) * env->limg->sline + k * env->limg->bpp / 8 + 3];
 		}
 	}
 	// while (++i - 55 < size)

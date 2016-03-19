@@ -139,7 +139,7 @@ void		creator(t_cor *c)
 				impactor(c->env, pd, f, f->inter);
 				set_inter_pos(f->inter, pd);
 				luminator(c->env, f);
-				pixel_to_image(c->env, x, y, f->fcolor, f->limg->img);
+				pixel_to_image(x, y, f->fcolor, f->limg);
 				c->env->l++;
 				x += 1;
 			}

@@ -67,7 +67,7 @@ void		parser_test(t_env *env)
 // 	s->img[off + 2] = color >> 16;
 // }
 
-void		pixel_to_image(t_env *s, int x, int y, unsigned int color , char *img)
+void		pixel_to_image(int x, int y, unsigned int color , t_limg *limg)
 {
 	unsigned int	off;
 	int r;
@@ -80,12 +80,12 @@ void		pixel_to_image(t_env *s, int x, int y, unsigned int color , char *img)
 	r = (r > 255)? 255: r;
 	g = (g > 255)? 255: g;
 	b = (b > 255)? 255: b;
-	off = y * s->sline + x * s->bpp / 8;
+	off = y * limg->sline + x * limg->bpp / 8;
 	if (x < 0 || y < 0 || y > H_SIZE || x > L_SIZE)
 		return ;
-	img[off] = color >> 0;
-	img[off + 1] = color >> 8;
-	img[off + 2] = color >> 16;
+	limg->img[off] = color >> 0;
+	limg->img[off + 1] = color >> 8;
+	limg->img[off + 2] = color >> 16;
 }
 
 int			expose_hook(t_env *env)
