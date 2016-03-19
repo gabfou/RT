@@ -217,18 +217,12 @@ typedef	struct		s_thr
 
 typedef	struct		s_env
 {
-	void			*mlx;
-	void			*win;
 	void			*image;
-//	char			*img;
 	int				**t;
-	// int				bpp;
 	int				endiant;
-	// int				sline;
 	t_limg			*limg;
 
 	t_cam			*cam;
-//	t_screen		*screen;
 	t_item			*item;
 	t_light			*light;
 	t_inter			*inter;
@@ -237,6 +231,8 @@ typedef	struct		s_env
 	int				l;
 	int				i;
 	int				ft;
+	struct	s_env	*prev;
+	struct	s_env	*next;
 }					t_env;
 
 typedef struct		s_cor
@@ -248,12 +244,22 @@ typedef struct		s_cor
 	t_env			*env;
 }					t_cor;
 
+typedef	struct		s_leviatenv
+{
+	void			*mlx;
+	void			*win;
+	t_env			*lenv;
+}					t_leviatenv;
+
 void			recuperator(t_env *e, char *name);
 // void			mega_initiator(t_env *e, char *name);
 //void			pixel_to_image(t_env *s, int x, int y, unsigned int color);
 void		pixel_to_image(int x, int y, unsigned int color , t_limg *limg);
-int				expose_hook(t_env *env);
-int				key_down_hook(int keycode, t_env *env);
+
+int				expose_hook(t_leviatenv *levia);
+
+int				key_down_hook(int keycode, t_leviatenv *levia);
+
 int				main(int argc, char **argv);
 t_pd			*new_t_pd();
 t_color			*new_t_color(float r, float g, float b);
@@ -297,14 +303,14 @@ t_vec			*vector_proj_vector(t_vec *v1, t_vec *v2);
 
 void			check_con(t_item *item, t_pd *s, t_inter *inter);
 
-void			loadator(int h, int l, t_env *e, int nb);
+void			loadator(int h, int l, t_leviatenv *e, int nb);
 void			antialiasing(t_env *s);
 float			get_dist(t_vec *v1, t_vec *v2);
 t_vec			*set_new_pos(t_vec *dir, t_vec *pos, float dist);
 
 void			check_cyl(t_item *item, t_pd *s, t_inter *inter);
 
-void			readerbmp32(char *name, t_env *e);
+void			readerbmp32(char *name, t_leviatenv *e);
 void			enregistrator(t_env *env);
 int				thread_master(t_env *env);
 
@@ -315,15 +321,15 @@ float			trans_calculator(t_trans *trans, float	t);
 
 void			print_params(t_env env);
 int				parse_exp(t_list **tokens, t_env *par);
-void			init(t_env *env, int argc, char **argv);
-void			init_env(t_env *env);
+void			init(t_env *env, int argc, char *argv);
+void			init_env(t_leviatenv *env);
 //t_screen		*set_screen(t_cam *cam);
 
 char			keytochar(int key);
-void			comander(int key, t_env *env);
+void			comander(int key, t_leviatenv *env);
 int				modif_sphere(t_env *env, int i, char *line);
 void			*imgcptor(t_env *env);
 void			*printmusicator(char *addr, t_env *env);
 
-t_limg			*new_t_limg(t_env *env);
+t_limg          *new_t_limg(t_leviatenv *env);
 #endif
