@@ -8,6 +8,76 @@ cam {
 	rot: 0
 }
 
+cam {
+	x: 0,
+	y: -30,
+	z: 5,
+	dir_x: 1,
+	dir_y: 2,
+	dir_z: 0,
+	rot: 0
+}
+
+cam {
+	x: 0,
+	y: -30,
+	z: 10,
+	dir_x: 1,
+	dir_y: 2,
+	dir_z: 0,
+	rot: 0
+}
+
+cam {
+	x: 0,
+	y: -30,
+	z: 15,
+	dir_x: 1,
+	dir_y: 2,
+	dir_z: 0,
+	rot: 0
+}
+
+cam {
+	x: 0,
+	y: -30,
+	z: 20,
+	dir_x: 1,
+	dir_y: 2,
+	dir_z: 0,
+	rot: 0
+}
+
+cam {
+	x: 0,
+	y: -30,
+	z: 25,
+	dir_x: 1,
+	dir_y: 2,
+	dir_z: -1,
+	rot: 0
+}
+
+cam {
+	x: 0,
+	y: -30,
+	z: 30,
+	dir_x: 1,
+	dir_y: 2,
+	dir_z: -2,
+	rot: 0
+}
+
+cam {
+	x: 0,
+	y: -25,
+	z: 30,
+	dir_x: 1,
+	dir_y: 2,
+	dir_z: -2,
+	rot: 0
+}
+
 lum {
 	x: 0,
 	y: 0,

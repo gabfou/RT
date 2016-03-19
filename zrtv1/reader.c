@@ -38,10 +38,10 @@ void	readerbmp32(char *name, t_env *e)
 		k = -1;
 		while (++k < L_SIZE && i < (int)fh.bfSize)
 		{
-			e->img[(H_SIZE - j) * e->sline + k * e->bpp / 8 + 3] = image[++i];
-			e->img[(H_SIZE - j) * e->sline + k * e->bpp / 8 + 2] = image[++i];
-			e->img[(H_SIZE - j) * e->sline + k * e->bpp / 8 + 1] = image[++i];
-			e->img[(H_SIZE - j) * e->sline + k * e->bpp / 8 + 0] = image[++i];
+			e->limg->img[(H_SIZE - j) * e->sline + k * e->bpp / 8 + 3] = image[++i];
+			e->limg->img[(H_SIZE - j) * e->sline + k * e->bpp / 8 + 2] = image[++i];
+			e->limg->img[(H_SIZE - j) * e->sline + k * e->bpp / 8 + 1] = image[++i];
+			e->limg->img[(H_SIZE - j) * e->sline + k * e->bpp / 8 + 0] = image[++i];
 		}
 	}
 	// write(fd, image, fh.bfSize);

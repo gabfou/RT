@@ -129,19 +129,75 @@ typedef	struct		s_inter
 	t_trans			*trans;
 }					t_inter;
 
-typedef	struct		s_screen
-{
-	t_vec			*upleft;
-}					t_screen;
+// typedef	struct		s_screen
+// {
+// 	t_vec			*upleft;
+// }					t_screen;
 
-typedef	struct		s_cam
+// typedef	struct		s_cam
+// {
+// 	t_vec			*pos;
+// 	t_vec			*dir;
+// 	t_vec			*up;
+// 	t_vec			*right;
+// 	float			angle;
+// }					t_cam;
+
+// typedef	struct		s_thr
+// {
+// 	float			minx;
+// 	float			maxx;
+// 	float			miny;
+// 	float			maxy;
+// 	unsigned int	fcolor;
+// 	t_inter			*inter;
+// 	t_item			*item;
+// 	t_light			*light;
+// }				t_thr;
+
+// typedef	struct		s_env
+// {
+// 	void			*mlx;
+// 	void			*win;
+// 	void			*image;
+// 	char			*img;
+// 	int				**t;
+// 	int				bpp;
+// 	int				endiant;
+// 	int				sline;
+
+// 	t_cam			*cam;
+// 	t_screen		*screen;
+// 	t_item			*item;
+// 	t_light			*light;
+// 	t_inter			*inter;
+// 	unsigned int	fcolor;
+// 	int				done;
+// 	int				l;
+// 	int				i;
+	
+// }					t_env;
+
+typedef	struct			s_limg
+{
+	void			*image;
+	char			*img;
+	struct	s_limg	*prev;
+	struct	s_limg	*next;
+}					t_limg;
+
+typedef	struct			s_cam
 {
 	t_vec			*pos;
 	t_vec			*dir;
 	t_vec			*up;
 	t_vec			*right;
 	float			angle;
+	t_vec			*upleft;
+	// struct	s_cam	*prev;
+	struct	s_cam	*next;
 }					t_cam;
+
 
 typedef	struct		s_thr
 {
@@ -153,6 +209,8 @@ typedef	struct		s_thr
 	t_inter			*inter;
 	t_item			*item;
 	t_light			*light;
+	t_limg			*limg;
+	t_cam			*cam;
 }					t_thr;
 
 typedef	struct		s_env
@@ -160,14 +218,15 @@ typedef	struct		s_env
 	void			*mlx;
 	void			*win;
 	void			*image;
-	char			*img;
+//	char			*img;
 	int				**t;
 	int				bpp;
 	int				endiant;
 	int				sline;
+	t_limg			*limg;
 
 	t_cam			*cam;
-	t_screen		*screen;
+//	t_screen		*screen;
 	t_item			*item;
 	t_light			*light;
 	t_inter			*inter;
@@ -175,8 +234,11 @@ typedef	struct		s_env
 	int				done;
 	int				l;
 	int				i;
+<<<<<<< HEAD
 	int				ft;
 
+=======
+>>>>>>> ba4846edf3075cd8ac0ef928a3f0060aa45eb6a4
 }					t_env;
 
 typedef struct		s_cor
@@ -189,8 +251,9 @@ typedef struct		s_cor
 }					t_cor;
 
 void			recuperator(t_env *e, char *name);
-void			mega_initiator(t_env *e, char *name);
-void			pixel_to_image(t_env *s, int x, int y, unsigned int color);
+// void			mega_initiator(t_env *e, char *name);
+//void			pixel_to_image(t_env *s, int x, int y, unsigned int color);
+void		pixel_to_image(t_env *s, int x, int y, unsigned int color , char *img);
 int				expose_hook(t_env *env);
 int				key_down_hook(int keycode, t_env *env);
 int				main(int argc, char **argv);
@@ -256,12 +319,16 @@ void			print_params(t_env env);
 int				parse_exp(t_list **tokens, t_env *par);
 void			init(t_env *env, int argc, char **argv);
 void			init_env(t_env *env);
-t_screen		*set_screen(t_cam *cam);
+//t_screen		*set_screen(t_cam *cam);
 
 char			keytochar(int key);
 void			comander(int key, t_env *env);
 int				modif_sphere(t_env *env, int i, char *line);
+<<<<<<< HEAD
 void			*imgcptor(t_env *env);
 void			*printmusicator(char *addr, t_env *env);
 
+=======
+t_limg			*new_t_limg(t_env *env);
+>>>>>>> ba4846edf3075cd8ac0ef928a3f0060aa45eb6a4
 #endif

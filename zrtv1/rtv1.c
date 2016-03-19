@@ -46,7 +46,28 @@ void		parser_test(t_env *env)
 	ft_putendl("parser_test fin");
 }
 
-void		pixel_to_image(t_env *s, int x, int y, unsigned int color)
+// void		pixel_to_image(t_env *s, int x, int y, unsigned int color)
+// {
+// 	unsigned int	off;
+// 	int r;
+// 	int g;
+// 	int b;
+
+// 	r = (color >> 16) & 0xFF;
+// 	g = (color >> 8) & 0xFF;
+// 	b = (color >> 0) & 0xFF;
+// 	r = (r > 255)? 255: r;
+// 	g = (g > 255)? 255: g;
+// 	b = (b > 255)? 255: b;
+// 	off = y * s->sline + x * s->bpp / 8;
+// 	if (x < 0 || y < 0 || y > H_SIZE || x > L_SIZE)
+// 		return ;
+// 	s->img[off] = color >> 0;
+// 	s->img[off + 1] = color >> 8;
+// 	s->img[off + 2] = color >> 16;
+// }
+
+void		pixel_to_image(t_env *s, int x, int y, unsigned int color , char *img)
 {
 	unsigned int	off;
 	int r;
@@ -62,9 +83,9 @@ void		pixel_to_image(t_env *s, int x, int y, unsigned int color)
 	off = y * s->sline + x * s->bpp / 8;
 	if (x < 0 || y < 0 || y > H_SIZE || x > L_SIZE)
 		return ;
-	s->img[off] = color >> 0;
-	s->img[off + 1] = color >> 8;
-	s->img[off + 2] = color >> 16;
+	img[off] = color >> 0;
+	img[off + 1] = color >> 8;
+	img[off + 2] = color >> 16;
 }
 
 int			expose_hook(t_env *env)
@@ -83,6 +104,7 @@ int			expose_hook(t_env *env)
 			antialiasing(env);
 		env->i++;
 	}
+<<<<<<< HEAD
 	if (env->i > NBTHREAD + 1)
 	{
 		// env->i++;
@@ -92,7 +114,18 @@ int			expose_hook(t_env *env)
 	{
 		// printf("env->l = %d\n", env->l);
 		loadator(H_SIZE, L_SIZE, env, env->l);
+=======
+	if (env->i > NBTHREAD + 1/* && env->i < NBTHREAD + 15*/)
+	{
+		env->i++;
+		mlx_put_image_to_window(env->mlx, env->win, env->limg->image, 0, 0);
+>>>>>>> ba4846edf3075cd8ac0ef928a3f0060aa45eb6a4
 	}
+	// if (env->i <= NBTHREAD + 1)
+	// {
+	// 	// printf("env->l = %d\n", env->l);
+	// 	loadator(H_SIZE, L_SIZE, env, env->l);
+	// }
 	//env->done = 1;
 	return (0);
 }
@@ -100,7 +133,17 @@ int			expose_hook(t_env *env)
 int			key_down_hook(int keycode, t_env *env)
 {
 	(void)env;
-	// printf("keycode = %d\n", keycode);
+	printf("keycode = %d\n", keycode);
+	if (keycode == 124)
+	{
+		env->limg = env->limg->next;
+		return (0);
+	}
+	if (keycode == 123)
+	{
+		env->limg = env->limg->prev;
+		return (0);
+	}
 	if ((int)keycode == 53)
 		exit (0);
 	if (keycode == 50)
@@ -132,6 +175,7 @@ int			main(int argc, char **argv)
 	init_env(&env);
 	// init(&env);
 	// ft_putendl(env.ktc);
+	ft_putendl("LLLAALALLALALALALALAL");
 	i = ft_strlen(argv[1]) - 4;
 	if (!(i > 0 && argv[1][i++] == '.' && argv[1][i++] == 'b' && argv[1][i++] == 'm' && argv[1][i++] == 'p'))
 		thread_master(&env);

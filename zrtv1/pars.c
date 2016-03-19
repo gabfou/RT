@@ -71,8 +71,9 @@ void		put_endl_in_file(char *name)
 void			recuperator(t_env *e, char *name)
 {
 	int		l;
+	(void)e;
 
 	put_endl_in_file(name);
 	l = la_magicienne(name);
-	mega_initiator(e, name);
+	//mega_initiator(e, name);
 }
