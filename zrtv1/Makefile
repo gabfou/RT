@@ -36,9 +36,7 @@ SRC =  rtv1.c \
 	   reader.c \
 	   init.c \
 	   misc.c \
-	   musicator.c \
-	   controlpanelator.c \
-
+	  
 OBJ = $(SRC:.c=.o)
 CC = clang
 CFLAGS = -Wall -Wextra -Werror -g3
