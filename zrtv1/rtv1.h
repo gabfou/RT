@@ -196,8 +196,8 @@ typedef	struct			s_cam
 	t_vec			*right;
 	float			angle;
 	t_vec			*upleft;
-	// struct	s_cam	*prev;
 	struct	s_cam	*next;
+	// struct	s_cam	*prev;
 }					t_cam;
 
 
