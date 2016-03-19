@@ -15,16 +15,20 @@
 int		modif_sphere(t_env *env, int i, char *line)
 {
 	t_item		*item;
+	static int niark = 0;
 
-	// if (i == -2)
-	// {
-	// 	item = new_t_item();
-	// 	item->sp = new_t_sphere(0, 0, 0, 0);
-	// 	item->mat = (t_mat*)malloc(sizeof(t_mat));
-	// 	item->mat->diff = new_t_color(1, 1, 1);
-	// 	itemadator(env, item);
-	// 	return(itemadator(env, item));
-	// }
+	niark++;
+	if (i == -2)
+	{
+		write(1, "1\n", 2);
+		item = new_t_item();
+		item->sp = new_t_sphere(0, 0, 10, niark);
+		item->mat = (t_mat*)malloc(sizeof(t_mat));
+		item->mat->diff = new_t_color(1, 1, 1);
+		item->next = NULL; 
+		itemadator(env, item);
+		return(itemadator(env, item));
+	}
 	item = env->item;
 	while(item && i-- > 0)
 		item = item->next;

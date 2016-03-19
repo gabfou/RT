@@ -104,10 +104,22 @@ int			expose_hook(t_env *env)
 			antialiasing(env);
 		env->i++;
 	}
+<<<<<<< HEAD
+	if (env->i > NBTHREAD + 1)
+	{
+		// env->i++;
+		mlx_put_image_to_window(env->mlx, env->win, env->image, 0, 0);
+	}
+	if (env->i <= NBTHREAD + 1)
+	{
+		// printf("env->l = %d\n", env->l);
+		loadator(H_SIZE, L_SIZE, env, env->l);
+=======
 	if (env->i > NBTHREAD + 1/* && env->i < NBTHREAD + 15*/)
 	{
 		env->i++;
 		mlx_put_image_to_window(env->mlx, env->win, env->limg->image, 0, 0);
+>>>>>>> ba4846edf3075cd8ac0ef928a3f0060aa45eb6a4
 	}
 	if (env->i <= NBTHREAD + 1)
 	{
@@ -134,6 +146,15 @@ int			key_down_hook(int keycode, t_env *env)
 	}
 	if ((int)keycode == 53)
 		exit (0);
+	if (keycode == 50)
+	{
+		mlx_destroy_window(env->mlx, env->win);
+		env->win = (env->ft++ % 2 == 0) ? mlx_new_window(env->mlx, L_SIZE + L_SIZEC, H_SIZE, "RTV1") :
+		mlx_new_window(env->mlx, L_SIZE, H_SIZE, "RTV1");
+		mlx_put_image_to_window(env->mlx, env->win, env->image, 0, 0);
+		imgcptor(env);
+		mlx_hook(env->win, 2, 1, key_down_hook, env);
+	}
 	// ft_putchar(keytochar(keycode));
 	comander(keycode, env);
 	return (0);
@@ -150,7 +171,7 @@ int			main(int argc, char **argv)
 	// if (!(i > 0 && argv[1][i++] == '.' && argv[1][i++] == 'b' && argv[1][i++] == 'm' && argv[1][i++] == 'p'))
 	// 	recuperator(&env, argv[1]);
 	init(&env, argc, argv);
-	print_params(env);
+	// print_params(env);
 	init_env(&env);
 	// init(&env);
 	// ft_putendl(env.ktc);

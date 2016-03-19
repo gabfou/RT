@@ -24,6 +24,7 @@
 # include <errno.h>
 # include <pthread.h>
 
+# define L_SIZEC	400
 # define L_SIZE		960
 # define H_SIZE		960
 # define L_RES		480
@@ -233,6 +234,11 @@ typedef	struct		s_env
 	int				done;
 	int				l;
 	int				i;
+<<<<<<< HEAD
+	int				ft;
+
+=======
+>>>>>>> ba4846edf3075cd8ac0ef928a3f0060aa45eb6a4
 }					t_env;
 
 typedef struct		s_cor
@@ -318,5 +324,11 @@ void			init_env(t_env *env);
 char			keytochar(int key);
 void			comander(int key, t_env *env);
 int				modif_sphere(t_env *env, int i, char *line);
+<<<<<<< HEAD
+void			*imgcptor(t_env *env);
+void			*printmusicator(char *addr, t_env *env);
+
+=======
 t_limg			*new_t_limg(t_env *env);
+>>>>>>> ba4846edf3075cd8ac0ef928a3f0060aa45eb6a4
 #endif

@@ -1,10 +1,10 @@
 cam {
 	x: 0,
-	y: -30,
+	y: 0,
 	z: 0,
-	dir_x: 1,
-	dir_y: 2,
-	dir_z: 0,
+	dir_x: 0,
+	dir_y: 0,
+	dir_z: 1,
 	rot: 0
 }
 
@@ -13,8 +13,8 @@ lum {
 	y: -10,
 	z: 10,
 	r: 255,
-	g: 0,
-	b: 0
+	g: 255,
+	b: 255
 }
 
 sphere {
@@ -26,19 +26,6 @@ sphere {
 	b: 0,
 	rad: 1,
 #	mat: 1,
-}
-
-plane {
-	x: 25,
-	y: 0,
-	z: 0,
-	r: 255,
-	g: 0,
-	b: 0,
-	dir_x: -1,
-	dir_y: 0,
-	dir_z: 0,
-	mat: 1
 }
 
 cone {
