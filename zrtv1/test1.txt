@@ -9,72 +9,256 @@ cam {
 }
 
 cam {
-	x: 0,
-	y: -30,
+	x: 3,
+	y: -25,
+	z: 0,
+	dir_x: 1,
+	dir_y: 2,
+	dir_z: 0,
+	rot: 0
+}
+
+cam {
+	x: 6,
+	y: -20,
+	z: 0,
+	dir_x: 1,
+	dir_y: 2,
+	dir_z: 0,
+	rot: 0
+}
+
+cam {
+	x: 9,
+	y: -15,
+	z: 0,
+	dir_x: 1,
+	dir_y: 2,
+	dir_z: 0,
+	rot: 0
+}
+
+cam {
+	x: 12,
+	y: -10,
+	z: 0,
+	dir_x: 1,
+	dir_y: 2,
+	dir_z: 0,
+	rot: 0
+}
+
+
+
+
+cam {
+	x: 12,
+	y: -10,
 	z: 5,
-	dir_x: 1,
-	dir_y: 2,
-	dir_z: 0,
-	rot: 0
-}
-
-cam {
-	x: 0,
-	y: -30,
-	z: 10,
-	dir_x: 1,
-	dir_y: 2,
-	dir_z: 0,
-	rot: 0
-}
-
-cam {
-	x: 0,
-	y: -30,
-	z: 15,
-	dir_x: 1,
-	dir_y: 2,
-	dir_z: 0,
-	rot: 0
-}
-
-cam {
-	x: 0,
-	y: -30,
-	z: 20,
-	dir_x: 1,
-	dir_y: 2,
-	dir_z: 0,
-	rot: 0
-}
-
-cam {
-	x: 0,
-	y: -30,
-	z: 25,
-	dir_x: 1,
+	dir_x: 0,
 	dir_y: 2,
 	dir_z: -1,
 	rot: 0
 }
 
 cam {
-	x: 0,
-	y: -30,
-	z: 30,
+	x: 12,
+	y: -10,
+	z: 10,
+	dir_x: 0,
+	dir_y: 1,
+	dir_z: -1,
+	rot: 0
+}
+
+cam {
+	x: 12,
+	y: -5,
+	z: 10,
 	dir_x: 1,
-	dir_y: 2,
+	dir_y: 0,
 	dir_z: -2,
 	rot: 0
 }
 
 cam {
-	x: 0,
-	y: -25,
-	z: 30,
+	x: 12,
+	y: 0,
+	z: 10,
+	dir_x: 0,
+	dir_y: 0,
+	dir_z: -1,
+	rot: 0
+}
+
+cam {
+	x: 12,
+	y: 0,
+	z: 100,
+	dir_x: -1,
+	dir_y: 0,
+	dir_z: -2,
+	rot: 0
+}
+
+
+cam {
+	x: 12,
+	y: 0,
+	z: 100,
+	dir_x: -1,
+	dir_y: 0,
+	dir_z: -1,
+	rot: 0
+}
+
+cam {
+	x: 12,
+	y: 0,
+	z: 50,
+	dir_x: -2,
+	dir_y: 0,
+	dir_z: -1,
+	rot: 0
+}
+
+
+cam {
+	x: 12,
+	y: 0,
+	z: 0,
+	dir_x: -1,
+	dir_y: 0,
+	dir_z: 0,
+	rot: 0
+}
+
+cam {
+	x: 12,
+	y: 0,
+	z: -50,
+	dir_x: -2,
+	dir_y: 0,
+	dir_z: 1,
+	rot: 0
+}
+
+cam {
+	x: 12,
+	y: 0,
+	z: -100,
+	dir_x: -1,
+	dir_y: 0,
+	dir_z: 1,
+	rot: 0
+}
+
+cam {
+	x: 12,
+	y: 0,
+	z: -100,
+	dir_x: -1,
+	dir_y: 0,
+	dir_z: 2,
+	rot: 0
+}
+
+cam {
+	x: 12,
+	y: 0,
+	z: -100,
+	dir_x: 0,
+	dir_y: 0,
+	dir_z: 1,
+	rot: 0
+}
+
+cam {
+	x: 12,
+	y: 0,
+	z: -100,
+	dir_x: 1,
+	dir_y: 0,
+	dir_z: 2,
+	rot: 0
+}
+
+cam {
+	x: 12,
+	y: 0,
+	z: -100,
+	dir_x: 1,
+	dir_y: 0,
+	dir_z: 1,
+	rot: 0
+}
+
+cam {
+	x: 12,
+	y: 0,
+	z: -50,
+	dir_x: 2,
+	dir_y: 0,
+	dir_z: 1,
+	rot: 0
+}
+
+
+
+
+
+
+
+
+
+
+cam {
+	x: 12,
+	y: -10,
+	z: 0,
 	dir_x: 1,
 	dir_y: 2,
-	dir_z: -2,
+	dir_z: 0,
+	rot: 0
+}
+
+cam {
+	x: 9,
+	y: -15,
+	z: 0,
+	dir_x: 1,
+	dir_y: 2,
+	dir_z: 0,
+	rot: 0
+}
+
+cam {
+	x: 6,
+	y: -20,
+	z: 0,
+	dir_x: 1,
+	dir_y: 2,
+	dir_z: 0,
+	rot: 0
+}
+
+cam {
+	x: 3,
+	y: -25,
+	z: 0,
+	dir_x: 1,
+	dir_y: 2,
+	dir_z: 0,
+	rot: 0
+}
+
+cam {
+	x: 0,
+	y: -30,
+	z: 0,
+	dir_x: 1,
+	dir_y: 2,
+	dir_z: 0,
 	rot: 0
 }
 

@@ -1,8 +1,253 @@
-cam 0 0 0 1 0 0 0
-lum 0 0 0 0 0 255
-sphere 3 0 0 1 1
-sphere 3 -1.3 0 1 1
-plane 5 0 0 -1 0 0 1
-cyl 5 0 0 0 1 0 0.2 1
-cyl 5 1.3 0 0 1 1 0.2 1
-cyl 3. -1.3 0 0 0 1 0.2 1
+cam {
+	x: 0,
+	y: 0,
+	z: 0,
+	dir_x: 1,
+	dir_y: 0,
+	dir_z: 0,
+	rot: 0
+}
+
+cam {
+	x: 0,
+	y: 0,
+	z: 50,
+	dir_x: 2,
+	dir_y: 0,
+	dir_z: -1,
+	rot: 0
+}
+
+cam {
+	x: 0,
+	y: 0,
+	z: 100,
+	dir_x: 1,
+	dir_y: 0,
+	dir_z: -1,
+	rot: 0
+}
+
+cam {
+	x: 50,
+	y: 0,
+	z: 100,
+	dir_x: 1,
+	dir_y: 0,
+	dir_z: -2,
+	rot: 0
+}
+
+cam {
+	x: 100,
+	y: 0,
+	z: 100,
+	dir_x: 0,
+	dir_y: 0,
+	dir_z: -1,
+	rot: 0
+}
+
+cam {
+	x: 150,
+	y: 0,
+	z: 100,
+	dir_x: -1,
+	dir_y: 0,
+	dir_z: -2,
+	rot: 0
+}
+
+
+cam {
+	x: 200,
+	y: 0,
+	z: 100,
+	dir_x: -1,
+	dir_y: 0,
+	dir_z: -1,
+	rot: 0
+}
+
+cam {
+	x: 200,
+	y: 0,
+	z: 50,
+	dir_x: -2,
+	dir_y: 0,
+	dir_z: -1,
+	rot: 0
+}
+
+
+cam {
+	x: 200,
+	y: 0,
+	z: 0,
+	dir_x: -1,
+	dir_y: 0,
+	dir_z: 0,
+	rot: 0
+}
+
+cam {
+	x: 200,
+	y: 0,
+	z: -50,
+	dir_x: -2,
+	dir_y: 0,
+	dir_z: 1,
+	rot: 0
+}
+
+cam {
+	x: 200,
+	y: 0,
+	z: -100,
+	dir_x: -1,
+	dir_y: 0,
+	dir_z: 1,
+	rot: 0
+}
+
+cam {
+	x: 150,
+	y: 0,
+	z: -100,
+	dir_x: -1,
+	dir_y: 0,
+	dir_z: 2,
+	rot: 0
+}
+
+cam {
+	x: 100,
+	y: 0,
+	z: -100,
+	dir_x: 0,
+	dir_y: 0,
+	dir_z: 1,
+	rot: 0
+}
+
+cam {
+	x: 50,
+	y: 0,
+	z: -100,
+	dir_x: 1,
+	dir_y: 0,
+	dir_z: 2,
+	rot: 0
+}
+
+cam {
+	x: 0,
+	y: 0,
+	z: -100,
+	dir_x: 1,
+	dir_y: 0,
+	dir_z: 1,
+	rot: 0
+}
+
+cam {
+	x: 0,
+	y: 0,
+	z: -50,
+	dir_x: 2,
+	dir_y: 0,
+	dir_z: 1,
+	rot: 0
+}
+
+lum {
+	x: 50,
+	y: 0,
+	z: 0,
+	r: 0,
+	g: 0,
+	b: 255
+}
+
+lum {
+	x: 150,
+	y: 0,
+	z: 0,
+	r: 255,
+	g: 0,
+	b: 0
+}
+
+sphere {
+	x: 100,
+	y: 0,
+	z: 0,
+	rad: 3,
+	mat: 1
+}
+
+cone {
+	x: 100,
+	y: 0,
+	z: 0,
+	dir_x: 0,
+	dir_y: 1,
+	dir_z: 0,
+	angle: 10,
+	mat: 1
+}
+
+
+cone {
+	x: 100,
+	y: 0,
+	z: 0,
+	dir_x: 0,
+	dir_y: 1,
+	dir_z: 1,
+	angle: 10,
+	mat: 1
+}
+
+cone {
+	x: 100,
+	y: 0,
+	z: 0,
+	dir_x: 0,
+	dir_y: 0,
+	dir_z: 1,
+	angle: 10,
+	mat: 1
+}
+
+
+cone {
+	x: 100,
+	y: 0,
+	z: 0,
+	dir_x: 0,
+	dir_y: 1,
+	dir_z: -1,
+	angle: 10,
+	mat: 1
+}
+
+plane {
+	x: 300,
+	y: 0,
+	z: 0,
+	dir_x: -1,
+	dir_y: 0,
+	dir_z: 0,
+	mat: 1
+}
+
+plane {
+	x: -300,
+	y: 0,
+	z: 0,
+	dir_x: 1,
+	dir_y: 0,
+	dir_z: 0,
+	mat: 1
+}

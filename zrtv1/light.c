@@ -72,9 +72,9 @@ float	l_color(float i, float a)
 
 int		comparator_pos(t_inter *inter, t_inter *einter)
 {
-	if ((inter->pos->x > einter->pos->x - 0.1 && inter->pos->x < einter->pos->x + 0.1) 
-		&& (inter->pos->y > einter->pos->y - 0.1 && inter->pos->y < einter->pos->y + 0.1) 
-		&& (inter->pos->z > einter->pos->z - 0.1 && inter->pos->z < einter->pos->z + 0.1))
+	if ((inter->pos->x > einter->pos->x - 0.01 && inter->pos->x < einter->pos->x + 0.01) 
+		&& (inter->pos->y > einter->pos->y - 0.01 && inter->pos->y < einter->pos->y + 0.01) 
+		&& (inter->pos->z > einter->pos->z - 0.01 && inter->pos->z < einter->pos->z + 0.01))
 	{
 		return (1);
 	}
@@ -117,6 +117,12 @@ void		luminator(t_env *e, t_thr *f)
 		angle = M_PI_2 - acos(dot_prod(lvec->dir, f->inter->norm));
 		angle = (angle > 0) ? angle : -angle;
 		//ft_putendl("light 4");
+		//printf("%f\n", angle);
+		// if (angle > 1.35)
+		// {
+		// 	//ft_putendl("doublement");
+		// 	angle = angle * 1.5;
+		// }
 		trans = 0;
 		if (inter->trans != NULL)
 		{

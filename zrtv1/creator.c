@@ -147,10 +147,11 @@ void		creator(t_cor *c)
 		}
 		f->cam = f->cam->next;
 		f->limg = f->limg->next;
+		c->env->i++;
 		ft_putendl("NEXTEUH");
 	}
 	//antialiasing(env);
-	c->env->i++;
+	
 	pthread_exit(NULL);
 }
 // void		creator(t_cor *c)

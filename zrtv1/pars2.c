@@ -105,7 +105,10 @@ t_cam			*set_cam(char **t)
 	cam->dir = (new_t_vec(ft_fatoi(t[4]), ft_fatoi(t[5]), ft_fatoi(t[6])));
 	cam->angle = ft_fatoi(t[7]);
 	normalizator(cam->dir);
-	cam->up = new_t_vec(0, 1, 0);
+	if (cam->dir->x == 0 && cam->dir->z == 0 && (cam->dir->y == 1 || cam->dir->y == -1))
+		cam->up = new_t_vec(1, 0, 0);
+	else
+		cam->up = new_t_vec(0, 1, 0);
 	cam->right = prod_vector(cam->dir, cam->up);
 	// ft_putendl("right");
 	normalizator(cam->right);

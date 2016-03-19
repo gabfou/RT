@@ -172,7 +172,7 @@ void		init_camera(t_env *env, t_list **tokens)
 	ft_putendl("CAM CREATE1");
 	cam = (t_cam*)malloc(sizeof(t_cam));
 	next_elem(tokens);
-	ft_putendl("CAM CREATE1.2");
+	// ft_putendl("CAM CREATE1.2");
 	while (!terminal(&(*tokens), CLOSING_BRACKET))
 	{
 		if (ft_strcmp(get_token(tokens)->lexeme, "x") == 0)
@@ -191,23 +191,26 @@ void		init_camera(t_env *env, t_list **tokens)
 			rot = token_to_float(tokens);
 		next_elem(tokens);
 	}
-	ft_putendl("CAM CREATE1.5");
+	// ft_putendl("CAM CREATE1.5");
 	cam->pos = new_t_vec(pos.x, pos.y, pos.z);
 	cam->dir = new_t_vec(dir.x, dir.y, dir.z);
-	ft_putendl("CAM CREATE1.8");
+	// ft_putendl("CAM CREATE1.8");
 	normalizator(cam->dir);
 	cam->angle = rot;
-	ft_putendl("CAM CREATE2");
-	cam->up = new_t_vec(0, 1, 0);
+	// ft_putendl("CAM CREATE2");
+	if (cam->dir->x == 0 && cam->dir->z == 0 && (cam->dir->y == 1 || cam->dir->y == -1))
+		cam->up = new_t_vec(1, 0, 0);
+	else
+		cam->up = new_t_vec(0, 1, 0);
 	cam->right = prod_vector(cam->dir, cam->up);
-	ft_putendl("CAM CREATE2.1");
+	// ft_putendl("CAM CREATE2.1");
 	normalizator(cam->right);
 	cam->up = prod_vector(cam->dir, cam->right);
-	ft_putendl("CAM CREATE2.5");
+	// ft_putendl("CAM CREATE2.5");
 	normalizator(cam->up);
-	ft_putendl("CAM CREATE2.8");
+	// ft_putendl("CAM CREATE2.8");
 	cam->upleft = set_screen(cam);
-	ft_putendl("CAM CREATE3");
+	// ft_putendl("CAM CREATE3");
 	if (!env->cam)
 		env->cam = cam;
 	else
@@ -217,6 +220,7 @@ void		init_camera(t_env *env, t_list **tokens)
 			copy = copy->next;
 		copy->next = cam;
 	}
+	ft_putendl("CAM CREATE END");
 }
 
 // void		init_camera(t_env *env, t_list **tokens)

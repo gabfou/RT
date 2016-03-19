@@ -122,7 +122,7 @@ typedef struct		s_trans
 
 typedef	struct		s_inter
 {
-	float			t;
+	double			t;
 	t_vec			*norm;
 	t_vec			*pos;
 	t_trans			*trans;

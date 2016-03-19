@@ -109,11 +109,11 @@ int			expose_hook(t_env *env)
 		env->i++;
 		mlx_put_image_to_window(env->mlx, env->win, env->limg->image, 0, 0);
 	}
-	// if (env->i <= NBTHREAD + 1)
-	// {
-	// 	// printf("env->l = %d\n", env->l);
-	// 	loadator(H_SIZE, L_SIZE, env, env->l);
-	// }
+	if (env->i <= NBTHREAD + 1)
+	{
+		// printf("env->l = %d\n", env->l);
+		loadator(H_SIZE, L_SIZE, env, env->l);
+	}
 	//env->done = 1;
 	return (0);
 }
