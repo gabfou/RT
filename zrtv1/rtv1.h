@@ -182,6 +182,8 @@ typedef	struct			s_limg
 {
 	void			*image;
 	char			*img;
+	int				bpp;
+	int				sline;
 	struct	s_limg	*prev;
 	struct	s_limg	*next;
 }					t_limg;
@@ -220,9 +222,9 @@ typedef	struct		s_env
 	void			*image;
 //	char			*img;
 	int				**t;
-	int				bpp;
+	// int				bpp;
 	int				endiant;
-	int				sline;
+	// int				sline;
 	t_limg			*limg;
 
 	t_cam			*cam;
@@ -249,7 +251,7 @@ typedef struct		s_cor
 void			recuperator(t_env *e, char *name);
 // void			mega_initiator(t_env *e, char *name);
 //void			pixel_to_image(t_env *s, int x, int y, unsigned int color);
-void		pixel_to_image(t_env *s, int x, int y, unsigned int color , char *img);
+void		pixel_to_image(int x, int y, unsigned int color , t_limg *limg);
 int				expose_hook(t_env *env);
 int				key_down_hook(int keycode, t_env *env);
 int				main(int argc, char **argv);
