@@ -42,6 +42,11 @@ void	loadator(int h, int l, t_env *e, int nb) // ca c est la bar
 	static int k = 1;
 	char r[4];
 
+	if (h == -1)
+	{
+		k = 1;
+		return ;
+	}
 	if (nb > ((int)(h * l) / 100) * k && e->i != NBTHREAD + 1)
 	{
 		while (nb > ((int)(h * l) / 100) * k)

@@ -460,6 +460,7 @@ void		init_env(t_env *env)
 	env->image = mlx_new_image(env->mlx, L_SIZE, H_SIZE);
 	env->img = mlx_get_data_addr(env->image, &env->bpp, &env->sline, &env->endiant);
 	env->i = 1;
+	env->ft = 0;
 	// initktc(env);
 	ft_putendl("ASFGDSHBSHSRRSH");
 }
@@ -488,12 +489,18 @@ void		init_all(t_env *env, t_list *tokens)
 	}
 }
 
+void		initpre(t_env *e)
+{
+	e->item = NULL;
+}
+
 void		init(t_env *env, int argc, char **argv)
 {
 	int		fd;
 	t_list	*tokens;
 	t_list	*save;
 
+	initpre(env);
 	fd = access_file(argc, argv);
 	tokens = get_tokens(fd);
 	save = tokens;

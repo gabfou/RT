@@ -125,6 +125,10 @@ void	comadator(char *line, t_env *env)
 		ft_putendl(last);
 	if (ft_strcmp(line, "refresh") == 0)
 	{
+		env->l = 0;
+		env->i = 1;
+		env->done = 0;
+		loadator(-1, -1, NULL, -1);
 		thread_master(env);
 	}
 	if (ft_strcmp(line, "s") == 0)
@@ -171,5 +175,6 @@ void	comander(int key, t_env *env)
 	}
 	mlx_clear_window(env->mlx, env->win);
 	mlx_put_image_to_window(env->mlx, env->win, env->image, 0, 0);
-	mlx_string_put(env->mlx, env->win, L_SIZE / 2 - 20, H_SIZE / 2, 0xFFFFFF, stat);
+	if (env->ft % 2 == 1)
+		mlx_string_put(env->mlx, env->win, L_SIZE + 2, H_SIZE - 30, 0xFFFFFF, stat);
 }
