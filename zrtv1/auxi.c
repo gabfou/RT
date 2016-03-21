@@ -12,39 +12,39 @@
 
 #include "rtv1.h"
 
-float		get_dist(t_vec *v1, t_vec *v2)
+float		get_dist(t_vec v1, t_vec v2)
 {
-	return (sqrt(carre(v2->x - v1->x) + carre(v2->y - v1->y) + carre(v2->z - v1->z)));
+	return (sqrt(carre(v2.x - v1.x) + carre(v2.y - v1.y) + carre(v2.z - v1.z)));
 }
 
-t_vec		*vec_mult(t_vec *v1, float x)
+t_vec		vec_mult(t_vec v1, float x)
 {
-	return (new_t_vec(v1->x * x , v1->y * x, v1->z * x));
+	return (new_t_vec(v1.x * x , v1.y * x, v1.z * x));
 }
 
-t_vec		*prod_vector(t_vec *v1, t_vec *v2)
+t_vec		prod_vector(t_vec v1, t_vec v2)
 {
-	return (new_t_vec(v1->y * v2->z - v1->z * v2->y, v1->z * v2->x - v1->x * v2->z,  v1->x * v2->y - v1->y * v2->x));
+	return (new_t_vec(v1.y * v2.z - v1.z * v2.y, v1.z * v2.x - v1.x * v2.z,  v1.x * v2.y - v1.y * v2.x));
 }
 
-t_vec		*sub_vec(t_vec *v1, t_vec *v2)
+t_vec		sub_vec(t_vec v1, t_vec v2)
 {
-	return (new_t_vec(v1->x - v2->x , v1->y - v2->y, v1->z - v2->z));
+	return (new_t_vec(v1.x - v2.x , v1.y - v2.y, v1.z - v2.z));
 }
 
-t_vec		*add_vec(t_vec *v1, t_vec *v2)
+t_vec		add_vec(t_vec v1, t_vec v2)
 {
-	return (new_t_vec(v1->x + v2->x , v1->y + v2->y, v1->z + v2->z));
+	return (new_t_vec(v1.x + v2.x , v1.y + v2.y, v1.z + v2.z));
 }
 
-float		dot_prod(t_vec *v1, t_vec *v2)
+float		dot_prod(t_vec v1, t_vec v2)
 {
-	return (v1->x * v2->x + v1->y * v2->y + v1->z * v2->z);
+	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
 }
 
-t_vec		*vector_proj_vector(t_vec *v1, t_vec *v2) // project vector 1 in vector 2
+t_vec		vector_proj_vector(t_vec v1, t_vec v2) // project vector 1 in vector 2
 {
-	t_vec	*ret;
+	t_vec	ret;
 
 	ret = vec_mult(v2, dot_prod(v1, v2) / dot_prod(v2, v2));
 	return (ret);
@@ -69,11 +69,11 @@ void		ft_puttab(char **tab)
 	}
 }
 
-void		print_vec(t_vec *vec)
+void		print_vec(t_vec vec)
 {
-	printf("x = [%f]\n", vec->x);
-	printf("y = [%f]\n", vec->y);
-	printf("z = [%f]\n\n", vec->z);
+	printf("x = [%f]\n", vec.x);
+	printf("y = [%f]\n", vec.y);
+	printf("z = [%f]\n\n", vec.z);
 }
 
 float	fatoi_aux(char *str, float *si, float *di)
@@ -140,16 +140,16 @@ float	carre(float x)
 	return (x * x);
 }
 
-t_vec	*set_new_pos(t_vec *dir, t_vec *pos, float dist)
+t_vec	set_new_pos(t_vec dir, t_vec pos, float dist)
 {
-	return (new_t_vec(pos->x + (dir->x * dist), pos->y + (dir->y * dist), pos->z + (dir->z * dist)));
+	return (new_t_vec(pos.x + (dir.x * dist), pos.y + (dir.y * dist), pos.z + (dir.z * dist)));
 }
 
 void	set_inter_pos(t_inter *inter, t_pd *pd)
 {
-	inter->pos->x = (pd->pos->x + (pd->dir->x * inter->t));
-	inter->pos->y = (pd->pos->y + (pd->dir->y * inter->t));
-	inter->pos->z = (pd->pos->z + (pd->dir->z * inter->t));
+	inter->pos.x = (pd->pos.x + (pd->dir.x * inter->t));
+	inter->pos.y = (pd->pos.y + (pd->dir.y * inter->t));
+	inter->pos.z = (pd->pos.z + (pd->dir.z * inter->t));
 }
 
 int		check_t(t_inter *inter, float t, float trans)

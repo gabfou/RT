@@ -12,59 +12,38 @@
 
 #include "rtv1.h"
 
-void		parser_test(t_env *env)
-{
-	t_item *lst;
-	t_light *lum;
-	int		i;
-
-	i = 0;
-	lum = env->light;
-	lst = env->item;
-	printf("CAM posx %f posy %f posz %f\n", env->cam->pos->x, env->cam->pos->y, env->cam->pos->z);
-	printf("CAM dirx %f diry %f dirz %f\n", env->cam->dir->x, env->cam->dir->y, env->cam->dir->z);
-	while (lst != NULL)
-	{
-		i++;
-		ft_putnbr(i);
-		if (lst->sp != NULL)
-			printf("%d SP posx %f posy %f posz %f ray %f\n", i, lst->sp->c->x, lst->sp->c->y, lst->sp->c->z, lst->sp->ray);
-		if (lst->pl != NULL)
-		{
-			printf("%d PL posx %f posy %f posz %f\n", i, lst->pl->pos->x, lst->pl->pos->y, lst->pl->pos->z);
-			printf("%d PL dirx %f diry %f dirz %f\n", i, lst->pl->dir->x, lst->pl->dir->y, lst->pl->dir->z);
-		}
-		lst = lst->next;
-	}
-	while (lum != NULL)
-	{
-		i++;
-		ft_putnbr(i);
-		printf("%d LUM posx %f posy %f posz %f\n", i, lum->pos->x, lum->pos->y, lum->pos->z);
-		lum = lum->next;
-	}
-	ft_putendl("parser_test fin");
-}
-
-// void		pixel_to_image(t_env *s, int x, int y, unsigned int color)
+// void		parser_test(t_env *env)
 // {
-// 	unsigned int	off;
-// 	int r;
-// 	int g;
-// 	int b;
+// 	t_item *lst;
+// 	t_light *lum;
+// 	int		i;
 
-// 	r = (color >> 16) & 0xFF;
-// 	g = (color >> 8) & 0xFF;
-// 	b = (color >> 0) & 0xFF;
-// 	r = (r > 255)? 255: r;
-// 	g = (g > 255)? 255: g;
-// 	b = (b > 255)? 255: b;
-// 	off = y * s->sline + x * s->bpp / 8;
-// 	if (x < 0 || y < 0 || y > H_SIZE || x > L_SIZE)
-// 		return ;
-// 	s->img[off] = color >> 0;
-// 	s->img[off + 1] = color >> 8;
-// 	s->img[off + 2] = color >> 16;
+// 	i = 0;
+// 	lum = env->light;
+// 	lst = env->item;
+// 	printf("CAM posx %f posy %f posz %f\n", env->cam->pos->x, env->cam->pos->y, env->cam->pos->z);
+// 	printf("CAM dirx %f diry %f dirz %f\n", env->cam->dir->x, env->cam->dir->y, env->cam->dir->z);
+// 	while (lst != NULL)
+// 	{
+// 		i++;
+// 		ft_putnbr(i);
+// 		if (lst->sp != NULL)
+// 			printf("%d SP posx %f posy %f posz %f ray %f\n", i, lst->sp->c->x, lst->sp->c->y, lst->sp->c->z, lst->sp->ray);
+// 		if (lst->pl != NULL)
+// 		{
+// 			printf("%d PL posx %f posy %f posz %f\n", i, lst->pl->pos->x, lst->pl->pos->y, lst->pl->pos->z);
+// 			printf("%d PL dirx %f diry %f dirz %f\n", i, lst->pl->dir->x, lst->pl->dir->y, lst->pl->dir->z);
+// 		}
+// 		lst = lst->next;
+// 	}
+// 	while (lum != NULL)
+// 	{
+// 		i++;
+// 		ft_putnbr(i);
+// 		printf("%d LUM posx %f posy %f posz %f\n", i, lum->pos->x, lum->pos->y, lum->pos->z);
+// 		lum = lum->next;
+// 	}
+// 	ft_putendl("parser_test fin");
 // }
 
 void		pixel_to_image(int x, int y, unsigned int color , t_limg *limg)
@@ -202,14 +181,10 @@ int			main(int argc, char **argv)
 	t_env		*first;
 	int			i;
 
-	//ft_putendl("post1");
-	// if (argc != 2)
-	// 	ft_error("probleme d'argument");
-	// i = ft_strlen(argv[1]) - 4;
-	// if (!(i > 0 && argv[1][i++] == '.' && argv[1][i++] == 'b' && argv[1][i++] == 'm' && argv[1][i++] == 'p'))
-	// 	recuperator(&env, argv[1]);
 	i = 1;
 //	ft_putnbr(argc);
+	if (argc == 1)
+		exit(0);
 	while (i < argc)
 	{
 	//	ft_putendl("post2");

@@ -66,35 +66,35 @@ typedef	struct		s_vec
 
 typedef	struct		s_sphere
 {
-	t_vec			*c;
+	t_vec			c;
 	float			ray;
 }					t_sphere;
 
 typedef	struct		s_cyl
 {
-	t_vec			*pos;
-	t_vec			*dir;
+	t_vec			pos;
+	t_vec			dir;
 	float			ray;
 }					t_cyl;
 
 typedef	struct		s_con
 {
-	t_vec			*pos;
-	t_vec			*dir;
+	t_vec			pos;
+	t_vec			dir;
 	float			ang;
 }					t_con;
 
 typedef	struct		s_light
 {
-	t_vec			*pos;
+	t_vec			pos;
 	unsigned int	color;
 	struct s_light	*next;
 }					t_light;
 
 typedef	struct		s_pd
 {
-	t_vec			*pos;
-	t_vec			*dir;
+	t_vec			pos;
+	t_vec			dir;
 }					t_pd;
 
 typedef	struct		s_item
@@ -124,22 +124,22 @@ typedef struct		s_trans
 typedef	struct		s_inter
 {
 	double			t;
-	t_vec			*norm;
-	t_vec			*pos;
+	t_vec			norm;
+	t_vec			pos;
 	t_trans			*trans;
 }					t_inter;
 
 // typedef	struct		s_screen
 // {
-// 	t_vec			*upleft;
+// 	t_vec			upleft;
 // }					t_screen;
 
 // typedef	struct		s_cam
 // {
-// 	t_vec			*pos;
-// 	t_vec			*dir;
-// 	t_vec			*up;
-// 	t_vec			*right;
+// 	t_vec			pos;
+// 	t_vec			dir;
+// 	t_vec			up;
+// 	t_vec			right;
 // 	float			angle;
 // }					t_cam;
 
@@ -190,12 +190,12 @@ typedef	struct			s_limg
 
 typedef	struct			s_cam
 {
-	t_vec			*pos;
-	t_vec			*dir;
-	t_vec			*up;
-	t_vec			*right;
+	t_vec			pos;
+	t_vec			dir;
+	t_vec			up;
+	t_vec			right;
 	float			angle;
-	t_vec			*upleft;
+	t_vec			upleft;
 	struct	s_cam	*next;
 	// struct	s_cam	*prev;
 }					t_cam;
@@ -268,7 +268,7 @@ t_pd			*t_plane_creator(float x, float y, float z, float dx, float dy, float dz)
 t_sphere		*new_t_sphere(float x, float y, float z, float r);
 unsigned int	get_color(int r, int g, int b);
 t_light			*new_t_light();
-t_vec			*new_t_vec(float x, float y, float z);
+t_vec			new_t_vec(float x, float y, float z);
 void			creator(t_cor *c);
 t_inter			*new_t_inter();
 float			carre(float x);
@@ -281,7 +281,7 @@ int				check_t(t_inter *inter, float t, float trans);
 void			check_sphere(t_item *item, t_pd *s, t_inter *inter);
 void			check_plane(t_item *item, t_pd *s, t_inter *inter);
 void			normalizator(t_vec *vec);
-t_vec			*normalizator_ret(t_vec *vec);
+t_vec			normalizator_ret(t_vec vec);
 float			ft_fatoi(char *s);
 
 void			impactor(t_env *env, t_pd *pd, t_thr *f, t_inter *inter);
@@ -289,24 +289,24 @@ void			impactor(t_env *env, t_pd *pd, t_thr *f, t_inter *inter);
 void			luminator(t_env *e, t_thr *f);
 
 t_light			*fill_t_light(char **t, t_light *light);
-void			print_vec(t_vec *vec);
+void			print_vec(t_vec vec);
 void			ft_puttab(char **tab);
-t_vec			*prod_vector(t_vec *v1, t_vec *v2);
+t_vec			prod_vector(t_vec v1, t_vec v2);
 t_cyl			*t_cyl_creator(float x, float y, float z, float x1, float y1, float z1, float ray);
 t_con			*t_con_creator(float x, float y, float z, float x1, float y1, float z1, float ang);
-t_vec			*sub_vec(t_vec *v1, t_vec *v2);
-t_vec			*add_vec(t_vec *v1, t_vec *v2);
-float			dot_prod(t_vec *v1, t_vec *v2);
+t_vec			sub_vec(t_vec v1, t_vec v2);
+t_vec			add_vec(t_vec v1, t_vec v2);
+float			dot_prod(t_vec v1, t_vec v2);
 float			ft_min(float a, float b);
-t_vec			*vec_mult(t_vec *v1, float x);
-t_vec			*vector_proj_vector(t_vec *v1, t_vec *v2);
+t_vec			vec_mult(t_vec v1, float x);
+t_vec			vector_proj_vector(t_vec v1, t_vec v2);
 
 void			check_con(t_item *item, t_pd *s, t_inter *inter);
 
 void			loadator(int h, int l, t_leviatenv *e, int nb);
 void			antialiasing(t_env *s);
-float			get_dist(t_vec *v1, t_vec *v2);
-t_vec			*set_new_pos(t_vec *dir, t_vec *pos, float dist);
+float			get_dist(t_vec v1, t_vec v2);
+t_vec			set_new_pos(t_vec dir, t_vec pos, float dist);
 
 void			check_cyl(t_item *item, t_pd *s, t_inter *inter);
 
@@ -332,4 +332,10 @@ void			*imgcptor(t_env *env);
 void			*printmusicator(t_limg *addr, t_env *env);
 
 t_limg          *new_t_limg(t_leviatenv *env);
+void			print_tokens(t_list *tokens);
+int				access_file(int argc, char *argv);
+t_list			*get_tokens(int fd);
+void			delete_symbols(t_list **tokens);
+float			token_to_float(t_list **tokens);
+
 #endif

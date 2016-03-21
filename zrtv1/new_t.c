@@ -35,14 +35,14 @@ t_trans			*new_t_trans(float t, float colabs)
 	return (trans);
 }
 
-t_vec		*new_t_vec(float x, float y, float z)
+t_vec		new_t_vec(float x, float y, float z)
 {
-	t_vec		*pos;
+	t_vec		pos;
 
-	pos = malloc(sizeof(t_vec));
-	pos->x = x;
-	pos->y = y;
-	pos->z = z;
+	// pos = malloc(sizeof(t_vec));
+	pos.x = x;
+	pos.y = y;
+	pos.z = z;
 	return (pos);
 }
 
@@ -51,8 +51,8 @@ t_pd		*new_t_pd()
 	t_pd		*cam;
 
 	cam = malloc(sizeof(t_pd));
-	cam->pos = NULL;
-	cam->dir = NULL;
+	// cam->pos = NULL;
+	// cam->dir = NULL;
 	return (cam);
 }
 

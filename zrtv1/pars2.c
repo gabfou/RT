@@ -96,28 +96,28 @@ t_item			*fill_t_item(char **t, t_item *item)
 // 	return (screen);
 // }
 
-t_cam			*set_cam(char **t)
-{
-	t_cam	*cam;
+// t_cam			*set_cam(char **t)
+// {
+// 	t_cam	*cam;
 
-	cam = malloc(sizeof(t_cam));
-	cam->pos = new_t_vec(ft_fatoi(t[1]), ft_fatoi(t[2]), ft_fatoi(t[3]));
-	cam->dir = (new_t_vec(ft_fatoi(t[4]), ft_fatoi(t[5]), ft_fatoi(t[6])));
-	cam->angle = ft_fatoi(t[7]);
-	normalizator(cam->dir);
-	if (cam->dir->x == 0 && cam->dir->z == 0 && (cam->dir->y == 1 || cam->dir->y == -1))
-		cam->up = new_t_vec(1, 0, 0);
-	else
-		cam->up = new_t_vec(0, 1, 0);
-	cam->right = prod_vector(cam->dir, cam->up);
-	// ft_putendl("right");
-	normalizator(cam->right);
-	// print_vec(cam->right);
-	cam->up = prod_vector(cam->dir, cam->right);
-	// ft_putendl("up");
-	// print_vec(cam->up);
-	return (cam);
-}
+// 	cam = malloc(sizeof(t_cam));
+// 	cam->pos = new_t_vec(ft_fatoi(t[1]), ft_fatoi(t[2]), ft_fatoi(t[3]));
+// 	cam->dir = (new_t_vec(ft_fatoi(t[4]), ft_fatoi(t[5]), ft_fatoi(t[6])));
+// 	cam->angle = ft_fatoi(t[7]);
+// 	normalizator(cam->dir);
+// 	if (cam->dir->x == 0 && cam->dir->z == 0 && (cam->dir->y == 1 || cam->dir->y == -1))
+// 		cam->up = new_t_vec(1, 0, 0);
+// 	else
+// 		cam->up = new_t_vec(0, 1, 0);
+// 	cam->right = prod_vector(cam->dir, cam->up);
+// 	// ft_putendl("right");
+// 	normalizator(cam->right);
+// 	// print_vec(cam->right);
+// 	cam->up = prod_vector(cam->dir, cam->right);
+// 	// ft_putendl("up");
+// 	// print_vec(cam->up);
+// 	return (cam);
+// }
 
 void			check_check(t_check check)
 {

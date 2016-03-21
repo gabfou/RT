@@ -12,89 +12,6 @@
 
 #include "rtv1.h"
 
-// void		initktc(t_env *e)
-// {
-// 	char *tab;
-
-// 	//(void)(e);
-// 	tab = malloc(1000);
-// 	//ft_bzero((tab), 1000);
-// 	e->ktc = ft_strdup("test");
-// 	ft_putendl(e->ktc);
-// }
-
-void	print_tokens(t_list *tokens)
-{
-	// UNUSED(tokens);
-	// printf("lol\n");
-	while (tokens)
-	{
-		ft_putendl(get_token(&tokens)->lexeme);
-		next_elem(&tokens);
-	}
-}
-
-int			access_file(int argc, char *argv)
-{
-	int	fd;
-
-	(void)argc;
-	// if (argc < 2)
-	// 	fatal_error(RAYTRACER, ERR_TOO_FEW_ARGS, 0);
-	// if (argc > 2)
-		// fatal_error(RAYTRACER, ERR_TOO_MANY_ARGS, 0);
-	if (access(argv, F_OK))
-		fatal_error(RAYTRACER, ERR_NO_DIR, 0);
-	if (access(argv, R_OK))
-		fatal_error(RAYTRACER, ERR_PERMISSION_DENIED, 0);
-	fd = open(argv, O_RDONLY);
-	if (fd == -1)
-		fatal_error(RAYTRACER, ERR_INACCESSIBLE, 0);
-	return (fd);
-}
-
-t_list		*get_tokens(int fd)
-{
-	int		line_number;
-	char	*line;
-	t_list	*tokens;
-
-	line_number = 1;
-	tokens = 0;
-	while (get_next_line(fd, &line))
-	{
-		// WRITE(1, "lol\n");
-		if (line[0] != '#')
-			ft_lstappend(&tokens, tokenize(line, line_number));
-		line_number++;
-		free(line);
-	}
-	return (tokens);
-
-}
-
-void	delete_symbols(t_list **tokens)
-{
-	t_list	*save;
-
-	save = *tokens;
-	while ((*tokens)->next)
-	{
-		if (!terminal(&(*tokens)->next, WORD) && !terminal(&(*tokens)->next, CLOSING_BRACKET))
-		{
-			if ((*tokens)->next->next)
-				(*tokens)->next = (*tokens)->next->next;
-			else
-				(*tokens)->next = NULL;
-		}
-		if ((*tokens)->next)
-			next_elem(tokens);
-		else
-			break ;
-	}
-	(*tokens) = save;
-}
-
 void	print_params(t_env env)
 {
 	t_light	*light;
@@ -103,12 +20,12 @@ void	print_params(t_env env)
 	light = env.light;
 	item = env.item;
 
-	printf("pos x = %f\npos y = %f\npos z = %f\n", env.cam->pos->x, env.cam->pos->y, env.cam->pos->z);
+	printf("pos x = %f\npos y = %f\npos z = %f\n", env.cam->pos.x, env.cam->pos.y, env.cam->pos.z);
 	while (light)
 	{
-		printf("Light : x = %f; y = %f; z = %f; color = %d;\n", light->pos->x,
-														   light->pos->y,
-														   light->pos->z,
+		printf("Light : x = %f; y = %f; z = %f; color = %d;\n", light->pos.x,
+														   light->pos.y,
+														   light->pos.z,
 														   light->color);
 
 		light = light->next;
@@ -116,41 +33,35 @@ void	print_params(t_env env)
 	while (item)
 	{
 		if (item->sp)
-			printf("Sphere : x = %f; y = %f; z = %f;\n", item->sp->c->x,
-															   item->sp->c->y,
-															   item->sp->c->z);
+			printf("Sphere : x = %f; y = %f; z = %f;\n", item->sp->c.x,
+															   item->sp->c.y,
+															   item->sp->c.z);
 		if (item->pl)
-			printf("Plane : x = %f; y = %f; z = %f;\n", item->pl->pos->x,
-															   item->pl->pos->y,
-															   item->pl->pos->z);
+			printf("Plane : x = %f; y = %f; z = %f;\n", item->pl->pos.x,
+															   item->pl->pos.y,
+															   item->pl->pos.z);
 		if (item->con)
-			printf("Cone : x = %f; y = %f; z = %f;\n", item->con->pos->x,
-															   item->con->pos->y,
-															   item->con->pos->z);
+			printf("Cone : x = %f; y = %f; z = %f;\n", item->con->pos.x,
+															   item->con->pos.y,
+															   item->con->pos.z);
 		if (item->cyl)
-			printf("Cyl : x = %f; y = %f; z = %f;\n", item->cyl->pos->x,
-															   item->cyl->pos->y,
-															   item->cyl->pos->z);
+			printf("Cyl : x = %f; y = %f; z = %f;\n", item->cyl->pos.x,
+															   item->cyl->pos.y,
+															   item->cyl->pos.z);
 
 		item = item->next;
 	}
 }
 
-float		token_to_float(t_list **tokens)
-{
-	next_elem(tokens);
-	return (ft_fatoi(get_token(tokens)->lexeme));
-}
-
-t_vec		*set_screen(t_cam *cam)
+t_vec		set_screen(t_cam *cam)
 {
 	float		x;
 	float		y;
 	float		z;
 
-	x = cam->dir->x * SCR_DIST - cam->up->x * SCR_H - cam->right->x * SCR_L;
-	y = cam->dir->y * SCR_DIST - cam->up->y * SCR_H - cam->right->y * SCR_L;
-	z = cam->dir->z * SCR_DIST - cam->up->z * SCR_H - cam->right->z * SCR_L;
+	x = cam->dir.x * SCR_DIST - cam->up.x * SCR_H - cam->right.x * SCR_L;
+	y = cam->dir.y * SCR_DIST - cam->up.y * SCR_H - cam->right.y * SCR_L;
+	z = cam->dir.z * SCR_DIST - cam->up.z * SCR_H - cam->right.z * SCR_L;
 	return (new_t_vec(x, y, z));
 	// print_vec(screen->upleft);
 }
@@ -196,19 +107,19 @@ void		init_camera(t_env *env, t_list **tokens)
 	cam->pos = new_t_vec(pos.x, pos.y, pos.z);
 	cam->dir = new_t_vec(dir.x, dir.y, dir.z);
 	// ft_putendl("CAM CREATE1.8");
-	normalizator(cam->dir);
+	normalizator(&(cam->dir));
 	cam->angle = rot;
 	// ft_putendl("CAM CREATE2");
-	if (cam->dir->x == 0 && cam->dir->z == 0 && (cam->dir->y == 1 || cam->dir->y == -1))
+	if (cam->dir.x == 0 && cam->dir.z == 0 && (cam->dir.y == 1 || cam->dir.y == -1))
 		cam->up = new_t_vec(1, 0, 0);
 	else
 		cam->up = new_t_vec(0, 1, 0);
 	cam->right = prod_vector(cam->dir, cam->up);
 	// ft_putendl("CAM CREATE2.1");
-	normalizator(cam->right);
+	normalizator(&(cam->right));
 	cam->up = prod_vector(cam->dir, cam->right);
 	// ft_putendl("CAM CREATE2.5");
-	normalizator(cam->up);
+	normalizator(&(cam->up));
 	// ft_putendl("CAM CREATE2.8");
 	cam->upleft = set_screen(cam);
 	// ft_putendl("CAM CREATE3");
@@ -224,53 +135,6 @@ void		init_camera(t_env *env, t_list **tokens)
 	}
 	ft_putendl("CAM CREATE END");
 }
-
-// void		init_camera(t_env *env, t_list **tokens)
-// {
-// 	t_cam	*cam;
-// 	t_vec	pos;
-// 	t_vec	dir;
-// 	float	rot;
-
-// 	pos.x = 0;
-// 	pos.y = 0;
-// 	pos.z = 0;
-// 	dir.x = 0;
-// 	dir.y = 0;
-// 	dir.z = 0;
-// 	rot = 0;
-// 	cam = (t_cam*)malloc(sizeof(t_cam));
-// 	next_elem(tokens);
-// 	while (!terminal(&(*tokens), CLOSING_BRACKET))
-// 	{
-// 		if (ft_strcmp(get_token(tokens)->lexeme, "x") == 0)
-// 			pos.x = token_to_float(tokens);
-// 		else if (ft_strcmp(get_token(tokens)->lexeme, "y") == 0)
-// 			pos.y = token_to_float(tokens);
-// 		else if (ft_strcmp(get_token(tokens)->lexeme, "z") == 0)
-// 			pos.z = token_to_float(tokens);
-// 		else if (ft_strcmp(get_token(tokens)->lexeme, "dir_x") == 0)
-// 			dir.x = token_to_float(tokens);
-// 		else if (ft_strcmp(get_token(tokens)->lexeme, "dir_y") == 0)
-// 			dir.y = token_to_float(tokens);
-// 		else if (ft_strcmp(get_token(tokens)->lexeme, "dir_z") == 0)
-// 			dir.z = token_to_float(tokens);
-// 		else if (ft_strcmp(get_token(tokens)->lexeme, "rot") == 0)
-// 			rot = token_to_float(tokens);
-// 		next_elem(tokens);
-// 	}
-// 	cam->pos = new_t_vec(pos.x, pos.y, pos.z);
-// 	cam->dir = new_t_vec(dir.x, dir.y, dir.z);
-// 	normalizator(cam->dir);
-// 	cam->angle = rot;
-// 	cam->up = new_t_vec(0, 1, 0);
-// 	cam->right = prod_vector(cam->dir, cam->up);
-// 	normalizator(cam->right);
-// 	cam->up = prod_vector(cam->dir, cam->right);
-// 	env->cam = cam;
-// 	env->screen = set_screen(env->cam);
-
-// }
 
 void		init_light(t_env *env, t_list **tokens)
 {
@@ -335,6 +199,7 @@ void		init_sphere(t_env *env, t_list **tokens)
 	rgb.b = 0;
 	rad = 0;
 	item = new_t_item();
+	// item->sp = new_t_sphere(0, 0, 0, 0);
 	mat = (t_mat*)malloc(sizeof(t_mat));
 	next_elem(tokens);
 	while (!terminal(&(*tokens), CLOSING_BRACKET))

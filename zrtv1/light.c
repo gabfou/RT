@@ -22,7 +22,7 @@ t_light			*new_t_light()
 	t_light	*light;
 
 	light = malloc(sizeof(t_light));
-	light->pos = NULL;
+	// light->pos = NULL;
 	light->color = 0;
 	light->next = NULL;
 	return (light);
@@ -36,16 +36,16 @@ t_light			*fill_t_light(char **t, t_light *light)
 	return (light);
 }
 
-t_vec	*normalizator_ret(t_vec *vec)
+t_vec	normalizator_ret(t_vec vec)
 {
 	float	lenght;
 
-	lenght = sqrt(carre(vec->x) + carre(vec->y) + carre(vec->z));
+	lenght = sqrt(carre(vec.x) + carre(vec.y) + carre(vec.z));
 	if (lenght == 0)
 		ft_error("i just saved the universe!");
-	vec->x = vec->x / lenght;
-	vec->y = vec->y / lenght;
-	vec->z = vec->z / lenght;
+	vec.x = vec.x / lenght;
+	vec.y = vec.y / lenght;
+	vec.z = vec.z / lenght;
 	return (vec);
 }
 
@@ -72,9 +72,9 @@ float	l_color(float i, float a)
 
 int		comparator_pos(t_inter *inter, t_inter *einter)
 {
-	if ((inter->pos->x > einter->pos->x - 0.01 && inter->pos->x < einter->pos->x + 0.01) 
-		&& (inter->pos->y > einter->pos->y - 0.01 && inter->pos->y < einter->pos->y + 0.01) 
-		&& (inter->pos->z > einter->pos->z - 0.01 && inter->pos->z < einter->pos->z + 0.01))
+	if ((inter->pos.x > einter->pos.x - 0.01 && inter->pos.x < einter->pos.x + 0.01) 
+		&& (inter->pos.y > einter->pos.y - 0.01 && inter->pos.y < einter->pos.y + 0.01) 
+		&& (inter->pos.z > einter->pos.z - 0.01 && inter->pos.z < einter->pos.z + 0.01))
 	{
 		return (1);
 	}
@@ -102,8 +102,8 @@ void		luminator(t_env *e, t_thr *f)
 		inter = new_t_inter();
 		lvec = new_t_pd();
 		lvec->pos = f->light->pos;
-		lvec->dir = new_t_vec(f->inter->pos->x - f->light->pos->x, f->inter->pos->y - f->light->pos->y, f->inter->pos->z - f->light->pos->z);
-		normalizator(lvec->dir);
+		lvec->dir = new_t_vec(f->inter->pos.x - f->light->pos.x, f->inter->pos.y - f->light->pos.y, f->inter->pos.z - f->light->pos.z);
+		normalizator(&(lvec->dir));
 		impactor(e, lvec, f, inter);
 		//ft_putendl("light 2");
 		set_inter_pos(inter, lvec);
@@ -113,7 +113,7 @@ void		luminator(t_env *e, t_thr *f)
 			continue;
 		}
 		//ft_putendl("light 3");
-		normalizator(inter->norm);
+		normalizator(&(inter->norm));
 		angle = M_PI_2 - acos(dot_prod(lvec->dir, f->inter->norm));
 		angle = (angle > 0) ? angle : -angle;
 		//ft_putendl("light 4");

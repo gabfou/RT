@@ -52,22 +52,16 @@ void		check_cyl(t_item *item, t_pd *s, t_inter *inter)
 	float	b;
 	float 	c;
 	float					t;
-	t_vec					*l;
+	t_vec					l;
 
 
 	//d = dot_prod(item->cyl->dir, item->cyl->dir);
-
 	l = sub_vec(s->pos, item->cyl->pos);
-
 	a = dot_prod(s->dir, s->dir) - (dot_prod(s->dir, item->cyl->dir) *  dot_prod(s->dir, item->cyl->dir));
-
 	b = 2 * (dot_prod(s->dir, l) - (dot_prod(s->dir, item->cyl->dir) * dot_prod(l, item->cyl->dir)));
-
 	c = dot_prod(l, l) - (dot_prod(l, item->cyl->dir) * dot_prod(l, item->cyl->dir)) - item->cyl->ray * item->cyl->ray;
-
 	if ((t = (b * b - 4.0 * a * c)) <= 0)
 		return ;
-
 	t = ft_min(((-b + sqrt(t)) / (2 * a)), ((-b - sqrt(t)) / (2 * a)));
 	if (check_t(inter, t, item->mat->trans) == 1)
 	{

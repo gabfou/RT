@@ -36,6 +36,9 @@ SRC =  rtv1.c \
 	   reader.c \
 	   init.c \
 	   misc.c \
+	   controlpanelator.c \
+	   musicator.c \
+	   initauxi.c \
 	  
 OBJ = $(SRC:.c=.o)
 CC = clang

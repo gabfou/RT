@@ -14,9 +14,9 @@
 
 void	set_normal_plane(t_item *item, t_inter *inter)
 {
-	inter->norm->x = item->pl->dir->x;
-	inter->norm->y = item->pl->dir->y;
-	inter->norm->z = item->pl->dir->z;
+	inter->norm.x = item->pl->dir.x;
+	inter->norm.y = item->pl->dir.y;
+	inter->norm.z = item->pl->dir.z;
 }
 
 t_pd	*t_plane_creator(float x, float y, float z, float dx, float dy, float dz)
@@ -36,12 +36,12 @@ void		check_plane(t_item *item, t_pd *s, t_inter *inter)
 	float	y;
 	float	z;
 
-	x = s->pos->x - item->pl->pos->x;
-	y = s->pos->y - item->pl->pos->y;
-	z = s->pos->z - item->pl->pos->z;
-	t = -((item->pl->dir->x * x + item->pl->dir->y * y + item->pl->dir->z * z)
-		/ (item->pl->dir->x * s->dir->x + item->pl->dir->y
-			* s->dir->y + item->pl->dir->z * s->dir->z));
+	x = s->pos.x - item->pl->pos.x;
+	y = s->pos.y - item->pl->pos.y;
+	z = s->pos.z - item->pl->pos.z;
+	t = -((item->pl->dir.x * x + item->pl->dir.y * y + item->pl->dir.z * z)
+		/ (item->pl->dir.x * s->dir.x + item->pl->dir.y
+			* s->dir.y + item->pl->dir.z * s->dir.z));
 	if (check_t(inter, t, item->mat->trans) == 1)
 	{
 		set_normal_plane(item, inter);

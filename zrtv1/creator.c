@@ -43,41 +43,41 @@ void		impactor(t_env *env, t_pd *pd, t_thr *f, t_inter *inter)
 
 void		t_inter_set(t_inter *inter)
 {
-	inter->norm->x = 0;
-	inter->norm->y = 0;
-	inter->norm->z = 0;
-	inter->pos->x = 0;
-	inter->pos->y = 0;
-	inter->pos->z = 0;
+	inter->norm.x = 0;
+	inter->norm.y = 0;
+	inter->norm.z = 0;
+	inter->pos.x = 0;
+	inter->pos.y = 0;
+	inter->pos.z = 0;
 	inter->t = -1;
 }
 
 // void		calc_dir(t_env *env, t_vec *dir, float x, float y)
 // {
 // 	//ft_putendl("calc dir");
-// 	// printf("cdx = %f cdy = %f cdz = %f\n", env->cam->dir->x, env->cam->dir->y, env->cam->dir->z);
-// 	// printf("cux = %f cuy = %f cuz = %f\n", env->cam->up->x, env->cam->up->y, env->cam->up->z);
-// 	// printf("crx = %f cry = %f crz = %f\n\n", env->cam->right->x, env->cam->right->y, env->cam->right->z);
+// 	// printf("cdx = %f cdy = %f cdz = %f\n", env->cam->dir.x, env->cam->dir.y, env->cam->dir.z);
+// 	// printf("cux = %f cuy = %f cuz = %f\n", env->cam->up.x, env->cam->up.y, env->cam->up.z);
+// 	// printf("crx = %f cry = %f crz = %f\n\n", env->cam->right.x, env->cam->right.y, env->cam->right.z);
 // 	//ft_putendl("qwerqwer");
-// 	dir->x = (env->screen->upleft->x + (env->cam->up->x * SCR_H * y /H_RES) + (env->cam->right->x * SCR_L * x /L_RES))/* - env->cam->pos->x*/;
-// 	dir->y = (env->screen->upleft->y + (env->cam->up->y * SCR_H * y /H_RES) + (env->cam->right->y * SCR_L * x /L_RES))/* - env->cam->pos->y*/;
-// 	dir->z = (env->screen->upleft->z + (env->cam->up->z * SCR_H * y /H_RES) + (env->cam->right->z * SCR_L * x /L_RES))/* - env->cam->pos->z*/;
-// // 	dir->x = (env->cam->dir->x * SCR_DIST) + (env->cam->up->x * SCR_H * y /480) + (env->cam->right->x * SCR_L * x /480);
+// 	dir.x = (env->screen->upleft.x + (env->cam->up.x * SCR_H * y /H_RES) + (env->cam->right.x * SCR_L * x /L_RES))/* - env->cam->pos.x*/;
+// 	dir.y = (env->screen->upleft->y + (env->cam->up.y * SCR_H * y /H_RES) + (env->cam->right.y * SCR_L * x /L_RES))/* - env->cam->pos.y*/;
+// 	dir.z = (env->screen->upleft->z + (env->cam->up.z * SCR_H * y /H_RES) + (env->cam->right.z * SCR_L * x /L_RES))/* - env->cam->pos.z*/;
+// // 	dir.x = (env->cam->dir.x * SCR_DIST) + (env->cam->up.x * SCR_H * y /480) + (env->cam->right.x * SCR_L * x /480);
 // // 	//ft_putendl("calc dir2");
-// // 	dir->y = (env->cam->dir->y * SCR_DIST) + (env->cam->up->y * SCR_H * y /480) + (env->cam->right->y * SCR_L * x /480);
+// // 	dir.y = (env->cam->dir.y * SCR_DIST) + (env->cam->up.y * SCR_H * y /480) + (env->cam->right.y * SCR_L * x /480);
 // // 	//ft_putendl("calc dir3");
-// // 	dir->z = (env->cam->dir->z * SCR_DIST) + (env->cam->up->z * SCR_H * y /480) + (env->cam->right->z * SCR_L * x /480);
+// // 	dir.z = (env->cam->dir.z * SCR_DIST) + (env->cam->up.z * SCR_H * y /480) + (env->cam->right.z * SCR_L * x /480);
 // // 	//ft_putendl("calc dir4");
-// // //	printf("cdx = %f cdy = %f cdz = %f\n", dir->x, dir->y, dir->z);
+// // //	printf("cdx = %f cdy = %f cdz = %f\n", dir.x, dir.y, dir.z);
 // 	normalizator (dir);
 // }
 
 void		calc_dir(t_vec *dir, float x, float y, t_cam *cam)
 {
-	dir->x = (cam->upleft->x + (cam->up->x * SCR_H * y /H_RES) + (cam->right->x * SCR_L * x /L_RES));
-	dir->y = (cam->upleft->y + (cam->up->y * SCR_H * y /H_RES) + (cam->right->y * SCR_L * x /L_RES));
-	dir->z = (cam->upleft->z + (cam->up->z * SCR_H * y /H_RES) + (cam->right->z * SCR_L * x /L_RES));
-	normalizator (dir);
+	dir->x = (cam->upleft.x + (cam->up.x * SCR_H * y /H_RES) + (cam->right.x * SCR_L * x /L_RES));
+	dir->y = (cam->upleft.y + (cam->up.y * SCR_H * y /H_RES) + (cam->right.y * SCR_L * x /L_RES));
+	dir->z = (cam->upleft.z + (cam->up.z * SCR_H * y /H_RES) + (cam->right.z * SCR_L * x /L_RES));
+	normalizator(dir);
 }
 
 void		ft_check(t_env *env)
@@ -97,8 +97,8 @@ void		ft_check(t_env *env)
 
 	ft_putendl("cam right");
 	print_vec(env->cam->right);
-	printf("LUM px=%f py=%f pz=%f\n", env->light->pos->x, env->light->pos->y, env->light->pos->z);
-	printf("SP px=%f py=%f pz=%f\n", env->item->sp->c->x, env->item->sp->c->y, env->item->sp->c->z);
+	printf("LUM px=%f py=%f pz=%f\n", env->light->pos.x, env->light->pos.y, env->light->pos.z);
+	printf("SP px=%f py=%f pz=%f\n", env->item->sp->c.x, env->item->sp->c.y, env->item->sp->c.z);
 	ft_putendl("CHECK FINITO");
 }
 
@@ -135,7 +135,7 @@ void		creator(t_cor *c)
 				f->fcolor = 0x000000;
 				f->inter = new_t_inter();
 				t_inter_set(f->inter);
-				calc_dir(pd->dir, x, y, f->cam);
+				calc_dir(&(pd->dir), x, y, f->cam);
 				impactor(c->env, pd, f, f->inter);
 				set_inter_pos(f->inter, pd);
 				luminator(c->env, f);

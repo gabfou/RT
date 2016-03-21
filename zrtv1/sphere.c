@@ -33,11 +33,11 @@ int		modif_sphere(t_env *env, int i, char *line)
 	while(item && i-- > 0)
 		item = item->next;
 	if (line[0] == 'x' && line[1] == ' ')
-		item->sp->c->x = ft_fatoi(&line[2]);
+		item->sp->c.x = ft_fatoi(&line[2]);
 	else if (line[0] == 'y' && line[1] == ' ')
-		item->sp->c->y = ft_fatoi(&line[2]);
+		item->sp->c.y = ft_fatoi(&line[2]);
 	else if (line[0] == 'z' && line[1] == ' ')
-		item->sp->c->z = ft_fatoi(&line[2]);
+		item->sp->c.z = ft_fatoi(&line[2]);
 	// else if (ft_strcmp(line, "r") == 0)
 	// 	rgb.r = token_to_float(tokens);
 	// else if (ft_strcmp(line, "g") == 0)
@@ -56,10 +56,10 @@ int		modif_sphere(t_env *env, int i, char *line)
 
 void	set_normal_sphere(t_inter *inter, t_item *item)
 {
-	inter->norm->x = inter->pos->x - item->sp->c->x;
-	inter->norm->y = inter->pos->y - item->sp->c->y;
-	inter->norm->z = inter->pos->z - item->sp->c->z;
-	normalizator(inter->norm);
+	inter->norm.x = inter->pos.x - item->sp->c.x;
+	inter->norm.y = inter->pos.y - item->sp->c.y;
+	inter->norm.z = inter->pos.z - item->sp->c.z;
+	normalizator(&(inter->norm));
 }
 
 t_sphere	*new_t_sphere(float x, float y, float z, float r)
@@ -84,12 +84,12 @@ void		check_sphere(t_item *item, t_pd *s, t_inter *inter)
 	// print_vec(s->dir);
 	// print_vec(s->pos);
 	// print_vec(item->sp->c);
-	a = carre(s->dir->x) + carre(s->dir->y) + carre(s->dir->z);
-	b = 2 * (s->dir->x * (s->pos->x - item->sp->c->x) + s->dir->y
-	* (s->pos->y - item->sp->c->y) + s->dir->z * (s->pos->z - item->sp->c->z));
+	a = carre(s->dir.x) + carre(s->dir.y) + carre(s->dir.z);
+	b = 2 * (s->dir.x * (s->pos.x - item->sp->c.x) + s->dir.y
+	* (s->pos.y - item->sp->c.y) + s->dir.z * (s->pos.z - item->sp->c.z));
 //	ft_putendl("pre calcul B");
-	c = (carre(s->pos->x - item->sp->c->x) + carre(s->pos->y - item->sp->c->y) +
-		carre(s->pos->z - item->sp->c->z)) - carre(item->sp->ray);
+	c = (carre(s->pos.x - item->sp->c.x) + carre(s->pos.y - item->sp->c.y) +
+		carre(s->pos.z - item->sp->c.z)) - carre(item->sp->ray);
 	del = carre(b) - (4 * a * c);
 //	ft_putendl("post calcul");
 	if (del > 0)

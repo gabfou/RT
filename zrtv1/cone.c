@@ -35,22 +35,16 @@ void		check_con(t_item *item, t_pd *s, t_inter *inter)
 	float	b;
 	float 	c;
 	float					t;
-	t_vec					*l;
+	t_vec					l;
 
  	//ft_putendl("CONE START");
 	l = sub_vec(s->pos, item->con->pos);
-
 	a = dot_prod(s->dir, s->dir) - (1.0 + tan(item->con->ang) * tan(item->con->ang)) * (dot_prod(s->dir, item->con->dir) *  dot_prod(s->dir, item->con->dir));
-
 	b = 2 * (dot_prod(s->dir, l) - (1.0 + tan(item->con->ang) * tan(item->con->ang)) * (dot_prod(s->dir, item->con->dir) * dot_prod(l, item->con->dir)));
-
 	c = dot_prod(l, l) - (1.0 + tan(item->con->ang) * tan(item->con->ang)) * (dot_prod(l, item->con->dir) * dot_prod(l, item->con->dir));
-
 	if ((t = (b * b - 4.0 * a * c)) <= 0)
 		return ;
-
 	t = ft_min(((-b + sqrt(t)) / (2 * a)), ((-b - sqrt(t)) / (2 * a)));
-
 	if (check_t(inter, t, item->mat->trans) == 1)
 	{
 		set_inter_pos(inter, s);
