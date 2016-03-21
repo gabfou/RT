@@ -323,7 +323,7 @@ char			keytochar(int key);
 void			comander(int key, t_env *env);
 int				modif_sphere(t_env *env, int i, char *line);
 void			*imgcptor(t_env *env);
-void			*printmusicator(char *addr, t_env *env);
+void			*printmusicator(t_limg *addr, t_env *env);
 
 t_limg			*new_t_limg(t_env *env);
 #endif
