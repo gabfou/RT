@@ -12,7 +12,7 @@
 
 #include "rtv1.h"
 
-void	loadatorprovisoirauxi(int k, int l, int h, t_env *e)
+void	loadatorprovisoirauxi(int k, int l, int h, t_leviatenv *e)
 {
 	int i;
 
@@ -37,7 +37,7 @@ void	loadatorprovisoirauxi(int k, int l, int h, t_env *e)
 	}
 }
 
-void	loadator(int h, int l, t_env *e, int nb) // ca c est la bar
+void	loadator(int h, int l, t_leviatenv *e, int nb) // ca c est la bar
 {
 	static int k = 1;
 	char r[4];
@@ -47,7 +47,7 @@ void	loadator(int h, int l, t_env *e, int nb) // ca c est la bar
 		k = 1;
 		return ;
 	}
-	if (nb > ((int)(h * l) / 100) * k && e->i != NBTHREAD + 1)
+	if (nb > ((int)(h * l) / 100) * k && e->lenv->i != NBTHREAD + 1)
 	{
 		while (nb > ((int)(h * l) / 100) * k)
 			k++;

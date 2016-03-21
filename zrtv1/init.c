@@ -34,19 +34,20 @@ void	print_tokens(t_list *tokens)
 	}
 }
 
-int			access_file(int argc, char **argv)
+int			access_file(int argc, char *argv)
 {
 	int	fd;
 
-	if (argc < 2)
-		fatal_error(RAYTRACER, ERR_TOO_FEW_ARGS, 0);
-	if (argc > 2)
-		fatal_error(RAYTRACER, ERR_TOO_MANY_ARGS, 0);
-	if (access(argv[1], F_OK))
+	(void)argc;
+	// if (argc < 2)
+	// 	fatal_error(RAYTRACER, ERR_TOO_FEW_ARGS, 0);
+	// if (argc > 2)
+		// fatal_error(RAYTRACER, ERR_TOO_MANY_ARGS, 0);
+	if (access(argv, F_OK))
 		fatal_error(RAYTRACER, ERR_NO_DIR, 0);
-	if (access(argv[1], R_OK))
+	if (access(argv, R_OK))
 		fatal_error(RAYTRACER, ERR_PERMISSION_DENIED, 0);
-	fd = open(argv[1], O_RDONLY);
+	fd = open(argv, O_RDONLY);
 	if (fd == -1)
 		fatal_error(RAYTRACER, ERR_INACCESSIBLE, 0);
 	return (fd);
@@ -211,6 +212,7 @@ void		init_camera(t_env *env, t_list **tokens)
 	// ft_putendl("CAM CREATE2.8");
 	cam->upleft = set_screen(cam);
 	// ft_putendl("CAM CREATE3");
+	cam->next = NULL;
 	if (!env->cam)
 		env->cam = cam;
 	else
@@ -332,7 +334,7 @@ void		init_sphere(t_env *env, t_list **tokens)
 	rgb.g = 0;
 	rgb.b = 0;
 	rad = 0;
-	item = (t_item*)malloc(sizeof(t_item));
+	item = new_t_item();
 	mat = (t_mat*)malloc(sizeof(t_mat));
 	next_elem(tokens);
 	while (!terminal(&(*tokens), CLOSING_BRACKET))
@@ -382,7 +384,7 @@ void		init_plane(t_env *env, t_list **tokens)
 	dir.x = 0;
 	dir.y = 0;
 	dir.z = 0;
-	item = (t_item*)malloc(sizeof(t_item));
+	item = new_t_item();
 	mat = (t_mat*)malloc(sizeof(t_mat));
 	next_elem(tokens);
 	while (!terminal(&(*tokens), CLOSING_BRACKET))
@@ -438,7 +440,7 @@ void		init_cone(t_env *env, t_list **tokens)
 	dir.y = 0;
 	dir.z = 0;
 	angle = 0;
-	item = (t_item*)malloc(sizeof(t_item));
+	item = new_t_item();
 	mat = (t_mat*)malloc(sizeof(t_mat));
 	next_elem(tokens);
 	while (!terminal(&(*tokens), CLOSING_BRACKET))
@@ -495,7 +497,7 @@ void		init_cyl(t_env *env, t_list **tokens)
 	dir.y = 0;
 	dir.z = 0;
 	rad = 0;
-	item = (t_item*)malloc(sizeof(t_item));
+	item = new_t_item();
 	mat = (t_mat*)malloc(sizeof(t_mat));
 	next_elem(tokens);
 	while (!terminal(&(*tokens), CLOSING_BRACKET))
@@ -548,24 +550,24 @@ int			get_t_cam_lenght(t_cam *cam)
 	return (i);
 }
 
-void		t_limg_initator(t_env *env)
+void		t_limg_initator(t_leviatenv *levia)
 {
 	t_limg	*first;
 	t_limg	*tmp;
 	int		i;
 
-	i = get_t_cam_lenght(env->cam);
+	i = get_t_cam_lenght(levia->lenv->cam);
 	ft_putnbr(i);
 	while (i > 0)
 	{
 		if (!tmp)
 		{
-			tmp = new_t_limg(env);
+			tmp = new_t_limg(levia);
 			first = tmp;
 		}
 		else
 		{
-			tmp->next = new_t_limg(env);
+			tmp->next = new_t_limg(levia);
 			tmp->next->prev = tmp;
 			tmp = tmp->next;
 		}
@@ -573,19 +575,19 @@ void		t_limg_initator(t_env *env)
 	}
 	tmp->next = first;
 	first->prev = tmp;
-	env->limg = first;
+	levia->lenv->limg = first;
 }
 
-void		init_env(t_env *env)
+void		init_env(t_leviatenv *levia)
 {
-	env->l = 0;
-	env->done = 0;
-	env->mlx = mlx_init();
-	env->win = mlx_new_window(env->mlx, L_SIZE, H_SIZE, "RTV1");
-	t_limg_initator(env);
+	levia->lenv->l = 0;
+	levia->lenv->done = 0;
+	levia->mlx = mlx_init();
+	levia->win = mlx_new_window(levia->mlx, L_SIZE, H_SIZE, "RTV1");
+	t_limg_initator(levia);
 	// env->image = mlx_new_image(env->mlx, L_SIZE, H_SIZE);
 	// env->img = mlx_get_data_addr(env->image, &env->bpp, &env->sline, &env->endiant);
-	env->i = 1;
+	levia->lenv->i = 1;
 	// initktc(env);
 	ft_putendl("ASFGDSHBSHSRRSH");
 }
@@ -615,7 +617,7 @@ void		init_all(t_env *env, t_list *tokens)
 	}
 }
 
-void		init(t_env *env, int argc, char **argv)
+void		init(t_env *env, int argc, char *argv)
 {
 	int		fd;
 	t_list	*tokens;

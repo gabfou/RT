@@ -88,95 +88,173 @@ void		pixel_to_image(int x, int y, unsigned int color , t_limg *limg)
 	limg->img[off + 2] = color >> 16;
 }
 
-int			expose_hook(t_env *env)
+int			expose_hook(t_leviatenv *levia)
 {
-	int i;
-	/*if (env->done == 0)
-	{
-		creator(env);
-		ft_putendl("fini");
-	}*/
+	//int i;
+	// if (env->done == 0)
+	// {
+	// 	creator(env);
+	// 	// ft_putendl("fini");
+	// }
 	//ft_putendl("print");
-	if (env->i == NBTHREAD + 1)
+	//if (!levia || !levia->lenv)
+	//	ft_error("pas levialenv");
+	// if (levia->lenv->i == NBTHREAD + 1)
+	// {
+	// 	i = -1;
+	// 	while (++i < 0)
+	// 		antialiasing(levia->lenv);
+	// 	levia->lenv->i++;
+	// }
+	if (levia->lenv->i > NBTHREAD /* && lenv->i < NBTHREAD + 15*/)
 	{
-		i = -1;
-		while (++i < 0)
-			antialiasing(env);
-		env->i++;
+		levia->lenv->i++;
+		mlx_put_image_to_window(levia->mlx, levia->win, levia->lenv->limg->image, 0, 0);
 	}
-	if (env->i > NBTHREAD + 1/* && env->i < NBTHREAD + 15*/)
-	{
-		env->i++;
-		mlx_put_image_to_window(env->mlx, env->win, env->limg->image, 0, 0);
-	}
-	if (env->i <= NBTHREAD + 1)
-	{
-		// printf("env->l = %d\n", env->l);
-		loadator(H_SIZE, L_SIZE, env, env->l);
-	}
-	//env->done = 1;
+	// if (levia->lenv->i <= NBTHREAD + 1)
+	// {
+	// 	// printf("lenv->l = %d\n", lenv->l);
+	// 	loadator(H_SIZE, L_SIZE, levia, levia->lenv->l);
+	// }
+	//lenv->done = 1;
 	return (0);
 }
 
-int			key_down_hook(int keycode, t_env *env)
+int			key_down_hook(int keycode, t_leviatenv *levia)
 {
-	(void)env;
 	printf("keycode = %d\n", keycode);
 	if (keycode == 124)
 	{
-		env->limg = env->limg->next;
+		levia->lenv->limg = levia->lenv->limg->next;
 		return (0);
 	}
 	if (keycode == 123)
 	{
-		env->limg = env->limg->prev;
+		levia->lenv->limg = levia->lenv->limg->prev;
+		return (0);
+	}
+	if (keycode == 43)
+	{
+		levia->lenv = levia->lenv->prev;
+		return (0);
+	}
+	if (keycode == 47)
+	{
+		levia->lenv = levia->lenv->next;
 		return (0);
 	}
 	if ((int)keycode == 53)
 		exit (0);
 	if (keycode == 50)
 	{
-		mlx_destroy_window(env->mlx, env->win);
-		env->win = (env->ft++ % 2 == 0) ? mlx_new_window(env->mlx, L_SIZE + L_SIZEC, H_SIZE, "RTV1") :
-		mlx_new_window(env->mlx, L_SIZE, H_SIZE, "RTV1");
-		mlx_put_image_to_window(env->mlx, env->win, env->image, 0, 0);
+		mlx_destroy_window(levia->mlx, levia->win);
+		levia->win = (levia->lenv->ft++ % 2 == 0) ? mlx_new_window(levia->mlx, L_SIZE + L_SIZEC, H_SIZE, "RTV1") :
+		mlx_new_window(levia->mlx, L_SIZE, H_SIZE, "RTV1");
+		mlx_put_image_to_window(levia->mlx, levia->win, levia->lenv->limg->image, 0, 0);
 		//imgcptor(env);
-		mlx_hook(env->win, 2, 1, key_down_hook, env);
+		mlx_hook(levia->win, 2, 1, key_down_hook, levia);
 	}
 	// ft_putchar(keytochar(keycode));
-	comander(keycode, env);
+	comander(keycode, levia);
 	return (0);
+}
+
+t_env		*new_t_env()
+{
+	t_env	*env;
+
+	env = malloc(sizeof(t_env));
+	env->image = NULL;
+	env->t = NULL;
+	env->endiant = 0;
+	env->limg = NULL;
+
+	env->cam = NULL;
+	env->item = NULL;
+	env->light = NULL;
+	env->inter = NULL;
+	env->fcolor = 0;
+	env->done = 0;
+	env->l = 0;
+	env->i = 0;
+	env->ft = 0;
+	env->prev = NULL;
+	env->next = NULL;
+	return (env);
+}
+
+void		gpatrouverdnom(t_leviatenv *env,int argc,char *argv)
+{	
+	// ft_putendl("choix 1 1");
+
+	init(env->lenv, argc, argv);
+
+	// ft_putendl("choix 1 1");
+
+	init_env(env);
+
+	// ft_putendl("choix 1 1");
 }
 
 int			main(int argc, char **argv)
 {
-	t_env	env;
-	int		i;
+	t_leviatenv	levia;
+	t_env		*first;
+	int			i;
 
+	//ft_putendl("post1");
 	// if (argc != 2)
 	// 	ft_error("probleme d'argument");
 	// i = ft_strlen(argv[1]) - 4;
 	// if (!(i > 0 && argv[1][i++] == '.' && argv[1][i++] == 'b' && argv[1][i++] == 'm' && argv[1][i++] == 'p'))
 	// 	recuperator(&env, argv[1]);
-	init(&env, argc, argv);
+	i = 1;
+//	ft_putnbr(argc);
+	while (i < argc)
+	{
+	//	ft_putendl("post2");
+		if (!levia.lenv)
+		{
+	//		 ft_putendl("choix 1 1");
+			levia.lenv = new_t_env();
+			// ft_putendl("choix 1 2");
+			gpatrouverdnom(&levia, argc, argv[i]);
+			// ft_putendl("choix 1 3");
+			first = levia.lenv;
+	//		 ft_putendl("choix 1 4");
+		}
+		else
+		{
+	//		 ft_putendl("choix 2 1");
+			levia.lenv->next = new_t_env();
+			// ft_putendl("choix 2 2");
+			gpatrouverdnom(&levia, argc, argv[i]);
+			// ft_putendl("choix 2 3");
+			levia.lenv->next->prev = levia.lenv;
+			// ft_putendl("choix 2 4");
+			levia.lenv  = levia.lenv->next;
+	//		 ft_putendl("choix 2 5");
+		}
+		i++;
+	}
+	levia.lenv = first;
+	//ft_putendl("post3");
 	// print_params(env);
-	init_env(&env);
 	// init(&env);
 	// ft_putendl(env.ktc);
-	ft_putendl("LLLAALALLALALALALALAL");
+	//ft_putendl("LLLAALALLALALALALALAL");
 	i = ft_strlen(argv[1]) - 4;
 	if (!(i > 0 && argv[1][i++] == '.' && argv[1][i++] == 'b' && argv[1][i++] == 'm' && argv[1][i++] == 'p'))
-		thread_master(&env);
+		thread_master(levia.lenv);
 	else
-		readerbmp32(argv[1], &env);
+		readerbmp32(argv[1], &levia);
 	// ft_putendl("TOUTAETECREE TRAKIL");
 	// ft_bzero(env.img, H_SIZE * L_SIZE * 4);
 	// ft_putendl("post5");
-	mlx_hook(env.win, 2, 1, key_down_hook, &env);
-	// ft_putendl("post6");
-	mlx_loop_hook(env.mlx, expose_hook, &env);
+	mlx_hook(levia.win, 2, 1, key_down_hook, &levia);
+//	 ft_putendl("post6");
+	mlx_loop_hook(levia.mlx, expose_hook, &levia);
 	// ft_putendl("post7");
-	mlx_loop(env.mlx);
-	// ft_putendl("post8");
+	mlx_loop(levia.mlx);
 	return (0);
 }

@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include "rtv1.h"
 
-void	readerbmp32(char *name, t_env *e)
+void	readerbmp32(char *name, t_leviatenv *e)
 {
 	t_header		fh;
 	t_header_info	ih;
@@ -15,7 +15,7 @@ void	readerbmp32(char *name, t_env *e)
 
 	int	fd_img;
 
-	e->i = NBTHREAD + 2;
+	e->lenv->i = NBTHREAD + 2;
 	fd_img = open(name, O_RDONLY);
 
 	read(fd_img, &fh, sizeof(t_header));
@@ -38,10 +38,10 @@ void	readerbmp32(char *name, t_env *e)
 		k = -1;
 		while (++k < L_SIZE && i < (int)fh.bfSize)
 		{
-			e->limg->img[(H_SIZE - j) * e->limg->sline + k * e->limg->bpp / 8 + 3] = image[++i];
-			e->limg->img[(H_SIZE - j) * e->limg->sline + k * e->limg->bpp / 8 + 2] = image[++i];
-			e->limg->img[(H_SIZE - j) * e->limg->sline + k * e->limg->bpp / 8 + 1] = image[++i];
-			e->limg->img[(H_SIZE - j) * e->limg->sline + k * e->limg->bpp / 8 + 0] = image[++i];
+			e->lenv->limg->img[(H_SIZE - j) * e->lenv->limg->sline + k * e->lenv->limg->bpp / 8 + 3] = image[++i];
+			e->lenv->limg->img[(H_SIZE - j) * e->lenv->limg->sline + k * e->lenv->limg->bpp / 8 + 2] = image[++i];
+			e->lenv->limg->img[(H_SIZE - j) * e->lenv->limg->sline + k * e->lenv->limg->bpp / 8 + 1] = image[++i];
+			e->lenv->limg->img[(H_SIZE - j) * e->lenv->limg->sline + k * e->lenv->limg->bpp / 8 + 0] = image[++i];
 		}
 	}
 	// write(fd, image, fh.bfSize);
@@ -114,7 +114,7 @@ char		keytochar(int key)
 	return (tab[key]);
 }
 
-void	comadator(char *line, t_env *env)
+void	comadator(char *line, t_leviatenv *env)
 {
 	static char last[10000];
 	static int	i = -1;
@@ -125,24 +125,24 @@ void	comadator(char *line, t_env *env)
 		ft_putendl(last);
 	if (ft_strcmp(line, "refresh") == 0)
 	{
-		env->l = 0;
-		env->i = 1;
-		env->done = 0;
+		env->lenv->l = 0;
+		env->lenv->i = 1;
+		env->lenv->done = 0;
 		loadator(-1, -1, NULL, -1);
-		thread_master(env);
+		thread_master(env->lenv);
 	}
 	if (ft_strcmp(line, "s") == 0)
-	 	enregistrator(env);
+	 	enregistrator(env->lenv);
 	if (ft_strcmp(line, "newsphere") == 0)
-		i = modif_sphere(env, -2, line);
+		i = modif_sphere(env->lenv, -2, line);
 	if (ft_strcmp(line, "clear") == 0)
 		mlx_clear_window(env->mlx, env->win);
 	if (ft_strcmp(line, "printparam") == 0)
-		print_params(*env);
+		print_params(*env->lenv);
 	// modif_sphere(env, i, line);
 }
 
-void	comander(int key, t_env *env)
+void	comander(int key, t_leviatenv *env)
 {
 	static char	stat[10000];
 	char		keyret;
@@ -174,7 +174,7 @@ void	comander(int key, t_env *env)
 		stat[i++] = keyret;
 	}
 	mlx_clear_window(env->mlx, env->win);
-	mlx_put_image_to_window(env->mlx, env->win, env->image, 0, 0);
-	if (env->ft % 2 == 1)
+	mlx_put_image_to_window(env->mlx, env->win, env->lenv->image, 0, 0);
+	if (env->lenv->ft % 2 == 1)
 		mlx_string_put(env->mlx, env->win, L_SIZE + 2, H_SIZE - 30, 0xFFFFFF, stat);
 }
