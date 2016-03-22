@@ -102,6 +102,36 @@ void		ft_check(t_env *env)
 	ft_putendl("CHECK FINITO");
 }
 
+void		inquisitorArckmann(t_thr *f)
+{
+	t_light	*tmp;
+	t_cam	*tmp2;
+	// t_item	*tmp3;
+
+	if (f)
+	{
+		while(f->cam)
+		{
+			tmp2 = f->cam;
+			f->cam = f->cam->next;
+			free(tmp2);
+		}
+		while(f->light)
+		{
+			tmp = f->light;
+			f->light = f->light->next;
+			free(tmp);
+		}
+		// while(f->item)
+		// {
+		// 	tmp3 = f->item;
+		// 	f->item = f->item->next;
+		// 	free(tmp3);
+		// }
+		free(f);
+	}
+}
+
 void		creator(t_cor *c)
 {
 	double		x;
@@ -151,7 +181,7 @@ void		creator(t_cor *c)
 		ft_putendl("NEXTEUH");
 	}
 	//antialiasing(env);
-	
+	inquisitorArckmann(f);
 	pthread_exit(NULL);
 }
 // void		creator(t_cor *c)
