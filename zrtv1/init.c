@@ -263,81 +263,24 @@ void		init_plane(t_env *env, t_list **tokens)
 	itemadator(env, item);
 }
 
-// void		init_cone(t_env *env, t_list **tokens)
-// {
-// 	UNUSED(env);
-// 	t_item		*item;
-// 	t_color		rgb;
-// 	t_mat		mat;
-
-// 	item = new_t_item();
-// 	item->con = t_con_creator(0, 0, 0, 0, 0, 1, 0);
-// 	next_elem(tokens);
-// 	while (!terminal(&(*tokens), CLOSING_BRACKET))
-// 	{
-// 		if (ft_strcmp(get_token(tokens)->lexeme, "x") == 0)
-// 			item->con->pos.x = token_to_float(tokens);
-// 		else if (ft_strcmp(get_token(tokens)->lexeme, "y") == 0)
-// 			item->con->pos.y = token_to_float(tokens);
-// 		else if (ft_strcmp(get_token(tokens)->lexeme, "z") == 0)
-// 			item->con->pos.z = token_to_float(tokens);
-// 		else if (ft_strcmp(get_token(tokens)->lexeme, "r") == 0)
-// 			rgb.r = token_to_float(tokens);
-// 		else if (ft_strcmp(get_token(tokens)->lexeme, "g") == 0)
-// 			rgb.g = token_to_float(tokens);
-// 		else if (ft_strcmp(get_token(tokens)->lexeme, "b") == 0)
-// 			rgb.b = token_to_float(tokens);
-// 		else if (ft_strcmp(get_token(tokens)->lexeme, "dir_x") == 0)
-// 			item->con->dir.x = token_to_float(tokens);
-// 		else if (ft_strcmp(get_token(tokens)->lexeme, "dir_y") == 0)
-// 			item->con->dir.y = token_to_float(tokens);
-// 		else if (ft_strcmp(get_token(tokens)->lexeme, "dir_z") == 0)
-// 			item->con->dir.z = token_to_float(tokens);
-// 		else if (ft_strcmp(get_token(tokens)->lexeme, "angle") == 0)
-// 			item->con->ang = token_to_float(tokens);
-// 		else if (ft_strcmp(get_token(tokens)->lexeme, "mat") == 0)
-// 		{
-// 			next_elem(tokens);
-// 			mat = new_t_mat(get_token(tokens)->lexeme);
-// 		}
-// 		next_elem(tokens);
-// 	}
-// 	normalizator(&(item->con->dir));
-// 	item->mat = mat;
-// 	item->mat.diff = new_t_color(1, 1, 1);
-// 	itemadator(env, item);
-// }
-
 void		init_cone(t_env *env, t_list **tokens)
 {
 	UNUSED(env);
 	t_item		*item;
-	t_vec		pos;
-	t_vec		dir;
 	t_color		rgb;
 	t_mat		mat;
-	float		angle;
 
-	pos.x = 0;
-	pos.y = 0;
-	pos.z = 0;
-	rgb.r = 0;
-	rgb.g = 0;
-	rgb.b = 0;
-	dir.x = 0;
-	dir.y = 0;
-	dir.z = 0;
-	angle = 0;
 	item = new_t_item();
+	item->con = t_con_creator(0, 0, 0, 0, 0, 1, 0);
 	next_elem(tokens);
 	while (!terminal(&(*tokens), CLOSING_BRACKET))
 	{
 		if (ft_strcmp(get_token(tokens)->lexeme, "x") == 0)
-			pos.x = token_to_float(tokens);
+			item->con->pos.x = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "y") == 0)
-			pos.y = token_to_float(tokens);
+			item->con->pos.y = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "z") == 0)
-			pos.z = token_to_float(tokens);
+			item->con->pos.z = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "r") == 0)
 			rgb.r = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "g") == 0)
@@ -345,13 +288,13 @@ void		init_cone(t_env *env, t_list **tokens)
 		else if (ft_strcmp(get_token(tokens)->lexeme, "b") == 0)
 			rgb.b = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "dir_x") == 0)
-			dir.x = token_to_float(tokens);
+			item->con->dir.x = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "dir_y") == 0)
-			dir.y = token_to_float(tokens);
+			item->con->dir.y = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "dir_z") == 0)
-			dir.z = token_to_float(tokens);
+			item->con->dir.z = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "angle") == 0)
-			angle = token_to_float(tokens);
+			item->con->ang = token_to_float(tokens) / 180 * M_PI;
 		else if (ft_strcmp(get_token(tokens)->lexeme, "mat") == 0)
 		{
 			next_elem(tokens);
@@ -359,11 +302,68 @@ void		init_cone(t_env *env, t_list **tokens)
 		}
 		next_elem(tokens);
 	}
-	item->con = t_con_creator(pos.x, pos.y, pos.z, dir.x, dir.y, dir.z, angle);
+	normalizator(&(item->con->dir));
 	item->mat = mat;
 	item->mat.diff = new_t_color(1, 1, 1);
 	itemadator(env, item);
 }
+
+// void		init_cone(t_env *env, t_list **tokens)
+// {
+// 	UNUSED(env);
+// 	t_item		*item;
+// 	t_vec		pos;
+// 	t_vec		dir;
+// 	t_color		rgb;
+// 	t_mat		mat;
+// 	float		angle;
+
+// 	pos.x = 0;
+// 	pos.y = 0;
+// 	pos.z = 0;
+// 	rgb.r = 0;
+// 	rgb.g = 0;
+// 	rgb.b = 0;
+// 	dir.x = 0;
+// 	dir.y = 0;
+// 	dir.z = 0;
+// 	angle = 0;
+// 	item = new_t_item();
+// 	next_elem(tokens);
+// 	while (!terminal(&(*tokens), CLOSING_BRACKET))
+// 	{
+// 		if (ft_strcmp(get_token(tokens)->lexeme, "x") == 0)
+// 			pos.x = token_to_float(tokens);
+// 		else if (ft_strcmp(get_token(tokens)->lexeme, "y") == 0)
+// 			pos.y = token_to_float(tokens);
+// 		else if (ft_strcmp(get_token(tokens)->lexeme, "z") == 0)
+// 			pos.z = token_to_float(tokens);
+// 		else if (ft_strcmp(get_token(tokens)->lexeme, "r") == 0)
+// 			rgb.r = token_to_float(tokens);
+// 		else if (ft_strcmp(get_token(tokens)->lexeme, "g") == 0)
+// 			rgb.g = token_to_float(tokens);
+// 		else if (ft_strcmp(get_token(tokens)->lexeme, "b") == 0)
+// 			rgb.b = token_to_float(tokens);
+// 		else if (ft_strcmp(get_token(tokens)->lexeme, "dir_x") == 0)
+// 			dir.x = token_to_float(tokens);
+// 		else if (ft_strcmp(get_token(tokens)->lexeme, "dir_y") == 0)
+// 			dir.y = token_to_float(tokens);
+// 		else if (ft_strcmp(get_token(tokens)->lexeme, "dir_z") == 0)
+// 			dir.z = token_to_float(tokens);
+// 		else if (ft_strcmp(get_token(tokens)->lexeme, "angle") == 0)
+// 			angle = token_to_float(tokens);
+// 		else if (ft_strcmp(get_token(tokens)->lexeme, "mat") == 0)
+// 		{
+// 			next_elem(tokens);
+// 			mat = new_t_mat(get_token(tokens)->lexeme);
+// 		}
+// 		next_elem(tokens);
+// 	}
+// 	item->con = t_con_creator(pos.x, pos.y, pos.z, dir.x, dir.y, dir.z, angle);
+// 	item->mat = mat;
+// 	item->mat.diff = new_t_color(1, 1, 1);
+// 	itemadator(env, item);
+// }
 
 
 void		init_cyl(t_env *env, t_list **tokens)
