@@ -186,30 +186,20 @@ void		init_sphere(t_env *env, t_list **tokens)
 {
 	UNUSED(env);
 	t_item		*item;
-	t_vec		pos;
 	t_color		rgb;
-	float		rad;
-	t_mat		*mat;
+	t_mat		mat;
 
-	pos.x = 0;
-	pos.y = 0;
-	pos.z = 0;
-	rgb.r = 0;
-	rgb.g = 0;
-	rgb.b = 0;
-	rad = 0;
 	item = new_t_item();
-	// item->sp = new_t_sphere(0, 0, 0, 0);
-	mat = (t_mat*)malloc(sizeof(t_mat));
+	item->sp = new_t_sphere(0, 0, 0, 0);
 	next_elem(tokens);
 	while (!terminal(&(*tokens), CLOSING_BRACKET))
 	{
 		if (ft_strcmp(get_token(tokens)->lexeme, "x") == 0)
-			pos.x = token_to_float(tokens);
+			item->sp->c.x = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "y") == 0)
-			pos.y = token_to_float(tokens);
+			item->sp->c.y = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "z") == 0)
-			pos.z = token_to_float(tokens);
+			item->sp->c.z = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "r") == 0)
 			rgb.r = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "g") == 0)
@@ -217,7 +207,7 @@ void		init_sphere(t_env *env, t_list **tokens)
 		else if (ft_strcmp(get_token(tokens)->lexeme, "b") == 0)
 			rgb.b = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "rad") == 0)
-			rad = token_to_float(tokens);
+			item->sp->ray = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "mat") == 0)
 		{
 			next_elem(tokens);
@@ -225,9 +215,8 @@ void		init_sphere(t_env *env, t_list **tokens)
 		}
 		next_elem(tokens);
 	}
-	item->sp = new_t_sphere(pos.x, pos.y, pos.z, rad);
 	item->mat = mat;
-	item->mat->diff = new_t_color(1, 1, 1);
+	item->mat.diff = new_t_color(1, 1, 1);
 	itemadator(env, item);
 }
 
@@ -235,31 +224,20 @@ void		init_plane(t_env *env, t_list **tokens)
 {
 	UNUSED(env);
 	t_item		*item;
-	t_vec		pos;
-	t_vec		dir;
 	t_color		rgb;
-	t_mat		*mat;
+	t_mat		mat;
 
-	pos.x = 0;
-	pos.y = 0;
-	pos.z = 0;
-	rgb.r = 0;
-	rgb.g = 0;
-	rgb.b = 0;
-	dir.x = 0;
-	dir.y = 0;
-	dir.z = 0;
 	item = new_t_item();
-	mat = (t_mat*)malloc(sizeof(t_mat));
+	item->pl = t_plane_creator(0, 0, 0, 1, 0, 0);
 	next_elem(tokens);
 	while (!terminal(&(*tokens), CLOSING_BRACKET))
 	{
 		if (ft_strcmp(get_token(tokens)->lexeme, "x") == 0)
-			pos.x = token_to_float(tokens);
+			item->pl->pos.x = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "y") == 0)
-			pos.y = token_to_float(tokens);
+			item->pl->pos.y = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "z") == 0)
-			pos.z = token_to_float(tokens);
+			item->pl->pos.z = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "r") == 0)
 			rgb.r = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "g") == 0)
@@ -267,11 +245,11 @@ void		init_plane(t_env *env, t_list **tokens)
 		else if (ft_strcmp(get_token(tokens)->lexeme, "b") == 0)
 			rgb.b = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "dir_x") == 0)
-			dir.x = token_to_float(tokens);
+			item->pl->dir.x = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "dir_y") == 0)
-			dir.y = token_to_float(tokens);
+			item->pl->dir.y = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "dir_z") == 0)
-			dir.z = token_to_float(tokens);
+			item->pl->dir.z = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "mat") == 0)
 		{
 			next_elem(tokens);
@@ -279,11 +257,56 @@ void		init_plane(t_env *env, t_list **tokens)
 		}
 		next_elem(tokens);
 	}
-	item->pl = t_plane_creator(pos.x, pos.y, pos.z, dir.x, dir.y, dir.z);
+	normalizator(&(item->pl->dir));
 	item->mat = mat;
-	item->mat->diff = new_t_color(1, 1, 1);
+	item->mat.diff = new_t_color(1, 1, 1);
 	itemadator(env, item);
 }
+
+// void		init_cone(t_env *env, t_list **tokens)
+// {
+// 	UNUSED(env);
+// 	t_item		*item;
+// 	t_color		rgb;
+// 	t_mat		mat;
+
+// 	item = new_t_item();
+// 	item->con = t_con_creator(0, 0, 0, 0, 0, 1, 0);
+// 	next_elem(tokens);
+// 	while (!terminal(&(*tokens), CLOSING_BRACKET))
+// 	{
+// 		if (ft_strcmp(get_token(tokens)->lexeme, "x") == 0)
+// 			item->con->pos.x = token_to_float(tokens);
+// 		else if (ft_strcmp(get_token(tokens)->lexeme, "y") == 0)
+// 			item->con->pos.y = token_to_float(tokens);
+// 		else if (ft_strcmp(get_token(tokens)->lexeme, "z") == 0)
+// 			item->con->pos.z = token_to_float(tokens);
+// 		else if (ft_strcmp(get_token(tokens)->lexeme, "r") == 0)
+// 			rgb.r = token_to_float(tokens);
+// 		else if (ft_strcmp(get_token(tokens)->lexeme, "g") == 0)
+// 			rgb.g = token_to_float(tokens);
+// 		else if (ft_strcmp(get_token(tokens)->lexeme, "b") == 0)
+// 			rgb.b = token_to_float(tokens);
+// 		else if (ft_strcmp(get_token(tokens)->lexeme, "dir_x") == 0)
+// 			item->con->dir.x = token_to_float(tokens);
+// 		else if (ft_strcmp(get_token(tokens)->lexeme, "dir_y") == 0)
+// 			item->con->dir.y = token_to_float(tokens);
+// 		else if (ft_strcmp(get_token(tokens)->lexeme, "dir_z") == 0)
+// 			item->con->dir.z = token_to_float(tokens);
+// 		else if (ft_strcmp(get_token(tokens)->lexeme, "angle") == 0)
+// 			item->con->ang = token_to_float(tokens);
+// 		else if (ft_strcmp(get_token(tokens)->lexeme, "mat") == 0)
+// 		{
+// 			next_elem(tokens);
+// 			mat = new_t_mat(get_token(tokens)->lexeme);
+// 		}
+// 		next_elem(tokens);
+// 	}
+// 	normalizator(&(item->con->dir));
+// 	item->mat = mat;
+// 	item->mat.diff = new_t_color(1, 1, 1);
+// 	itemadator(env, item);
+// }
 
 void		init_cone(t_env *env, t_list **tokens)
 {
@@ -292,7 +315,7 @@ void		init_cone(t_env *env, t_list **tokens)
 	t_vec		pos;
 	t_vec		dir;
 	t_color		rgb;
-	t_mat		*mat;
+	t_mat		mat;
 	float		angle;
 
 	pos.x = 0;
@@ -306,7 +329,6 @@ void		init_cone(t_env *env, t_list **tokens)
 	dir.z = 0;
 	angle = 0;
 	item = new_t_item();
-	mat = (t_mat*)malloc(sizeof(t_mat));
 	next_elem(tokens);
 	while (!terminal(&(*tokens), CLOSING_BRACKET))
 	{
@@ -339,40 +361,28 @@ void		init_cone(t_env *env, t_list **tokens)
 	}
 	item->con = t_con_creator(pos.x, pos.y, pos.z, dir.x, dir.y, dir.z, angle);
 	item->mat = mat;
-	item->mat->diff = new_t_color(1, 1, 1);
+	item->mat.diff = new_t_color(1, 1, 1);
 	itemadator(env, item);
 }
+
 
 void		init_cyl(t_env *env, t_list **tokens)
 {
 	t_item		*item;
-	t_vec		pos;
-	t_vec		dir;
 	t_color		rgb;
-	t_mat		*mat;
-	float		rad;
+	t_mat		mat;
 
-	pos.x = 0;
-	pos.y = 0;
-	pos.z = 0;
-	rgb.r = 0;
-	rgb.g = 0;
-	rgb.b = 0;
-	dir.x = 0;
-	dir.y = 0;
-	dir.z = 0;
-	rad = 0;
 	item = new_t_item();
-	mat = (t_mat*)malloc(sizeof(t_mat));
+	item->cyl = t_cyl_creator(0, 0, 0, 0, 0, 1, 1);
 	next_elem(tokens);
 	while (!terminal(&(*tokens), CLOSING_BRACKET))
 	{
 		if (ft_strcmp(get_token(tokens)->lexeme, "x") == 0)
-			pos.x = token_to_float(tokens);
+			item->cyl->pos.x = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "y") == 0)
-			pos.y = token_to_float(tokens);
+			item->cyl->pos.y = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "z") == 0)
-			pos.z = token_to_float(tokens);
+			item->cyl->pos.z = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "r") == 0)
 			rgb.r = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "g") == 0)
@@ -380,13 +390,13 @@ void		init_cyl(t_env *env, t_list **tokens)
 		else if (ft_strcmp(get_token(tokens)->lexeme, "b") == 0)
 			rgb.b = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "dir_x") == 0)
-			dir.x = token_to_float(tokens);
+			item->cyl->dir.x = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "dir_y") == 0)
-			dir.y = token_to_float(tokens);
+			item->cyl->dir.y = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "dir_z") == 0)
-			dir.z = token_to_float(tokens);
+			item->cyl->dir.z = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "rad") == 0)
-			rad = token_to_float(tokens);
+			item->cyl->ray = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "mat") == 0)
 		{
 			next_elem(tokens);
@@ -394,9 +404,9 @@ void		init_cyl(t_env *env, t_list **tokens)
 		}
 		next_elem(tokens);
 	}
-	item->cyl = t_cyl_creator(pos.x, pos.y, pos.z, dir.x, dir.y, dir.z, rad);
+	normalizator(&(item->cyl->dir));
 	item->mat = mat;
-	item->mat->diff = new_t_color(1, 1, 1);
+	item->mat.diff = new_t_color(1, 1, 1);
 	itemadator(env, item);
 }
 

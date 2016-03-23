@@ -23,8 +23,7 @@ int		modif_sphere(t_env *env, int i, char *line)
 		write(1, "1\n", 2);
 		item = new_t_item();
 		item->sp = new_t_sphere(0, 0, 10, niark);
-		item->mat = (t_mat*)malloc(sizeof(t_mat));
-		item->mat->diff = new_t_color(1, 1, 1);
+		item->mat.diff = new_t_color(1, 1, 1);
 		item->next = NULL; 
 		itemadator(env, item);
 		return(itemadator(env, item));
@@ -96,7 +95,7 @@ void		check_sphere(t_item *item, t_pd *s, t_inter *inter)
 	{
 		t = ((-b + sqrt(del)) / (2 * a) > (-b - sqrt(del)) / (2 * a))?
 		(-b - sqrt(del)) / (2 * a) : (-b + sqrt(del)) / (2 * a);
-		if (check_t(inter, t, item->mat->trans) == 1)
+		if (check_t(inter, t, item->mat.trans) == 1)
 		{
 			set_inter_pos(inter, s);
 			set_normal_sphere(inter, item);

@@ -181,7 +181,7 @@ void		creator(t_cor *c)
 		ft_putendl("NEXTEUH");
 	}
 	//antialiasing(env);
-	inquisitorArckmann(f);
+	// inquisitorArckmann(f);
 	pthread_exit(NULL);
 }
 // void		creator(t_cor *c)

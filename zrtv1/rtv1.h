@@ -103,7 +103,7 @@ typedef	struct		s_item
 	t_pd			*pl;
 	t_cyl			*cyl;
 	t_con			*con;
-	t_mat			*mat;
+	t_mat			mat;
 	struct s_item	*next;
 }					t_item;
 
@@ -263,7 +263,7 @@ int				key_down_hook(int keycode, t_leviatenv *levia);
 int				main(int argc, char **argv);
 t_pd			*new_t_pd();
 t_color			*new_t_color(float r, float g, float b);
-t_mat			*new_t_mat(char *name);
+t_mat			new_t_mat(char *name);
 t_pd			*t_plane_creator(float x, float y, float z, float dx, float dy, float dz);
 t_sphere		*new_t_sphere(float x, float y, float z, float r);
 unsigned int	get_color(int r, int g, int b);

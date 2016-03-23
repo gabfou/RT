@@ -12,37 +12,37 @@
 
 #include "rtv1.h"
 
-float		get_dist(t_vec v1, t_vec v2)
+inline float		get_dist(t_vec v1, t_vec v2)
 {
 	return (sqrt(carre(v2.x - v1.x) + carre(v2.y - v1.y) + carre(v2.z - v1.z)));
 }
 
-t_vec		vec_mult(t_vec v1, float x)
+inline t_vec		vec_mult(t_vec v1, float x)
 {
 	return (new_t_vec(v1.x * x , v1.y * x, v1.z * x));
 }
 
-t_vec		prod_vector(t_vec v1, t_vec v2)
+inline t_vec		prod_vector(t_vec v1, t_vec v2)
 {
 	return (new_t_vec(v1.y * v2.z - v1.z * v2.y, v1.z * v2.x - v1.x * v2.z,  v1.x * v2.y - v1.y * v2.x));
 }
 
-t_vec		sub_vec(t_vec v1, t_vec v2)
+inline t_vec		sub_vec(t_vec v1, t_vec v2)
 {
 	return (new_t_vec(v1.x - v2.x , v1.y - v2.y, v1.z - v2.z));
 }
 
-t_vec		add_vec(t_vec v1, t_vec v2)
+inline t_vec		add_vec(t_vec v1, t_vec v2)
 {
 	return (new_t_vec(v1.x + v2.x , v1.y + v2.y, v1.z + v2.z));
 }
 
-float		dot_prod(t_vec v1, t_vec v2)
+inline float		dot_prod(t_vec v1, t_vec v2)
 {
 	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
 }
 
-t_vec		vector_proj_vector(t_vec v1, t_vec v2) // project vector 1 in vector 2
+inline t_vec		vector_proj_vector(t_vec v1, t_vec v2) // project vector 1 in vector 2
 {
 	t_vec	ret;
 
@@ -50,7 +50,7 @@ t_vec		vector_proj_vector(t_vec v1, t_vec v2) // project vector 1 in vector 2
 	return (ret);
 }
 
-float		ft_min(float a, float b)
+inline float		ft_min(float a, float b)
 {
 	if (a > b)
 		return (b);

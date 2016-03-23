@@ -67,20 +67,19 @@ t_color		*new_t_color(float r, float g, float b)
 	return (color);
 }
 
-t_mat		*new_t_mat(char *name)
+t_mat		new_t_mat(char *name)
 {
-	t_mat	*mat;
+	t_mat	mat;
 
-	mat = malloc(sizeof(t_mat));
-	mat->name = ft_strdup(name);
-	mat->spec = NULL;
-	mat->diff = NULL;
-	mat->amb = NULL;
-	mat->selfi = NULL;
-	mat->shiny = 0;
-	mat->shinystr = 0;
-	mat->trans = 0;
-	mat->ref = 0;
+	mat.name = ft_strdup(name);
+	mat.spec = NULL;
+	mat.diff = NULL;
+	mat.amb = NULL;
+	mat.selfi = NULL;
+	mat.shiny = 0;
+	mat.shinystr = 0;
+	mat.trans = 0;
+	mat.ref = 0;
 	return (mat);
 }
 

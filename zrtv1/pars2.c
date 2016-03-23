@@ -26,43 +26,43 @@ t_item			*new_t_item()
 	return(item);
 }
 
-t_item			*fill_t_item(char **t, t_item *item)
-{
-	if (ft_strcmp(t[0], "sphere") == 0)
-	{
-		// ft_putendl("CECI EST UNE SPHERE");
-		item->sp = new_t_sphere(ft_fatoi(t[1]), ft_fatoi(t[2]),
-		ft_fatoi(t[3]), ft_fatoi(t[4]));
-		item->mat = new_t_mat(t[5]);
-		item->mat->diff = new_t_color(1, 1, 1);
-		item->mat->trans = 50;
-	}
-	if (ft_strcmp(t[0], "plane") == 0)
-	{
-		// ft_putendl("cECI EST UNE PLAN");
-		item->pl = t_plane_creator(ft_fatoi(t[1]), ft_fatoi(t[2]),
-		ft_fatoi(t[3]), ft_fatoi(t[4]), ft_fatoi(t[5]), ft_fatoi(t[6]));
-		item->mat = new_t_mat(t[7]);
-		item->mat->diff = new_t_color(1, 1, 1);
-	}
-	if (ft_strcmp(t[0], "cyl") == 0)
-	{
-		// ft_putendl("cECI EST UN CYLINDRE");
-		item->cyl = t_cyl_creator(ft_fatoi(t[1]), ft_fatoi(t[2]),
-		ft_fatoi(t[3]), ft_fatoi(t[4]), ft_fatoi(t[5]), ft_fatoi(t[6]), ft_fatoi(t[7]));
-		item->mat = new_t_mat(t[8]);
-		item->mat->diff = new_t_color(1, 1, 1);
-	}
-	if (ft_strcmp(t[0], "cone") == 0)
-	{
-		// ft_putendl("cECI EST UN CONE");
-		item->con = t_con_creator(ft_fatoi(t[1]), ft_fatoi(t[2]),
-		ft_fatoi(t[3]), ft_fatoi(t[4]), ft_fatoi(t[5]), ft_fatoi(t[6]), ft_fatoi(t[7]));
-		item->mat = new_t_mat(t[8]);
-		item->mat->diff = new_t_color(1, 1, 1);
-	}
-	return (item);
-}
+// t_item			*fill_t_item(char **t, t_item *item)
+// {
+// 	if (ft_strcmp(t[0], "sphere") == 0)
+// 	{
+// 		// ft_putendl("CECI EST UNE SPHERE");
+// 		item->sp = new_t_sphere(ft_fatoi(t[1]), ft_fatoi(t[2]),
+// 		ft_fatoi(t[3]), ft_fatoi(t[4]));
+// 		item->mat = new_t_mat(t[5]);
+// 		item->mat->diff = new_t_color(1, 1, 1);
+// 		item->mat->trans = 50;
+// 	}
+// 	if (ft_strcmp(t[0], "plane") == 0)
+// 	{
+// 		// ft_putendl("cECI EST UNE PLAN");
+// 		item->pl = t_plane_creator(ft_fatoi(t[1]), ft_fatoi(t[2]),
+// 		ft_fatoi(t[3]), ft_fatoi(t[4]), ft_fatoi(t[5]), ft_fatoi(t[6]));
+// 		item->mat = new_t_mat(t[7]);
+// 		item->mat->diff = new_t_color(1, 1, 1);
+// 	}
+// 	if (ft_strcmp(t[0], "cyl") == 0)
+// 	{
+// 		// ft_putendl("cECI EST UN CYLINDRE");
+// 		item->cyl = t_cyl_creator(ft_fatoi(t[1]), ft_fatoi(t[2]),
+// 		ft_fatoi(t[3]), ft_fatoi(t[4]), ft_fatoi(t[5]), ft_fatoi(t[6]), ft_fatoi(t[7]));
+// 		item->mat = new_t_mat(t[8]);
+// 		item->mat->diff = new_t_color(1, 1, 1);
+// 	}
+// 	if (ft_strcmp(t[0], "cone") == 0)
+// 	{
+// 		// ft_putendl("cECI EST UN CONE");
+// 		item->con = t_con_creator(ft_fatoi(t[1]), ft_fatoi(t[2]),
+// 		ft_fatoi(t[3]), ft_fatoi(t[4]), ft_fatoi(t[5]), ft_fatoi(t[6]), ft_fatoi(t[7]));
+// 		item->mat = new_t_mat(t[8]);
+// 		item->mat->diff = new_t_color(1, 1, 1);
+// 	}
+// 	return (item);
+// }
 
 // t_vec		*set_screen(t_cam *cam)
 // {
