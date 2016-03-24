@@ -45,7 +45,7 @@ void		check_con(t_item *item, t_pd *s, t_inter *inter)
 	if ((t = (b * b - 4.0 * a * c)) <= 0)
 		return ;
 	t = ft_min(((-b + sqrt(t)) / (2 * a)), ((-b - sqrt(t)) / (2 * a)));
-	if (check_t(inter, t, item->mat->trans) == 1)
+	if (check_t(inter, t, item->mat.trans) == 1)
 	{
 		set_inter_pos(inter, s);
 		set_normal_con(item->con, inter);
