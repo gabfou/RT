@@ -6,7 +6,7 @@
 /*   By: ibuchwal <ibuchwal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/23 22:25:40 by jromagna          #+#    #+#             */
-/*   Updated: 2016/03/14 23:52:32 by ibuchwal         ###   ########.fr       */
+/*   Updated: 2016/03/24 17:45:36 by ibuchwal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ typedef	struct		s_pd
 {
 	t_vec			pos;
 	t_vec			dir;
+	float			ray;
 }					t_pd;
 
 typedef	struct		s_item
@@ -264,7 +265,7 @@ int				main(int argc, char **argv);
 t_pd			*new_t_pd();
 t_color			*new_t_color(float r, float g, float b);
 t_mat			new_t_mat(char *name);
-t_pd			*t_plane_creator(float x, float y, float z, float dx, float dy, float dz);
+t_pd			*t_plane_creator(float x, float y, float z, float dx, float dy, float dz, float ray);
 t_sphere		*new_t_sphere(float x, float y, float z, float r);
 unsigned int	get_color(int r, int g, int b);
 t_light			*new_t_light();

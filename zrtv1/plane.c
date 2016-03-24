@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   plane.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jromagna <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ibuchwal <ibuchwal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/23 22:17:11 by jromagna          #+#    #+#             */
-/*   Updated: 2015/10/23 22:17:12 by jromagna         ###   ########.fr       */
+/*   Updated: 2016/03/24 17:45:25 by ibuchwal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,14 @@ void	set_normal_plane(t_item *item, t_inter *inter)
 	inter->norm.z = item->pl->dir.z;
 }
 
-t_pd	*t_plane_creator(float x, float y, float z, float dx, float dy, float dz)
+t_pd	*t_plane_creator(float x, float y, float z, float dx, float dy, float dz, float ray)
 {
 	t_pd		*plane;
 
 	plane = malloc(sizeof(t_pd));
 	plane->pos = new_t_vec(x, y, z);
 	plane->dir = normalizator_ret(new_t_vec(dx, dy, dz));
+	plane->ray = ray;
 	return (plane);
 }
 
