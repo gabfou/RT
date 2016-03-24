@@ -53,19 +53,6 @@ void	print_params(t_env env)
 	}
 }
 
-t_vec		set_screen(t_cam *cam)
-{
-	float		x;
-	float		y;
-	float		z;
-
-	x = cam->dir.x * SCR_DIST - cam->up.x * SCR_H - cam->right.x * SCR_L;
-	y = cam->dir.y * SCR_DIST - cam->up.y * SCR_H - cam->right.y * SCR_L;
-	z = cam->dir.z * SCR_DIST - cam->up.z * SCR_H - cam->right.z * SCR_L;
-	return (new_t_vec(x, y, z));
-	// print_vec(screen->upleft);
-}
-
 void		init_camera(t_env *env, t_list **tokens)
 {
 	t_cam	*cam;
@@ -207,15 +194,8 @@ void		init_sphere(t_env *env, t_list **tokens)
 			rgb.b = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "rad") == 0)
 			item->sp->ray = token_to_float(tokens);
-		else if (ft_strcmp(get_token(tokens)->lexeme, "mat") == 0)
-		{
-			next_elem(tokens);
-			item->mat = new_t_mat(get_token(tokens)->lexeme);
-		}
-		else if (ft_strcmp(get_token(tokens)->lexeme, "ref") == 0)
-			item->mat.ref = token_to_float(tokens);
-		else if (ft_strcmp(get_token(tokens)->lexeme, "trans") == 0)
-			item->mat.trans = token_to_float(tokens);
+		else
+			initmat(tokens, item);
 		next_elem(tokens);
 	}
 	item->mat.diff = new_t_color(1, 1, 1);
@@ -253,15 +233,8 @@ void		init_plane(t_env *env, t_list **tokens)
 			item->pl->dir.z = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "rad") == 0)
 			item->pl->ray = token_to_float(tokens);
-		else if (ft_strcmp(get_token(tokens)->lexeme, "mat") == 0)
-		{
-			next_elem(tokens);
-			item->mat = new_t_mat(get_token(tokens)->lexeme);
-		}
-		else if (ft_strcmp(get_token(tokens)->lexeme, "ref") == 0)
-			item->mat.ref = token_to_float(tokens);
-		else if (ft_strcmp(get_token(tokens)->lexeme, "trans") == 0)
-			item->mat.trans = token_to_float(tokens);
+		else
+			initmat(tokens, item);
 		next_elem(tokens);
 	}
 	normalizator(&(item->pl->dir));
@@ -300,15 +273,8 @@ void		init_cone(t_env *env, t_list **tokens)
 			item->con->dir.z = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "angle") == 0)
 			item->con->ang = token_to_float(tokens) / 180 * M_PI;
-		else if (ft_strcmp(get_token(tokens)->lexeme, "mat") == 0)
-		{
-			next_elem(tokens);
-			item->mat = new_t_mat(get_token(tokens)->lexeme);
-		}
-		else if (ft_strcmp(get_token(tokens)->lexeme, "ref") == 0)
-			item->mat.ref = token_to_float(tokens);
-		else if (ft_strcmp(get_token(tokens)->lexeme, "trans") == 0)
-			item->mat.trans = token_to_float(tokens);
+		else
+			initmat(tokens, item);
 		next_elem(tokens);
 	}
 	normalizator(&(item->con->dir));
@@ -346,35 +312,13 @@ void		init_cyl(t_env *env, t_list **tokens)
 			item->cyl->dir.z = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "rad") == 0)
 			item->cyl->ray = token_to_float(tokens);
-		else if (ft_strcmp(get_token(tokens)->lexeme, "mat") == 0)
-		{
-			next_elem(tokens);
-			item->mat = new_t_mat(get_token(tokens)->lexeme);
-		}
-		else if (ft_strcmp(get_token(tokens)->lexeme, "ref") == 0)
-			item->mat.ref = token_to_float(tokens);
-		else if (ft_strcmp(get_token(tokens)->lexeme, "trans") == 0)
-			item->mat.trans = token_to_float(tokens);
+		else
+			initmat(tokens, item);
 		next_elem(tokens);
 	}
 	normalizator(&(item->cyl->dir));
 	item->mat.diff = new_t_color(1, 1, 1);
 	itemadator(env, item);
-}
-
-int			get_t_cam_lenght(t_cam *cam)
-{
-	t_cam	*tmp;
-	int		i;
-
-	i = 0;
-	tmp = cam;
-	while (tmp != NULL)
-	{
-		i++;
-		tmp = tmp->next;
-	}
-	return (i);
 }
 
 void		t_limg_initator(t_leviatenv *levia)
@@ -388,10 +332,10 @@ void		t_limg_initator(t_leviatenv *levia)
 	tmp = NULL;
 	first = NULL;
 	i = get_t_cam_lenght(levia->lenv->cam);
-	ft_putstr("cam lenght");
-	ft_putnbr(i);
-	ft_putendl(" ;");
-	while (i > 0)
+	// ft_putstr("cam lenght");
+	// ft_putnbr(i);
+	// ft_putendl(" ;");
+	while (i-- > 0)
 	{
 		if (!tmp)
 		{
@@ -404,33 +348,10 @@ void		t_limg_initator(t_leviatenv *levia)
 			tmp->next->prev = tmp;
 			tmp = tmp->next;
 		}
-		i--;
 	}
-//	ft_putendl("finitator cam list");
-	// if (!first)
-	// 	ft_putendl("YA PAS DE first");
-	// if (!tmp)
-	// 	ft_putendl("YA PAS DE tmp");
 	tmp->next = first;
-//	ft_putendl("f111111");
 	tmp->next->prev = tmp;
-//	ft_putendl("fi22222");
 	levia->lenv->limg = first;
-	//ft_putendl("fi333333");
-}
-
-void		init_env(t_leviatenv *levia)
-{
-	// levia->lenv->l = 0;
-	//levia->lenv->done = 0;
-	levia->mlx = mlx_init();
-	levia->win = mlx_new_window(levia->mlx, L_SIZE, H_SIZE, "RTV1");
-	levia->lenv = NULL;
-	// env->image = mlx_new_image(env->mlx, L_SIZE, H_SIZE);
-	// env->img = mlx_get_data_addr(env->image, &env->bpp, &env->sline, &env->endiant);
-	// levia->lenv->i = 1;
-	// initktc(env);
-//	ft_putendl("ASFGDSHBSHSRRSH");
 }
 
 void		init_all(t_env *env, t_list *tokens)

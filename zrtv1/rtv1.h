@@ -345,5 +345,9 @@ void			delete_symbols(t_list **tokens);
 float			token_to_float(t_list **tokens);
 void			t_inter_set(t_inter *inter);
 void			t_limg_initator(t_leviatenv *levia);
+t_vec			set_screen(t_cam *cam);
+void			initmat(t_list	**tokens, t_item *item);
+int				get_t_cam_lenght(t_cam *cam);
+void			init_env(t_leviatenv *levia);
 
 #endif
