@@ -6,7 +6,7 @@
 /*   By: ibuchwal <ibuchwal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 21:18:43 by ibuchwal          #+#    #+#             */
-/*   Updated: 2016/03/14 23:52:14 by ibuchwal         ###   ########.fr       */
+/*   Updated: 2016/03/24 17:45:41 by ibuchwal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,7 +228,7 @@ void		init_plane(t_env *env, t_list **tokens)
 	t_mat		mat;
 
 	item = new_t_item();
-	item->pl = t_plane_creator(0, 0, 0, 1, 0, 0);
+	item->pl = t_plane_creator(0, 0, 0, 1, 0, 0, 0);
 	next_elem(tokens);
 	while (!terminal(&(*tokens), CLOSING_BRACKET))
 	{
@@ -250,6 +250,8 @@ void		init_plane(t_env *env, t_list **tokens)
 			item->pl->dir.y = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "dir_z") == 0)
 			item->pl->dir.z = token_to_float(tokens);
+		else if (ft_strcmp(get_token(tokens)->lexeme, "rad") == 0)
+			item->pl->ray = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "mat") == 0)
 		{
 			next_elem(tokens);
@@ -533,5 +535,10 @@ void		init(t_env *env, int argc, char *argv)
 	delete_symbols(&save);
 	//ft_putendl("TeST2");
 	init_all(env, save);
+<<<<<<< HEAD
 	//ft_putendl("TeST3");
 }
+=======
+	ft_putendl("TeST3");
+}
+>>>>>>> 87653abe3f4f06237d7d64d258f0dfd769a38652
