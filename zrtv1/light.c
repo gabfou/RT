@@ -38,11 +38,13 @@ t_light			*fill_t_light(char **t, t_light *light)
 
 t_vec	normalizator_ret(t_vec vec)
 {
-	float	lenght;
+	long double	lenght;
 
 	lenght = sqrt(carre(vec.x) + carre(vec.y) + carre(vec.z));
-	if (lenght == 0)
-		ft_error("i just saved the universe!");
+	// if (lenght == 0)
+	// 	ft_error("i just saved the universe!");
+	if (lenght == 0.0)
+		ft_putendl("i just saved the universe!");
 	vec.x = vec.x / lenght;
 	vec.y = vec.y / lenght;
 	vec.z = vec.z / lenght;
@@ -51,11 +53,13 @@ t_vec	normalizator_ret(t_vec vec)
 
 void	normalizator(t_vec *vec)
 {
-	float	lenght;
+	long double	lenght;
 
 	lenght = sqrt(carre(vec->x) + carre(vec->y) + carre(vec->z));
-	if (lenght == 0)
-		ft_error("i just saved the universe!");
+	// if (lenght == 0)
+	// 	ft_error("i just saved the universe!");
+	if (lenght == 0.0)
+		ft_putendl("i just saved the universe!");
 	vec->x = vec->x / lenght;
 	vec->y = vec->y / lenght;
 	vec->z = vec->z / lenght;

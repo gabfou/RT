@@ -127,6 +127,7 @@ typedef	struct		s_inter
 	t_vec			norm;
 	t_vec			pos;
 	t_trans			*trans;
+	float			ref;
 }					t_inter;
 
 // typedef	struct		s_screen
@@ -231,6 +232,7 @@ typedef	struct		s_env
 	int				l;
 	int				i;
 	int				ft;
+	int				mircount;
 	struct	s_env	*prev;
 	struct	s_env	*next;
 }					t_env;
@@ -276,7 +278,7 @@ void			set_inter_pos(t_inter *inter, t_pd *pd);
 int				itemadator(t_env *env, t_item *item);
 t_item			*new_t_item();
 
-int				check_t(t_inter *inter, float t, float trans);
+int				check_t(t_inter *inter, float t, float trans, t_item *item);
 
 void			check_sphere(t_item *item, t_pd *s, t_inter *inter);
 void			check_plane(t_item *item, t_pd *s, t_inter *inter);
@@ -337,5 +339,6 @@ int				access_file(int argc, char *argv);
 t_list			*get_tokens(int fd);
 void			delete_symbols(t_list **tokens);
 float			token_to_float(t_list **tokens);
+void			t_inter_set(t_inter *inter);
 
 #endif

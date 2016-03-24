@@ -131,6 +131,28 @@ void		inquisitorArckmann(t_thr *f)
 		free(f);
 	}
 }
+// if (e->d < 0xf0000 && e->pixelmirror == 1 && e->testor == 1)
+	// {
+	// 	e->c.x = 0;
+	// 	e->c.y = 0;
+	// 	e->c.z = 0;
+	// 	e->pl.x += -e->vl.x * 1.0;
+	// 	e->pl.y += -e->vl.y * 1.0;
+	// 	e->pl.z += -e->vl.z * 1.0;
+	// 	e->d = 0xf0000;
+	// 	e->pixelmirror = 0;
+	// 	return (testall(1, e->pl, e, ps(e->vl, -1)/*miroiratorvcalculator(dir, ps(e->vl, -1))*/));
+	// }
+
+int testuniverse(t_vec vec)
+{
+	float lenght;
+
+	lenght = sqrt(carre(vec.x) + carre(vec.y) + carre(vec.z));
+	if (lenght == 0)
+		ft_putendl("dafuq universe");
+	return (lenght = sqrt(carre(vec.x) + carre(vec.y) + carre(vec.z)));
+}
 
 void		creator(t_cor *c)
 {
@@ -167,6 +189,19 @@ void		creator(t_cor *c)
 				t_inter_set(f->inter);
 				calc_dir(&(pd->dir), x, y, f->cam);
 				impactor(c->env, pd, f, f->inter);
+				c->env->mircount = 0;
+				if (f->inter->ref > 0 && c->env->mircount++ < 8)
+				{
+					// ft_putendl("niark");
+					set_inter_pos(f->inter, pd);
+					pd->dir = normalizator_ret(f->inter->norm);
+					pd->pos = f->inter->pos;
+					// pd->pos = add_vec(f->inter->pos, vec_mult(pd->dir, -1));
+					f->fcolor = 0x000000;
+					f->inter = new_t_inter();
+					t_inter_set(f->inter);
+					impactor(c->env, pd, f, f->inter);
+				}
 				set_inter_pos(f->inter, pd);
 				luminator(c->env, f);
 				pixel_to_image(x, y, f->fcolor, f->limg);

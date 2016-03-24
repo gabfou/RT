@@ -39,7 +39,6 @@ t_vec		new_t_vec(float x, float y, float z)
 {
 	t_vec		pos;
 
-	// pos = malloc(sizeof(t_vec));
 	pos.x = x;
 	pos.y = y;
 	pos.z = z;
@@ -51,8 +50,6 @@ t_pd		*new_t_pd()
 	t_pd		*cam;
 
 	cam = malloc(sizeof(t_pd));
-	// cam->pos = NULL;
-	// cam->dir = NULL;
 	return (cam);
 }
 
@@ -79,7 +76,7 @@ t_mat		new_t_mat(char *name)
 	mat.shiny = 0;
 	mat.shinystr = 0;
 	mat.trans = 0;
-	mat.ref = 0;
+	mat.ref = -1;
 	return (mat);
 }
 
@@ -92,5 +89,6 @@ t_inter		*new_t_inter()
 	inter->norm = new_t_vec(0, 0, 0);
 	inter->pos = new_t_vec(0, 0, 0);
 	inter->trans = NULL;
+	inter->ref = -1;
 	return (inter);
 }

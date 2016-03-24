@@ -438,7 +438,8 @@ cone {
 	dir_y: 1,
 	dir_z: -1,
 	angle: 10,
-	mat: 1
+	mat: 1,
+	ref: 1
 }
 
 cone {
@@ -449,7 +450,8 @@ cone {
 	dir_y: -1,
 	dir_z: 1,
 	angle: 10,
-	mat: 1
+	mat: 1,
+	ref: 1
 }
 
 cone {
@@ -460,7 +462,8 @@ cone {
 	dir_y: 1,
 	dir_z: 1,
 	angle: 10,
-	mat: 1
+	mat: 1,
+	ref: 1
 }
 
 cone {
@@ -471,7 +474,8 @@ cone {
 	dir_y: -1,
 	dir_z: -1,
 	angle: 10,
-	mat: 1
+	mat: 1,
+	ref: 1
 }
 
 cyl {

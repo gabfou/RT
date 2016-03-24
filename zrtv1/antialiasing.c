@@ -14,33 +14,33 @@
 
 void		put_pixelantialiaser(t_env *e, register int x, register int y)
 {
-	register unsigned char	color1[5];
-	register unsigned char	color2[5];
-	register unsigned char	color3[5];
+	register unsigned char	c1[5];
+	register unsigned char	c2[5];
+	register unsigned char	c3[5];
 	register int			img_size;
 
 	img_size = L_SIZE * H_SIZE * e->limg->bpp / 8;
 	if (x < 1 || y < 1 || y * e->limg->sline + x * e->limg->bpp / 8 > img_size - 1
 	|| x >= e->limg->sline / (e->limg->bpp / 8) || y >= img_size / e->limg->sline - 1)
 		return ;
-	color1[0] = e->limg->img[(y + 1) * e->limg->sline + x * e->limg->bpp / 8];
-	color2[0] = e->limg->img[(y + 1) * e->limg->sline + x * e->limg->bpp / 8 + 1];
-	color3[0] = e->limg->img[(y + 1) * e->limg->sline + x * e->limg->bpp / 8 + 2];
-	color1[1] = e->limg->img[(y - 1) * e->limg->sline + x * e->limg->bpp / 8];
-	color2[1] = e->limg->img[(y - 1) * e->limg->sline + x * e->limg->bpp / 8 + 1];
-	color3[1] = e->limg->img[(y - 1) * e->limg->sline + x * e->limg->bpp / 8 + 2];
-	color1[2] = e->limg->img[y * e->limg->sline + (x - 1) * e->limg->bpp / 8];
-	color2[2] = e->limg->img[y * e->limg->sline + (x - 1) * e->limg->bpp / 8 + 1];
-	color3[2] = e->limg->img[y * e->limg->sline + (x - 1) * e->limg->bpp / 8 + 2];
-	color1[3] = e->limg->img[y * e->limg->sline + (x + 1) * e->limg->bpp / 8];
-	color2[3] = e->limg->img[y * e->limg->sline + (x + 1) * e->limg->bpp / 8 + 1];
-	color3[3] = e->limg->img[y * e->limg->sline + (x + 1) * e->limg->bpp / 8 + 2];
-	color1[4] = e->limg->img[y * e->limg->sline + x * e->limg->bpp / 8];
-	color2[4] = e->limg->img[y * e->limg->sline + x * e->limg->bpp / 8 + 1];
-	color3[4] = e->limg->img[y * e->limg->sline + x * e->limg->bpp / 8 + 2];
-	e->limg->img[y * e->limg->sline + x * e->limg->bpp / 8] = (color1[0] + color1[1] + color1[2] + color1[3] + color1[4]) / 5;
-	e->limg->img[y * e->limg->sline + x * e->limg->bpp / 8 + 1] = (color2[0] + color2[1] + color2[2] + color2[3] + color2[4]) / 5;
-	e->limg->img[y * e->limg->sline + x * e->limg->bpp / 8 + 2] = (color3[0] + color3[1] + color3[2] + color3[3] + color3[4]) / 5;
+	c1[0] = e->limg->img[(y + 1) * e->limg->sline + x * e->limg->bpp / 8];
+	c2[0] = e->limg->img[(y + 1) * e->limg->sline + x * e->limg->bpp / 8 + 1];
+	c3[0] = e->limg->img[(y + 1) * e->limg->sline + x * e->limg->bpp / 8 + 2];
+	c1[1] = e->limg->img[(y - 1) * e->limg->sline + x * e->limg->bpp / 8];
+	c2[1] = e->limg->img[(y - 1) * e->limg->sline + x * e->limg->bpp / 8 + 1];
+	c3[1] = e->limg->img[(y - 1) * e->limg->sline + x * e->limg->bpp / 8 + 2];
+	c1[2] = e->limg->img[y * e->limg->sline + (x - 1) * e->limg->bpp / 8];
+	c2[2] = e->limg->img[y * e->limg->sline + (x - 1) * e->limg->bpp / 8 + 1];
+	c3[2] = e->limg->img[y * e->limg->sline + (x - 1) * e->limg->bpp / 8 + 2];
+	c1[3] = e->limg->img[y * e->limg->sline + (x + 1) * e->limg->bpp / 8];
+	c2[3] = e->limg->img[y * e->limg->sline + (x + 1) * e->limg->bpp / 8 + 1];
+	c3[3] = e->limg->img[y * e->limg->sline + (x + 1) * e->limg->bpp / 8 + 2];
+	c1[4] = e->limg->img[y * e->limg->sline + x * e->limg->bpp / 8];
+	c2[4] = e->limg->img[y * e->limg->sline + x * e->limg->bpp / 8 + 1];
+	c3[4] = e->limg->img[y * e->limg->sline + x * e->limg->bpp / 8 + 2];
+	e->limg->img[y * e->limg->sline + x * e->limg->bpp / 8] = (c1[0] + c1[1] + c1[2] + c1[3] + c1[4]) / 5;
+	e->limg->img[y * e->limg->sline + x * e->limg->bpp / 8 + 1] = (c2[0] + c2[1] + c2[2] + c2[3] + c2[4]) / 5;
+	e->limg->img[y * e->limg->sline + x * e->limg->bpp / 8 + 2] = (c3[0] + c3[1] + c3[2] + c3[3] + c3[4]) / 5;
 }
 
 void antialiasing(t_env *e)

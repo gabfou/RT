@@ -152,7 +152,7 @@ void	set_inter_pos(t_inter *inter, t_pd *pd)
 	inter->pos.z = (pd->pos.z + (pd->dir.z * inter->t));
 }
 
-int		check_t(t_inter *inter, float t, float trans)
+int		check_t(t_inter *inter, float t, float trans, t_item *item)
 {
 	t_trans	*tmp;
 	//ft_putendl("check t");
@@ -176,6 +176,7 @@ int		check_t(t_inter *inter, float t, float trans)
 	if ((inter->t > t && t > 0) || inter->t < 0)
 	{
 		inter->t = t;
+		inter->ref = item->mat.ref;
 		//ft_putstr(".");
 		//printf("%f\n", inter->t);
 	//	ft_putendl("FIN 3");
