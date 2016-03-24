@@ -174,7 +174,7 @@ void	comander(int key, t_leviatenv *env)
 		stat[i++] = keyret;
 	}
 	mlx_clear_window(env->mlx, env->win);
-	mlx_put_image_to_window(env->mlx, env->win, env->lenv->image, 0, 0);
+	// mlx_put_image_to_window(env->mlx, env->win, env->lenv->image, 0, 0);
 	if (env->lenv->ft % 2 == 1)
 		mlx_string_put(env->mlx, env->win, L_SIZE + 2, H_SIZE - 30, 0xFFFFFF, stat);
 }
