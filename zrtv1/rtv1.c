@@ -85,16 +85,16 @@ int			expose_hook(t_leviatenv *levia)
 	// 		antialiasing(levia->lenv);
 	// 	levia->lenv->i++;
 	// }
-	if (levia->lenv->i > NBTHREAD /* && lenv->i < NBTHREAD + 15*/)
+	if (levia->lenv->limg->i > NBTHREAD /* && lenv->i < NBTHREAD + 15*/)
 	{
-		levia->lenv->i++;
+		levia->lenv->limg->i++;
 		mlx_put_image_to_window(levia->mlx, levia->win, levia->lenv->limg->image, 0, 0);
 	}
-	// if (levia->lenv->i <= NBTHREAD + 1)
-	// {
-	// 	// printf("lenv->l = %d\n", lenv->l);
-	// 	loadator(H_SIZE, L_SIZE, levia, levia->lenv->l);
-	// }
+	if (levia->lenv->limg->i <= NBTHREAD)
+	{
+		// printf("lenv->l = %d\n", lenv->l);
+		loadator(H_SIZE, L_SIZE, levia, levia->lenv->limg->l);
+	}
 	//lenv->done = 1;
 	return (0);
 }
@@ -154,8 +154,6 @@ t_env		*new_t_env()
 	env->inter = NULL;
 	env->fcolor = 0;
 	env->done = 0;
-	env->l = 0;
-	env->i = 0;
 	env->ft = 0;
 	env->prev = NULL;
 	env->next = NULL;
@@ -169,50 +167,56 @@ void		gpatrouverdnom(t_leviatenv *env,int argc,char *argv)
 	init(env->lenv, argc, argv);
 
 	// ft_putendl("choix 1 1");
-
-	init_env(env);
-
+	t_limg_initator(env);
 	// ft_putendl("choix 1 1");
 }
 
 int			main(int argc, char **argv)
 {
 	t_leviatenv	levia;
+	t_env		*tmp;
 	t_env		*first;
 	int			i;
 
 	i = 1;
 //	ft_putnbr(argc);
-	if (argc == 1)
-		exit(0);
+	// if (argc == 1)
+	// 	exit(0);
+	init_env(&levia);
 	while (i < argc)
 	{
 	//	ft_putendl("post2");
-		if (!levia.lenv)
+		if (!tmp)
 		{
 	//		 ft_putendl("choix 1 1");
-			levia.lenv = new_t_env();
+			tmp = new_t_env();
+			first = tmp;
 			// ft_putendl("choix 1 2");
 			gpatrouverdnom(&levia, argc, argv[i]);
 			// ft_putendl("choix 1 3");
-			first = levia.lenv;
+			
 	//		 ft_putendl("choix 1 4");
 		}
 		else
 		{
 	//		 ft_putendl("choix 2 1");
-			levia.lenv->next = new_t_env();
+			tmp->next = new_t_env();
+			tmp->next->prev = tmp;
+			tmp = tmp->next;
 			// ft_putendl("choix 2 2");
 			gpatrouverdnom(&levia, argc, argv[i]);
 			// ft_putendl("choix 2 3");
-			levia.lenv->next->prev = levia.lenv;
+			
 			// ft_putendl("choix 2 4");
-			levia.lenv  = levia.lenv->next;
+			
 	//		 ft_putendl("choix 2 5");
 		}
 		i++;
 	}
+	tmp->next = first;
+	first->prev = tmp;
 	levia.lenv = first;
+
 	//ft_putendl("post3");
 	// print_params(env);
 	// init(&env);

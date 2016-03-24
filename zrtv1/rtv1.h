@@ -184,6 +184,9 @@ typedef	struct			s_limg
 	char			*img;
 	int				bpp;
 	int				sline;
+	int				i;
+	int				l;
+	int				k;
 	struct	s_limg	*prev;
 	struct	s_limg	*next;
 }					t_limg;
@@ -228,8 +231,7 @@ typedef	struct		s_env
 	t_inter			*inter;
 	unsigned int	fcolor;
 	int				done;
-	int				l;
-	int				i;
+
 	int				ft;
 	struct	s_env	*prev;
 	struct	s_env	*next;
@@ -337,5 +339,5 @@ int				access_file(int argc, char *argv);
 t_list			*get_tokens(int fd);
 void			delete_symbols(t_list **tokens);
 float			token_to_float(t_list **tokens);
-
+void			t_limg_initator(t_leviatenv *levia);
 #endif

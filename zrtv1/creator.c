@@ -140,14 +140,14 @@ void		creator(t_cor *c)
 				set_inter_pos(f->inter, pd);
 				luminator(c->env, f);
 				pixel_to_image(x, y, f->fcolor, f->limg);
-				c->env->l++;
+				f->limg->l++;
 				x += 1;
 			}
 			y += 1;
 		}
+		f->limg->i++;
 		f->cam = f->cam->next;
 		f->limg = f->limg->next;
-		c->env->i++;
 		ft_putendl("NEXTEUH");
 	}
 	//antialiasing(env);

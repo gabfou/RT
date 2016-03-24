@@ -39,25 +39,27 @@ void	loadatorprovisoirauxi(int k, int l, int h, t_leviatenv *e)
 
 void	loadator(int h, int l, t_leviatenv *e, int nb) // ca c est la bar
 {
-	static int k = 1;
+//	static int k = 1;
 	char r[4];
 
 	if (h == -1)
 	{
-		k = 1;
+		e->lenv->limg->k = 1;
 		return ;
 	}
-	if (nb > ((int)(h * l) / 100) * k && e->lenv->i != NBTHREAD + 1)
+	if (nb > ((int)(h * l) / 100) * e->lenv->limg->k && e->lenv->limg->i != NBTHREAD + 1)
 	{
-		while (nb > ((int)(h * l) / 100) * k)
-			k++;
-		// ft_putnbr(k);
+		while (nb > ((int)(h * l) / 100) * e->lenv->limg->k)
+			e->lenv->limg->k++;
+		///if (e->lenv->limg->k >= 100)
+		//	e->lenv->limg->k = 99;
+		// ft_putnbr(e->lenv->limg->k);
 		// ft_putendl("%");
-		// k++;
+		// e->lenv->limg->k++;
 		mlx_clear_window(e->mlx, e->win);
-		loadatorprovisoirauxi(k, l, h, e);
-		r[0] = (k / 10) % 10 + '0';
-		r[1] = k % 10 + '0';
+		loadatorprovisoirauxi(e->lenv->limg->k, l, h, e);
+		r[0] = (e->lenv->limg->k / 10) % 10 + '0';
+		r[1] = e->lenv->limg->k % 10 + '0';
 		r[2] = '%';
 		r[3] = 0;
 		mlx_string_put(e->mlx, e->win, l / 2 - 130, h - h / 10 + 5, 0xFFFFFF, r);

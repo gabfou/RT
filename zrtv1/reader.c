@@ -15,7 +15,7 @@ void	readerbmp32(char *name, t_leviatenv *e)
 
 	int	fd_img;
 
-	e->lenv->i = NBTHREAD + 2;
+	e->lenv->limg->i = NBTHREAD + 2;
 	fd_img = open(name, O_RDONLY);
 
 	read(fd_img, &fh, sizeof(t_header));
@@ -125,8 +125,8 @@ void	comadator(char *line, t_leviatenv *env)
 		ft_putendl(last);
 	if (ft_strcmp(line, "refresh") == 0)
 	{
-		env->lenv->l = 0;
-		env->lenv->i = 1;
+		env->lenv->limg->l = 0;
+		env->lenv->limg->i = 1;
 		env->lenv->done = 0;
 		loadator(-1, -1, NULL, -1);
 		thread_master(env->lenv);

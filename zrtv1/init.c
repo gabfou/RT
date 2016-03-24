@@ -445,14 +445,14 @@ void		t_limg_initator(t_leviatenv *levia)
 
 void		init_env(t_leviatenv *levia)
 {
-	levia->lenv->l = 0;
+	// levia->lenv->l = 0;
 	levia->lenv->done = 0;
 	levia->mlx = mlx_init();
 	levia->win = mlx_new_window(levia->mlx, L_SIZE, H_SIZE, "RTV1");
-	t_limg_initator(levia);
+	
 	// env->image = mlx_new_image(env->mlx, L_SIZE, H_SIZE);
 	// env->img = mlx_get_data_addr(env->image, &env->bpp, &env->sline, &env->endiant);
-	levia->lenv->i = 1;
+	// levia->lenv->i = 1;
 	// initktc(env);
 	ft_putendl("ASFGDSHBSHSRRSH");
 }
