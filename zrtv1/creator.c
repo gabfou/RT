@@ -87,19 +87,19 @@ void		ft_check(t_env *env)
 	if(env->item->sp == NULL && env->item->pl == NULL)
 		ft_putendl(" SP NULLLLLL");
 
-	ft_putendl("cam pos");
+//	ft_putendl("cam pos");
 	print_vec(env->cam->pos);
-	ft_putendl("cam dir");
+//	ft_putendl("cam dir");
 	print_vec(env->cam->dir);
 
-	ft_putendl("cam up");
+//	ft_putendl("cam up");
 	print_vec(env->cam->up);
 
-	ft_putendl("cam right");
+//	ft_putendl("cam right");
 	print_vec(env->cam->right);
-	printf("LUM px=%f py=%f pz=%f\n", env->light->pos.x, env->light->pos.y, env->light->pos.z);
-	printf("SP px=%f py=%f pz=%f\n", env->item->sp->c.x, env->item->sp->c.y, env->item->sp->c.z);
-	ft_putendl("CHECK FINITO");
+//	printf("LUM px=%f py=%f pz=%f\n", env->light->pos.x, env->light->pos.y, env->light->pos.z);
+//	printf("SP px=%f py=%f pz=%f\n", env->item->sp->c.x, env->item->sp->c.y, env->item->sp->c.z);
+//	ft_putendl("CHECK FINITO");
 }
 
 void		inquisitorArckmann(t_thr *f)
@@ -154,6 +154,33 @@ int testuniverse(t_vec vec)
 	return (lenght = sqrt(carre(vec.x) + carre(vec.y) + carre(vec.z)));
 }
 
+t_thr		*new_t_thr(t_cor *c)
+{
+	t_thr		*f;
+
+	f = malloc(sizeof(t_thr));
+	f->done = 0;
+	f->env = c->env;
+	f->minx = c->minx;
+	f->maxx = c->maxx;
+	f->miny = c->miny;
+	f->maxy = c->maxy;
+	f->item = f->env->item;
+	f->light = f->env->light;
+	f->cam = f->env->cam;
+	f->limg = f->env->limg;
+	return (f);
+}
+
+t_thr		*set_again_t_thr(t_thr *f)
+{
+	f->item = f->env->item;
+	f->light = f->env->light;
+	f->cam = f->env->cam;
+	f->limg = f->env->limg;
+	return (f);
+}
+
 void		creator(t_cor *c)
 {
 	double		x;
@@ -162,58 +189,58 @@ void		creator(t_cor *c)
 	t_thr		*f;
 	int			l;
 
-	f = malloc(sizeof(t_thr));
-	f->minx = c->minx;
-	f->maxx = c->maxx;
-	f->miny = c->miny;
-	f->maxy = c->maxy;
-	f->item = c->env->item;
-	f->light = c->env->light;
-	f->cam = c->env->cam;
-	f->limg = c->env->limg;
-	usleep(10000);
+	f = new_t_thr(c);
+//	usleep(10000);
 	l = 0;
 	pd = new_t_pd();
 	pd->dir = new_t_vec(0,0,0);
-	while (f->cam != NULL)
+	while (f->env->done != NBTHREAD && f->env->nbr > f->done)
 	{
-		y = f->miny;
-		while (y < f->maxy)
+		while (f->cam != NULL)
 		{
-			x = f->minx;
-			while (x < f->maxx)
+			y = f->miny;
+			while (y < f->maxy)
 			{
-				pd->pos = f->cam->pos;
-				f->fcolor = 0x000000;
-				f->inter = new_t_inter();
-				t_inter_set(f->inter);
-				calc_dir(&(pd->dir), x, y, f->cam);
-				impactor(c->env, pd, f, f->inter);
-				c->env->mircount = 0;
-				if (f->inter->ref > 0 && c->env->mircount++ < 8)
+				x = f->minx;
+				while (x < f->maxx)
 				{
-					// ft_putendl("niark");
-					set_inter_pos(f->inter, pd);
-					pd->dir = normalizator_ret(f->inter->norm);
-					pd->pos = f->inter->pos;
-					// pd->pos = add_vec(f->inter->pos, vec_mult(pd->dir, -1));
+					pd->pos = f->cam->pos;
 					f->fcolor = 0x000000;
 					f->inter = new_t_inter();
 					t_inter_set(f->inter);
-					impactor(c->env, pd, f, f->inter);
+					calc_dir(&(pd->dir), x, y, f->cam);
+					impactor(f->env, pd, f, f->inter);
+					c->env->mircount = 0;
+					if (f->inter->ref > 0 && c->env->mircount++ < 8)
+					{
+						// ft_putendl("niark");
+						set_inter_pos(f->inter, pd);
+						pd->dir = normalizator_ret(f->inter->norm);
+						pd->pos = f->inter->pos;
+						// pd->pos = add_vec(f->inter->pos, vec_mult(pd->dir, -1));
+						f->fcolor = 0x000000;
+						f->inter = new_t_inter();
+						t_inter_set(f->inter);
+						impactor(c->env, pd, f, f->inter);
+					}
+					set_inter_pos(f->inter, pd);
+					luminator(f->env, f);
+					pixel_to_image(x, y, f->fcolor, f->limg);
+					f->limg->l++;
+					x += 1;
 				}
-				set_inter_pos(f->inter, pd);
-				luminator(c->env, f);
-				pixel_to_image(x, y, f->fcolor, f->limg);
-				c->env->l++;
-				x += 1;
+				y += 1;
 			}
-			y += 1;
+			f->limg->i++;
+			f->cam = f->cam->next;
+			f->limg = f->limg->next;
+			ft_putstr("NEXTEUH");
 		}
-		f->cam = f->cam->next;
-		f->limg = f->limg->next;
-		c->env->i++;
-		ft_putendl("NEXTEUH");
+		ft_putendl("next env");
+		f->env->done++;
+		f->done++;
+		f->env = f->env->next;
+		f = set_again_t_thr(f);
 	}
 	//antialiasing(env);
 	// inquisitorArckmann(f);

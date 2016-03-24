@@ -6,7 +6,7 @@
 /*   By: ibuchwal <ibuchwal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/23 22:25:40 by jromagna          #+#    #+#             */
-/*   Updated: 2016/03/14 23:52:32 by ibuchwal         ###   ########.fr       */
+/*   Updated: 2016/03/24 17:45:36 by ibuchwal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ typedef	struct		s_pd
 {
 	t_vec			pos;
 	t_vec			dir;
+	float			ray;
 }					t_pd;
 
 typedef	struct		s_item
@@ -185,6 +186,9 @@ typedef	struct			s_limg
 	char			*img;
 	int				bpp;
 	int				sline;
+	int				i;
+	int				l;
+	int				k;
 	struct	s_limg	*prev;
 	struct	s_limg	*next;
 }					t_limg;
@@ -201,21 +205,6 @@ typedef	struct			s_cam
 	// struct	s_cam	*prev;
 }					t_cam;
 
-
-typedef	struct		s_thr
-{
-	float			minx;
-	float			maxx;
-	float			miny;
-	float			maxy;
-	unsigned int	fcolor;
-	t_inter			*inter;
-	t_item			*item;
-	t_light			*light;
-	t_limg			*limg;
-	t_cam			*cam;
-}					t_thr;
-
 typedef	struct		s_env
 {
 	void			*image;
@@ -229,13 +218,28 @@ typedef	struct		s_env
 	t_inter			*inter;
 	unsigned int	fcolor;
 	int				done;
-	int				l;
-	int				i;
+	int				nbr;
 	int				ft;
 	int				mircount;
 	struct	s_env	*prev;
 	struct	s_env	*next;
 }					t_env;
+
+typedef	struct		s_thr
+{
+	t_env			*env;
+	float			minx;
+	float			maxx;
+	float			miny;
+	float			maxy;
+	int				done;
+	unsigned int	fcolor;
+	t_inter			*inter;
+	t_item			*item;
+	t_light			*light;
+	t_limg			*limg;
+	t_cam			*cam;
+}					t_thr;
 
 typedef struct		s_cor
 {
@@ -266,7 +270,7 @@ int				main(int argc, char **argv);
 t_pd			*new_t_pd();
 t_color			*new_t_color(float r, float g, float b);
 t_mat			new_t_mat(char *name);
-t_pd			*t_plane_creator(float x, float y, float z, float dx, float dy, float dz);
+t_pd			*t_plane_creator(float x, float y, float z, float dx, float dy, float dz, float ray);
 t_sphere		*new_t_sphere(float x, float y, float z, float r);
 unsigned int	get_color(int r, int g, int b);
 t_light			*new_t_light();
@@ -340,5 +344,6 @@ t_list			*get_tokens(int fd);
 void			delete_symbols(t_list **tokens);
 float			token_to_float(t_list **tokens);
 void			t_inter_set(t_inter *inter);
+void			t_limg_initator(t_leviatenv *levia);
 
 #endif

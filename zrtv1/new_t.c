@@ -19,6 +19,9 @@ t_limg		*new_t_limg(t_leviatenv *env)
 	ret = malloc(sizeof(t_limg));
 	ret->image = mlx_new_image(env->mlx, L_SIZE, H_SIZE);
 	ret->img = mlx_get_data_addr(ret->image, &ret->bpp, &ret->sline, &env->lenv->endiant);
+	ret->i = 1;
+	ret->l = 0;
+	ret->k = 1;
 	ret->prev = NULL;
 	ret->next = NULL;
 	return (ret);

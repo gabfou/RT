@@ -85,16 +85,16 @@ int			expose_hook(t_leviatenv *levia)
 	// 		antialiasing(levia->lenv);
 	// 	levia->lenv->i++;
 	// }
-	if (levia->lenv->i > NBTHREAD /* && lenv->i < NBTHREAD + 15*/)
+	if (levia->lenv->limg->i > NBTHREAD /* && lenv->i < NBTHREAD + 15*/)
 	{
-		levia->lenv->i++;
+		levia->lenv->limg->i++;
 		mlx_put_image_to_window(levia->mlx, levia->win, levia->lenv->limg->image, 0, 0);
 	}
-	// if (levia->lenv->i <= NBTHREAD + 1)
-	// {
-	// 	// printf("lenv->l = %d\n", lenv->l);
-	// 	loadator(H_SIZE, L_SIZE, levia, levia->lenv->l);
-	// }
+	if (levia->lenv->limg->i <= NBTHREAD)
+	{
+		// printf("lenv->l = %d\n", lenv->l);
+		loadator(H_SIZE, L_SIZE, levia, levia->lenv->limg->l);
+	}
 	//lenv->done = 1;
 	return (0);
 }
@@ -112,12 +112,12 @@ int			key_down_hook(int keycode, t_leviatenv *levia)
 		levia->lenv->limg = levia->lenv->limg->prev;
 		return (0);
 	}
-	if (keycode == 43)
+	if (keycode == 43 && levia->lenv->prev->limg != NULL)
 	{
 		levia->lenv = levia->lenv->prev;
 		return (0);
 	}
-	if (keycode == 47)
+	if (keycode == 47 && levia->lenv->next->limg != NULL)
 	{
 		levia->lenv = levia->lenv->next;
 		return (0);
@@ -146,73 +146,93 @@ t_env		*new_t_env()
 	env->image = NULL;
 	env->t = NULL;
 	env->endiant = 0;
-	env->limg = NULL;
 
+	env->limg = NULL;
 	env->cam = NULL;
 	env->item = NULL;
 	env->light = NULL;
 	env->inter = NULL;
 	env->fcolor = 0;
 	env->done = 0;
-	env->l = 0;
-	env->i = 0;
 	env->ft = 0;
+	env->nbr = 0;
 	env->prev = NULL;
 	env->next = NULL;
 	return (env);
 }
 
-void		gpatrouverdnom(t_leviatenv *env,int argc,char *argv)
+void		gpatrouverdnom(t_leviatenv *env, int argc, char *argv)
 {	
-	// ft_putendl("choix 1 1");
+	// ft_putendl("pastrouvednom 1 1");
 
+	ft_putendl(argv);
+	
 	init(env->lenv, argc, argv);
 
-	// ft_putendl("choix 1 1");
-
-	init_env(env);
-
-	// ft_putendl("choix 1 1");
+	// ft_putendl("pastrouvednom 1 2");
+	t_limg_initator(env);
+	// ft_putendl("pastrouvednom 1 3");
 }
 
 int			main(int argc, char **argv)
 {
 	t_leviatenv	levia;
+	//t_env		*tmp;
 	t_env		*first;
 	int			i;
 
 	i = 1;
+	//tmp = NULL;
+	first = NULL;
 //	ft_putnbr(argc);
-	if (argc == 1)
-		exit(0);
+	// if (argc == 1)
+	// 	exit(0);
+	ft_puttab(argv);
+	init_env(&levia);
 	while (i < argc)
 	{
 	//	ft_putendl("post2");
 		if (!levia.lenv)
 		{
-	//		 ft_putendl("choix 1 1");
+			ft_putendl("choix 1 1");
 			levia.lenv = new_t_env();
-			// ft_putendl("choix 1 2");
-			gpatrouverdnom(&levia, argc, argv[i]);
-			// ft_putendl("choix 1 3");
+			levia.lenv->nbr = i;
+		//	levia.lenv = tmp;
 			first = levia.lenv;
+		//	 ft_putendl("choix 1 2");
+			gpatrouverdnom(&levia, i, argv[i]);
+		//	 ft_putendl("choix 1 3");
+			
 	//		 ft_putendl("choix 1 4");
 		}
 		else
 		{
-	//		 ft_putendl("choix 2 1");
+			ft_putendl("choix 2 1");
 			levia.lenv->next = new_t_env();
-			// ft_putendl("choix 2 2");
-			gpatrouverdnom(&levia, argc, argv[i]);
-			// ft_putendl("choix 2 3");
+			levia.lenv->next->nbr = i;
 			levia.lenv->next->prev = levia.lenv;
+			levia.lenv = levia.lenv->next;
+		//	 ft_putendl("choix 2 2");
+			gpatrouverdnom(&levia, i, argv[i]);
+		//	 ft_putendl("choix 2 3");
+			
 			// ft_putendl("choix 2 4");
-			levia.lenv  = levia.lenv->next;
+			
 	//		 ft_putendl("choix 2 5");
 		}
 		i++;
 	}
+	//ft_putendl("choix finito");
+	levia.lenv->next = first;
+	first->prev = levia.lenv;
 	levia.lenv = first;
+	while (levia.lenv->prev->nbr < levia.lenv->nbr)
+	{
+		ft_putstr("nbr = ");
+		ft_putnbr(levia.lenv->nbr);
+		ft_putendl(" ;");
+		levia.lenv = levia.lenv->prev;
+	}
 	//ft_putendl("post3");
 	// print_params(env);
 	// init(&env);
