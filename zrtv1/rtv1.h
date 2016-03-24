@@ -203,21 +203,6 @@ typedef	struct			s_cam
 	// struct	s_cam	*prev;
 }					t_cam;
 
-
-typedef	struct		s_thr
-{
-	float			minx;
-	float			maxx;
-	float			miny;
-	float			maxy;
-	unsigned int	fcolor;
-	t_inter			*inter;
-	t_item			*item;
-	t_light			*light;
-	t_limg			*limg;
-	t_cam			*cam;
-}					t_thr;
-
 typedef	struct		s_env
 {
 	void			*image;
@@ -231,11 +216,27 @@ typedef	struct		s_env
 	t_inter			*inter;
 	unsigned int	fcolor;
 	int				done;
-
+	int				nbr;
 	int				ft;
 	struct	s_env	*prev;
 	struct	s_env	*next;
 }					t_env;
+
+typedef	struct		s_thr
+{
+	t_env			*env;
+	float			minx;
+	float			maxx;
+	float			miny;
+	float			maxy;
+	int				done;
+	unsigned int	fcolor;
+	t_inter			*inter;
+	t_item			*item;
+	t_light			*light;
+	t_limg			*limg;
+	t_cam			*cam;
+}					t_thr;
 
 typedef struct		s_cor
 {

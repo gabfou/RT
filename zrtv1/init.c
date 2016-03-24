@@ -81,7 +81,7 @@ void		init_camera(t_env *env, t_list **tokens)
 	dir.y = 0;
 	dir.z = 0;
 	rot = 0;
-	ft_putendl("CAM CREATE1");
+//	ft_putendl("CAM CREATE1");
 	cam = (t_cam*)malloc(sizeof(t_cam));
 	next_elem(tokens);
 	// ft_putendl("CAM CREATE1.2");
@@ -133,7 +133,7 @@ void		init_camera(t_env *env, t_list **tokens)
 			copy = copy->next;
 		copy->next = cam;
 	}
-	ft_putendl("CAM CREATE END");
+	//ft_putendl("CAM CREATE END");
 }
 
 void		init_light(t_env *env, t_list **tokens)
@@ -431,8 +431,14 @@ void		t_limg_initator(t_leviatenv *levia)
 	t_limg	*tmp;
 	int		i;
 
+	ft_putendl("limg init");
+	i = 0;
+	tmp = NULL;
+	first = NULL;
 	i = get_t_cam_lenght(levia->lenv->cam);
+	ft_putstr("cam lenght");
 	ft_putnbr(i);
+	ft_putendl(" ;");
 	while (i > 0)
 	{
 		if (!tmp)
@@ -448,23 +454,31 @@ void		t_limg_initator(t_leviatenv *levia)
 		}
 		i--;
 	}
+//	ft_putendl("finitator cam list");
+	// if (!first)
+	// 	ft_putendl("YA PAS DE first");
+	// if (!tmp)
+	// 	ft_putendl("YA PAS DE tmp");
 	tmp->next = first;
-	first->prev = tmp;
+//	ft_putendl("f111111");
+	tmp->next->prev = tmp;
+//	ft_putendl("fi22222");
 	levia->lenv->limg = first;
+	//ft_putendl("fi333333");
 }
 
 void		init_env(t_leviatenv *levia)
 {
 	// levia->lenv->l = 0;
-	levia->lenv->done = 0;
+	//levia->lenv->done = 0;
 	levia->mlx = mlx_init();
 	levia->win = mlx_new_window(levia->mlx, L_SIZE, H_SIZE, "RTV1");
-	
+	levia->lenv = NULL;
 	// env->image = mlx_new_image(env->mlx, L_SIZE, H_SIZE);
 	// env->img = mlx_get_data_addr(env->image, &env->bpp, &env->sline, &env->endiant);
 	// levia->lenv->i = 1;
 	// initktc(env);
-	ft_putendl("ASFGDSHBSHSRRSH");
+//	ft_putendl("ASFGDSHBSHSRRSH");
 }
 
 void		init_all(t_env *env, t_list *tokens)
@@ -474,7 +488,7 @@ void		init_all(t_env *env, t_list *tokens)
 	copy = tokens;
 	while (copy)
 	{
-		ft_putendl("TeST2. BOUCLE ALL");
+	//	ft_putendl("TeST2. BOUCLE ALL");
 		if (ft_strcmp(get_token(&copy)->lexeme, "cam") == 0)
 			init_camera(env, &copy);
 		else if (ft_strcmp(get_token(&copy)->lexeme, "lum") == 0)
@@ -515,9 +529,9 @@ void		init(t_env *env, int argc, char *argv)
 		WRITE(STDERR, "\n");
 		exit(0);
 	}
-	ft_putendl("TeST1");
+	//ft_putendl("TeST1");
 	delete_symbols(&save);
-	ft_putendl("TeST2");
+	//ft_putendl("TeST2");
 	init_all(env, save);
-	ft_putendl("TeST3");
+	//ft_putendl("TeST3");
 }
