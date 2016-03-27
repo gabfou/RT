@@ -102,33 +102,37 @@ void		ft_check(t_env *env)
 //	ft_putendl("CHECK FINITO");
 }
 
-void		inquisitorArckmann(t_thr *f)
+void		nextcam(t_thr *f)
 {
-	t_light	*tmp;
-	t_cam	*tmp2;
-	// t_item	*tmp3;
-
 	if (f)
 	{
-		while(f->cam)
-		{
-			tmp2 = f->cam;
-			f->cam = f->cam->next;
-			free(tmp2);
-		}
-		while(f->light)
-		{
-			tmp = f->light;
-			f->light = f->light->next;
-			free(tmp);
-		}
-		// while(f->item)
-		// {
-		// 	tmp3 = f->item;
-		// 	f->item = f->item->next;
-		// 	free(tmp3);
-		// }
-		free(f);
+		f->cam = f->cam->next;
+		f->limg->i++;
+		f->limg = f->limg->next;
+	}
+}
+
+void		inquisitorArckmann(t_thr *f)
+{
+	// t_light	*tmp;
+	// t_cam	*tmp2;
+	// t_item	*tmp3;
+	t_env		*tmp4;
+
+	if (f && f->env && f->env->done == NBTHREAD)
+	{
+		write(1, "C\n", 2);
+		f->done++;
+		tmp4 = f->env;
+		f->env = f->env->next;
+		write(1, "A\n", 2);
+		// free(tmp4);
+		write(1, "B\n", 2);
+	}
+	else if (f && f->env)
+	{
+		f->done++;
+		f->env = f->env->next;
 	}
 }
 // if (e->d < 0xf0000 && e->pixelmirror == 1 && e->testor == 1)
@@ -194,7 +198,7 @@ void		creator(t_cor *c)
 	l = 0;
 	pd = new_t_pd();
 	pd->dir = new_t_vec(0,0,0);
-	while (f->env->done != NBTHREAD && f->env->nbr > f->done)
+	while (/*f->env->done != NBTHREAD && */f->env->nbr > f->done)
 	{
 		while (f->cam != NULL)
 		{
@@ -212,17 +216,7 @@ void		creator(t_cor *c)
 					impactor(f->env, pd, f, f->inter);
 					c->env->mircount = 0;
 					if (f->inter->ref > 0 && c->env->mircount++ < 8)
-					{
-						// ft_putendl("niark");
-						set_inter_pos(f->inter, pd);
-						pd->dir = normalizator_ret(f->inter->norm);
-						pd->pos = f->inter->pos;
-						// pd->pos = add_vec(f->inter->pos, vec_mult(pd->dir, -1));
-						f->fcolor = 0x000000;
-						f->inter = new_t_inter();
-						t_inter_set(f->inter);
-						impactor(c->env, pd, f, f->inter);
-					}
+						ref(f, c, pd);
 					set_inter_pos(f->inter, pd);
 					luminator(f->env, f);
 					pixel_to_image(x, y, f->fcolor, f->limg);
@@ -231,19 +225,19 @@ void		creator(t_cor *c)
 				}
 				y += 1;
 			}
-			f->limg->i++;
-			f->cam = f->cam->next;
-			f->limg = f->limg->next;
+			nextcam(f);
 			ft_putstr("NEXTEUH");
 		}
 		ft_putendl("next env");
 		f->env->done++;
+		// inquisitorArckmann(f);
 		f->done++;
 		f->env = f->env->next;
 		f = set_again_t_thr(f);
 	}
 	//antialiasing(env);
 	// inquisitorArckmann(f);
+	free(f);
 	pthread_exit(NULL);
 }
 // void		creator(t_cor *c)

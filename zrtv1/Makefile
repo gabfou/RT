@@ -40,6 +40,8 @@ SRC =  rtv1.c \
 	   musicator.c \
 	   initauxi.c \
 	   initauxi2.c \
+	   opticator.c \
+	   initform.c \
 	  
 OBJ = $(SRC:.c=.o)
 CC = clang

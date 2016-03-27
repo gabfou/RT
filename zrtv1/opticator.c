@@ -11,24 +11,23 @@
 /* ************************************************************************** */
 
 
-#include "le.h"
+#include "rtv1.h"
 
-inline t_v	miroiratorvcalculator(t_v ray, t_v norm)
+// inline t_v	miroiratorvcalculator(t_v ray, t_v norm)
+// {
+
+// 	return (normalisator(vav(norm, normalisator(vav(ray, norm)))));
+// }
+
+void	ref(t_thr *f, t_cor *c, t_pd *pd)
 {
-
-	return (normalisator(vav(norm, normalisator(vav(ray, norm)))));
-}
-
-
-void	miroir();
-{
-	e->c.x = 0;
-	e->c.y = 0;
-	e->c.z = 0;
-	e->pl.x += -e->vl.x * 1.0;
-	e->pl.y += -e->vl.y * 1.0;
-	e->pl.z += -e->vl.z * 1.0;
-	e->d = 0xf0000;
-	e->pixelmirror = 0;
-	return (testall(1, e->pl, e, ps(e->vl, -1)/*miroiratorvcalculator(dir, ps(e->vl, -1))*/));
+	// ft_putendl("niark");
+	set_inter_pos(f->inter, pd);
+	pd->dir = normalizator_ret(f->inter->norm);
+	pd->pos = f->inter->pos;
+	// pd->pos = add_vec(f->inter->pos, vec_mult(pd->dir, -1));
+	f->fcolor = 0x000000;
+	f->inter = new_t_inter();
+	t_inter_set(f->inter);
+	impactor(c->env, pd, f, f->inter);
 }

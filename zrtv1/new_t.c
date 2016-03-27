@@ -12,6 +12,21 @@
 
 #include "rtv1.h"
 
+t_cam		*new_t_cam()
+{
+	t_cam	*cam;
+
+	cam = (t_cam*)malloc(sizeof(t_cam));
+	cam->pos.x = 0;
+	cam->pos.y = 0;
+	cam->pos.z = 0;
+	cam->dir.x = 1;
+	cam->dir.y = 0;
+	cam->dir.z = 0;
+	cam->angle = 0;
+	return (cam);
+}
+
 t_limg		*new_t_limg(t_leviatenv *env)
 {
 	t_limg	*ret;

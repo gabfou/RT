@@ -22,7 +22,9 @@ t_light			*new_t_light()
 	t_light	*light;
 
 	light = malloc(sizeof(t_light));
-	// light->pos = NULL;
+	light->pos.x = 0;
+	light->pos.y = 0;
+	light->pos.z = 0;
 	light->color = 0;
 	light->next = NULL;
 	return (light);

@@ -281,6 +281,7 @@ float			carre(float x);
 void			set_inter_pos(t_inter *inter, t_pd *pd);
 int				itemadator(t_env *env, t_item *item);
 t_item			*new_t_item();
+t_cam			*new_t_cam();
 
 int				check_t(t_inter *inter, float t, float trans, t_item *item);
 
@@ -349,5 +350,11 @@ t_vec			set_screen(t_cam *cam);
 void			initmat(t_list	**tokens, t_item *item);
 int				get_t_cam_lenght(t_cam *cam);
 void			init_env(t_leviatenv *levia);
+void			ref(t_thr *f, t_cor *c, t_pd *pd);
+
+void			init_sphere(t_env *env, t_list **tokens);
+void			init_plane(t_env *env, t_list **tokens);
+void			init_cone(t_env *env, t_list **tokens);
+void			init_cyl(t_env *env, t_list **tokens);
 
 #endif
