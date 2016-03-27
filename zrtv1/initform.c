@@ -14,7 +14,6 @@
 
 void		init_sphere(t_env *env, t_list **tokens)
 {
-	UNUSED(env);
 	t_item		*item;
 
 	item = new_t_item();
@@ -39,7 +38,6 @@ void		init_sphere(t_env *env, t_list **tokens)
 
 void		init_plane(t_env *env, t_list **tokens)
 {
-	UNUSED(env);
 	t_item		*item;
 
 	item = new_t_item();
@@ -71,7 +69,6 @@ void		init_plane(t_env *env, t_list **tokens)
 
 void		init_cone(t_env *env, t_list **tokens)
 {
-	UNUSED(env);
 	t_item		*item;
 
 	item = new_t_item();

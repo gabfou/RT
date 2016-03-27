@@ -47,10 +47,10 @@ typedef	struct		s_color
 typedef	struct		s_mat
 {
 	char			*name;
-	t_color			*spec;
-	t_color			*diff;
-	t_color			*amb;
-	t_color			*selfi;
+	t_color			spec;
+	t_color			diff;
+	t_color			amb;
+	t_color			selfi;
 	float			shiny;
 	float			shinystr;
 	float			trans;
@@ -268,7 +268,7 @@ int				key_down_hook(int keycode, t_leviatenv *levia);
 
 int				main(int argc, char **argv);
 t_pd			*new_t_pd();
-t_color			*new_t_color(float r, float g, float b);
+t_color			new_t_color(float r, float g, float b);
 t_mat			new_t_mat(char *name);
 t_pd			*t_plane_creator(float x, float y, float z, float dx, float dy, float dz, float ray);
 t_sphere		*new_t_sphere(float x, float y, float z, float r);
@@ -356,5 +356,8 @@ void			init_sphere(t_env *env, t_list **tokens);
 void			init_plane(t_env *env, t_list **tokens);
 void			init_cone(t_env *env, t_list **tokens);
 void			init_cyl(t_env *env, t_list **tokens);
+void			init_camera(t_env *env, t_list **tokens);
+void			init_light(t_env *env, t_list **tokens);
+
 
 #endif

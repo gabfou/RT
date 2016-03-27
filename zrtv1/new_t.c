@@ -71,14 +71,13 @@ t_pd		*new_t_pd()
 	return (cam);
 }
 
-t_color		*new_t_color(float r, float g, float b)
+t_color		new_t_color(float r, float g, float b)
 {
-	t_color	*color;
+	t_color	color;
 
-	color = malloc(sizeof(t_color));
-	color->r = r;
-	color->g = g;
-	color->b = b;
+	color.r = r;
+	color.g = g;
+	color.b = b;
 	return (color);
 }
 
@@ -87,10 +86,6 @@ t_mat		new_t_mat(char *name)
 	t_mat	mat;
 
 	mat.name = ft_strdup(name);
-	mat.spec = NULL;
-	mat.diff = NULL;
-	mat.amb = NULL;
-	mat.selfi = NULL;
 	mat.shiny = 0;
 	mat.shinystr = 0;
 	mat.trans = 0;

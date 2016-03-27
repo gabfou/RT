@@ -177,6 +177,7 @@ int		check_t(t_inter *inter, float t, float trans, t_item *item)
 	{
 		inter->t = t;
 		inter->ref = item->mat.ref;
+//		inter->color = item->mat
 		//ft_putstr(".");
 		//printf("%f\n", inter->t);
 	//	ft_putendl("FIN 3");
