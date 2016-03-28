@@ -6,7 +6,7 @@
 /*   By: ibuchwal <ibuchwal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/23 22:25:40 by jromagna          #+#    #+#             */
-/*   Updated: 2016/03/24 17:45:36 by ibuchwal         ###   ########.fr       */
+/*   Updated: 2016/03/28 22:36:57 by ibuchwal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -325,6 +325,7 @@ t_trans			*new_t_trans(float t, float colabs);
 float			transparencator(unsigned int color, float trans);
 float			trans_calculator(t_trans *trans, float	t);
 
+int				tlen(char **tab);
 
 void			print_params(t_env env);
 int				parse_exp(t_list **tokens, t_env *par);
@@ -334,7 +335,8 @@ void			init_env(t_leviatenv *env);
 
 char			keytochar(int key);
 void			comander(int key, t_leviatenv *env);
-int				modif_sphere(t_env *env, int i, char *line);
+int				new_sphere(t_env *env);
+void			modif_item(t_env *env, int i, char **split);
 void			*imgcptor(t_env *env);
 void			*printmusicator(t_limg *addr, t_env *env);
 

@@ -6,7 +6,7 @@
 #    By: ibuchwal <ibuchwal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/10/23 23:09:04 by jromagna          #+#    #+#              #
-#    Updated: 2016/03/14 23:44:39 by ibuchwal         ###   ########.fr        #
+#    Updated: 2016/03/28 23:40:51 by ibuchwal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SRC =  rtv1.c \
 	   initform.c \
 	   initauxi3.c \
 	   info.c \
+	   modifitem.c	\
 	  
 OBJ = $(SRC:.c=.o)
 CC = clang

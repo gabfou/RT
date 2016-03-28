@@ -118,6 +118,7 @@ void	comadator(char *line, t_leviatenv *env)
 {
 	static char last[10000];
 	static int	i = -1;
+	char		**split;
 
 	if (ft_strcmp(line, "reset") == 0)
 		ft_strcpy(last, "reset");
@@ -128,17 +129,20 @@ void	comadator(char *line, t_leviatenv *env)
 		env->lenv->limg->l = 0;
 		env->lenv->limg->i = 1;
 		env->lenv->done = 0;
-		loadator(-1, -1, NULL, -1);
+		// loadator(-1, -1, NULL, -1);
 		thread_master(env->lenv);
 	}
 	if (ft_strcmp(line, "s") == 0)
 	 	enregistrator(env->lenv);
 	if (ft_strcmp(line, "newsphere") == 0)
-		i = modif_sphere(env->lenv, -2, line);
+		i = new_sphere(env->lenv);
 	if (ft_strcmp(line, "clear") == 0)
 		mlx_clear_window(env->mlx, env->win);
 	if (ft_strcmp(line, "printparam") == 0)
 		print_params(*env->lenv);
+	split = ft_strsplit(line, ' ');
+	if (ft_strcmp(split[0], "modifitem") == 0 && tlen(split) == 4)
+		modif_item(env->lenv, ft_atoi(split[1]), split);
 	// modif_sphere(env, i, line);
 }
 
