@@ -36,12 +36,13 @@
 # define L_IND		SCR_L / L_RES
 # define H_IND		SCR_H / H_RES
 # define NBTHREAD	4
+# define FLOAT_SIZE double
 
 typedef	struct		s_color
 {
-	float				r;
-	float				g;
-	float				b;
+	FLOAT_SIZE				r;
+	FLOAT_SIZE				g;
+	FLOAT_SIZE				b;
 }					t_color;
 
 typedef	struct		s_mat
@@ -51,37 +52,37 @@ typedef	struct		s_mat
 	t_color			diff;
 	t_color			amb;
 	t_color			selfi;
-	float			shiny;
-	float			shinystr;
-	float			trans;
-	float			ref;
+	FLOAT_SIZE			shiny;
+	FLOAT_SIZE			shinystr;
+	FLOAT_SIZE			trans;
+	FLOAT_SIZE			ref;
 }					t_mat;
 
 typedef	struct		s_vec
 {
-	float			x;
-	float			y;
-	float			z;
+	FLOAT_SIZE			x;
+	FLOAT_SIZE			y;
+	FLOAT_SIZE			z;
 }					t_vec;
 
 typedef	struct		s_sphere
 {
 	t_vec			c;
-	float			ray;
+	FLOAT_SIZE			ray;
 }					t_sphere;
 
 typedef	struct		s_cyl
 {
 	t_vec			pos;
 	t_vec			dir;
-	float			ray;
+	FLOAT_SIZE			ray;
 }					t_cyl;
 
 typedef	struct		s_con
 {
 	t_vec			pos;
 	t_vec			dir;
-	float			ang;
+	FLOAT_SIZE			ang;
 }					t_con;
 
 typedef	struct		s_light
@@ -95,7 +96,7 @@ typedef	struct		s_pd
 {
 	t_vec			pos;
 	t_vec			dir;
-	float			ray;
+	FLOAT_SIZE			ray;
 }					t_pd;
 
 typedef	struct		s_item
@@ -117,8 +118,8 @@ typedef	struct		s_check
 
 typedef struct		s_trans
 {
-	float			colabs;
-	float			t;
+	FLOAT_SIZE			colabs;
+	FLOAT_SIZE			t;
 	struct		s_trans			*next;
 }					t_trans;
 
@@ -128,7 +129,7 @@ typedef	struct		s_inter
 	t_vec			norm;
 	t_vec			pos;
 	t_trans			*trans;
-	float			ref;
+	FLOAT_SIZE			ref;
 }					t_inter;
 
 // typedef	struct		s_screen
@@ -142,15 +143,15 @@ typedef	struct		s_inter
 // 	t_vec			dir;
 // 	t_vec			up;
 // 	t_vec			right;
-// 	float			angle;
+// 	FLOAT_SIZE			angle;
 // }					t_cam;
 
 // typedef	struct		s_thr
 // {
-// 	float			minx;
-// 	float			maxx;
-// 	float			miny;
-// 	float			maxy;
+// 	FLOAT_SIZE			minx;
+// 	FLOAT_SIZE			maxx;
+// 	FLOAT_SIZE			miny;
+// 	FLOAT_SIZE			maxy;
 // 	unsigned int	fcolor;
 // 	t_inter			*inter;
 // 	t_item			*item;
@@ -199,7 +200,7 @@ typedef	struct			s_cam
 	t_vec			dir;
 	t_vec			up;
 	t_vec			right;
-	float			angle;
+	FLOAT_SIZE			angle;
 	t_vec			upleft;
 	struct	s_cam	*next;
 	// struct	s_cam	*prev;
@@ -228,10 +229,10 @@ typedef	struct		s_env
 typedef	struct		s_thr
 {
 	t_env			*env;
-	float			minx;
-	float			maxx;
-	float			miny;
-	float			maxy;
+	FLOAT_SIZE			minx;
+	FLOAT_SIZE			maxx;
+	FLOAT_SIZE			miny;
+	FLOAT_SIZE			maxy;
 	int				done;
 	unsigned int	fcolor;
 	t_inter			*inter;
@@ -268,28 +269,28 @@ int				key_down_hook(int keycode, t_leviatenv *levia);
 
 int				main(int argc, char **argv);
 t_pd			*new_t_pd();
-t_color			new_t_color(float r, float g, float b);
+t_color			new_t_color(FLOAT_SIZE r, FLOAT_SIZE g, FLOAT_SIZE b);
 t_mat			new_t_mat(char *name);
-t_pd			*t_plane_creator(float x, float y, float z, float dx, float dy, float dz, float ray);
-t_sphere		*new_t_sphere(float x, float y, float z, float r);
+t_pd			*t_plane_creator(FLOAT_SIZE x, FLOAT_SIZE y, FLOAT_SIZE z, FLOAT_SIZE dx, FLOAT_SIZE dy, FLOAT_SIZE dz, FLOAT_SIZE ray);
+t_sphere		*new_t_sphere(FLOAT_SIZE x, FLOAT_SIZE y, FLOAT_SIZE z, FLOAT_SIZE r);
 unsigned int	get_color(int r, int g, int b);
 t_light			*new_t_light();
-t_vec			new_t_vec(float x, float y, float z);
+t_vec			new_t_vec(FLOAT_SIZE x, FLOAT_SIZE y, FLOAT_SIZE z);
 void			creator(t_cor *c);
 t_inter			*new_t_inter();
-float			carre(float x);
+FLOAT_SIZE			carre(FLOAT_SIZE x);
 void			set_inter_pos(t_inter *inter, t_pd *pd);
 int				itemadator(t_env *env, t_item *item);
 t_item			*new_t_item();
 t_cam			*new_t_cam();
 
-int				check_t(t_inter *inter, float t, float trans, t_item *item);
+int				check_t(t_inter *inter, FLOAT_SIZE t, FLOAT_SIZE trans, t_item *item);
 
 void			check_sphere(t_item *item, t_pd *s, t_inter *inter);
 void			check_plane(t_item *item, t_pd *s, t_inter *inter);
 void			normalizator(t_vec *vec);
 t_vec			normalizator_ret(t_vec vec);
-float			ft_fatoi(char *s);
+FLOAT_SIZE			ft_fatoi(char *s);
 
 void			impactor(t_env *env, t_pd *pd, t_thr *f, t_inter *inter);
 
@@ -299,21 +300,21 @@ t_light			*fill_t_light(char **t, t_light *light);
 void			print_vec(t_vec vec);
 void			ft_puttab(char **tab);
 t_vec			prod_vector(t_vec v1, t_vec v2);
-t_cyl			*t_cyl_creator(float x, float y, float z, float x1, float y1, float z1, float ray);
-t_con			*t_con_creator(float x, float y, float z, float x1, float y1, float z1, float ang);
+t_cyl			*t_cyl_creator(FLOAT_SIZE x, FLOAT_SIZE y, FLOAT_SIZE z, FLOAT_SIZE x1, FLOAT_SIZE y1, FLOAT_SIZE z1, FLOAT_SIZE ray);
+t_con			*t_con_creator(FLOAT_SIZE x, FLOAT_SIZE y, FLOAT_SIZE z, FLOAT_SIZE x1, FLOAT_SIZE y1, FLOAT_SIZE z1, FLOAT_SIZE ang);
 t_vec			sub_vec(t_vec v1, t_vec v2);
 t_vec			add_vec(t_vec v1, t_vec v2);
-float			dot_prod(t_vec v1, t_vec v2);
-float			ft_min(float a, float b);
-t_vec			vec_mult(t_vec v1, float x);
+FLOAT_SIZE			dot_prod(t_vec v1, t_vec v2);
+FLOAT_SIZE			ft_min(FLOAT_SIZE a, FLOAT_SIZE b);
+t_vec			vec_mult(t_vec v1, FLOAT_SIZE x);
 t_vec			vector_proj_vector(t_vec v1, t_vec v2);
 
 void			check_con(t_item *item, t_pd *s, t_inter *inter);
 
 void			loadator(int h, int l, t_leviatenv *e, int nb);
 void			antialiasing(t_env *s);
-float			get_dist(t_vec v1, t_vec v2);
-t_vec			set_new_pos(t_vec dir, t_vec pos, float dist);
+FLOAT_SIZE			get_dist(t_vec v1, t_vec v2);
+t_vec			set_new_pos(t_vec dir, t_vec pos, FLOAT_SIZE dist);
 
 void			check_cyl(t_item *item, t_pd *s, t_inter *inter);
 
@@ -321,9 +322,9 @@ void			readerbmp32(char *name, t_leviatenv *e);
 void			enregistrator(t_env *env);
 int				thread_master(t_env *env);
 
-t_trans			*new_t_trans(float t, float colabs);
-float			transparencator(unsigned int color, float trans);
-float			trans_calculator(t_trans *trans, float	t);
+t_trans			*new_t_trans(FLOAT_SIZE t, FLOAT_SIZE colabs);
+FLOAT_SIZE			transparencator(unsigned int color, FLOAT_SIZE trans);
+FLOAT_SIZE			trans_calculator(t_trans *trans, FLOAT_SIZE	t);
 
 int				tlen(char **tab);
 
@@ -345,7 +346,7 @@ void			print_tokens(t_list *tokens);
 int				access_file(int argc, char *argv);
 t_list			*get_tokens(int fd);
 void			delete_symbols(t_list **tokens);
-float			token_to_float(t_list **tokens);
+FLOAT_SIZE			token_to_float(t_list **tokens);
 void			t_inter_set(t_inter *inter);
 void			t_limg_initator(t_leviatenv *levia);
 t_vec			set_screen(t_cam *cam);

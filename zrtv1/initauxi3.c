@@ -12,15 +12,29 @@
 
 #include "rtv1.h"
 
+void		rotationator(t_vec *vec , double angle)
+{
+	t_vec tmp;
+
+	if (angle == 0)
+		return ;
+	tmp.x = vec->z;
+	tmp.y = vec->y;
+	vec->z = cos(angle) * tmp.x - sin(angle) * tmp.y;
+	vec->y = sin(angle) * tmp.x + cos(angle) * tmp.y;
+}
+
 void		setcam(t_env *env, t_cam *cam)
 {
 	t_cam	*copy;
 
+	cam->angle = cam->angle * M_PI / 180;
 	normalizator(&(cam->dir));
 	if (cam->dir.x == 0 && cam->dir.z == 0 && (cam->dir.y == 1 || cam->dir.y == -1))
-		cam->up = new_t_vec(1, 0, 0);
+		cam->up = new_t_vec(cam->dir.y, 0, 0);
 	else
 		cam->up = new_t_vec(0, 1, 0);
+	rotationator(&(cam->up), cam->angle);
 	cam->right = prod_vector(cam->dir, cam->up);
 	normalizator(&(cam->right));
 	cam->up = prod_vector(cam->dir, cam->right);

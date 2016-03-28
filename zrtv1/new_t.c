@@ -42,7 +42,7 @@ t_limg		*new_t_limg(t_leviatenv *env)
 	return (ret);
 }
 
-t_trans			*new_t_trans(float t, float colabs)
+t_trans			*new_t_trans(FLOAT_SIZE t, FLOAT_SIZE colabs)
 {
 	t_trans	*trans;
 
@@ -53,7 +53,7 @@ t_trans			*new_t_trans(float t, float colabs)
 	return (trans);
 }
 
-t_vec		new_t_vec(float x, float y, float z)
+t_vec		new_t_vec(FLOAT_SIZE x, FLOAT_SIZE y, FLOAT_SIZE z)
 {
 	t_vec		pos;
 
@@ -71,7 +71,7 @@ t_pd		*new_t_pd()
 	return (cam);
 }
 
-t_color		new_t_color(float r, float g, float b)
+t_color		new_t_color(FLOAT_SIZE r, FLOAT_SIZE g, FLOAT_SIZE b)
 {
 	t_color	color;
 

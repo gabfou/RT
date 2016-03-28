@@ -12,7 +12,7 @@
 
 
 
-void			matrix_printator(float **mat, int i, int j)
+void			matrix_printator(FLOAT_SIZE **mat, int i, int j)
 {
 	int	x;
 	int	y;
@@ -35,17 +35,17 @@ void			matrix_printator(float **mat, int i, int j)
 
 
 
-float			**mat_inversator(float **m)
+FLOAT_SIZE			**mat_inversator(FLOAT_SIZE **m)
 {
-	float	det;
-	float	**m2;
+	FLOAT_SIZE	det;
+	FLOAT_SIZE	**m2;
 	int		i;
 
 	i = 0;
-	m2 = (float**)malloc(sizeof(float*) * 3);
+	m2 = (FLOAT_SIZE**)malloc(sizeof(FLOAT_SIZE*) * 3);
 	while (i < 3)
 	{
-		m2[i] = (float*)malloc(sizeof(float) * 3);
+		m2[i] = (FLOAT_SIZE*)malloc(sizeof(FLOAT_SIZE) * 3);
 		i++;
 	}
 	det = m[0][0] * m[1][1] * m[2][2] 
@@ -80,20 +80,20 @@ float			**mat_inversator(float **m)
 	return (m2);
 }
 
-float		**eulerator(t_cam *cam)
+FLOAT_SIZE		**eulerator(t_cam *cam)
 {
-	float	alpha;
-	float	beta;
-	float	gamma;
-	float	**mat;
-	float	**mat2;
+	FLOAT_SIZE	alpha;
+	FLOAT_SIZE	beta;
+	FLOAT_SIZE	gamma;
+	FLOAT_SIZE	**mat;
+	FLOAT_SIZE	**mat2;
 	int		i;
 
 	i = -1;
 	printf("EULERATOR\n");
-	mat = (float**)malloc(sizeof(float*) * 3);
+	mat = (FLOAT_SIZE**)malloc(sizeof(FLOAT_SIZE*) * 3);
 	while (++i < 3)
-		mat[i] = (float*)malloc(sizeof(float) * 3);
+		mat[i] = (FLOAT_SIZE*)malloc(sizeof(FLOAT_SIZE) * 3);
 	i = -1;
 	alpha = atan(cam->dir->x / cam->dir->z);
 	beta = cam->angle;
@@ -113,31 +113,31 @@ float		**eulerator(t_cam *cam)
 	return (mat2);
 }
 
-float			**mat_33_31_mult(float **m1, float **m2)
+FLOAT_SIZE			**mat_33_31_mult(FLOAT_SIZE **m1, FLOAT_SIZE **m2)
 {
-	float		**m3;
+	FLOAT_SIZE		**m3;
 	int			i;
 
 	i = -1;
-	m3 = (float**)malloc(sizeof(float*) * 3);
+	m3 = (FLOAT_SIZE**)malloc(sizeof(FLOAT_SIZE*) * 3);
 	while (++i < 3)
-		m3[i] = (float*)malloc(sizeof(float));
+		m3[i] = (FLOAT_SIZE*)malloc(sizeof(FLOAT_SIZE));
 	m3[0][0] = (m1[0][0] * m2[0][0]) + (m1[0][1] * m2[1][0]) + (m1[0][2] * m2[2][0]);
 	m3[1][0] = (m1[1][0] * m2[0][0]) + (m1[1][1] * m2[1][0]) + (m1[1][2] * m2[2][0]);
 	m3[2][0] = (m1[2][0] * m2[0][0]) + (m1[2][1] * m2[1][0]) + (m1[2][2] * m2[2][0]);
 	return (m3);
 }
 
-t_vec			*set_cam_up(float **mat)
+t_vec			*set_cam_up(FLOAT_SIZE **mat)
 {
-	float	**m2;
-	float	**m3;
+	FLOAT_SIZE	**m2;
+	FLOAT_SIZE	**m3;
 	int		i;
 
 	i = -1;
-	m2 = (float**)malloc(sizeof(float*) * 3);
+	m2 = (FLOAT_SIZE**)malloc(sizeof(FLOAT_SIZE*) * 3);
 	while (++i < 3)
-		m2[i] = (float*)malloc(sizeof(float));
+		m2[i] = (FLOAT_SIZE*)malloc(sizeof(FLOAT_SIZE));
 	m2[0][0] = 0;
 	m2[1][0] = 1;
 	m2[2][0] = 0;
@@ -147,16 +147,16 @@ t_vec			*set_cam_up(float **mat)
 	return (new_t_vec(m3[0][0], m3[1][0], m3[2][0]));
 }
 
-t_vec			*set_cam_right(float **mat)
+t_vec			*set_cam_right(FLOAT_SIZE **mat)
 {
-	float	**m2;
-	float	**m3;
+	FLOAT_SIZE	**m2;
+	FLOAT_SIZE	**m3;
 	int		i;
 
 	i = -1;
-	m2 = (float**)malloc(sizeof(float*) * 3);
+	m2 = (FLOAT_SIZE**)malloc(sizeof(FLOAT_SIZE*) * 3);
 	while (++i < 3)
-		m2[i] = (float*)malloc(sizeof(float));
+		m2[i] = (FLOAT_SIZE*)malloc(sizeof(FLOAT_SIZE));
 	m2[0][0] = 0;
 	m2[1][0] = 0;
 	m2[2][0] = 1;

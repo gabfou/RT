@@ -67,7 +67,7 @@ void	normalizator(t_vec *vec)
 	vec->z = vec->z / lenght;
 }
 
-float	l_color(float i, float a)
+FLOAT_SIZE	l_color(FLOAT_SIZE i, FLOAT_SIZE a)
 {
 	return (i * (a / 255));
 //	printf("i = %f a = %f\n",i, a);
@@ -78,9 +78,9 @@ float	l_color(float i, float a)
 
 int		comparator_pos(t_inter *inter, t_inter *einter)
 {
-	if ((inter->pos.x > einter->pos.x - 0.01 && inter->pos.x < einter->pos.x + 0.01) 
-		&& (inter->pos.y > einter->pos.y - 0.01 && inter->pos.y < einter->pos.y + 0.01) 
-		&& (inter->pos.z > einter->pos.z - 0.01 && inter->pos.z < einter->pos.z + 0.01))
+	if ((inter->pos.x > einter->pos.x - 0.00001 && inter->pos.x < einter->pos.x + 0.00001) 
+		&& (inter->pos.y > einter->pos.y - 0.00001 && inter->pos.y < einter->pos.y + 0.00001) 
+		&& (inter->pos.z > einter->pos.z - 0.00001 && inter->pos.z < einter->pos.z + 0.00001))
 	{
 		return (1);
 	}
@@ -90,10 +90,10 @@ int		comparator_pos(t_inter *inter, t_inter *einter)
 void		luminator(t_env *e, t_thr *f)
 {
 	t_pd			*lvec;
-	float			angle;
+	FLOAT_SIZE		angle;
 	t_inter			*inter;
 	t_light			*ltmp;
-	float			trans;
+	FLOAT_SIZE		trans;
 
 	//ft_putendl("light");
 	ltmp = f->light;

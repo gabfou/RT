@@ -19,7 +19,7 @@ void	set_normal_plane(t_item *item, t_inter *inter)
 	inter->norm.z = item->pl->dir.z;
 }
 
-t_pd	*t_plane_creator(float x, float y, float z, float dx, float dy, float dz, float ray)
+t_pd	*t_plane_creator(FLOAT_SIZE x, FLOAT_SIZE y, FLOAT_SIZE z, FLOAT_SIZE dx, FLOAT_SIZE dy, FLOAT_SIZE dz, FLOAT_SIZE ray)
 {
 	t_pd		*plane;
 
@@ -32,10 +32,10 @@ t_pd	*t_plane_creator(float x, float y, float z, float dx, float dy, float dz, f
 
 void		check_plane(t_item *item, t_pd *s, t_inter *inter)
 {
-	float	t;
-	float	x;
-	float	y;
-	float	z;
+	FLOAT_SIZE	t;
+	FLOAT_SIZE	x;
+	FLOAT_SIZE	y;
+	FLOAT_SIZE	z;
 
 	x = s->pos.x - item->pl->pos.x;
 	y = s->pos.y - item->pl->pos.y;

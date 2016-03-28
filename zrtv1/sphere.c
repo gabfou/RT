@@ -6,7 +6,7 @@
 /*   By: ibuchwal <ibuchwal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/23 22:16:43 by jromagna          #+#    #+#             */
-/*   Updated: 2016/03/28 23:40:33 by ibuchwal         ###   ########.fr       */
+/*   Updated: 2016/03/28 23:44:26 by ibuchwal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	set_normal_sphere(t_inter *inter, t_item *item)
 	normalizator(&(inter->norm));
 }
 
-t_sphere	*new_t_sphere(float x, float y, float z, float r)
+t_sphere	*new_t_sphere(FLOAT_SIZE x, FLOAT_SIZE y, FLOAT_SIZE z, FLOAT_SIZE r)
 {
 	t_sphere	*sphere;
 
@@ -83,11 +83,11 @@ t_sphere	*new_t_sphere(float x, float y, float z, float r)
 
 void		check_sphere(t_item *item, t_pd *s, t_inter *inter)
 {
-	float	a;
-	float	b;
-	float	c;
-	float	del;
-	float	t;
+	FLOAT_SIZE	a;
+	FLOAT_SIZE	b;
+	FLOAT_SIZE	c;
+	FLOAT_SIZE	del;
+	FLOAT_SIZE	t;
 
 	// ft_putendl("pre calcul");
 	// print_vec(s->dir);
