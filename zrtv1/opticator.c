@@ -13,17 +13,18 @@
 
 #include "rtv1.h"
 
-// inline t_v	miroiratorvcalculator(t_v ray, t_v norm)
-// {
+t_vec	miroiratorvcalculator(t_vec ray, t_vec norm)
+{
 
-// 	return (normalisator(vav(norm, normalisator(vav(ray, norm)))));
-// }
+	return (normalizator_ret(add_vec(norm, normalizator_ret(add_vec(ray, norm)))));
+}
 
 void	ref(t_thr *f, t_cor *c, t_pd *pd)
 {
 	// ft_putendl("niark");
 	set_inter_pos(f->inter, pd);
-	pd->dir = normalizator_ret(f->inter->norm);
+	pd->dir = normalizator_ret(miroiratorvcalculator(pd->dir, f->inter->norm));
+	// pd->dir = normalizator_ret(f->inter->norm);
 	pd->pos = f->inter->pos;
 	// pd->pos = add_vec(f->inter->pos, vec_mult(pd->dir, -1));
 	f->fcolor = 0x000000;

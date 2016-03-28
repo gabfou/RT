@@ -38,11 +38,11 @@ int		modif_sphere(t_env *env, int i, char *line)
 	else if (line[0] == 'z' && line[1] == ' ')
 		item->sp->c.z = ft_fatoi(&line[2]);
 	// else if (ft_strcmp(line, "r") == 0)
-	// 	rgb.r = token_to_float(tokens);
+	// 	rgb.r = token_to_FLOAT_SIZE(tokens);
 	// else if (ft_strcmp(line, "g") == 0)
-	// 	rgb.g = token_to_float(tokens);
+	// 	rgb.g = token_to_FLOAT_SIZE(tokens);
 	// else if (ft_strcmp(line, "b") == 0)
-	// 	rgb.b = token_to_float(tokens);
+	// 	rgb.b = token_to_FLOAT_SIZE(tokens);
 	else if (line[0] == 'r' && line[1] == 'a' && line[2] == 'd' && line[3] == ' ')
 		item->sp->ray = ft_fatoi(&line[4]);
 	// else if (ft_strcmp(line, "mat") == 0)
@@ -61,7 +61,7 @@ void	set_normal_sphere(t_inter *inter, t_item *item)
 	normalizator(&(inter->norm));
 }
 
-t_sphere	*new_t_sphere(float x, float y, float z, float r)
+t_sphere	*new_t_sphere(FLOAT_SIZE x, FLOAT_SIZE y, FLOAT_SIZE z, FLOAT_SIZE r)
 {
 	t_sphere	*sphere;
 
@@ -73,11 +73,11 @@ t_sphere	*new_t_sphere(float x, float y, float z, float r)
 
 void		check_sphere(t_item *item, t_pd *s, t_inter *inter)
 {
-	float	a;
-	float	b;
-	float	c;
-	float	del;
-	float	t;
+	FLOAT_SIZE	a;
+	FLOAT_SIZE	b;
+	FLOAT_SIZE	c;
+	FLOAT_SIZE	del;
+	FLOAT_SIZE	t;
 
 	// ft_putendl("pre calcul");
 	// print_vec(s->dir);

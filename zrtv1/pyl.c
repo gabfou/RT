@@ -12,7 +12,7 @@
 
 #include "rtv1.h"
 
-t_cyl	*t_cyl_creator(float x, float y, float z, float x1, float y1, float z1, float ray)
+t_cyl	*t_cyl_creator(FLOAT_SIZE x, FLOAT_SIZE y, FLOAT_SIZE z, FLOAT_SIZE x1, FLOAT_SIZE y1, FLOAT_SIZE z1, FLOAT_SIZE ray)
 {
 	t_cyl	*cyl;
 
@@ -27,8 +27,8 @@ void		set_normal_cyl(t_cyl *cyl, t_inter *inter)
 {
 	inter->norm = normalizator_ret(sub_vec(vector_proj_vector(normalizator_ret(sub_vec(cyl->pos, inter->pos)), cyl->dir),
 	 normalizator_ret(sub_vec(cyl->pos, inter->pos))));
-	// float		dist1;
-	// float		dist2;
+	// FLOAT_SIZE		dist1;
+	// FLOAT_SIZE		dist2;
 	// t_vec		*center;
 
 	// dist1 = get_dist(cyl->pos, inter->pos);
@@ -48,10 +48,10 @@ void		set_normal_cyl(t_cyl *cyl, t_inter *inter)
 
 void		check_cyl(t_item *item, t_pd *s, t_inter *inter)
 {
-	float	a;
-	float	b;
-	float 	c;
-	float					t;
+	FLOAT_SIZE	a;
+	FLOAT_SIZE	b;
+	FLOAT_SIZE 	c;
+	FLOAT_SIZE					t;
 	t_vec					l;
 
 
@@ -82,15 +82,15 @@ s->p = cyl->pos;
 s->r = cyl->ray;
 */
 /*
-inline long float	cytestor(t_v v, t_env *e, t_v dir, t_cy *s)
+inline long FLOAT_SIZE	cytestor(t_v v, t_env *e, t_v dir, t_cy *s)
 {
-	register long float	a;
-	register long float	b;
-	register long float 	c;
-	register long float	d;
+	register long FLOAT_SIZE	a;
+	register long FLOAT_SIZE	b;
+	register long FLOAT_SIZE 	c;
+	register long FLOAT_SIZE	d;
 	t_v						l;
 	t_v						z;
-	float dist;
+	FLOAT_SIZE dist;
 
 	if (s == NULL)
 		return (-2);
