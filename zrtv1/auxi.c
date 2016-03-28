@@ -12,12 +12,12 @@
 
 #include "rtv1.h"
 
-inline float		get_dist(t_vec v1, t_vec v2)
+inline FLOAT_SIZE		get_dist(t_vec v1, t_vec v2)
 {
 	return (sqrt(carre(v2.x - v1.x) + carre(v2.y - v1.y) + carre(v2.z - v1.z)));
 }
 
-inline t_vec		vec_mult(t_vec v1, float x)
+inline t_vec		vec_mult(t_vec v1, FLOAT_SIZE x)
 {
 	return (new_t_vec(v1.x * x , v1.y * x, v1.z * x));
 }
@@ -37,7 +37,7 @@ inline t_vec		add_vec(t_vec v1, t_vec v2)
 	return (new_t_vec(v1.x + v2.x , v1.y + v2.y, v1.z + v2.z));
 }
 
-inline float		dot_prod(t_vec v1, t_vec v2)
+inline FLOAT_SIZE		dot_prod(t_vec v1, t_vec v2)
 {
 	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
 }
@@ -50,7 +50,7 @@ inline t_vec		vector_proj_vector(t_vec v1, t_vec v2) // project vector 1 in vect
 	return (ret);
 }
 
-inline float		ft_min(float a, float b)
+inline FLOAT_SIZE		ft_min(FLOAT_SIZE a, FLOAT_SIZE b)
 {
 	if (a > b)
 		return (b);
@@ -71,15 +71,16 @@ void		ft_puttab(char **tab)
 
 void		print_vec(t_vec vec)
 {
-	printf("x = [%f]\n", vec.x);
-	printf("y = [%f]\n", vec.y);
-	printf("z = [%f]\n\n", vec.z);
+	(void)vec;
+	// printf("x = [%f]\n", vec.x);
+	// printf("y = [%f]\n", vec.y);
+	// printf("z = [%f]\n\n", vec.z);
 }
 
-float	fatoi_aux(char *str, float *si, float *di)
+FLOAT_SIZE	fatoi_aux(char *str, FLOAT_SIZE *si, FLOAT_SIZE *di)
 {
 	int	i;
-	float	k;
+	FLOAT_SIZE	k;
 
 	i = 0;
 	k = 0;
@@ -106,13 +107,13 @@ float	fatoi_aux(char *str, float *si, float *di)
 	return (k);
 }
 
-float	ft_fatoi(char *s)
+FLOAT_SIZE	ft_fatoi(char *s)
 {
-	float	d1;
-	float	d2;
+	FLOAT_SIZE	d1;
+	FLOAT_SIZE	d2;
 	int		i;
-	float	si;
-	float	di;
+	FLOAT_SIZE	si;
+	FLOAT_SIZE	di;
 
 	i = 0;
 	d2 = 0;
@@ -135,12 +136,12 @@ float	ft_fatoi(char *s)
 	return (si * (d1 + d2));
 }
 
-float	carre(float x)
+FLOAT_SIZE	carre(FLOAT_SIZE x)
 {
 	return (x * x);
 }
 
-t_vec	set_new_pos(t_vec dir, t_vec pos, float dist)
+t_vec	set_new_pos(t_vec dir, t_vec pos, FLOAT_SIZE dist)
 {
 	return (new_t_vec(pos.x + (dir.x * dist), pos.y + (dir.y * dist), pos.z + (dir.z * dist)));
 }
@@ -152,7 +153,7 @@ void	set_inter_pos(t_inter *inter, t_pd *pd)
 	inter->pos.z = (pd->pos.z + (pd->dir.z * inter->t));
 }
 
-int		check_t(t_inter *inter, float t, float trans, t_item *item)
+int		check_t(t_inter *inter, FLOAT_SIZE t, FLOAT_SIZE trans, t_item *item)
 {
 	t_trans	*tmp;
 	//ft_putendl("check t");

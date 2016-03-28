@@ -3,55 +3,65 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jromagna <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ibuchwal <ibuchwal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/23 22:16:43 by jromagna          #+#    #+#             */
-/*   Updated: 2015/10/23 22:16:45 by jromagna         ###   ########.fr       */
+/*   Updated: 2016/03/28 23:44:26 by ibuchwal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-int		modif_sphere(t_env *env, int i, char *line)
+int			new_sphere(t_env *env)
 {
-	t_item		*item;
-	static int niark = 0;
+	t_item	*item;
 
-	niark++;
-	if (i == -2)
-	{
-		write(1, "1\n", 2);
-		item = new_t_item();
-		item->sp = new_t_sphere(0, 0, 10, niark);
-		item->mat.diff = new_t_color(1, 1, 1);
-		item->next = NULL; 
-		itemadator(env, item);
-		return(itemadator(env, item));
-	}
-	item = env->item;
-	while(item && i-- > 0)
-		item = item->next;
-	if (line[0] == 'x' && line[1] == ' ')
-		item->sp->c.x = ft_fatoi(&line[2]);
-	else if (line[0] == 'y' && line[1] == ' ')
-		item->sp->c.y = ft_fatoi(&line[2]);
-	else if (line[0] == 'z' && line[1] == ' ')
-		item->sp->c.z = ft_fatoi(&line[2]);
-	// else if (ft_strcmp(line, "r") == 0)
-	// 	rgb.r = token_to_float(tokens);
-	// else if (ft_strcmp(line, "g") == 0)
-	// 	rgb.g = token_to_float(tokens);
-	// else if (ft_strcmp(line, "b") == 0)
-	// 	rgb.b = token_to_float(tokens);
-	else if (line[0] == 'r' && line[1] == 'a' && line[2] == 'd' && line[3] == ' ')
-		item->sp->ray = ft_fatoi(&line[4]);
-	// else if (ft_strcmp(line, "mat") == 0)
-	// {
-	// 	next_elem(tokens);
-	// 	mat = new_t_mat(get_token(tokens)->lexeme);
-	// }
-	return (-1);
+	item = new_t_item();
+	item->sp = new_t_sphere(100, 0, 0, 3);
+	item->mat.diff = new_t_color(1, 1, 1);
+	item->next = NULL;
+	return (itemadator(env, item));
 }
+
+// int		modif_sphere(t_env *env, int i)
+// {
+// 	t_item		*item;
+// 	static int niark = 0;
+
+// 	niark++;
+// 	if (i == -2)
+// 	{
+// 		item = new_t_item();
+// 		item->sp = new_t_sphere(100, 0, 0, 3);
+// 		item->mat.diff = new_t_color(1, 1, 1);
+// 		item->next = NULL; 
+// 		// itemadator(env, item);
+// 		return (itemadator(env, item));
+// 	}
+// 	item = env->item;
+// 	while(item && i-- > 0)
+// 		item = item->next;
+// 	if (line[0] == 'x' && line[1] == ' ')
+// 		item->sp->c.x = ft_fatoi(&line[2]);
+// 	else if (line[0] == 'y' && line[1] == ' ')
+// 		item->sp->c.y = ft_fatoi(&line[2]);
+// 	else if (line[0] == 'z' && line[1] == ' ')
+// 		item->sp->c.z = ft_fatoi(&line[2]);
+// 	// else if (ft_strcmp(line, "r") == 0)
+// 	// 	rgb.r = token_to_float(tokens);
+// 	// else if (ft_strcmp(line, "g") == 0)
+// 	// 	rgb.g = token_to_float(tokens);
+// 	// else if (ft_strcmp(line, "b") == 0)
+// 	// 	rgb.b = token_to_float(tokens);
+// 	else if (line[0] == 'r' && line[1] == 'a' && line[2] == 'd' && line[3] == ' ')
+// 		item->sp->ray = ft_fatoi(&line[4]);
+// 	// else if (ft_strcmp(line, "mat") == 0)
+// 	// {
+// 	// 	next_elem(tokens);
+// 	// 	mat = new_t_mat(get_token(tokens)->lexeme);
+// 	// }
+// 	return (-1);
+// }
 
 void	set_normal_sphere(t_inter *inter, t_item *item)
 {
@@ -61,7 +71,7 @@ void	set_normal_sphere(t_inter *inter, t_item *item)
 	normalizator(&(inter->norm));
 }
 
-t_sphere	*new_t_sphere(float x, float y, float z, float r)
+t_sphere	*new_t_sphere(FLOAT_SIZE x, FLOAT_SIZE y, FLOAT_SIZE z, FLOAT_SIZE r)
 {
 	t_sphere	*sphere;
 
@@ -73,11 +83,11 @@ t_sphere	*new_t_sphere(float x, float y, float z, float r)
 
 void		check_sphere(t_item *item, t_pd *s, t_inter *inter)
 {
-	float	a;
-	float	b;
-	float	c;
-	float	del;
-	float	t;
+	FLOAT_SIZE	a;
+	FLOAT_SIZE	b;
+	FLOAT_SIZE	c;
+	FLOAT_SIZE	del;
+	FLOAT_SIZE	t;
 
 	// ft_putendl("pre calcul");
 	// print_vec(s->dir);

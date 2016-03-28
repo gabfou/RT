@@ -53,7 +53,7 @@ void		t_inter_set(t_inter *inter)
 	inter->diff = new_t_color(1, 1, 1);
 }
 
-// void		calc_dir(t_env *env, t_vec *dir, float x, float y)
+// void		calc_dir(t_env *env, t_vec *dir, FLOAT_SIZE x, FLOAT_SIZE y)
 // {
 // 	//ft_putendl("calc dir");
 // 	// printf("cdx = %f cdy = %f cdz = %f\n", env->cam->dir.x, env->cam->dir.y, env->cam->dir.z);
@@ -73,7 +73,7 @@ void		t_inter_set(t_inter *inter)
 // 	normalizator (dir);
 // }
 
-void		calc_dir(t_vec *dir, float x, float y, t_cam *cam)
+void		calc_dir(t_vec *dir, FLOAT_SIZE x, FLOAT_SIZE y, t_cam *cam)
 {
 	dir->x = (cam->upleft.x + (cam->up.x * SCR_H * y /H_RES) + (cam->right.x * SCR_L * x /L_RES));
 	dir->y = (cam->upleft.y + (cam->up.y * SCR_H * y /H_RES) + (cam->right.y * SCR_L * x /L_RES));
@@ -151,7 +151,7 @@ void		inquisitorArckmann(t_thr *f)
 
 int testuniverse(t_vec vec)
 {
-	float lenght;
+	FLOAT_SIZE lenght;
 
 	lenght = sqrt(carre(vec.x) + carre(vec.y) + carre(vec.z));
 	if (lenght == 0)
@@ -199,6 +199,7 @@ void		creator(t_cor *c)
 	l = 0;
 	pd = new_t_pd();
 	pd->dir = new_t_vec(0,0,0);
+	f->inter = new_t_inter();
 	while (/*f->env->done != NBTHREAD && */f->env->nbr > f->done)
 	{
 		while (f->cam != NULL)
@@ -211,7 +212,7 @@ void		creator(t_cor *c)
 				{
 					pd->pos = f->cam->pos;
 					f->fcolor = 0x000000;
-					f->inter = new_t_inter();
+					//f->inter = new_t_inter();
 					t_inter_set(f->inter);
 					calc_dir(&(pd->dir), x, y, f->cam);
 					impactor(f->env, pd, f, f->inter);
@@ -222,6 +223,7 @@ void		creator(t_cor *c)
 					luminator(f->env, f);
 					pixel_to_image(x, y, f->fcolor, f->limg);
 					f->limg->l++;
+					//free(f->inter);
 					x += 1;
 				}
 				y += 1;

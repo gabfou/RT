@@ -1,11 +1,41 @@
 cam {
 	x: 0,
+	y: 0,
+	z: 0,
+	dir_x: 1,
+	dir_y: 0,
+	dir_z: 0,
+	rot: 0
+}
+
+cam {
+	x: 0,
+	y: 0,
+	z: 0,
+	dir_x: -1,
+	dir_y: 0,
+	dir_z: 0,
+	rot: 0
+}
+
+cam {
+	x: 0,
+	y: 0,
+	z: 30,
+	dir_x: 1,
+	dir_y: 0,
+	dir_z: -2,
+	rot: 90
+}
+
+cam {
+	x: 0,
 	y: -30,
 	z: 0,
 	dir_x: 1,
 	dir_y: 2,
 	dir_z: 0,
-	rot: 0
+	rot: 20
 }
 
 cam {
@@ -153,28 +183,32 @@ sphere {
 	x: 20,
 	y: -3,
 	z: 3,
-	rad: 3
+	rad: 3,
+	ref: 1
 }
 
 sphere {
 	x: 20,
 	y: 3,
 	z: -3,
-	rad: 3
+	rad: 3,
+	ref: 1
 }
 
 sphere {
 	x: 20,
 	y: -3,
 	z: -3,
-	rad: 3
+	rad: 3,
+	ref: 1
 }
 
 sphere {
 	x: 20,
 	y: 3,
 	z: 3,
-	rad: 3
+	rad: 3,
+	ref: 1
 }
 
 sphere {
@@ -204,6 +238,17 @@ sphere {
 	z: 0,
 	rad: 2
 }
+
+
+plane {
+	x: -25,
+	y: 0,
+	z: 0,
+	dir_x: 1,
+	dir_y: 0,
+	dir_z: 0,
+}
+
 
 plane {
 	x: 25,

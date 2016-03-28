@@ -12,16 +12,16 @@
 
 #include "rtv1.h"
 
-float	transparencator(unsigned int color, float trans)
+FLOAT_SIZE	transparencator(unsigned int color, FLOAT_SIZE trans)
 {
 	return (get_color(((color >> 0) & 0xFF)  * (trans / 100),
 	 					((color >> 8) & 0xFF)  * (trans / 100),
 	 					((color >> 16) & 0xFF)  * (trans / 100)));
 }
 
-float	trans_calculator(t_trans *trans, float	t)
+FLOAT_SIZE	trans_calculator(t_trans *trans, FLOAT_SIZE	t)
 {
-	float	ret;
+	FLOAT_SIZE	ret;
 	t_trans	*tmp;
 
 	ret = 100;

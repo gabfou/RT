@@ -14,9 +14,9 @@
 
 inline t_vec		set_screen(t_cam *cam)
 {
-	float		x;
-	float		y;
-	float		z;
+	FLOAT_SIZE		x;
+	FLOAT_SIZE		y;
+	FLOAT_SIZE		z;
 
 	x = cam->dir.x * SCR_DIST - cam->up.x * SCR_H - cam->right.x * SCR_L;
 	y = cam->dir.y * SCR_DIST - cam->up.y * SCR_H - cam->right.y * SCR_L;
