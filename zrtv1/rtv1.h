@@ -129,6 +129,7 @@ typedef	struct		s_inter
 	t_vec			pos;
 	t_trans			*trans;
 	float			ref;
+	t_color			diff;
 }					t_inter;
 
 // typedef	struct		s_screen

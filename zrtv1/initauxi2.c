@@ -26,17 +26,13 @@ inline t_vec		set_screen(t_cam *cam)
 
 inline void			initmat(t_list **tokens, t_item *item)
 {
-	t_color	rgb;
 
-	rgb.r = 1;
-	rgb.g = 1;
-	rgb.b = 1;
 	if (ft_strcmp(get_token(tokens)->lexeme, "r") == 0)
-		rgb.r = token_to_float(tokens);
+		item->mat.diff.r = token_to_float(tokens);
 	else if (ft_strcmp(get_token(tokens)->lexeme, "g") == 0)
-		rgb.g = token_to_float(tokens);
+		item->mat.diff.g = token_to_float(tokens);
 	else if (ft_strcmp(get_token(tokens)->lexeme, "b") == 0)
-		rgb.b = token_to_float(tokens);
+		item->mat.diff.b = token_to_float(tokens);
 	else if (ft_strcmp(get_token(tokens)->lexeme, "mat") == 0)
 	{
 		next_elem(tokens);
@@ -46,7 +42,6 @@ inline void			initmat(t_list **tokens, t_item *item)
 		item->mat.ref = token_to_float(tokens);
 	else if (ft_strcmp(get_token(tokens)->lexeme, "trans") == 0)
 		item->mat.trans = token_to_float(tokens);
-	item->mat.diff = new_t_color(rgb.r, rgb.g, rgb.b);
 }
 
 inline int			get_t_cam_lenght(t_cam *cam)

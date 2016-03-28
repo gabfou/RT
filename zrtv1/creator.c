@@ -50,6 +50,7 @@ void		t_inter_set(t_inter *inter)
 	inter->pos.y = 0;
 	inter->pos.z = 0;
 	inter->t = -1;
+	inter->diff = new_t_color(1, 1, 1);
 }
 
 // void		calc_dir(t_env *env, t_vec *dir, float x, float y)

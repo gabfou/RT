@@ -41,6 +41,8 @@ void	print_params(t_env env)
 		if (item->cyl)
 			printf("Cyl : x = %f; y = %f; z = %f;\n",
 				item->cyl->pos.x, item->cyl->pos.y, item->cyl->pos.z);
+		printf("Color : r = %f; g = %f; b = %f;\n",
+				item->mat.diff.r, item->mat.diff.g, item->mat.diff.b);
 		item = item->next;
 	}
 }

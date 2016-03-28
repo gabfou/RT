@@ -135,9 +135,9 @@ void		luminator(t_env *e, t_thr *f)
 			trans = trans_calculator(inter->trans, inter->t);
 		//	f->light->color = transparencator(f->light->color, trans);
 		}
-		f->fcolor += get_color(angle / 4 * ((f->light->color >> 0) & 0xFF) * 2 / M_PI,
-							angle / 4 * ((f->light->color >> 8) & 0xFF) * 2 / M_PI,
-							angle / 4 * ((f->light->color >> 16) & 0xFF) * 2 / M_PI);
+		f->fcolor += get_color((angle / 4 * ((f->light->color >> 0) & 0xFF) * 2 / M_PI) * inter->diff.r,
+							(angle / 4 * ((f->light->color >> 8) & 0xFF) * 2 / M_PI) * inter->diff.g,
+							(angle / 4 * ((f->light->color >> 16) & 0xFF) * 2 / M_PI) * inter->diff.b);
 		f->light = f->light->next;
 	}
 	f->light = ltmp;
@@ -149,7 +149,7 @@ void		luminator(t_env *e, t_thr *f)
 	}
 		// f->fcolor = get_color(((f->fcolor >> 0) & 0xFF)  * f->inter->colorabs->r / 100,
 		// 					((f->fcolor >> 8) & 0xFF)  * f->inter->colorabs->g / 100,
-	 // 						((f->fcolor >> 16) & 0xFF)  * f->inter->colorabs->b / 100);
+	// 						((f->fcolor >> 16) & 0xFF)  * f->inter->colorabs->b / 100);
 	//printf("%d\n", f->fcolor);
 	return ;
 }

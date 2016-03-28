@@ -23,6 +23,7 @@ t_item			*new_t_item()
 	item->cyl = NULL;
 	item->con = NULL;
 	item->next = NULL;
+	item->mat = new_t_mat("niark");
 	return(item);
 }
 

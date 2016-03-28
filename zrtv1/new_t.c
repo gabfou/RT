@@ -90,6 +90,7 @@ t_mat		new_t_mat(char *name)
 	mat.shinystr = 0;
 	mat.trans = 0;
 	mat.ref = -1;
+	mat.diff = new_t_color(1, 1, 1);
 	return (mat);
 }
 
@@ -103,5 +104,6 @@ t_inter		*new_t_inter()
 	inter->pos = new_t_vec(0, 0, 0);
 	inter->trans = NULL;
 	inter->ref = -1;
+	inter->diff = new_t_color(1, 1, 1);
 	return (inter);
 }
