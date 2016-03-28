@@ -129,7 +129,6 @@ typedef	struct		s_inter
 	t_vec			norm;
 	t_vec			pos;
 	t_trans			*trans;
-	float			ref;
 	t_color			diff;
 	FLOAT_SIZE		ref;
 }					t_inter;
