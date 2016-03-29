@@ -50,6 +50,7 @@ void		t_inter_set(t_inter *inter)
 	inter->pos.y = 0;
 	inter->pos.z = 0;
 	inter->t = -1;
+	inter->trans = NULL;
 	inter->diff = new_t_color(1, 1, 1);
 }
 
@@ -200,6 +201,7 @@ void		creator(t_cor *c)
 	pd = new_t_pd();
 	pd->dir = new_t_vec(0,0,0);
 	f->inter = new_t_inter();
+	f->liginter = new_t_inter();
 	while (/*f->env->done != NBTHREAD && */f->env->nbr > f->done)
 	{
 		while (f->cam != NULL)
