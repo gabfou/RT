@@ -91,7 +91,7 @@ void		luminator(t_env *e, t_thr *f)
 {
 	t_pd			*lvec;
 	FLOAT_SIZE		angle;
-	t_inter			inter;
+	// t_inter			inter;
 	t_light			*ltmp;
 	FLOAT_SIZE		trans;
 
@@ -105,21 +105,21 @@ void		luminator(t_env *e, t_thr *f)
 	while (f->light != NULL)
 	{
 	//	ft_putendl("light");
-		inter = new_t_inter();
+		t_inter_set(&(f->liginter));
 		lvec = new_t_pd();
 		lvec->pos = f->light->pos;
 		lvec->dir = new_t_vec(f->inter.pos.x - f->light->pos.x, f->inter.pos.y - f->light->pos.y, f->inter.pos.z - f->light->pos.z);
 		normalizator(&(lvec->dir));
-		impactor(e, lvec, f, &inter);
+		impactor(e, lvec, f, &(f->liginter));
 		//ft_putendl("light 2");
-		set_inter_pos(&inter, lvec);
-		if (comparator_pos(&inter, &(f->inter)) == 0)
+		set_inter_pos(&(f->liginter), lvec);
+		if (comparator_pos(&(f->liginter), &(f->inter)) == 0)
 		{
 			f->light = f->light->next;
 			continue;
 		}
 		//ft_putendl("light 3");
-		normalizator(&(inter.norm));
+		normalizator(&(f->liginter.norm));
 		angle = M_PI_2 - acos(dot_prod(lvec->dir, f->inter.norm));
 		angle = (angle > 0) ? angle : -angle;
 		//ft_putendl("light 4");
@@ -130,14 +130,14 @@ void		luminator(t_env *e, t_thr *f)
 		// 	angle = angle * 1.5;
 		// }
 		trans = 0;
-		if (inter.trans != NULL)
+		if (f->liginter.trans != NULL)
 		{
-			trans = trans_calculator(inter.trans, inter.t);
+			trans = trans_calculator(f->liginter.trans, f->liginter.t);
 		//	f->light->color = transparencator(f->light->color, trans);
 		}
-		f->fcolor += get_color((angle / 4 * ((f->light->color >> 0) & 0xFF) * 2 / M_PI) * inter.diff.r,
-							(angle / 4 * ((f->light->color >> 8) & 0xFF) * 2 / M_PI) * inter.diff.g,
-							(angle / 4 * ((f->light->color >> 16) & 0xFF) * 2 / M_PI) * inter.diff.b);
+		f->fcolor += get_color((angle / 4 * ((f->light->color >> 0) & 0xFF) * 2 / M_PI) * f->liginter.diff.r,
+							(angle / 4 * ((f->light->color >> 8) & 0xFF) * 2 / M_PI) * f->liginter.diff.g,
+							(angle / 4 * ((f->light->color >> 16) & 0xFF) * 2 / M_PI) * f->liginter.diff.b);
 		f->light = f->light->next;
 	}
 	f->light = ltmp;

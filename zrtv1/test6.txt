@@ -5,12 +5,22 @@ cam {
 	dir_x: 1,
 	dir_y: 0,
 	dir_z: 0,
-	rot: 0
+
 }
 
 lum {
 	x: 0,
-	y: 0,
+	y: -2,
+	z: 0,
+	r: 255,
+	g: 0,
+	b: 0
+}
+
+
+lum {
+	x: 0,
+	y: 2,
 	z: 0,
 	r: 0,
 	g: 0,
@@ -21,6 +31,23 @@ sphere {
 	x: 10,
 	y: 0,
 	z: 0,
-	rad: 1,
-	mat: 1
+	rad: 4,
+	trans: 50
+}
+
+sphere {
+	x: 20,
+	y: 0,
+	z: 0,
+	rad: 4,
+	ref: 0
+}
+
+plane {
+	x: 20,
+	y: 0,
+	z: 0,
+	dir_x: -1,
+	dir_y: 0,
+	dir_z: 0,
 }

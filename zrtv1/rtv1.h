@@ -237,6 +237,7 @@ typedef	struct		s_thr
 	int				done;
 	unsigned int	fcolor;
 	t_inter			inter;
+	t_inter			liginter;
 	t_item			*item;
 	t_light			*light;
 	t_limg			*limg;

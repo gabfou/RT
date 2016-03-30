@@ -1,0 +1,361 @@
+cam {
+	x: 0,
+	y: 0,
+	z: 0,
+	dir_x: 1,
+	dir_y: 0,
+	dir_z: 0,
+	rot: 0
+}
+
+cam {
+	x: 0,
+	y: 0,
+	z: 0,
+	dir_x: -1,
+	dir_y: 0,
+	dir_z: 0,
+	rot: 0
+}
+
+cam {
+	x: 0,
+	y: 0,
+	z: 30,
+	dir_x: 1,
+	dir_y: 0,
+	dir_z: -2,
+	rot: 90
+}
+
+cam {
+	x: 0,
+	y: -30,
+	z: 0,
+	dir_x: 1,
+	dir_y: 2,
+	dir_z: 0,
+	rot: 20
+}
+
+cam {
+	x: 3,
+	y: -25,
+	z: 0,
+	dir_x: 1,
+	dir_y: 2,
+	dir_z: 0,
+	rot: 0
+}
+
+cam {
+	x: 6,
+	y: -20,
+	z: 0,
+	dir_x: 1,
+	dir_y: 2,
+	dir_z: 0,
+	rot: 0
+}
+
+cam {
+	x: 9,
+	y: -15,
+	z: 0,
+	dir_x: 1,
+	dir_y: 2,
+	dir_z: 0,
+	rot: 0
+}
+
+cam {
+	x: 12,
+	y: -10,
+	z: 0,
+	dir_x: 1,
+	dir_y: 2,
+	dir_z: 0,
+	rot: 0
+}
+
+cam {
+	x: 12,
+	y: -10,
+	z: 0,
+	dir_x: 1,
+	dir_y: 2,
+	dir_z: 0,
+	rot: 0
+}
+
+cam {
+	x: 9,
+	y: -15,
+	z: 0,
+	dir_x: 1,
+	dir_y: 2,
+	dir_z: 0,
+	rot: 0
+}
+
+cam {
+	x: 6,
+	y: -20,
+	z: 0,
+	dir_x: 1,
+	dir_y: 2,
+	dir_z: 0,
+	rot: 0
+}
+
+cam {
+	x: 3,
+	y: -25,
+	z: 0,
+	dir_x: 1,
+	dir_y: 2,
+	dir_z: 0,
+	rot: 0
+}
+
+cam {
+	x: 0,
+	y: -30,
+	z: 0,
+	dir_x: 1,
+	dir_y: 2,
+	dir_z: 0,
+	rot: 0
+}
+
+lum {
+	x: 0,
+	y: 0,
+	z: 0,
+	r: 255,
+	g: 255,
+	b: 255
+}
+
+lum {
+	x: 0,
+	y: -10,
+	z: 10,
+	r: 255,
+	g: 0,
+	b: 0
+}
+
+lum {
+	x: 0,
+	y: -10,
+	z: -10,
+	r: 0,
+	g: 255,
+	b: 0
+}
+
+lum {
+	x: 0,
+	y: 10,
+	z: 10,
+	r: 0,
+	g: 0,
+	b: 255
+}
+lum {
+	x: 0,
+	y: 10,
+	z: -10,
+	r: 255,
+	g: 255,
+	b: 255
+}
+
+sphere {
+	x: 15,
+	y: 0,
+	z: 0,
+	rad: 2,
+	rf: 1
+}
+
+sphere {
+	x: 20,
+	y: -3,
+	z: 3,
+	rad: 3,
+	ref: 1
+}
+
+sphere {
+	x: 20,
+	y: 3,
+	z: -3,
+	rad: 3,
+	ref: 1
+}
+
+sphere {
+	x: 20,
+	y: -3,
+	z: -3,
+	rad: 3,
+	ref: 1
+}
+
+sphere {
+	x: 20,
+	y: 3,
+	z: 3,
+	rad: 3,
+	ref: 1
+}
+
+sphere {
+	x: 20,
+	y: 0,
+	z: 3,
+	rad: 2
+}
+
+sphere {
+	x: 20,
+	y: 0,
+	z: -3,
+	rad: 2
+}
+
+sphere {
+	x: 20,
+	y: -3,
+	z: 0,
+	rad: 2
+}
+
+sphere {
+	x: 20,
+	y: 3,
+	z: 0,
+	rad: 2
+}
+
+
+plane {
+	x: -25,
+	y: 0,
+	z: 0,
+	dir_x: 1,
+	dir_y: 0,
+	dir_z: 0,
+}
+
+
+plane {
+	x: 25,
+	y: 0,
+	z: 0,
+	dir_x: -1,
+	dir_y: 0,
+	dir_z: 0
+}
+
+plane {
+	x: 25,
+	y: -8,
+	z: 0,
+	dir_x: -1,
+	dir_y: 1,
+	dir_z: 0
+}
+
+plane {
+	x: 25,
+	y: 8,
+	z: 0,
+	dir_x: -1,
+	dir_y: -1,
+	dir_z: 0
+}
+
+plane {
+	x: 25,
+	y: 0,
+	z: -8,
+	dir_x: -1,
+	dir_y: 0,
+	dir_z: 1
+}
+
+plane {
+	x: 25,
+	y: 0,
+	z: 8,
+	dir_x: -1,
+	dir_y: 0,
+	dir_z: -1
+}
+
+cone {
+	x: 20,
+	y: -3,
+	z: 3,
+	dir_x: 1,
+	dir_y: 1,
+	dir_z: -1,
+	angle: 10,
+	ref: 1
+}
+
+cone {
+	x: 20,
+	y: 3,
+	z: -3,
+	dir_x: 1,
+	dir_y: -1,
+	dir_z: 1,
+	angle: 10,
+	ref: 1
+}
+
+cone {
+	x: 20,
+	y: -3,
+	z: -3,
+	dir_x: 1,
+	dir_y: 1,
+	dir_z: 1,
+	angle: 10,
+	ref: 1
+}
+
+cone {
+	x: 20,
+	y: 3,
+	z: 3,
+	dir_x: 1,
+	dir_y: -1,
+	dir_z: -1,
+	angle: 10,
+	ref: 1
+}
+
+cyl {
+	x: 20,
+	y: 0,
+	z: 2,
+	dir_x: 0,
+	dir_y: 1,
+	dir_z: 0,
+	rad: 1
+}
+
+cyl {
+	x: 20,
+	y: 0,
+	z: -2,
+	dir_x: 0,
+	dir_y: 1,
+	dir_z: 0,
+	rad: 1
+}
