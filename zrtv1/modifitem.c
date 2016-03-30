@@ -12,7 +12,7 @@
 
 #include "rtv1.h"
 
-void		modif_x(t_item *item, float x)
+void		modif_x(t_item *item, const float x)
 {
 	if (item->sp != NULL)
 		item->sp->c.x = x;
@@ -24,7 +24,7 @@ void		modif_x(t_item *item, float x)
 		item->con->pos.x = x;
 }
 
-void		modif_y(t_item *item, float y)
+void		modif_y(t_item *item, const float y)
 {
 	if (item->sp != NULL)
 		item->sp->c.y = y;
@@ -36,7 +36,7 @@ void		modif_y(t_item *item, float y)
 		item->con->pos.y = y;
 }
 
-void		modif_z(t_item *item, float z)
+void		modif_z(t_item *item, const float z)
 {
 	if (item->sp != NULL)
 		item->sp->c.z = z;
@@ -48,7 +48,7 @@ void		modif_z(t_item *item, float z)
 		item->con->pos.z = z;
 }
 
-void		modif_dirx(t_item *item, float x)
+void		modif_dirx(t_item *item, const float x)
 {
 	if (item->sp != NULL)
 		return;
@@ -60,7 +60,7 @@ void		modif_dirx(t_item *item, float x)
 		item->con->dir.x = x;
 }
 
-void		modif_diry(t_item *item, float y)
+void		modif_diry(t_item *item, const float y)
 {
 	if (item->sp != NULL)
 		return;
@@ -72,7 +72,7 @@ void		modif_diry(t_item *item, float y)
 		item->con->dir.y = y;
 }
 
-void		modif_dirz(t_item *item, float z)
+void		modif_dirz(t_item *item, const float z)
 {
 	if (item->sp != NULL)
 		return;
@@ -84,7 +84,7 @@ void		modif_dirz(t_item *item, float z)
 		item->con->dir.z = z;
 }
 
-void		modif_ray(t_item *item, float ray)
+void		modif_ray(t_item *item, const float ray)
 {
 	if (item->sp != NULL)
 		item->sp->ray = ray;
