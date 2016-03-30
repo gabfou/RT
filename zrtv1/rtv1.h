@@ -304,12 +304,12 @@ void			ft_puttab(char **tab);
 t_vec			prod_vector(t_vec v1, t_vec v2);
 t_cyl			*t_cyl_creator(FLOAT_SIZE x, FLOAT_SIZE y, FLOAT_SIZE z, FLOAT_SIZE x1, FLOAT_SIZE y1, FLOAT_SIZE z1, FLOAT_SIZE ray);
 t_con			*t_con_creator(FLOAT_SIZE x, FLOAT_SIZE y, FLOAT_SIZE z, FLOAT_SIZE x1, FLOAT_SIZE y1, FLOAT_SIZE z1, FLOAT_SIZE ang);
-t_vec			sub_vec(t_vec v1, t_vec v2);
-t_vec			add_vec(t_vec v1, t_vec v2);
-FLOAT_SIZE		dot_prod(t_vec v1, t_vec v2);
-FLOAT_SIZE		ft_min(FLOAT_SIZE a, FLOAT_SIZE b);
-t_vec			vec_mult(t_vec v1, FLOAT_SIZE x);
-t_vec			vector_proj_vector(t_vec v1, t_vec v2);
+t_vec			sub_vec(const t_vec v1, const t_vec v2);
+t_vec			add_vec(const t_vec v1, const t_vec v2);
+FLOAT_SIZE		dot_prod(const t_vec v1, const t_vec v2);
+FLOAT_SIZE		ft_min(const FLOAT_SIZE a, const FLOAT_SIZE b);
+t_vec			vec_mult(const t_vec v1, const FLOAT_SIZE x);
+t_vec			vector_proj_vector(const t_vec v1, const t_vec v2);
 
 void			check_con(t_item *item, t_pd *s, t_inter *inter);
 
