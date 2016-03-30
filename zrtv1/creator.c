@@ -212,14 +212,13 @@ void		creator(t_cor *c)
 				{
 					pd->pos = f->cam->pos;
 					f->fcolor = 0x000000;
-					//f->inter = new_t_inter();
-					t_inter_set(f->inter);
+					t_inter_set(&(f->inter));
 					calc_dir(&(pd->dir), x, y, f->cam);
-					impactor(f->env, pd, f, f->inter);
+					impactor(f->env, pd, f, &(f->inter));
 					c->env->mircount = 0;
-					if (f->inter->ref > 0 && c->env->mircount++ < 8)
+					if (f->inter.ref > 0 && c->env->mircount++ < 8)
 						ref(f, c, pd);
-					set_inter_pos(f->inter, pd);
+					set_inter_pos(&(f->inter), pd);
 					luminator(f->env, f);
 					pixel_to_image(x, y, f->fcolor, f->limg);
 					f->limg->l++;
@@ -288,7 +287,7 @@ void		creator(t_cor *c)
 // 			impactor(c->env, pd, f, f->inter);
 // 			set_inter_pos(f->inter, pd);
 // 			luminator(c->env, f);
-// 			//if (f-> inter->t > 0 )
+// 			//if (f-> inter.t > 0 )
 // 			//	pixel_to_image(c->env, x, y, 0xFF0000); 
 // 			pixel_to_image(c->env, x, y, f->fcolor);
 // 			//if (f->fcolor == 0)

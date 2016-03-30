@@ -94,16 +94,15 @@ t_mat		new_t_mat(char *name)
 	return (mat);
 }
 
-t_inter		*new_t_inter()
+t_inter		new_t_inter()
 {
-	t_inter	*inter;
+	t_inter	inter;
 
-	inter = malloc(sizeof(t_inter));
-	inter->t = -1;
-	inter->norm = new_t_vec(0, 0, 0);
-	inter->pos = new_t_vec(0, 0, 0);
-	inter->trans = NULL;
-	inter->ref = -1;
-	inter->diff = new_t_color(1, 1, 1);
+	inter.t = -1;
+	inter.norm = new_t_vec(0, 0, 0);
+	inter.pos = new_t_vec(0, 0, 0);
+	inter.trans = NULL;
+	inter.ref = -1;
+	inter.diff = new_t_color(1, 1, 1);
 	return (inter);
 }

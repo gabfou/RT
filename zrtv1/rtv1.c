@@ -151,7 +151,6 @@ t_env		*new_t_env()
 	env->cam = NULL;
 	env->item = NULL;
 	env->light = NULL;
-	env->inter = NULL;
 	env->fcolor = 0;
 	env->done = 0;
 	env->ft = 0;

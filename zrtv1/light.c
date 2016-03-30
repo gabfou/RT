@@ -91,13 +91,13 @@ void		luminator(t_env *e, t_thr *f)
 {
 	t_pd			*lvec;
 	FLOAT_SIZE		angle;
-	t_inter			*inter;
+	t_inter			inter;
 	t_light			*ltmp;
 	FLOAT_SIZE		trans;
 
 	//ft_putendl("light");
 	ltmp = f->light;
-	if (f->inter->t <= 0)
+	if (f->inter.t <= 0)
 	{
 		f->fcolor = 0x000000;
 		return ;
@@ -108,19 +108,19 @@ void		luminator(t_env *e, t_thr *f)
 		inter = new_t_inter();
 		lvec = new_t_pd();
 		lvec->pos = f->light->pos;
-		lvec->dir = new_t_vec(f->inter->pos.x - f->light->pos.x, f->inter->pos.y - f->light->pos.y, f->inter->pos.z - f->light->pos.z);
+		lvec->dir = new_t_vec(f->inter.pos.x - f->light->pos.x, f->inter.pos.y - f->light->pos.y, f->inter.pos.z - f->light->pos.z);
 		normalizator(&(lvec->dir));
-		impactor(e, lvec, f, inter);
+		impactor(e, lvec, f, &inter);
 		//ft_putendl("light 2");
-		set_inter_pos(inter, lvec);
-		if (comparator_pos(inter, f->inter) == 0)
+		set_inter_pos(&inter, lvec);
+		if (comparator_pos(&inter, &(f->inter)) == 0)
 		{
 			f->light = f->light->next;
 			continue;
 		}
 		//ft_putendl("light 3");
-		normalizator(&(inter->norm));
-		angle = M_PI_2 - acos(dot_prod(lvec->dir, f->inter->norm));
+		normalizator(&(inter.norm));
+		angle = M_PI_2 - acos(dot_prod(lvec->dir, f->inter.norm));
 		angle = (angle > 0) ? angle : -angle;
 		//ft_putendl("light 4");
 		//printf("%f\n", angle);
@@ -130,26 +130,26 @@ void		luminator(t_env *e, t_thr *f)
 		// 	angle = angle * 1.5;
 		// }
 		trans = 0;
-		if (inter->trans != NULL)
+		if (inter.trans != NULL)
 		{
-			trans = trans_calculator(inter->trans, inter->t);
+			trans = trans_calculator(inter.trans, inter.t);
 		//	f->light->color = transparencator(f->light->color, trans);
 		}
-		f->fcolor += get_color((angle / 4 * ((f->light->color >> 0) & 0xFF) * 2 / M_PI) * inter->diff.r,
-							(angle / 4 * ((f->light->color >> 8) & 0xFF) * 2 / M_PI) * inter->diff.g,
-							(angle / 4 * ((f->light->color >> 16) & 0xFF) * 2 / M_PI) * inter->diff.b);
+		f->fcolor += get_color((angle / 4 * ((f->light->color >> 0) & 0xFF) * 2 / M_PI) * inter.diff.r,
+							(angle / 4 * ((f->light->color >> 8) & 0xFF) * 2 / M_PI) * inter.diff.g,
+							(angle / 4 * ((f->light->color >> 16) & 0xFF) * 2 / M_PI) * inter.diff.b);
 		f->light = f->light->next;
 	}
 	f->light = ltmp;
 	trans = 0;
-	if (f->inter->trans != NULL)
+	if (f->inter.trans != NULL)
 	{
-		trans = trans_calculator(f->inter->trans, f->inter->t);
+		trans = trans_calculator(f->inter.trans, f->inter.t);
 		f->fcolor = transparencator(f->fcolor, trans);
 	}
-		// f->fcolor = get_color(((f->fcolor >> 0) & 0xFF)  * f->inter->colorabs->r / 100,
-		// 					((f->fcolor >> 8) & 0xFF)  * f->inter->colorabs->g / 100,
-	// 						((f->fcolor >> 16) & 0xFF)  * f->inter->colorabs->b / 100);
+		// f->fcolor = get_color(((f->fcolor >> 0) & 0xFF)  * f->inter.colorabs->r / 100,
+		// 					((f->fcolor >> 8) & 0xFF)  * f->inter.colorabs->g / 100,
+	// 						((f->fcolor >> 16) & 0xFF)  * f->inter.colorabs->b / 100);
 	//printf("%d\n", f->fcolor);
 	return ;
 }
