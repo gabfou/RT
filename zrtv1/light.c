@@ -12,7 +12,7 @@
 
 #include "rtv1.h"
 
-unsigned int	get_color(int r, int g, int b)
+unsigned int	get_color(const int r, const int g, const int b)
 {
 	return ((r & 0xff) + ((g & 0xff) << 8) + ((b & 0xff) << 16));
 }
@@ -67,7 +67,7 @@ void	normalizator(t_vec *vec)
 	vec->z = vec->z / lenght;
 }
 
-FLOAT_SIZE	l_color(FLOAT_SIZE i, FLOAT_SIZE a)
+FLOAT_SIZE	l_color(const FLOAT_SIZE i, const FLOAT_SIZE a)
 {
 	return (i * (a / 255));
 //	printf("i = %f a = %f\n",i, a);
@@ -76,7 +76,7 @@ FLOAT_SIZE	l_color(FLOAT_SIZE i, FLOAT_SIZE a)
 	return (0);
 }
 
-int		comparator_pos(t_inter *inter, t_inter *einter)
+int		comparator_pos(const t_inter *inter, const t_inter *einter)
 {
 	if ((inter->pos.x > einter->pos.x - 0.00001 && inter->pos.x < einter->pos.x + 0.00001) 
 		&& (inter->pos.y > einter->pos.y - 0.00001 && inter->pos.y < einter->pos.y + 0.00001) 

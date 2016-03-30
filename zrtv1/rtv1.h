@@ -275,7 +275,7 @@ t_color			new_t_color(FLOAT_SIZE r, FLOAT_SIZE g, FLOAT_SIZE b);
 t_mat			new_t_mat(char *name);
 t_pd			*t_plane_creator(FLOAT_SIZE x, FLOAT_SIZE y, FLOAT_SIZE z, FLOAT_SIZE dx, FLOAT_SIZE dy, FLOAT_SIZE dz, FLOAT_SIZE ray);
 t_sphere		*new_t_sphere(FLOAT_SIZE x, FLOAT_SIZE y, FLOAT_SIZE z, FLOAT_SIZE r);
-unsigned int	get_color(int r, int g, int b);
+unsigned int	get_color(const int r, const int g, const int b);
 t_light			*new_t_light();
 t_vec			new_t_vec(FLOAT_SIZE x, FLOAT_SIZE y, FLOAT_SIZE z);
 void			creator(t_cor *c);
