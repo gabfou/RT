@@ -26,14 +26,14 @@ int			thread_master(t_env *env)
 
 	y = 0;
 	i = 0;
-	px = L_SIZE;
-	py = H_SIZE / NBTHREAD;
+	px = env->screen.l;
+	py = env->screen.h / NBTHREAD;
 	pointf = &(creator);
-	while (y < H_SIZE)
+	while (y < env->screen.h)
 	{
 		// printf("y = %d\n", y);
 		x = 0;
-		while (x < L_SIZE)
+		while (x < env->screen.l)
 		{
 			tab[i].minx = x;
 			tab[i].maxx = x + px;

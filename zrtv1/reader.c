@@ -33,15 +33,15 @@ void	readerbmp32(char *name, t_leviatenv *e)
 	read(fd_img, image, fh.bfSize);
 	i = -1;
 	j = -1;
-	while (++j < H_SIZE && i < (int)fh.bfSize)
+	while (++j < e->lenv->screen.h && i < (int)fh.bfSize)
 	{
 		k = -1;
-		while (++k < L_SIZE && i < (int)fh.bfSize)
+		while (++k < e->lenv->screen.l && i < (int)fh.bfSize)
 		{
-			e->lenv->limg->img[(H_SIZE - j) * e->lenv->limg->sline + k * e->lenv->limg->bpp / 8 + 3] = image[++i];
-			e->lenv->limg->img[(H_SIZE - j) * e->lenv->limg->sline + k * e->lenv->limg->bpp / 8 + 2] = image[++i];
-			e->lenv->limg->img[(H_SIZE - j) * e->lenv->limg->sline + k * e->lenv->limg->bpp / 8 + 1] = image[++i];
-			e->lenv->limg->img[(H_SIZE - j) * e->lenv->limg->sline + k * e->lenv->limg->bpp / 8 + 0] = image[++i];
+			e->lenv->limg->img[(e->lenv->screen.h - j) * e->lenv->limg->sline + k * e->lenv->limg->bpp / 8 + 3] = image[++i];
+			e->lenv->limg->img[(e->lenv->screen.h - j) * e->lenv->limg->sline + k * e->lenv->limg->bpp / 8 + 2] = image[++i];
+			e->lenv->limg->img[(e->lenv->screen.h - j) * e->lenv->limg->sline + k * e->lenv->limg->bpp / 8 + 1] = image[++i];
+			e->lenv->limg->img[(e->lenv->screen.h - j) * e->lenv->limg->sline + k * e->lenv->limg->bpp / 8 + 0] = image[++i];
 		}
 	}
 	// write(fd, image, fh.bfSize);
@@ -180,5 +180,5 @@ void	comander(int key, t_leviatenv *env)
 	mlx_clear_window(env->mlx, env->win);
 	// mlx_put_image_to_window(env->mlx, env->win, env->lenv->image, 0, 0);
 	if (env->lenv->ft % 2 == 1)
-		mlx_string_put(env->mlx, env->win, L_SIZE + 2, H_SIZE - 30, 0xFFFFFF, stat);
+		mlx_string_put(env->mlx, env->win, env->lenv->screen.l + 2, env->lenv->screen.h - 30, 0xFFFFFF, stat);
 }

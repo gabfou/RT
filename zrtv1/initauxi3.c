@@ -39,7 +39,6 @@ void		setcam(t_env *env, t_cam *cam)
 	normalizator(&(cam->right));
 	cam->up = prod_vector(cam->dir, cam->right);
 	normalizator(&(cam->up));
-	cam->upleft = set_screen(cam);
 	cam->next = NULL;
 	if (!env->cam)
 		env->cam = cam;

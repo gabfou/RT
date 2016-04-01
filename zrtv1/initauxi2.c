@@ -12,15 +12,15 @@
 
 #include "rtv1.h"
 
-inline t_vec		set_screen(t_cam *cam)
+inline t_vec		set_screen(t_cam *cam, t_screen screen)
 {
 	FLOAT_SIZE		x;
 	FLOAT_SIZE		y;
 	FLOAT_SIZE		z;
 
-	x = cam->dir.x * SCR_DIST - cam->up.x * SCR_H - cam->right.x * SCR_L;
-	y = cam->dir.y * SCR_DIST - cam->up.y * SCR_H - cam->right.y * SCR_L;
-	z = cam->dir.z * SCR_DIST - cam->up.z * SCR_H - cam->right.z * SCR_L;
+	x = cam->dir.x * screen.scrd - cam->up.x * screen.scrl - cam->right.x * screen.scrh;
+	y = cam->dir.y * screen.scrd - cam->up.y * screen.scrl - cam->right.y * screen.scrh;
+	z = cam->dir.z * screen.scrd - cam->up.z * screen.scrl - cam->right.z * screen.scrh;
 	return (new_t_vec(x, y, z));
 }
 
@@ -42,6 +42,9 @@ inline void			initmat(t_list **tokens, t_item *item)
 		item->mat.ref = token_to_float(tokens);
 	else if (ft_strcmp(get_token(tokens)->lexeme, "trans") == 0)
 		item->mat.trans = token_to_float(tokens);
+	item->mat.diff.r = (item->mat.diff.r > 1) ? 1 : item->mat.diff.r;
+	item->mat.diff.g = (item->mat.diff.g > 1) ? 1 : item->mat.diff.g;
+	item->mat.diff.b = (item->mat.diff.b > 1) ? 1 : item->mat.diff.b;
 }
 
 inline int			get_t_cam_lenght(t_cam *cam)
@@ -62,6 +65,5 @@ inline int			get_t_cam_lenght(t_cam *cam)
 inline void			init_env(t_leviatenv *levia)
 {
 	levia->mlx = mlx_init();
-	levia->win = mlx_new_window(levia->mlx, L_SIZE, H_SIZE, "RTV1");
 	levia->lenv = NULL;
 }

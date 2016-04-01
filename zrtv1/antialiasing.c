@@ -19,7 +19,7 @@ void		put_pixelantialiaser(t_env *e, register int x, register int y)
 	register unsigned char	c3[5];
 	register int			img_size;
 
-	img_size = L_SIZE * H_SIZE * e->limg->bpp / 8;
+	img_size = e->screen.l * e->screen.h * e->limg->bpp / 8;
 	if (x < 1 || y < 1 || y * e->limg->sline + x * e->limg->bpp / 8 > img_size - 1
 	|| x >= e->limg->sline / (e->limg->bpp / 8) || y >= img_size / e->limg->sline - 1)
 		return ;
@@ -49,10 +49,10 @@ void antialiasing(t_env *e)
 	register int y;
 
 	y = -1;
-	while(++y < H_SIZE)
+	while(++y < e->screen.h)
 	{
 		x = -1;
-		while(++x < L_SIZE)
+		while(++x < e->screen.l)
 			put_pixelantialiaser(e, x, y);
 	}
 }

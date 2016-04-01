@@ -20,11 +20,28 @@ t_cam		*new_t_cam()
 	cam->pos.x = 0;
 	cam->pos.y = 0;
 	cam->pos.z = 0;
-	cam->dir.x = 1;
+	cam->dir.x = 0;
 	cam->dir.y = 0;
-	cam->dir.z = 0;
+	cam->dir.z = 1;
 	cam->angle = 0;
+	cam->next = NULL;
 	return (cam);
+}
+
+t_screen		new_t_screen()
+{
+	t_screen	screen;
+
+	screen.h = H_SIZE;
+	screen.l = L_SIZE;
+	screen.scrl = SCR_L;
+	screen.scrh = SCR_H;
+	screen.scrd = SCR_DIST;
+	screen.li = SCR_L / L_RES;
+	screen.hi =  SCR_H / H_RES;
+	screen.resl =  L_RES;
+	screen.resh =  H_RES;
+	return (screen);
 }
 
 t_limg		*new_t_limg(t_leviatenv *env)
@@ -32,7 +49,7 @@ t_limg		*new_t_limg(t_leviatenv *env)
 	t_limg	*ret;
 
 	ret = malloc(sizeof(t_limg));
-	ret->image = mlx_new_image(env->mlx, L_SIZE, H_SIZE);
+	ret->image = mlx_new_image(env->mlx, env->lenv->screen.l, env->lenv->screen.h);
 	ret->img = mlx_get_data_addr(ret->image, &ret->bpp, &ret->sline, &env->lenv->endiant);
 	ret->i = 1;
 	ret->l = 0;

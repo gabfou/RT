@@ -61,24 +61,27 @@ void		t_inter_set(t_inter *inter)
 // 	// printf("cux = %f cuy = %f cuz = %f\n", env->cam->up.x, env->cam->up.y, env->cam->up.z);
 // 	// printf("crx = %f cry = %f crz = %f\n\n", env->cam->right.x, env->cam->right.y, env->cam->right.z);
 // 	//ft_putendl("qwerqwer");
-// 	dir.x = (env->screen->upleft.x + (env->cam->up.x * SCR_H * y /H_RES) + (env->cam->right.x * SCR_L * x /L_RES))/* - env->cam->pos.x*/;
-// 	dir.y = (env->screen->upleft->y + (env->cam->up.y * SCR_H * y /H_RES) + (env->cam->right.y * SCR_L * x /L_RES))/* - env->cam->pos.y*/;
-// 	dir.z = (env->screen->upleft->z + (env->cam->up.z * SCR_H * y /H_RES) + (env->cam->right.z * SCR_L * x /L_RES))/* - env->cam->pos.z*/;
-// // 	dir.x = (env->cam->dir.x * SCR_DIST) + (env->cam->up.x * SCR_H * y /480) + (env->cam->right.x * SCR_L * x /480);
+// 	dir.x = (env->screen->upleft.x + (env->cam->up.x * f->env->screen.scrh * y / f->env->screen.resh) + (env->cam->right.x * f->env->screen.scrl * x / f->env->screen.resl))/* - env->cam->pos.x*/;
+// 	dir.y = (env->screen->upleft->y + (env->cam->up.y * f->env->screen.scrh * y / f->env->screen.resh) + (env->cam->right.y * f->env->screen.scrl * x / f->env->screen.resl))/* - env->cam->pos.y*/;
+// 	dir.z = (env->screen->upleft->z + (env->cam->up.z * f->env->screen.scrh * y / f->env->screen.resh) + (env->cam->right.z * f->env->screen.scrl * x / f->env->screen.resl))/* - env->cam->pos.z*/;
+// // 	dir.x = (env->cam->dir.x * SCR_DIST) + (env->cam->up.x * f->env->screen.scrh * y /480) + (env->cam->right.x * f->env->screen.scrl * x /480);
 // // 	//ft_putendl("calc dir2");
-// // 	dir.y = (env->cam->dir.y * SCR_DIST) + (env->cam->up.y * SCR_H * y /480) + (env->cam->right.y * SCR_L * x /480);
+// // 	dir.y = (env->cam->dir.y * SCR_DIST) + (env->cam->up.y * f->env->screen.scrh * y /480) + (env->cam->right.y * f->env->screen.scrl * x /480);
 // // 	//ft_putendl("calc dir3");
-// // 	dir.z = (env->cam->dir.z * SCR_DIST) + (env->cam->up.z * SCR_H * y /480) + (env->cam->right.z * SCR_L * x /480);
+// // 	dir.z = (env->cam->dir.z * SCR_DIST) + (env->cam->up.z * f->env->screen.scrh * y /480) + (env->cam->right.z * f->env->screen.scrl * x /480);
 // // 	//ft_putendl("calc dir4");
 // // //	printf("cdx = %f cdy = %f cdz = %f\n", dir.x, dir.y, dir.z);
 // 	normalizator (dir);
 // }
 
-void		calc_dir(t_vec *dir, FLOAT_SIZE x, FLOAT_SIZE y, t_cam *cam)
+void		calc_dir(t_vec *dir, FLOAT_SIZE x, FLOAT_SIZE y, t_thr *f)
 {
-	dir->x = (cam->upleft.x + (cam->up.x * SCR_H * y /H_RES) + (cam->right.x * SCR_L * x /L_RES));
-	dir->y = (cam->upleft.y + (cam->up.y * SCR_H * y /H_RES) + (cam->right.y * SCR_L * x /L_RES));
-	dir->z = (cam->upleft.z + (cam->up.z * SCR_H * y /H_RES) + (cam->right.z * SCR_L * x /L_RES));
+	dir->x = (f->cam->upleft.x + (f->cam->up.x * f->env->screen.scrh * y / f->env->screen.resh)
+		+ (f->cam->right.x * f->env->screen.scrl * x / f->env->screen.resl));
+	dir->y = (f->cam->upleft.y + (f->cam->up.y * f->env->screen.scrh * y / f->env->screen.resh)
+		+ (f->cam->right.y * f->env->screen.scrl * x / f->env->screen.resl));
+	dir->z = (f->cam->upleft.z + (f->cam->up.z * f->env->screen.scrh * y / f->env->screen.resh)
+		+ (f->cam->right.z * f->env->screen.scrl * x / f->env->screen.resl));
 	normalizator(dir);
 }
 
@@ -215,7 +218,7 @@ void		creator(t_cor *c)
 					pd->pos = f->cam->pos;
 					f->fcolor = 0x000000;
 					t_inter_set(&(f->inter));
-					calc_dir(&(pd->dir), x, y, f->cam);
+					calc_dir(&(pd->dir), x, y, f);
 					impactor(f->env, pd, f, &(f->inter));
 					c->env->mircount = 0;
 					if (f->inter.ref > 0 && c->env->mircount++ < 8)

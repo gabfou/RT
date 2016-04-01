@@ -60,7 +60,7 @@ void		pixel_to_image(int x, int y, unsigned int color , t_limg *limg)
 	g = (g > 255)? 255: g;
 	b = (b > 255)? 255: b;
 	off = y * limg->sline + x * limg->bpp / 8;
-	if (x < 0 || y < 0 || y > H_SIZE || x > L_SIZE)
+	if (x < 0 || y < 0)
 		return ;
 	limg->img[off] = color >> 0;
 	limg->img[off + 1] = color >> 8;
@@ -93,7 +93,7 @@ int			expose_hook(t_leviatenv *levia)
 	if (levia->lenv->limg->i <= NBTHREAD)
 	{
 		// printf("lenv->l = %d\n", lenv->l);
-		loadator(H_SIZE, L_SIZE, levia, levia->lenv->limg->l);
+		loadator(levia->lenv->screen.h, levia->lenv->screen.l, levia, levia->lenv->limg->l);
 	}
 	//lenv->done = 1;
 	return (0);
@@ -127,8 +127,8 @@ int			key_down_hook(int keycode, t_leviatenv *levia)
 	if (keycode == 50)
 	{
 		mlx_destroy_window(levia->mlx, levia->win);
-		levia->win = (levia->lenv->ft++ % 2 == 0) ? mlx_new_window(levia->mlx, L_SIZE + L_SIZEC, H_SIZE, "RTV1") :
-		mlx_new_window(levia->mlx, L_SIZE, H_SIZE, "RTV1");
+		levia->win = (levia->lenv->ft++ % 2 == 0) ? mlx_new_window(levia->mlx, levia->lenv->screen.l + L_SIZEC, levia->lenv->screen.h, "RTV1") :
+		mlx_new_window(levia->mlx, levia->lenv->screen.l, levia->lenv->screen.h, "RTV1");
 		mlx_put_image_to_window(levia->mlx, levia->win, levia->lenv->limg->image, 0, 0);
 		//imgcptor(env);
 		mlx_hook(levia->win, 2, 1, key_down_hook, levia);
@@ -143,6 +143,7 @@ t_env		*new_t_env()
 	t_env	*env;
 
 	env = malloc(sizeof(t_env));
+	env->screen = new_t_screen();
 	env->image = NULL;
 	env->t = NULL;
 	env->endiant = 0;
@@ -160,6 +161,26 @@ t_env		*new_t_env()
 	return (env);
 }
 
+void		setcamuplef(t_env *env)
+{
+	t_cam *cam;
+
+	cam = env->cam;
+	while (cam)
+	{
+		cam->upleft = set_screen(cam, env->screen);
+		cam = cam->next;
+	}
+}
+
+void		checkcamscreen(t_env *env)
+{
+	if (!(env->cam))
+		setcam(env, new_t_cam());
+	// if (!(env->screen))
+	// 	env->screen = new_t_screen();
+}
+
 void		gpatrouverdnom(t_leviatenv *env, int argc, char *argv)
 {	
 	// ft_putendl("pastrouvednom 1 1");
@@ -167,8 +188,10 @@ void		gpatrouverdnom(t_leviatenv *env, int argc, char *argv)
 	ft_putendl(argv);
 	
 	init(env->lenv, argc, argv);
-
+	checkcamscreen(env->lenv);
+	setcamuplef(env->lenv);
 	// ft_putendl("pastrouvednom 1 2");
+	env->win = mlx_new_window(env->mlx, env->lenv->screen.l, env->lenv->screen.h, "RTV1");
 	t_limg_initator(env);
 	// ft_putendl("pastrouvednom 1 3");
 }
@@ -243,7 +266,7 @@ int			main(int argc, char **argv)
 	else
 		readerbmp32(argv[1], &levia);
 	// ft_putendl("TOUTAETECREE TRAKIL");
-	// ft_bzero(env.img, H_SIZE * L_SIZE * 4);
+	// ft_bzero(env.img, levia->lenv->screen.h * levia->lenv->screen.l * 4);
 	// ft_putendl("post5");
 	mlx_hook(levia.win, 2, 1, key_down_hook, &levia);
 //	 ft_putendl("post6");

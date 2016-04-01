@@ -33,8 +33,6 @@
 # define SCR_L		1
 # define SCR_H		1
 # define SCR_DIST	2
-# define L_IND		SCR_L / L_RES
-# define H_IND		SCR_H / H_RES
 # define NBTHREAD	4
 # define FLOAT_SIZE double
 
@@ -207,6 +205,19 @@ typedef	struct			s_cam
 	// struct	s_cam	*prev;
 }					t_cam;
 
+typedef	struct		s_screen
+{
+	int					h;
+	int					l;
+	FLOAT_SIZE			scrl;
+	FLOAT_SIZE			scrh;
+	FLOAT_SIZE			scrd;
+	FLOAT_SIZE			li;
+	FLOAT_SIZE			hi;
+	FLOAT_SIZE			resl;
+	FLOAT_SIZE			resh;
+}					t_screen;
+
 typedef	struct		s_env
 {
 	void			*image;
@@ -214,6 +225,7 @@ typedef	struct		s_env
 	int				endiant;
 	t_limg			*limg;
 
+	t_screen		screen;
 	t_cam			*cam;
 	t_item			*item;
 	t_light			*light;
@@ -285,6 +297,7 @@ void			set_inter_pos(t_inter *inter, t_pd *pd);
 int				itemadator(t_env *env, t_item *item);
 t_item			*new_t_item();
 t_cam			*new_t_cam();
+t_screen		new_t_screen();
 
 int				check_t(t_inter *inter, FLOAT_SIZE t, FLOAT_SIZE trans, t_item *item);
 
@@ -351,7 +364,7 @@ void			delete_symbols(t_list **tokens);
 FLOAT_SIZE		token_to_float(t_list **tokens);
 void			t_inter_set(t_inter *inter);
 void			t_limg_initator(t_leviatenv *levia);
-t_vec			set_screen(t_cam *cam);
+t_vec			set_screen(t_cam *cam, t_screen screen);
 void			initmat(t_list	**tokens, t_item *item);
 int				get_t_cam_lenght(t_cam *cam);
 void			init_env(t_leviatenv *levia);
@@ -363,6 +376,7 @@ void			init_cone(t_env *env, t_list **tokens);
 void			init_cyl(t_env *env, t_list **tokens);
 void			init_camera(t_env *env, t_list **tokens);
 void			init_light(t_env *env, t_list **tokens);
+void			setcam(t_env *env, t_cam *cam);
 
 
 #endif

@@ -57,6 +57,35 @@ inline FLOAT_SIZE		ft_min(const FLOAT_SIZE a, const FLOAT_SIZE b)
 	return (a);
 }
 
+t_vec	normalizator_ret(t_vec vec)
+{
+	long double	lenght;
+
+	lenght = sqrt(carre(vec.x) + carre(vec.y) + carre(vec.z));
+	// if (lenght == 0)
+	// 	ft_error("i just saved the universe!");
+	if (lenght == 0.0)
+		ft_putendl("i just saved the universe!");
+	vec.x = vec.x / lenght;
+	vec.y = vec.y / lenght;
+	vec.z = vec.z / lenght;
+	return (vec);
+}
+
+void	normalizator(t_vec *vec)
+{
+	long double	lenght;
+
+	lenght = sqrt(carre(vec->x) + carre(vec->y) + carre(vec->z));
+	// if (lenght == 0)
+	// 	ft_error("i just saved the universe!");
+	if (lenght == 0.0)
+		ft_putendl("i just saved the universe!");
+	vec->x = vec->x / lenght;
+	vec->y = vec->y / lenght;
+	vec->z = vec->z / lenght;
+}
+
 void		ft_puttab(char **tab)
 {
 	int	i;

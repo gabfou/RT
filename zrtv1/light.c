@@ -38,35 +38,6 @@ t_light			*fill_t_light(char **t, t_light *light)
 	return (light);
 }
 
-t_vec	normalizator_ret(t_vec vec)
-{
-	long double	lenght;
-
-	lenght = sqrt(carre(vec.x) + carre(vec.y) + carre(vec.z));
-	// if (lenght == 0)
-	// 	ft_error("i just saved the universe!");
-	if (lenght == 0.0)
-		ft_putendl("i just saved the universe!");
-	vec.x = vec.x / lenght;
-	vec.y = vec.y / lenght;
-	vec.z = vec.z / lenght;
-	return (vec);
-}
-
-void	normalizator(t_vec *vec)
-{
-	long double	lenght;
-
-	lenght = sqrt(carre(vec->x) + carre(vec->y) + carre(vec->z));
-	// if (lenght == 0)
-	// 	ft_error("i just saved the universe!");
-	if (lenght == 0.0)
-		ft_putendl("i just saved the universe!");
-	vec->x = vec->x / lenght;
-	vec->y = vec->y / lenght;
-	vec->z = vec->z / lenght;
-}
-
 FLOAT_SIZE	l_color(const FLOAT_SIZE i, const FLOAT_SIZE a)
 {
 	return (i * (a / 255));

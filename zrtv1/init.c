@@ -41,6 +41,34 @@ void		t_limg_initator(t_leviatenv *levia)
 	levia->lenv->limg = first;
 }
 
+void		init_screen(t_env *env, t_list **tokens)
+{
+	next_elem(tokens);
+	while (!terminal(&(*tokens), CLOSING_BRACKET))
+	{
+		if (ft_strcmp(get_token(tokens)->lexeme, "h") == 0)
+			env->screen.h = token_to_float(tokens);
+		else if (ft_strcmp(get_token(tokens)->lexeme, "l") == 0)
+			env->screen.l = token_to_float(tokens);
+		else if (ft_strcmp(get_token(tokens)->lexeme, "scr_l") == 0)
+			env->screen.scrl = token_to_float(tokens);
+		else if (ft_strcmp(get_token(tokens)->lexeme, "scr_h") == 0)
+			env->screen.scrh = token_to_float(tokens);
+		// else if (ft_strcmp(get_token(tokens)->lexeme, "res_l") == 0)
+		// 	env->screen.resl = token_to_float(tokens);
+		// else if (ft_strcmp(get_token(tokens)->lexeme, "res_h") == 0)
+		// 	env->screen.resh = token_to_float(tokens);
+		else if (ft_strcmp(get_token(tokens)->lexeme, "scr_d") == 0)
+			env->screen.scrd = token_to_float(tokens);
+		next_elem(tokens);
+	}
+	env->screen.resh = env->screen.h / 2;
+	env->screen.resl = env->screen.l / 2;
+	env->screen.li = env->screen.scrl / env->screen.resl;
+	env->screen.hi =  env->screen.scrh / env->screen.resl;
+}
+
+
 void		init_all(t_env *env, t_list *tokens)
 {
 	t_list	*copy;
@@ -60,6 +88,8 @@ void		init_all(t_env *env, t_list *tokens)
 			init_cone(env, &copy);
 		else if (ft_strcmp(get_token(&copy)->lexeme, "cyl") == 0)
 			init_cyl(env, &copy);
+		else if (ft_strcmp(get_token(&copy)->lexeme, "screen") == 0)
+			init_screen(env, &copy);
 		else
 			next_elem(&copy);
 	}

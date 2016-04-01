@@ -32,13 +32,13 @@ inline void	*imgcptor(t_env *env)
 	// if (limg == NULL)
 	// {
 	// 	limg = malloc(sizeof(t_limg));
-	// 	limg->image = mlx_new_image(env->mlx, L_SIZEC, H_SIZE);;
+	// 	limg->image = mlx_new_image(env->mlx, env->screen.l, env->screen.h);;
 	// 	limg->img = mlx_get_data_addr(limg->image, &limg->bpp, &limg->sline, &env->endiant);
 	// 	limg->prev = NULL;
 	// 	limg->next = NULL;
 	// 	printmusicator(limg, env);
 	// }
 // 	if (env->ft % 2 == 1)
-// 		mlx_put_image_to_window(env->mlx, env->win, limg->image, L_SIZE, 0);
+// 		mlx_put_image_to_window(env->mlx, env->win, limg->image, env->screen.l, 0);
 	return (NULL);
 }

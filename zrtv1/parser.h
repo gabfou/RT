@@ -31,7 +31,7 @@
 
 # define RETURN_ERROR			-1
 # define RETURN_SUCCESS			0
-# define WORD_CHARS				"_-"
+# define WORD_CHARS				"_-."
 // # define NOT_CHARACTER			"!@#$%^&*()+=~`|\\[]';\"?/><"
 # define RAYTRACER				"rt"
 # define ERR_SEPARATOR			": "
