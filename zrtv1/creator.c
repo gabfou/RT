@@ -15,30 +15,35 @@
 void		impactor(t_env *env, t_pd *pd, t_thr *f, t_inter *inter)
 {
 	t_item	*lst;
+	int		cnb[200];
 
 	(void)env;
+	// ft_bzero(cnb, 200);
+	idciator(env, *pd, cnb);
 	lst = f->item;
-	while (f->item != NULL)
+	while (lst != NULL)
 	{
-		if (f->item->sp != NULL)
+		if (lst->cnb == NULL || checkcarre(cnb, lst->cnb))
 		{
-			check_sphere(f->item, pd, inter);
+			if (lst->sp != NULL)
+			{
+				check_sphere(lst, pd, inter);
+			}
+			else if (lst->pl != NULL)
+			{
+				check_plane(lst, pd, inter);
+			}
+			else if (lst->cyl != NULL)
+			{
+				check_cyl(lst, pd, inter);
+			}
+			else if (lst->con != NULL)
+			{
+				check_con(lst, pd, inter);
+			}
 		}
-		else if (f->item->pl != NULL)
-		{
-			check_plane(f->item, pd, inter);
-		}
-		else if (f->item->cyl != NULL)
-		{
-			check_cyl(f->item, pd, inter);
-		}
-		else if (f->item->con != NULL)
-		{
-			check_con(f->item, pd, inter);
-		}
-		f->item = f->item->next;
+		lst = lst->next;
 	}
-	f->item = lst;
 }
 
 void		t_inter_set(t_inter *inter)

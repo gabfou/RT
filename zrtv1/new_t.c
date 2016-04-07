@@ -28,6 +28,33 @@ t_cam		*new_t_cam()
 	return (cam);
 }
 
+t_cnb		*new_t_cnb(int i)
+{
+	t_cnb	*cnb;
+
+	cnb = (t_cnb*)malloc(sizeof(t_cnb));
+	cnb->i = i;
+	cnb->next = NULL;
+	return (cnb);
+}
+
+// t_carre		*new_t_carre()
+// {
+// 	t_carre	*carre;
+
+// 	carre = (t_carre*)malloc(sizeof(t_carre));
+// 	carre->pos.x = 0;
+// 	carre->pos.y = 0;
+// 	carre->pos.z = 0;
+// 	carre->dir.x = 0;
+// 	carre->dir.y = 0;
+// 	carre->dir.z = 1;
+// 	carre->angle = 0;
+// 	carre->next = NULL;
+// 	return (carre);
+// }
+
+
 t_screen		new_t_screen()
 {
 	t_screen	screen;

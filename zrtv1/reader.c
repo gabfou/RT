@@ -140,6 +140,8 @@ void	comadator(char *line, t_leviatenv *env)
 		mlx_clear_window(env->mlx, env->win);
 	if (ft_strcmp(line, "printparam") == 0)
 		print_params(*env->lenv);
+	if (ft_strcmp(line, "printcarre") == 0)
+		print_carre(*env->lenv);
 	split = ft_strsplit(line, ' ');
 	if (ft_strcmp(split[0], "modifitem") == 0 && tlen(split) == 4)
 		modif_item(env->lenv, ft_atoi(split[1]), split);

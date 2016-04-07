@@ -97,6 +97,12 @@ typedef	struct		s_pd
 	FLOAT_SIZE		ray;
 }					t_pd;
 
+typedef	struct		s_cnb
+{
+	int				i;
+	struct s_cnb	*next;
+}					t_cnb;
+
 typedef	struct		s_item
 {
 	t_sphere		*sp;
@@ -104,6 +110,8 @@ typedef	struct		s_item
 	t_cyl			*cyl;
 	t_con			*con;
 	t_mat			mat;
+	int				idc;
+	t_cnb			*cnb;
 	struct s_item	*next;
 }					t_item;
 
@@ -180,6 +188,19 @@ typedef	struct		s_inter
 	
 // }					t_env
 
+typedef	struct			s_carre
+{
+	t_vec			pos;
+	t_vec			dir;
+	t_vec			up;
+	t_vec			right;
+	FLOAT_SIZE		angle;
+	FLOAT_SIZE		size;
+	int				cnb;
+	struct	s_carre	*next;
+	// struct	s_carre	*prev;
+}						t_carre;
+
 typedef	struct			s_limg
 {
 	void			*image;
@@ -230,6 +251,7 @@ typedef	struct		s_env
 	t_item			*item;
 	t_light			*light;
 	t_inter			inter;
+	t_carre			*carre;
 	unsigned int	fcolor;
 	int				done;
 	int				nbr;
@@ -377,6 +399,12 @@ void			init_cyl(t_env *env, t_list **tokens);
 void			init_camera(t_env *env, t_list **tokens);
 void			init_light(t_env *env, t_list **tokens);
 void			setcam(t_env *env, t_cam *cam);
+void			carresisator(t_env *env);
+int				impactcarre(t_carre *c, t_env *env);
+void			idciator(t_env *env, t_pd pd, int *niark);
+t_cnb			*new_t_cnb(int i);
+void			print_carre(t_env env);
+int				checkcarre(int *tab, t_cnb *cnb);
 
 
 #endif

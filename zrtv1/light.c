@@ -25,7 +25,7 @@ t_light			*new_t_light()
 	light->pos.x = 0;
 	light->pos.y = 0;
 	light->pos.z = 0;
-	light->color = 0;
+	light->color = 0xFFFFFF;
 	light->next = NULL;
 	return (light);
 }

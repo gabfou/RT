@@ -18,7 +18,7 @@ int			new_sphere(t_env *env)
 
 	item = new_t_item();
 	item->sp = new_t_sphere(100, 0, 0, 3);
-	item->mat.diff = new_t_color(1, 1, 1);
+	// item->mat.diff = new_t_color(1, 1, 1);
 	item->next = NULL;
 	return (itemadator(env, item));
 }

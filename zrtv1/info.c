@@ -16,6 +16,7 @@ void	print_params(t_env env)
 {
 	t_light	*light;
 	t_item	*item;
+	t_cnb	*tmp;
 
 	light = env.light;
 	item = env.item;
@@ -41,8 +42,29 @@ void	print_params(t_env env)
 		if (item->cyl)
 			printf("Cyl : x = %f; y = %f; z = %f;\n",
 		item->cyl->pos.x, item->cyl->pos.y, item->cyl->pos.z);
-		printf("Color : r = %f; g = %f; b = %f;\n",
+		printf("Color : r = %f; g = %f; b = %f;\ncnb: ",
+		item->mat.diff.r, item->mat.diff.g, item->mat.diff.b);
+		tmp = item->cnb;
+		while (tmp)
+		{
+			printf(" %d", tmp->i);
+			tmp = tmp->next;
+		} 
+		printf("\nColor : r = %f; g = %f; b = %f;\n",
 		item->mat.diff.r, item->mat.diff.g, item->mat.diff.b);
 		item = item->next;
+	}
+}
+
+void	print_carre(t_env env)
+{
+	t_carre	*carre;
+
+	carre = env.carre;
+	while (carre)
+	{
+		printf("carre d : x = %f; y = %f; z = %f; size = %f; cnb = %d;\n",
+		carre->pos.x, carre->pos.y, carre->pos.z, carre->size, carre->cnb);
+		carre = carre->next;
 	}
 }

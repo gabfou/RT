@@ -120,4 +120,5 @@ void		init(t_env *env, int argc, char *argv)
 	}
 	delete_symbols(&save);
 	init_all(env, save);
+	carresisator(env);
 }
