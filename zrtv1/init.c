@@ -6,7 +6,7 @@
 /*   By: ibuchwal <ibuchwal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 21:18:43 by ibuchwal          #+#    #+#             */
-/*   Updated: 2016/03/24 17:45:41 by ibuchwal         ###   ########.fr       */
+/*   Updated: 2016/04/06 23:31:25 by ibuchwal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,4 +121,5 @@ void		init(t_env *env, int argc, char *argv)
 	delete_symbols(&save);
 	init_all(env, save);
 	carresisator(env);
+	free_tokens(&save);
 }

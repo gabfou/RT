@@ -6,7 +6,7 @@
 /*   By: ibuchwal <ibuchwal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/23 22:25:40 by jromagna          #+#    #+#             */
-/*   Updated: 2016/03/28 22:36:57 by ibuchwal         ###   ########.fr       */
+/*   Updated: 2016/04/06 23:32:23 by ibuchwal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -369,6 +369,8 @@ void			print_params(t_env env);
 int				parse_exp(t_list **tokens, t_env *par);
 void			init(t_env *env, int argc, char *argv);
 void			init_env(t_leviatenv *env);
+void			free_tokens(t_list **tokens);
+
 //t_screen		*set_screen(t_cam *cam);
 
 char			keytochar(int key);
