@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   info.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfournie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ibuchwal <ibuchwal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 00:20:30 by gfournie          #+#    #+#             */
-/*   Updated: 2016/03/28 00:20:32 by gfournie         ###   ########.fr       */
+/*   Updated: 2016/04/09 20:14:39 by ibuchwal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,14 @@ void	print_params(t_env env)
 		if (item->cyl)
 			printf("Cyl : x = %f; y = %f; z = %f;\n",
 		item->cyl->pos.x, item->cyl->pos.y, item->cyl->pos.z);
-		printf("Color : r = %f; g = %f; b = %f;\ncnb: ",
-		item->mat.diff.r, item->mat.diff.g, item->mat.diff.b);
+		printf("cnb: ");
 		tmp = item->cnb;
 		while (tmp)
 		{
 			printf(" %d", tmp->i);
 			tmp = tmp->next;
 		} 
-		printf("\nColor : r = %f; g = %f; b = %f;\n",
+		printf("\nColor : r = %f; g = %f; b = %f;\n\n",
 		item->mat.diff.r, item->mat.diff.g, item->mat.diff.b);
 		item = item->next;
 	}
