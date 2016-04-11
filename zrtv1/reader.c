@@ -5,46 +5,58 @@
 #include <stdlib.h>
 #include "rtv1.h"
 
-void	readerbmp32(char *name, t_leviatenv *e)
+t_limg	*readerbmp32(char *name)
 {
 	t_header		fh;
 	t_header_info	ih;
 	int				i;
 	int				j;
 	int				k;
+	t_limg			*ret;
+	// int sajfh;
 
 	int	fd_img;
 
-	e->lenv->limg->i = NBTHREAD + 2;
+	// e->lenv->limg->i = NBTHREAD + 2;
+	ft_putendl(name);
 	fd_img = open(name, O_RDONLY);
 
 	read(fd_img, &fh, sizeof(t_header));
 	read(fd_img, &ih, sizeof(t_header_info));
 
-	printf("fM1 = %c, fM2 = %c, bfS = %u, un1 = %hu, un2 = %hu, iDO = %u\n", fh.fileMarker1, fh.fileMarker2, fh.bfSize, fh.unused1, fh.unused2, fh.imageDataOffset);
-	printf("w = %d, h = %d\n, bsi = %d\n", ih.width, ih.height, ih.bitPix);
-	if (ih.bitPix != 32)
-		ft_error("fichier bmp non 32bit");
+	printf("fM1 = %c, fM2 = %c, bfS = %u, un1 = %hu, un2 = %hu, iDO = %u\n",
+		fh.fileMarker1, fh.fileMarker2, fh.bfSize, fh.unused1, fh.unused2, fh.imageDataOffset);
+	printf("w = %d, h = %d, bsi = %d\n", ih.width, ih.height, ih.bitPix);
+	// if (ih.bitPix != 32)
+	// 	ft_error("fichier bmp non 32bit");
 
 	char	*image;
 
 	image = (char*)malloc(sizeof(char) * (fh.bfSize + 1));
 
+	ret = malloc(sizeof(t_limg));
+	ret->image = NULL;//mlx_new_image(env->mlx, ih.width, ih.height);
+	ret->img = (char*)malloc(sizeof(char) * (fh.bfSize + 1));//lx_get_data_addr(ret->image, &ret->bpp, &ret->sline, &sajfh);
+	ret->sline = ih.width;
+	ret->bpp = 4;
+	ret->prev = NULL;
+	ret->next = NULL;
 	read(fd_img, image, fh.bfSize);
 	i = -1;
 	j = -1;
-	while (++j < e->lenv->screen.h && i < (int)fh.bfSize)
+	while (++j < ih.width && i < (int)fh.bfSize)
 	{
 		k = -1;
-		while (++k < e->lenv->screen.l && i < (int)fh.bfSize)
+		while (++k < ih.height && i < (int)fh.bfSize)
 		{
-			e->lenv->limg->img[(e->lenv->screen.h - j) * e->lenv->limg->sline + k * e->lenv->limg->bpp / 8 + 3] = image[++i];
-			e->lenv->limg->img[(e->lenv->screen.h - j) * e->lenv->limg->sline + k * e->lenv->limg->bpp / 8 + 2] = image[++i];
-			e->lenv->limg->img[(e->lenv->screen.h - j) * e->lenv->limg->sline + k * e->lenv->limg->bpp / 8 + 1] = image[++i];
-			e->lenv->limg->img[(e->lenv->screen.h - j) * e->lenv->limg->sline + k * e->lenv->limg->bpp / 8 + 0] = image[++i];
+			ret->img[(ih.width - j) * ret->sline + k * ret->bpp / 8 + 3] = image[++i];
+			ret->img[(ih.width - j) * ret->sline + k * ret->bpp / 8 + 2] = image[++i];
+			ret->img[(ih.width - j) * ret->sline + k * ret->bpp / 8 + 1] = image[++i];
+			ret->img[(ih.width - j) * ret->sline + k * ret->bpp / 8 + 0] = image[++i];
 		}
 	}
 	// write(fd, image, fh.bfSize);
+	return (ret);
 }
 
 char		*initkeytochar()

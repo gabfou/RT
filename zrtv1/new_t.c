@@ -12,6 +12,22 @@
 
 #include "rtv1.h"
 
+t_item			*new_t_item()
+{
+	t_item	*item;
+
+	item = malloc(sizeof(t_item));
+	item->pl = NULL;
+	item->sp = NULL;
+	item->cyl = NULL;
+	item->con = NULL;
+	item->next = NULL;
+	item->cnb = NULL;
+	item->texture = NULL;
+	item->mat = new_t_mat("niark");
+	return(item);
+}
+
 t_cam		*new_t_cam()
 {
 	t_cam	*cam;

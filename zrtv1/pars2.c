@@ -12,23 +12,6 @@
 
 #include "rtv1.h"
 
-
-t_item			*new_t_item()
-{
-	t_item	*item;
-
-	item = malloc(sizeof(t_item));
-	item->pl = NULL;
-	item->sp = NULL;
-	item->cyl = NULL;
-	item->con = NULL;
-	item->next = NULL;
-	item->idc = 1;
-	item->cnb = NULL;
-	item->mat = new_t_mat("niark");
-	return(item);
-}
-
 void			check_check(t_check check)
 {
 	if (check.cam == 0)

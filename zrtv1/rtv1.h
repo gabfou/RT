@@ -103,6 +103,19 @@ typedef	struct		s_cnb
 	struct s_cnb	*next;
 }					t_cnb;
 
+typedef	struct			s_limg
+{
+	void			*image;
+	char			*img;
+	int				bpp;
+	int				sline;
+	int				i;
+	int				l;
+	int				k;
+	struct	s_limg	*prev;
+	struct	s_limg	*next;
+}					t_limg;
+
 typedef	struct		s_item
 {
 	t_sphere		*sp;
@@ -110,8 +123,8 @@ typedef	struct		s_item
 	t_cyl			*cyl;
 	t_con			*con;
 	t_mat			mat;
-	int				idc;
 	t_cnb			*cnb;
+	t_limg			*texture;
 	struct s_item	*next;
 }					t_item;
 
@@ -126,7 +139,7 @@ typedef struct		s_trans
 {
 	FLOAT_SIZE		colabs;
 	FLOAT_SIZE		t;
-	struct		s_trans			*next;
+	struct s_trans	*next;
 }					t_trans;
 
 typedef	struct		s_inter
@@ -200,19 +213,6 @@ typedef	struct			s_carre
 	struct	s_carre	*next;
 	// struct	s_carre	*prev;
 }						t_carre;
-
-typedef	struct			s_limg
-{
-	void			*image;
-	char			*img;
-	int				bpp;
-	int				sline;
-	int				i;
-	int				l;
-	int				k;
-	struct	s_limg	*prev;
-	struct	s_limg	*next;
-}					t_limg;
 
 typedef	struct			s_cam
 {
@@ -355,7 +355,7 @@ t_vec			set_new_pos(t_vec dir, t_vec pos, FLOAT_SIZE dist);
 
 void			check_cyl(t_item *item, t_pd *s, t_inter *inter);
 
-void			readerbmp32(char *name, t_leviatenv *e);
+t_limg			*readerbmp32(char *name);
 void			enregistrator(t_env *env);
 int				thread_master(t_env *env);
 

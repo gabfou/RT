@@ -12,6 +12,18 @@
 
 #include "rtv1.h"
 
+void		set_texture_sphere(t_inter *inter, t_item *item)
+{
+	int	tu;
+	int	tv;
+
+	tu = (int)(((inter->norm.x + 1) / 2) * item->texture->i) * item->texture->bpp / 8;
+	tv = (int)(((1 - inter->norm.y) / 2) * item->texture->l) * item->texture->sline;
+	inter->diff.b = (unsigned char)item->texture->img[(tv + tu)] / 255.0;
+	inter->diff.g = (unsigned char)item->texture->img[(tv + tu) + 1] / 255.0;
+	inter->diff.r = (unsigned char)item->texture->img[(tv + tu) + 2] / 255.0;
+}
+
 int			new_sphere(t_env *env)
 {
 	t_item	*item;
@@ -22,46 +34,6 @@ int			new_sphere(t_env *env)
 	item->next = NULL;
 	return (itemadator(env, item));
 }
-
-// int		modif_sphere(t_env *env, int i)
-// {
-// 	t_item		*item;
-// 	static int niark = 0;
-
-// 	niark++;
-// 	if (i == -2)
-// 	{
-// 		item = new_t_item();
-// 		item->sp = new_t_sphere(100, 0, 0, 3);
-// 		item->mat.diff = new_t_color(1, 1, 1);
-// 		item->next = NULL; 
-// 		// itemadator(env, item);
-// 		return (itemadator(env, item));
-// 	}
-// 	item = env->item;
-// 	while(item && i-- > 0)
-// 		item = item->next;
-// 	if (line[0] == 'x' && line[1] == ' ')
-// 		item->sp->c.x = ft_fatoi(&line[2]);
-// 	else if (line[0] == 'y' && line[1] == ' ')
-// 		item->sp->c.y = ft_fatoi(&line[2]);
-// 	else if (line[0] == 'z' && line[1] == ' ')
-// 		item->sp->c.z = ft_fatoi(&line[2]);
-// 	// else if (ft_strcmp(line, "r") == 0)
-// 	// 	rgb.r = token_to_float(tokens);
-// 	// else if (ft_strcmp(line, "g") == 0)
-// 	// 	rgb.g = token_to_float(tokens);
-// 	// else if (ft_strcmp(line, "b") == 0)
-// 	// 	rgb.b = token_to_float(tokens);
-// 	else if (line[0] == 'r' && line[1] == 'a' && line[2] == 'd' && line[3] == ' ')
-// 		item->sp->ray = ft_fatoi(&line[4]);
-// 	// else if (ft_strcmp(line, "mat") == 0)
-// 	// {
-// 	// 	next_elem(tokens);
-// 	// 	mat = new_t_mat(get_token(tokens)->lexeme);
-// 	// }
-// 	return (-1);
-// }
 
 void	set_normal_sphere(t_inter *inter, t_item *item)
 {
@@ -109,6 +81,8 @@ void		check_sphere(t_item *item, t_pd *s, t_inter *inter)
 		{
 			set_inter_pos(inter, s);
 			set_normal_sphere(inter, item);
+			if (item->texture)
+				set_texture_sphere(inter, item);
 		}
 	}
 //	ft_putendl("post tout ");

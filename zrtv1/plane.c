@@ -12,6 +12,18 @@
 
 #include "rtv1.h"
 
+// void		set_texture_plane(t_inter *inter, t_item *item)
+// {
+// 	int	tu;
+// 	int	tv;
+
+// 	tu = inter->.pos;
+// 	tv = (int)(((1 - inter->norm.y) / 2) * item->texture->l) * item->texture->sline;
+// 	inter->diff.b = (unsigned char)item->texture->img[(tv + tu)] / 255.0;
+// 	inter->diff.g = (unsigned char)item->texture->img[(tv + tu) + 1] / 255.0;
+// 	inter->diff.r = (unsigned char)item->texture->img[(tv + tu) + 2] / 255.0;
+// }
+
 void	set_normal_plane(t_item *item, t_inter *inter)
 {
 	inter->norm.x = item->pl->dir.x;
@@ -47,6 +59,8 @@ void		check_plane(t_item *item, t_pd *s, t_inter *inter)
 	{
 		set_normal_plane(item, inter);
 		set_inter_pos(inter, s);
+		// if (item->texture)
+		// 		set_texture_plane(inter, item);
 	}
 	return ;
 }

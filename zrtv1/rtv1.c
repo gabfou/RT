@@ -49,22 +49,19 @@
 void		pixel_to_image(int x, int y, unsigned int color , t_limg *limg)
 {
 	unsigned int	off;
-	int r;
-	int g;
-	int b;
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
 
 	r = (color >> 16) & 0xFF;
 	g = (color >> 8) & 0xFF;
 	b = (color >> 0) & 0xFF;
-	r = (r > 255)? 255: r;
-	g = (g > 255)? 255: g;
-	b = (b > 255)? 255: b;
 	off = y * limg->sline + x * limg->bpp / 8;
 	if (x < 0 || y < 0)
 		return ;
-	limg->img[off] = color >> 0;
-	limg->img[off + 1] = color >> 8;
-	limg->img[off + 2] = color >> 16;
+	limg->img[off] = (r > 255)? 255: r;
+	limg->img[off + 1] = (g > 255)? 255: g;
+	limg->img[off + 2] = (b > 255)? 255: b;
 }
 
 int			expose_hook(t_leviatenv *levia)
@@ -261,10 +258,10 @@ int			main(int argc, char **argv)
 	// ft_putendl(env.ktc);
 	//ft_putendl("LLLAALALLALALALALALAL");
 	i = ft_strlen(argv[1]) - 4;
-	if (!(i > 0 && argv[1][i++] == '.' && argv[1][i++] == 'b' && argv[1][i++] == 'm' && argv[1][i++] == 'p'))
+	// if (!(i > 0 && argv[1][i++] == '.' && argv[1][i++] == 'b' && argv[1][i++] == 'm' && argv[1][i++] == 'p'))
 		thread_master(levia.lenv);
-	else
-		readerbmp32(argv[1], &levia);
+	// else
+	// 	readerbmp32(argv[1], &levia);
 	// ft_putendl("TOUTAETECREE TRAKIL");
 	// ft_bzero(env.img, levia->lenv->screen.h * levia->lenv->screen.l * 4);
 	// ft_putendl("post5");

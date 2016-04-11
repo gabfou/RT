@@ -12,45 +12,21 @@
 
 #include "rtv1.h"
 
-// bool Box::intersect(const Ray &r, float t0, float t1) const 
-// {
-// 	FLOAT_SIZE	tmin;
-// 	FLOAT_SIZE	tmax;
-// 	FLOAT_SIZE	tymin;
-// 	FLOAT_SIZE	tymax;
-// 	FLOAT_SIZE	tzmin;
-// 	FLOAT_SIZE	tzmax;
-
-// 	tmin = (bounds[r.sign[0]].x() - r.origin.x()) * r.inv_direction.x();
-// 	tmax = (bounds[1-r.sign[0]].x() - r.origin.x()) * r.inv_direction.x();
-// 	tymin = (bounds[r.sign[1]].y() - r.origin.y()) * r.inv_direction.y();
-// 	tymax = (bounds[1-r.sign[1]].y() - r.origin.y()) * r.inv_direction.y();
-// 	if ( (tmin > tymax) || (tymin > tmax) )
-// 		return false;
-// 	if (tymin > tmin)
-// 		tmin = tymin;
-// 	if (tymax < tmax)
-// 		tmax = tymax;
-// 	tzmin = (bounds[r.sign[2]].z() - r.origin.z()) * r.inv_direction.z();
-// 	tzmax = (bounds[1-r.sign[2]].z() - r.origin.z()) * r.inv_direction.z();
-// 	if ( (tmin > tzmax) || (tzmin > tmax) )
-// 		return false;
-// 	if (tzmin > tmin)
-// 		tmin = tzmin;
-// 	if (tzmax < tmax)
-// 		tmax = tzmax;
-// 	return ( (tmin < t1) && (tmax > t0) );
-// }
-
 int		carre_pd(t_carre *b, t_pd r)
 {
-	double tx1 = (b->pos.x - r.pos.x) * -1 * r.dir.x;
-	double tx2 = (b->pos.x + b->size - r.pos.x) * -1 * r.dir.x;
-	double ty1 = (b->pos.y - r.pos.y) * -1 * r.dir.y;
-	double ty2 = (b->pos.y + b->size - r.pos.y) * -1 * r.dir.y;
-	double tz1 = (b->pos.z - r.pos.z) * -1 * r.dir.z;
-	double tz2 = (b->pos.z + b->size - r.pos.z) * -1 * r.dir.z;
+	double tx1;
+	double tx2;
+	double ty1;
+	double ty2;
+	double tz1;
+	double tz2;
 
+	tx1 = (b->pos.x - r.pos.x) * -1 * r.dir.x;
+	tx2 = (b->pos.x + b->size - r.pos.x) * -1 * r.dir.x;
+	ty1 = (b->pos.y - r.pos.y) * -1 * r.dir.y;
+	ty2 = (b->pos.y + b->size - r.pos.y) * -1 * r.dir.y;
+	tz1 = (b->pos.z - r.pos.z) * -1 * r.dir.z;
+	tz2 = (b->pos.z + b->size - r.pos.z) * -1 * r.dir.z;
 	return (fmax(fmin(tx1, tx2), fmax(fmin(ty1, ty2), fmin(tz1, tz2)))
 		<= 0 + fmin(fmax(tx1, tx2), fmin(fmax(ty1, ty2), fmax(tz1, tz2))));
 }
@@ -63,52 +39,6 @@ void swapniark(FLOAT_SIZE *a, FLOAT_SIZE *b)
 	*a = *b;
 	*b = c;
 }
-
-// int carre_pd(t_carre *b, t_pd r)
-// { 
-// 	// if (b->pos.x < r.pos.x && b->pos.x + b->size > r.pos.x
-// 	// 	&& b->pos.y < r.pos.y && b->pos.y + b->size > r.pos.y
-// 	// 	&& b->pos.z < r.pos.z && b->pos.z + b->size > r.pos.z)
-// 	// 	return (1);
-//     FLOAT_SIZE tmin = (b->pos.x - r.pos.x) / r.dir.x; 
-//     FLOAT_SIZE tmax = (b->pos.x + b->size - r.pos.x) / r.dir.x; 
- 
-//     if (tmin > tmax) swapniark(&tmin, &tmax); 
- 
-//     FLOAT_SIZE tymin = (b->pos.y - r.pos.y) / r.dir.y; 
-//     FLOAT_SIZE tymax = (b->pos.y + b->size - r.pos.y) / r.dir.y; 
- 
-//     if (tymin > tymax) swapniark(&tymin, &tymax); 
- 
-//     if ((tmin > tymax) || (tymin > tmax)) 
-// {
-// 	// ft_putendl("dafuq");
-// 		return (0);
-// } 
-//     if (tymin > tmin) 
-//         tmin = tymin; 
- 
-//     if (tymax < tmax) 
-//         tmax = tymax; 
- 
-//     FLOAT_SIZE tzmin = (b->pos.z - r.pos.z) / r.dir.z; 
-//     FLOAT_SIZE tzmax = (b->pos.z + b->size - r.pos.z) / r.dir.z; 
- 
-//     if (tzmin > tzmax) swapniark(&tzmin, &tzmax); 
- 
-//     if ((tmin > tzmax) || (tzmin > tmax)) 
-// {
-// 	// ft_putendl("dafuq");
-// 		return (0);
-// } 
-//     if (tzmin > tmin) 
-//         tmin = tzmin; 
- 
-//     if (tzmax < tmax) 
-//         tmax = tzmax; 
-//  // ft_putendl("dafuq2");
-//     return (1); 
-// } 
 
 void	idciator(t_env *env, t_pd pd, int *niark)
 {

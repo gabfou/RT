@@ -226,8 +226,8 @@ void		creator(t_cor *c)
 					calc_dir(&(pd->dir), x, y, f);
 					impactor(f->env, pd, f, &(f->inter));
 					c->env->mircount = 0;
-					if (f->inter.ref > 0 && c->env->mircount++ < 8)
-						ref(f, c, pd);
+					// if (f->inter.ref > 0 && c->env->mircount++ < 8)
+					// 	ref(f, c, pd);
 					set_inter_pos(&(f->inter), pd);
 					luminator(f->env, f);
 					pixel_to_image(x, y, f->fcolor, f->limg);

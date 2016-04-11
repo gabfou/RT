@@ -97,11 +97,6 @@ t_carre		*divisecarrerisator(t_carre *c2, t_env *env)
 	return (c);
 }
 
-// int		checknbcarre(t_carre *c, t_env *env)
-// {
-// 	return (impactcarre(tmp, env));
-// }
-
 void	carresisator(t_env *env)
 {
 	t_carre	*c;
@@ -116,8 +111,8 @@ void	carresisator(t_env *env)
 			c = divisecarrerisator(c, env);
 		else
 			c = c->next;
-		print_carre(*env);
 	}
+	print_carre(*env);
 }
 
 

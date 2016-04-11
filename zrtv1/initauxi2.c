@@ -12,6 +12,36 @@
 
 #include "rtv1.h"
 
+t_limg				*readerxpm(char *name)
+{
+	static void	*sar = NULL;
+	t_limg		*ret;
+	// int			i = 5000;
+	// int			j = 5000;
+	int k;
+
+	if (sar == NULL)
+		sar = mlx_init();
+	ret = malloc(sizeof(t_limg));
+	ret->image = mlx_xpm_file_to_image(sar, name, &ret->i, &ret->l);
+	if (ret->image == NULL)
+		ft_error("texture pas bien");
+	// ft_putnbr(i);
+	ft_putendl("niark");
+	ret->img = mlx_get_data_addr(ret->image, &ret->bpp, &ret->sline, &k);
+	ft_putendl("niark3");
+	ret->k = 1;
+	ret->prev = NULL;
+	ret->next = NULL;
+	ft_putendl("niark2");
+	void *niark = mlx_new_window(sar, ret->i, ret->l, name);
+	mlx_put_image_to_window(sar, niark, ret->image, 0, 0);
+	mlx_do_sync(sar);
+	// sleep(10);
+	return (ret);
+}
+
+
 inline t_vec		set_screen(t_cam *cam, t_screen screen)
 {
 	FLOAT_SIZE		x;
@@ -42,6 +72,11 @@ inline void			initmat(t_list **tokens, t_item *item)
 		item->mat.ref = token_to_float(tokens);
 	else if (ft_strcmp(get_token(tokens)->lexeme, "trans") == 0)
 		item->mat.trans = token_to_float(tokens);
+	else if (ft_strcmp(get_token(tokens)->lexeme, "texture") == 0)
+	{
+		next_elem(tokens);
+		item->texture = readerxpm(get_token(tokens)->lexeme);
+	}
 	item->mat.diff.r = (item->mat.diff.r > 1) ? 1 : item->mat.diff.r;
 	item->mat.diff.g = (item->mat.diff.g > 1) ? 1 : item->mat.diff.g;
 	item->mat.diff.b = (item->mat.diff.b > 1) ? 1 : item->mat.diff.b;
