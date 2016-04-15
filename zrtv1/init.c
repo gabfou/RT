@@ -54,10 +54,6 @@ void		init_screen(t_env *env, t_list **tokens)
 			env->screen.scrl = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "scr_h") == 0)
 			env->screen.scrh = token_to_float(tokens);
-		// else if (ft_strcmp(get_token(tokens)->lexeme, "res_l") == 0)
-		// 	env->screen.resl = token_to_float(tokens);
-		// else if (ft_strcmp(get_token(tokens)->lexeme, "res_h") == 0)
-		// 	env->screen.resh = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "scr_d") == 0)
 			env->screen.scrd = token_to_float(tokens);
 		next_elem(tokens);
@@ -65,9 +61,8 @@ void		init_screen(t_env *env, t_list **tokens)
 	env->screen.resh = env->screen.h / 2;
 	env->screen.resl = env->screen.l / 2;
 	env->screen.li = env->screen.scrl / env->screen.resl;
-	env->screen.hi =  env->screen.scrh / env->screen.resl;
+	env->screen.hi = env->screen.scrh / env->screen.resl;
 }
-
 
 void		init_all(t_env *env, t_list *tokens)
 {

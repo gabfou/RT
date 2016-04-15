@@ -12,40 +12,6 @@
 
 #include "rtv1.h"
 
-// void		parser_test(t_env *env)
-// {
-// 	t_item *lst;
-// 	t_light *lum;
-// 	int		i;
-
-// 	i = 0;
-// 	lum = env->light;
-// 	lst = env->item;
-// 	printf("CAM posx %f posy %f posz %f\n", env->cam->pos->x, env->cam->pos->y, env->cam->pos->z);
-// 	printf("CAM dirx %f diry %f dirz %f\n", env->cam->dir->x, env->cam->dir->y, env->cam->dir->z);
-// 	while (lst != NULL)
-// 	{
-// 		i++;
-// 		ft_putnbr(i);
-// 		if (lst->sp != NULL)
-// 			printf("%d SP posx %f posy %f posz %f ray %f\n", i, lst->sp->c->x, lst->sp->c->y, lst->sp->c->z, lst->sp->ray);
-// 		if (lst->pl != NULL)
-// 		{
-// 			printf("%d PL posx %f posy %f posz %f\n", i, lst->pl->pos->x, lst->pl->pos->y, lst->pl->pos->z);
-// 			printf("%d PL dirx %f diry %f dirz %f\n", i, lst->pl->dir->x, lst->pl->dir->y, lst->pl->dir->z);
-// 		}
-// 		lst = lst->next;
-// 	}
-// 	while (lum != NULL)
-// 	{
-// 		i++;
-// 		ft_putnbr(i);
-// 		printf("%d LUM posx %f posy %f posz %f\n", i, lum->pos->x, lum->pos->y, lum->pos->z);
-// 		lum = lum->next;
-// 	}
-// 	ft_putendl("parser_test fin");
-// }
-
 void		pixel_to_image(int x, int y, unsigned int color , t_limg *limg)
 {
 	unsigned int	off;

@@ -35,6 +35,7 @@
 # define SCR_DIST	2
 # define NBTHREAD	4
 # define FLOAT_SIZE double
+# define B 0xFFFFFF
 
 typedef	struct		s_color
 {
@@ -338,7 +339,7 @@ void			print_vec(t_vec vec);
 void			ft_puttab(char **tab);
 t_vec			prod_vector(t_vec v1, t_vec v2);
 t_cyl			*t_cyl_creator(FLOAT_SIZE x, FLOAT_SIZE y, FLOAT_SIZE z, FLOAT_SIZE x1, FLOAT_SIZE y1, FLOAT_SIZE z1, FLOAT_SIZE ray);
-t_con			*t_con_creator(FLOAT_SIZE x, FLOAT_SIZE y, FLOAT_SIZE z, FLOAT_SIZE x1, FLOAT_SIZE y1, FLOAT_SIZE z1, FLOAT_SIZE ang);
+t_con			*t_con_creator(t_vec v, t_vec v1, FLOAT_SIZE ang);
 t_vec			sub_vec(const t_vec v1, const t_vec v2);
 t_vec			add_vec(const t_vec v1, const t_vec v2);
 FLOAT_SIZE		dot_prod(const t_vec v1, const t_vec v2);
@@ -407,6 +408,13 @@ void			idciator(t_env *env, t_pd pd, int *niark);
 t_cnb			*new_t_cnb(int i);
 void			print_carre(t_env env);
 int				checkcarre(int *tab, t_cnb *cnb);
+
+t_thr			*new_t_thr(t_cor *c);
+void			nextcam(t_thr *f);
+t_thr			*set_again_t_thr(t_thr *f);
+int				testuniverse(t_vec vec);
+t_thr			*new_t_thr(t_cor *c);
+void			swapniark(FLOAT_SIZE *a, FLOAT_SIZE *b);
 
 
 #endif

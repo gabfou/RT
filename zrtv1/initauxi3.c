@@ -12,7 +12,7 @@
 
 #include "rtv1.h"
 
-void		rotationator(t_vec *vec , double angle)
+void		rotationator(t_vec *vec, double angle)
 {
 	t_vec tmp;
 
@@ -30,7 +30,8 @@ void		setcam(t_env *env, t_cam *cam)
 
 	cam->angle = cam->angle * M_PI / 180;
 	normalizator(&(cam->dir));
-	if (cam->dir.x == 0 && cam->dir.z == 0 && (cam->dir.y == 1 || cam->dir.y == -1))
+	if (cam->dir.x == 0 && cam->dir.z == 0
+		&& (cam->dir.y == 1 || cam->dir.y == -1))
 		cam->up = new_t_vec(cam->dir.y, 0, 0);
 	else
 		cam->up = new_t_vec(0, 1, 0);
@@ -78,10 +79,11 @@ void		init_camera(t_env *env, t_list **tokens)
 	setcam(env, cam);
 }
 
-void	addlight(t_env *env, t_light *light)
-{	
+void		addlight(t_env *env, t_light *light, t_color rgb)
+{
 	t_light	*copy;
 
+	light->color = get_color(rgb.r, rgb.g, rgb.b);
 	if (!env->light)
 		env->light = light;
 	else
@@ -119,6 +121,5 @@ void		init_light(t_env *env, t_list **tokens)
 			rgb.b = token_to_float(tokens);
 		next_elem(tokens);
 	}
-	light->color = get_color(rgb.r, rgb.g, rgb.b);
-	addlight(env, light);
+	addlight(env, light, rgb);
 }

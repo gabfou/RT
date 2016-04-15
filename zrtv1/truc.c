@@ -513,3 +513,172 @@ void			get_file(t_env *e, char *name)
 	e->item = item;
 	check_check(check);
 }*/
+
+	// void		parser_test(t_env *env)
+// {
+// 	t_item *lst;
+// 	t_light *lum;
+// 	int		i;
+
+// 	i = 0;
+// 	lum = env->light;
+// 	lst = env->item;
+// 	printf("CAM posx %f posy %f posz %f\n", env->cam->pos->x, env->cam->pos->y, env->cam->pos->z);
+// 	printf("CAM dirx %f diry %f dirz %f\n", env->cam->dir->x, env->cam->dir->y, env->cam->dir->z);
+// 	while (lst != NULL)
+// 	{
+// 		i++;
+// 		ft_putnbr(i);
+// 		if (lst->sp != NULL)
+// 			printf("%d SP posx %f posy %f posz %f ray %f\n", i, lst->sp->c->x, lst->sp->c->y, lst->sp->c->z, lst->sp->ray);
+// 		if (lst->pl != NULL)
+// 		{
+// 			printf("%d PL posx %f posy %f posz %f\n", i, lst->pl->pos->x, lst->pl->pos->y, lst->pl->pos->z);
+// 			printf("%d PL dirx %f diry %f dirz %f\n", i, lst->pl->dir->x, lst->pl->dir->y, lst->pl->dir->z);
+// 		}
+// 		lst = lst->next;
+// 	}
+// 	while (lum != NULL)
+// 	{
+// 		i++;
+// 		ft_putnbr(i);
+// 		printf("%d LUM posx %f posy %f posz %f\n", i, lum->pos->x, lum->pos->y, lum->pos->z);
+// 		lum = lum->next;
+// 	}
+// 	ft_putendl("parser_test fin");
+// }
+	/*
+
+inline long FLOAT_SIZE	cotestor(t_vec v, t_env *e, t_vec dir, t_con *s)
+{
+	register long FLOAT_SIZE	a;
+	register long FLOAT_SIZE	b;
+	register long FLOAT_SIZE 	c;
+	register long FLOAT_SIZE	d;
+	t_vec						l;
+
+	(void)l;
+	l = sub_vec(v, s->p);
+
+	a = dot_prod(dir, dir) - (1.0 + tan(s->a) * tan(s->a)) * (dot_prod(dir, s->v) *  dot_prod(dir, s->v));
+
+	b = 2 * (dot_prod(dir, l) - (1.0 + tan(s->a) * tan(s->a)) * (dot_prod(dir, s->v) * dot_prod(l, s->v)));
+
+	c = dot_prod(l, l) - (1.0 + tan(s->a) * tan(s->a)) * (dot_prod(l, s->v) * dot_prod(l, s->v));
+
+	if ((d = (b * b - 4.0 * a * c)) < 0)
+		return (-1);
+
+	d = ft_min(((-b + sqrt(d)) / (2 * a)), ((-b - sqrt(d)) / (2 * a)));
+
+	if (d < 0 || d > e->d)
+		return (-1);
+
+	l = vav(v, ps(dir, d));
+
+	// if (s->h != -1 && normecalculator(sub_vec(l, s->p)) > s->h)
+	// 	return (-1);
+
+	// e->d = d;
+
+	if (!e->testor)
+		return (d);
+
+	v = normalisator(sub_vec(vector_proj_vector(normalisator(sub_vec(s->p, l)), s->v), normalisator(sub_vec(s->p, l))));
+	e->pixelmirror = 0;
+	e->vl = v;
+	e->pl = l;
+	e->c2 = s->color;
+	return (d);
+}
+*/
+
+// void		creator(t_cor *c)
+// {
+// 	double		x;
+// 	double		y;
+// 	t_pd		*pd;
+// 	t_thr		*f;
+// 	int			l;
+
+// 	// ft_check(env);
+// 	f = malloc(sizeof(t_thr));
+// 	f->minx = c->minx;
+// 	f->maxx = c->maxx;
+// 	f->miny = c->miny;
+// 	f->maxy = c->maxy;
+// 	f->item = c->env->item;
+// 	f->light = c->env->light;
+// 	printf("xmin = %f xmax = %f ymin = %f ymax = %f\n", f->minx, f->maxx, f->miny, f->maxy);
+// 	usleep(10000);
+// 	// ft_putendl("thread check");
+// 	// printf("xmin = %f xmax = %f ymin = %f ymax = %f\n",f->minx, f->maxx, f->miny, f->maxy);
+// 	// ft_putendl("DEBUUUT");
+// 	l = 0;
+// 	y = f->miny;
+// 	pd = new_t_pd();
+// 	//pd->pos = c->env->cam->pos;
+// 	pd->dir = new_t_vec(0,0,0);
+// 	// ft_putendl("LAAAAAAAAA");
+// 	while (y < f->maxy)
+// 	{
+// 		x = f->minx;
+// 		while (x < f->maxx)
+// 		{
+// 			//ft_putendl("boucle");
+// 			pd->pos = c->env->cam->pos;
+// 			f->fcolor = 0x000000;
+// 			f->inter = new_t_inter();
+// 			t_inter_set(f->inter);
+// 			calc_dir(c->env, pd->dir, x, y);
+// 			// printf("\nx = %f y = %f", x, y );
+// 			//if (x == 1 && ((int)y % 100 == 0))
+// 				//print_vec(pd->dir);
+// 			//print_vec(pd->pos);
+// 			impactor(c->env, pd, f, f->inter);
+// 			set_inter_pos(f->inter, pd);
+// 			luminator(c->env, f);
+// 			//if (f-> inter.t > 0 )
+// 			//	pixel_to_image(c->env, x, y, 0xFF0000); 
+// 			pixel_to_image(c->env, x, y, f->fcolor);
+// 			//if (f->fcolor == 0)
+// 			//	printf("\nx = %f y = %f", x, y );
+// 			// if (x == f->minx && y == f->miny)
+// 			// 	printf("color = %d\n", f->fcolor);
+
+
+// 			// if (f->minx == 0 && f->miny == 0)
+// 			// { 
+// 			// 	ft_putendl("pre");
+// 			// 	loadator(H_SIZE, L_SIZE, c->env, l++);
+// 			// 	ft_putendl("post");
+// 			// }
+// 			c->env->l++;
+// 			x += 1;
+// 		}
+// 		y += 1;
+// 	}
+// 	//antialiasing(env);
+// 	c->env->i++;
+// 	pthread_exit(NULL);
+// }
+
+// void		calc_dir(t_env *env, t_vec *dir, FLOAT_SIZE x, FLOAT_SIZE y)
+// {
+// 	//ft_putendl("calc dir");
+// 	// printf("cdx = %f cdy = %f cdz = %f\n", env->cam->dir.x, env->cam->dir.y, env->cam->dir.z);
+// 	// printf("cux = %f cuy = %f cuz = %f\n", env->cam->up.x, env->cam->up.y, env->cam->up.z);
+// 	// printf("crx = %f cry = %f crz = %f\n\n", env->cam->right.x, env->cam->right.y, env->cam->right.z);
+// 	//ft_putendl("qwerqwer");
+// 	dir.x = (env->screen->upleft.x + (env->cam->up.x * f->env->screen.scrh * y / f->env->screen.resh) + (env->cam->right.x * f->env->screen.scrl * x / f->env->screen.resl))/* - env->cam->pos.x*/;
+// 	dir.y = (env->screen->upleft->y + (env->cam->up.y * f->env->screen.scrh * y / f->env->screen.resh) + (env->cam->right.y * f->env->screen.scrl * x / f->env->screen.resl))/* - env->cam->pos.y*/;
+// 	dir.z = (env->screen->upleft->z + (env->cam->up.z * f->env->screen.scrh * y / f->env->screen.resh) + (env->cam->right.z * f->env->screen.scrl * x / f->env->screen.resl))/* - env->cam->pos.z*/;
+// // 	dir.x = (env->cam->dir.x * SCR_DIST) + (env->cam->up.x * f->env->screen.scrh * y /480) + (env->cam->right.x * f->env->screen.scrl * x /480);
+// // 	//ft_putendl("calc dir2");
+// // 	dir.y = (env->cam->dir.y * SCR_DIST) + (env->cam->up.y * f->env->screen.scrh * y /480) + (env->cam->right.y * f->env->screen.scrl * x /480);
+// // 	//ft_putendl("calc dir3");
+// // 	dir.z = (env->cam->dir.z * SCR_DIST) + (env->cam->up.z * f->env->screen.scrh * y /480) + (env->cam->right.z * f->env->screen.scrl * x /480);
+// // 	//ft_putendl("calc dir4");
+// // //	printf("cdx = %f cdy = %f cdz = %f\n", dir.x, dir.y, dir.z);
+// 	normalizator (dir);
+// }

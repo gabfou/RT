@@ -12,47 +12,55 @@
 
 #include "rtv1.h"
 
+void		put_pixelantialiaserauxi(t_env *e, unsigned char *c,
+	register int x, register int y)
+{
+	e->limg->img[y * e->limg->sline + x * e->limg->bpp / 8] =
+	(c[0] + c[1] + c[2] + c[3] + c[4]) / 5;
+	e->limg->img[y * e->limg->sline + x * e->limg->bpp / 8 + 1] =
+	(c[5] + c[6] + c[7] + c[8] + c[9]) / 5;
+	e->limg->img[y * e->limg->sline + x * e->limg->bpp / 8 + 2] =
+	(c[10] + c[11] + c[12] + c[13] + c[14]) / 5;
+}
+
 void		put_pixelantialiaser(t_env *e, register int x, register int y)
 {
-	register unsigned char	c1[5];
-	register unsigned char	c2[5];
-	register unsigned char	c3[5];
+	register unsigned char	c[15];
 	register int			img_size;
 
 	img_size = e->screen.l * e->screen.h * e->limg->bpp / 8;
-	if (x < 1 || y < 1 || y * e->limg->sline + x * e->limg->bpp / 8 > img_size - 1
-	|| x >= e->limg->sline / (e->limg->bpp / 8) || y >= img_size / e->limg->sline - 1)
+	if (x < 1 || y < 1
+	|| y * e->limg->sline + x * e->limg->bpp / 8 > img_size - 1
+	|| x >= e->limg->sline / (e->limg->bpp / 8)
+	|| y >= img_size / e->limg->sline - 1)
 		return ;
-	c1[0] = e->limg->img[(y + 1) * e->limg->sline + x * e->limg->bpp / 8];
-	c2[0] = e->limg->img[(y + 1) * e->limg->sline + x * e->limg->bpp / 8 + 1];
-	c3[0] = e->limg->img[(y + 1) * e->limg->sline + x * e->limg->bpp / 8 + 2];
-	c1[1] = e->limg->img[(y - 1) * e->limg->sline + x * e->limg->bpp / 8];
-	c2[1] = e->limg->img[(y - 1) * e->limg->sline + x * e->limg->bpp / 8 + 1];
-	c3[1] = e->limg->img[(y - 1) * e->limg->sline + x * e->limg->bpp / 8 + 2];
-	c1[2] = e->limg->img[y * e->limg->sline + (x - 1) * e->limg->bpp / 8];
-	c2[2] = e->limg->img[y * e->limg->sline + (x - 1) * e->limg->bpp / 8 + 1];
-	c3[2] = e->limg->img[y * e->limg->sline + (x - 1) * e->limg->bpp / 8 + 2];
-	c1[3] = e->limg->img[y * e->limg->sline + (x + 1) * e->limg->bpp / 8];
-	c2[3] = e->limg->img[y * e->limg->sline + (x + 1) * e->limg->bpp / 8 + 1];
-	c3[3] = e->limg->img[y * e->limg->sline + (x + 1) * e->limg->bpp / 8 + 2];
-	c1[4] = e->limg->img[y * e->limg->sline + x * e->limg->bpp / 8];
-	c2[4] = e->limg->img[y * e->limg->sline + x * e->limg->bpp / 8 + 1];
-	c3[4] = e->limg->img[y * e->limg->sline + x * e->limg->bpp / 8 + 2];
-	e->limg->img[y * e->limg->sline + x * e->limg->bpp / 8] = (c1[0] + c1[1] + c1[2] + c1[3] + c1[4]) / 5;
-	e->limg->img[y * e->limg->sline + x * e->limg->bpp / 8 + 1] = (c2[0] + c2[1] + c2[2] + c2[3] + c2[4]) / 5;
-	e->limg->img[y * e->limg->sline + x * e->limg->bpp / 8 + 2] = (c3[0] + c3[1] + c3[2] + c3[3] + c3[4]) / 5;
+	c[0] = e->limg->img[(y + 1) * e->limg->sline + x * e->limg->bpp / 8];
+	c[5] = e->limg->img[(y + 1) * e->limg->sline + x * e->limg->bpp / 8 + 1];
+	c[10] = e->limg->img[(y + 1) * e->limg->sline + x * e->limg->bpp / 8 + 2];
+	c[1] = e->limg->img[(y - 1) * e->limg->sline + x * e->limg->bpp / 8];
+	c[6] = e->limg->img[(y - 1) * e->limg->sline + x * e->limg->bpp / 8 + 1];
+	c[11] = e->limg->img[(y - 1) * e->limg->sline + x * e->limg->bpp / 8 + 2];
+	c[2] = e->limg->img[y * e->limg->sline + (x - 1) * e->limg->bpp / 8];
+	c[7] = e->limg->img[y * e->limg->sline + (x - 1) * e->limg->bpp / 8 + 1];
+	c[12] = e->limg->img[y * e->limg->sline + (x - 1) * e->limg->bpp / 8 + 2];
+	c[3] = e->limg->img[y * e->limg->sline + (x + 1) * e->limg->bpp / 8];
+	c[8] = e->limg->img[y * e->limg->sline + (x + 1) * e->limg->bpp / 8 + 1];
+	c[13] = e->limg->img[y * e->limg->sline + (x + 1) * e->limg->bpp / 8 + 2];
+	c[4] = e->limg->img[y * e->limg->sline + x * e->limg->bpp / 8];
+	c[9] = e->limg->img[y * e->limg->sline + x * e->limg->bpp / 8 + 1];
+	c[14] = e->limg->img[y * e->limg->sline + x * e->limg->bpp / 8 + 2];
 }
 
-void antialiasing(t_env *e)
+void		antialiasing(t_env *e)
 {
 	register int x;
 	register int y;
 
 	y = -1;
-	while(++y < e->screen.h)
+	while (++y < e->screen.h)
 	{
 		x = -1;
-		while(++x < e->screen.l)
+		while (++x < e->screen.l)
 			put_pixelantialiaser(e, x, y);
 	}
 }

@@ -16,9 +16,8 @@ t_limg				*readerxpm(char *name)
 {
 	static void	*sar = NULL;
 	t_limg		*ret;
-	// int			i = 5000;
-	// int			j = 5000;
-	int k;
+	void		*niark;
+	int			k;
 
 	if (sar == NULL)
 		sar = mlx_init();
@@ -26,21 +25,15 @@ t_limg				*readerxpm(char *name)
 	ret->image = mlx_xpm_file_to_image(sar, name, &ret->i, &ret->l);
 	if (ret->image == NULL)
 		ft_error("texture pas bien");
-	// ft_putnbr(i);
-	ft_putendl("niark");
 	ret->img = mlx_get_data_addr(ret->image, &ret->bpp, &ret->sline, &k);
-	ft_putendl("niark3");
 	ret->k = 1;
 	ret->prev = NULL;
 	ret->next = NULL;
-	ft_putendl("niark2");
-	void *niark = mlx_new_window(sar, ret->i, ret->l, name);
+	niark = mlx_new_window(sar, ret->i, ret->l, name);
 	mlx_put_image_to_window(sar, niark, ret->image, 0, 0);
 	mlx_do_sync(sar);
-	// sleep(10);
 	return (ret);
 }
-
 
 inline t_vec		set_screen(t_cam *cam, t_screen screen)
 {
@@ -48,15 +41,17 @@ inline t_vec		set_screen(t_cam *cam, t_screen screen)
 	FLOAT_SIZE		y;
 	FLOAT_SIZE		z;
 
-	x = cam->dir.x * screen.scrd - cam->up.x * screen.scrl - cam->right.x * screen.scrh;
-	y = cam->dir.y * screen.scrd - cam->up.y * screen.scrl - cam->right.y * screen.scrh;
-	z = cam->dir.z * screen.scrd - cam->up.z * screen.scrl - cam->right.z * screen.scrh;
+	x = cam->dir.x * screen.scrd - cam->up.x * screen.scrl
+	- cam->right.x * screen.scrh;
+	y = cam->dir.y * screen.scrd - cam->up.y * screen.scrl
+	- cam->right.y * screen.scrh;
+	z = cam->dir.z * screen.scrd - cam->up.z * screen.scrl
+	- cam->right.z * screen.scrh;
 	return (new_t_vec(x, y, z));
 }
 
 inline void			initmat(t_list **tokens, t_item *item)
 {
-
 	if (ft_strcmp(get_token(tokens)->lexeme, "r") == 0)
 		item->mat.diff.r = token_to_float(tokens);
 	else if (ft_strcmp(get_token(tokens)->lexeme, "g") == 0)

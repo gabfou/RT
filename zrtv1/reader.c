@@ -13,30 +13,20 @@ t_limg	*readerbmp32(char *name)
 	int				j;
 	int				k;
 	t_limg			*ret;
-	// int sajfh;
+	int				fd_img;
+	char			*image;
 
-	int	fd_img;
-
-	// e->lenv->limg->i = NBTHREAD + 2;
 	ft_putendl(name);
 	fd_img = open(name, O_RDONLY);
-
 	read(fd_img, &fh, sizeof(t_header));
 	read(fd_img, &ih, sizeof(t_header_info));
-
 	printf("fM1 = %c, fM2 = %c, bfS = %u, un1 = %hu, un2 = %hu, iDO = %u\n",
 		fh.fileMarker1, fh.fileMarker2, fh.bfSize, fh.unused1, fh.unused2, fh.imageDataOffset);
 	printf("w = %d, h = %d, bsi = %d\n", ih.width, ih.height, ih.bitPix);
-	// if (ih.bitPix != 32)
-	// 	ft_error("fichier bmp non 32bit");
-
-	char	*image;
-
 	image = (char*)malloc(sizeof(char) * (fh.bfSize + 1));
-
 	ret = malloc(sizeof(t_limg));
-	ret->image = NULL;//mlx_new_image(env->mlx, ih.width, ih.height);
-	ret->img = (char*)malloc(sizeof(char) * (fh.bfSize + 1));//lx_get_data_addr(ret->image, &ret->bpp, &ret->sline, &sajfh);
+	ret->image = NULL;
+	ret->img = (char*)malloc(sizeof(char) * (fh.bfSize + 1));
 	ret->sline = ih.width;
 	ret->bpp = 4;
 	ret->prev = NULL;
@@ -55,7 +45,6 @@ t_limg	*readerbmp32(char *name)
 			ret->img[(ih.width - j) * ret->sline + k * ret->bpp / 8 + 0] = image[++i];
 		}
 	}
-	// write(fd, image, fh.bfSize);
 	return (ret);
 }
 

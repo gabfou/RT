@@ -72,7 +72,7 @@ void		init_cone(t_env *env, t_list **tokens)
 	t_item		*item;
 
 	item = new_t_item();
-	item->con = t_con_creator(0, 0, 0, 0, 0, 1, 0);
+	item->con = t_con_creator(new_t_vec(0, 0, 0), new_t_vec(0, 0, 1), 0);
 	next_elem(tokens);
 	while (!terminal(&(*tokens), CLOSING_BRACKET))
 	{

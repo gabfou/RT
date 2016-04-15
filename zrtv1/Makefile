@@ -47,6 +47,10 @@ SRC =  rtv1.c \
 	   modifitem.c	\
 	   carresisator.c \
 	   impactcarre.c \
+	   calc.c \
+	   calc2.c \
+	   fatoipos.c \
+	   creatorauxi.c \
 	  
 OBJ = $(SRC:.c=.o)
 CC = clang

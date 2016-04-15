@@ -39,7 +39,6 @@ t_carre		*new_t_carrespe(FLOAT_SIZE size, t_vec pos)
 	carre = (t_carre*)malloc(sizeof(t_carre));
 	if (size == 0)
 		ft_putendl("dafuq?");
-	// printf("carre [%d]\n", cnb);
 	carre->pos = pos;
 	carre->dir.x = 0;
 	carre->dir.y = 0;
@@ -58,6 +57,33 @@ t_carre		*new_t_carrespe(FLOAT_SIZE size, t_vec pos)
 	return (carre);
 }
 
+void		divisecarrerisatorauxi(t_carre *tmp, t_carre *c2)
+{
+	register FLOAT_SIZE	size;
+
+	size = c2->size / 2.0;
+	tmp->next = new_t_carrespe(size,
+		new_t_vec(c2->pos.x + (size), c2->pos.y, c2->pos.z));
+	tmp = tmp->next;
+	tmp->next = new_t_carrespe(size,
+		new_t_vec(c2->pos.x, c2->pos.y + (size), c2->pos.z));
+	tmp = tmp->next;
+	tmp->next = new_t_carrespe(size,
+		new_t_vec(c2->pos.x + (size), c2->pos.y + (size), c2->pos.z));
+	tmp = tmp->next;
+	tmp->next = new_t_carrespe(size,
+		new_t_vec(c2->pos.x, c2->pos.y, c2->pos.z + size));
+	tmp = tmp->next;
+	tmp->next = new_t_carrespe(size,
+		new_t_vec(c2->pos.x + (size), c2->pos.y, c2->pos.z + size));
+	tmp = tmp->next;
+	tmp->next = new_t_carrespe(size,
+		new_t_vec(c2->pos.x, c2->pos.y + (size), c2->pos.z + size));
+	tmp = tmp->next;
+	tmp->next = new_t_carrespe(size,
+		new_t_vec(c2->pos.x + (size), c2->pos.y + (size), c2->pos.z + size));
+}
+
 t_carre		*divisecarrerisator(t_carre *c2, t_env *env)
 {
 	t_carre	*c;
@@ -66,7 +92,8 @@ t_carre		*divisecarrerisator(t_carre *c2, t_env *env)
 
 	i = -1;
 	tmp = env->carre;
-	c = new_t_carrespe(c2->size / 2.0, new_t_vec(c2->pos.x, c2->pos.y, c2->pos.z));
+	c = new_t_carrespe(c2->size / 2.0,
+		new_t_vec(c2->pos.x, c2->pos.y, c2->pos.z));
 	if (env->carre == c2)
 	{
 		env->carre = c;
@@ -80,24 +107,12 @@ t_carre		*divisecarrerisator(t_carre *c2, t_env *env)
 	}
 	if (tmp->next)
 		tmp = tmp->next;
-	tmp->next = new_t_carrespe(c2->size / 2.0, new_t_vec(c2->pos.x + (c2->size / 2.0), c2->pos.y, c2->pos.z));
-	tmp = tmp->next;
-	tmp->next = new_t_carrespe(c2->size / 2.0, new_t_vec(c2->pos.x, c2->pos.y + (c2->size / 2.0), c2->pos.z));
-	tmp = tmp->next;
-	tmp->next = new_t_carrespe(c2->size / 2.0, new_t_vec(c2->pos.x + (c2->size / 2.0), c2->pos.y + (c2->size / 2.0), c2->pos.z));
-	tmp = tmp->next;
-	tmp->next = new_t_carrespe(c2->size / 2.0, new_t_vec(c2->pos.x, c2->pos.y, c2->pos.z + c2->size / 2.0));
-	tmp = tmp->next;
-	tmp->next = new_t_carrespe(c2->size / 2.0, new_t_vec(c2->pos.x + (c2->size / 2.0), c2->pos.y, c2->pos.z + c2->size / 2.0));
-	tmp = tmp->next;
-	tmp->next = new_t_carrespe(c2->size / 2.0, new_t_vec(c2->pos.x, c2->pos.y + (c2->size / 2.0), c2->pos.z + c2->size / 2.0));
-	tmp = tmp->next;
-	tmp->next = new_t_carrespe(c2->size / 2.0, new_t_vec(c2->pos.x + (c2->size / 2.0), c2->pos.y + (c2->size / 2.0), c2->pos.z + c2->size / 2.0));
-	// free(c2);
+	divisecarrerisatorauxi(tmp, c2);
+	free(c2);
 	return (c);
 }
 
-void	carresisator(t_env *env)
+void		carresisator(t_env *env)
 {
 	t_carre	*c;
 	int		i;
@@ -114,6 +129,3 @@ void	carresisator(t_env *env)
 	}
 	print_carre(*env);
 }
-
-
-

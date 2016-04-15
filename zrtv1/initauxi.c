@@ -81,7 +81,7 @@ void		delete_symbols(t_list **tokens)
 	}
 }
 
-FLOAT_SIZE		token_to_float(t_list **tokens)
+FLOAT_SIZE	token_to_float(t_list **tokens)
 {
 	next_elem(tokens);
 	return (ft_fatoi(get_token(tokens)->lexeme));
