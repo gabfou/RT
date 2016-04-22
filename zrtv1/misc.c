@@ -32,3 +32,8 @@ int		itemadator(t_env *env, t_item *item)
 	}
 	return (i);
 }
+
+void		next_elem(t_list **elems)
+{
+	*elems = (*elems)->next;
+}

@@ -23,11 +23,11 @@ void		pixel_to_image(int x, int y, unsigned int color , t_limg *limg)
 	g = (color >> 8) & 0xFF;
 	b = (color >> 0) & 0xFF;
 	off = y * limg->sline + x * limg->bpp / 8;
-	if (x < 0 || y < 0)
+	if (x < 0 || y < 0 || off > (unsigned int)(959 * limg->sline + 959 * limg->bpp / 8 - 2))
 		return ;
-	limg->img[off] = (r > 255)? 255: r;
-	limg->img[off + 1] = (g > 255)? 255: g;
-	limg->img[off + 2] = (b > 255)? 255: b;
+	limg->img[off] = (r > 255) ? 255: r;
+	limg->img[off + 1] = (g > 255) ? 255: g;
+	limg->img[off + 2] = (b > 255) ? 255: b;
 }
 
 int			expose_hook(t_leviatenv *levia)
@@ -62,6 +62,22 @@ int			expose_hook(t_leviatenv *levia)
 	return (0);
 }
 
+int		mouse_hook(int button, int x, int y, t_leviatenv *levia)
+{
+	printf("x = %d, y = %d, button = %d\n", x, y, button);
+	if (button == 1 && (x > 1085 && x < 1112 && y > 150 && y < 200))
+	{
+		nextrack(levia, 0, NULL);
+		comander(-3, levia);
+	}
+	if (button == 1 && (x > 1260 && x < 1290 && y > 150 && y < 200))
+	{
+		nextrack(levia, 0, NULL);
+		comander(-3, levia);
+	}
+	return (0);
+}
+
 int			key_down_hook(int keycode, t_leviatenv *levia)
 {
 	printf("keycode = %d\n", keycode);
@@ -85,6 +101,10 @@ int			key_down_hook(int keycode, t_leviatenv *levia)
 		levia->lenv = levia->lenv->next;
 		return (0);
 	}
+	if (keycode == 86)
+		nextrack(levia, 0, NULL);
+	if (keycode == 88)
+		nextrack(levia, 1, NULL);
 	if ((int)keycode == 53)
 		exit (0);
 	if (keycode == 50)
@@ -93,7 +113,8 @@ int			key_down_hook(int keycode, t_leviatenv *levia)
 		levia->win = (levia->lenv->ft++ % 2 == 0) ? mlx_new_window(levia->mlx, levia->lenv->screen.l + L_SIZEC, levia->lenv->screen.h, "RTV1") :
 		mlx_new_window(levia->mlx, levia->lenv->screen.l, levia->lenv->screen.h, "RTV1");
 		mlx_put_image_to_window(levia->mlx, levia->win, levia->lenv->limg->image, 0, 0);
-		//imgcptor(env);
+		imgcptor(levia);
+		mlx_mouse_hook (levia->win, mouse_hook, levia);
 		mlx_hook(levia->win, 2, 1, key_down_hook, levia);
 	}
 	// ft_putchar(keytochar(keycode));
@@ -166,6 +187,7 @@ int			main(int argc, char **argv)
 	t_env		*first;
 	int			i;
 
+	initfmod(&levia);
 	i = 1;
 	//tmp = NULL;
 	first = NULL;
@@ -231,10 +253,12 @@ int			main(int argc, char **argv)
 	// ft_putendl("TOUTAETECREE TRAKIL");
 	// ft_bzero(env.img, levia->lenv->screen.h * levia->lenv->screen.l * 4);
 	// ft_putendl("post5");
+	mlx_mouse_hook (levia.win, mouse_hook, &levia);
 	mlx_hook(levia.win, 2, 1, key_down_hook, &levia);
 //	 ft_putendl("post6");
 	mlx_loop_hook(levia.mlx, expose_hook, &levia);
 	// ft_putendl("post7");
+	// nextrack(&levia, 1, "libera.mp3");
 	mlx_loop(levia.mlx);
 	return (0);
 }

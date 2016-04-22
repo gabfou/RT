@@ -15,10 +15,8 @@
 
 int			thread_master(t_env *env)
 {
-	void		*pointf;
 	int			x;
 	int			y;
-	int			px;
 	int			py;
 	int			i;
 	pthread_t	thread_ecran[800];
@@ -26,26 +24,20 @@ int			thread_master(t_env *env)
 
 	y = 0;
 	i = 0;
-	px = env->screen.l;
 	py = env->screen.h / NBTHREAD;
-	pointf = &(creator);
 	while (y < env->screen.h)
 	{
-		// printf("y = %d\n", y);
 		x = 0;
 		while (x < env->screen.l)
 		{
 			tab[i].minx = x;
-			tab[i].maxx = x + px;
+			tab[i].maxx = x + env->screen.l;
 			tab[i].miny = y;
 			tab[i].maxy = y + py;
 			tab[i].env = env;
-			//printf("i =%d xmin = %f xmax = %f ymin = %f ymax = %f\n", i, env->xmin, env->xmax, env->ymin, env->ymax );
-			if (pthread_create(&(thread_ecran[i]), NULL, pointf, &tab[i]) != 0)
+			if (pthread_create(&(thread_ecran[i]), NULL, (void*)&(creator), &tab[i]) != 0)
 				ft_error("creation de thread rate");
-			// ft_putendl("THREAD CREE");
-			//sleep(10);
-			x = x + px;
+			x = x + env->screen.l;
 			i++;
 		}
 		y = y + py;

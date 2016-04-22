@@ -15,8 +15,9 @@ NAME = rtv1
 SRC =  rtv1.c \
 	   light.c \
 	   new_t.c \
+	   new_t2.c \
+	   new_t3.c \
 	   set.c \
-	   pars.c \
 	   pars2.c \
 	   plane.c \
 	   cone.c \
@@ -54,7 +55,7 @@ SRC =  rtv1.c \
 	  
 OBJ = $(SRC:.c=.o)
 CC = clang
-CFLAGS = -Wall -Wextra -Werror -g3
+CFLAGS = -Wall -Wextra -Werror -g3 # -fsanitize=address
 LFLAGS = -L libft -lpthread -lft -lmlx -framework OpenGL -framework AppKit
 
 all: $(NAME)

@@ -156,32 +156,38 @@ void	comander(int key, t_leviatenv *env)
 	static int	i = -1;
 
 	keyret = keytochar(key);
-	if (i == -1)
-		ft_bzero(stat, 10000);
-	if (i == -1)
-		i = 0;
-	if (keyret == 0 || i > 9998)
+	if (key != -3)
 	{
-		ft_putendl("what?");
-		return;
-	}
-	if (keyret == -1)
-	{
-		write(1, "\n", 1);
-		// ft_putendl(stat);
-		comadator(stat, env);
-		ft_bzero(stat, 10000);
-		i = 0;
-	}
-	else if (keyret == -2 && i != 0)
-		stat[--i] = 0;
-	else
-	{
-		// ft_putchar(keyret);
-		stat[i++] = keyret;
+		if (i == -1)
+			ft_bzero(stat, 10000);
+		if (i == -1)
+			i = 0;
+		if (keyret == 0 || i > 9998)
+		{
+			ft_putendl("what?");
+			return;
+		}
+		if (keyret == -1)
+		{
+			write(1, "\n", 1);
+			// ft_putendl(stat);
+			comadator(stat, env);
+			ft_bzero(stat, 10000);
+			i = 0;
+		}
+		else if (keyret == -2 && i != 0)
+			stat[--i] = 0;
+		else
+		{
+			// ft_putchar(keyret);
+			stat[i++] = keyret;
+		}
 	}
 	mlx_clear_window(env->mlx, env->win);
 	// mlx_put_image_to_window(env->mlx, env->win, env->lenv->image, 0, 0);
 	if (env->lenv->ft % 2 == 1)
+	{
+		imgcptor(env);
 		mlx_string_put(env->mlx, env->win, env->lenv->screen.l + 2, env->lenv->screen.h - 30, 0xFFFFFF, stat);
+	}
 }

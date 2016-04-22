@@ -24,21 +24,21 @@
 // 	return (ret);
 // }
 
-inline void	*imgcptor(t_env *env)
+inline void	*imgcptor(t_leviatenv *levia)
 {
 	static t_limg	*limg = NULL;
 
-	(void)env;(void)limg;
-	// if (limg == NULL)
-	// {
-	// 	limg = malloc(sizeof(t_limg));
-	// 	limg->image = mlx_new_image(env->mlx, env->screen.l, env->screen.h);;
-	// 	limg->img = mlx_get_data_addr(limg->image, &limg->bpp, &limg->sline, &env->endiant);
-	// 	limg->prev = NULL;
-	// 	limg->next = NULL;
-	// 	printmusicator(limg, env);
-	// }
-// 	if (env->ft % 2 == 1)
-// 		mlx_put_image_to_window(env->mlx, env->win, limg->image, env->screen.l, 0);
+	(void)levia;(void)limg;
+	if (limg == NULL)
+	{
+		limg = malloc(sizeof(t_limg));
+		limg->image = mlx_new_image(levia->mlx, L_SIZEC, levia->lenv->screen.h);;
+		limg->img = mlx_get_data_addr(limg->image, &limg->bpp, &limg->sline, &limg->k);
+		limg->prev = NULL;
+		limg->next = NULL;
+		printmusicator(limg, levia->lenv);
+	}
+	mlx_put_image_to_window(levia->mlx, levia->win, limg->image, levia->lenv->screen.l, 0);
+	mlx_string_put(levia->mlx, levia->win, levia->lenv->screen.l + 151, 165, 0xFFFFFF, levia->fmod.listmusic->name);
 	return (NULL);
 }

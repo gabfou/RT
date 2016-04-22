@@ -17,8 +17,10 @@ void		set_texture_sphere(t_inter *inter, t_item *item)
 	int	tu;
 	int	tv;
 
-	tu = (int)(((inter->norm.x + 1) / 2) * item->texture->i) * item->texture->bpp / 8;
-	tv = (int)(((1 - inter->norm.y) / 2) * item->texture->l) * item->texture->sline;
+	tu = (int)(((inter->norm.x + 1) / 2)
+		* item->texture->i) * item->texture->bpp / 8;
+	tv = (int)(((1 - inter->norm.y) / 2)
+		* item->texture->l) * item->texture->sline;
 	inter->diff.b = (unsigned char)item->texture->img[(tv + tu)] / 255.0;
 	inter->diff.g = (unsigned char)item->texture->img[(tv + tu) + 1] / 255.0;
 	inter->diff.r = (unsigned char)item->texture->img[(tv + tu) + 2] / 255.0;
@@ -30,12 +32,11 @@ int			new_sphere(t_env *env)
 
 	item = new_t_item();
 	item->sp = new_t_sphere(100, 0, 0, 3);
-	// item->mat.diff = new_t_color(1, 1, 1);
 	item->next = NULL;
 	return (itemadator(env, item));
 }
 
-void	set_normal_sphere(t_inter *inter, t_item *item)
+void		set_normal_sphere(t_inter *inter, t_item *item)
 {
 	inter->norm.x = inter->pos.x - item->sp->c.x;
 	inter->norm.y = inter->pos.y - item->sp->c.y;
@@ -43,7 +44,8 @@ void	set_normal_sphere(t_inter *inter, t_item *item)
 	normalizator(&(inter->norm));
 }
 
-t_sphere	*new_t_sphere(FLOAT_SIZE x, FLOAT_SIZE y, FLOAT_SIZE z, FLOAT_SIZE r)
+t_sphere	*new_t_sphere(FLOAT_SIZE x, FLOAT_SIZE y,
+	FLOAT_SIZE z, FLOAT_SIZE r)
 {
 	t_sphere	*sphere;
 
@@ -61,21 +63,15 @@ void		check_sphere(t_item *item, t_pd *s, t_inter *inter)
 	FLOAT_SIZE	del;
 	FLOAT_SIZE	t;
 
-	// ft_putendl("pre calcul");
-	// print_vec(s->dir);
-	// print_vec(s->pos);
-	// print_vec(item->sp->c);
 	a = carre(s->dir.x) + carre(s->dir.y) + carre(s->dir.z);
 	b = 2 * (s->dir.x * (s->pos.x - item->sp->c.x) + s->dir.y
 	* (s->pos.y - item->sp->c.y) + s->dir.z * (s->pos.z - item->sp->c.z));
-//	ft_putendl("pre calcul B");
 	c = (carre(s->pos.x - item->sp->c.x) + carre(s->pos.y - item->sp->c.y) +
 		carre(s->pos.z - item->sp->c.z)) - carre(item->sp->ray);
 	del = carre(b) - (4 * a * c);
-//	ft_putendl("post calcul");
 	if (del > 0)
 	{
-		t = ((-b + sqrt(del)) / (2 * a) > (-b - sqrt(del)) / (2 * a))?
+		t = ((-b + sqrt(del)) / (2 * a) > (-b - sqrt(del)) / (2 * a)) ?
 		(-b - sqrt(del)) / (2 * a) : (-b + sqrt(del)) / (2 * a);
 		if (check_t(inter, t, item->mat.trans, item) == 1)
 		{
@@ -85,6 +81,5 @@ void		check_sphere(t_item *item, t_pd *s, t_inter *inter)
 				set_texture_sphere(inter, item);
 		}
 	}
-//	ft_putendl("post tout ");
 	return ;
 }
