@@ -12,7 +12,7 @@
 
 #include "rtv1.h"
 
-t_item			*new_t_item(void)
+t_item		*new_t_item(void)
 {
 	t_item	*item;
 

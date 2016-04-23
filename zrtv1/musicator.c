@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "rtv1.h"
-// 0x00000040
 
 void	addmusic(t_leviatenv *levia, char *name)
 {
@@ -31,7 +30,6 @@ void	addmusic(t_leviatenv *levia, char *name)
 		new->previous = levia->fmod.listmusic;
 		levia->fmod.listmusic->previous = new;
 		levia->fmod.listmusic->next = new;
-
 	}
 	else
 	{
@@ -66,43 +64,48 @@ void	initfmod(t_leviatenv *levia)
 	addmusic(levia, "spellforceelfvillage.mp3");
 }
 
-void	*printmusicator(t_limg *limg, t_env *env)
+void	*printmusicator(t_limg *limg)
 {
 	int i;
 	int j;
 	int k;
 
-	(void)k;
-	(void)env;
-	if (limg)
+	if (!limg)
+		return (NULL);
+	k = 0;
+	j = 300;
+	while (++j < 350)
 	{
-		k = 0;
-		j = 300;
-		while (++j < 350)
-		{
-			i = 200 - k;
-			while (--i > 150 + k)
-				pixel_to_image(j, i, 0x2E7AE8 , limg);
-			k++;
-		}
-		j = 100;
-		k = 0;
-		while (++j < 150)
-		{
-			i = 200 - k;
-			while (++i < 150 + k)
-				pixel_to_image(j, i, 0x2E7AE8 , limg);
-			k++;
-		}
+		i = 200 - k;
+		while (--i > 150 + k)
+			pixel_to_image(j, i, 0x2E7AE8, limg);
+		k++;
+	}
+	j = 100;
+	k = 0;
+	while (++j < 150)
+	{
+		i = 200 - k;
+		while (++i < 150 + k)
+			pixel_to_image(j, i, 0x2E7AE8, limg);
+		k++;
 	}
 	return (NULL);
+}
+
+void	normtrack(FMOD_SYSTEM *fmod, FMOD_SOUND *sound,
+	char *son, t_leviatenv *levia)
+{
+	levia->fmod.System_CreateSound(fmod, son,
+		FMOD_CREATESTREAM | FMOD_LOOP_NORMAL, 0, &sound);
+	levia->fmod.Sound_SetLoopCount(sound, -1);
+	levia->fmod.System_PlaySound(fmod, sound, NULL, 0, NULL);
 }
 
 void	nextrack(t_leviatenv *levia, int sens, char *son)
 {
 	static FMOD_SYSTEM	*fmod = NULL;
 	static FMOD_SOUND	*sound;
-	// FMOD_RESULT			resultat;
 
 	if (fmod == NULL)
 	{
@@ -111,30 +114,17 @@ void	nextrack(t_leviatenv *levia, int sens, char *son)
 		ft_putendl("niark");
 	}
 	if (son != NULL)
-	{
-		levia->fmod.System_CreateSound(fmod, son,
-			FMOD_CREATESTREAM | FMOD_LOOP_NORMAL, 0, &sound);
-		levia->fmod.Sound_SetLoopCount(sound, -1);
-		levia->fmod.System_PlaySound(fmod, sound, NULL, 0, NULL);
-		return ;
-	}
-	(void)levia;
-	if (sens && levia->fmod.listmusic)
+		normtrack(fmod, sound, son, levia);
+	else if (sens && levia->fmod.listmusic)
 	{
 		if (levia->fmod.listmusic->next)
 			levia->fmod.listmusic = levia->fmod.listmusic->next;
-		levia->fmod.System_CreateSound(fmod, levia->fmod.listmusic->name,
-			FMOD_CREATESTREAM | FMOD_LOOP_NORMAL, 0, &sound);
-		levia->fmod.Sound_SetLoopCount(sound, -1);
-		levia->fmod.System_PlaySound(fmod, sound, NULL, 0, NULL);
+		normtrack(fmod, sound, levia->fmod.listmusic->name, levia);
 	}
 	else if (levia->fmod.listmusic)
 	{
 		if (levia->fmod.listmusic->previous)
 			levia->fmod.listmusic = levia->fmod.listmusic->previous;
-		levia->fmod.System_CreateSound(fmod, levia->fmod.listmusic->name,
-			FMOD_CREATESTREAM | FMOD_LOOP_NORMAL, 0, &sound);
-		levia->fmod.Sound_SetLoopCount(sound, -1);
-		levia->fmod.System_PlaySound(fmod, sound, NULL, 0, NULL);
+		normtrack(fmod, sound, levia->fmod.listmusic->name, levia);
 	}
 }

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "rtv1.h"
+#define NORME int i = 0;FLOAT_SIZE k = 0
 
 t_vec		set_new_pos(t_vec dir, t_vec pos, FLOAT_SIZE dist)
 {
@@ -27,11 +28,7 @@ void		set_inter_pos(t_inter *inter, t_pd *pd)
 
 FLOAT_SIZE	fatoi_aux(char *str, FLOAT_SIZE *si, FLOAT_SIZE *di)
 {
-	int			i;
-	FLOAT_SIZE	k;
-
-	i = 0;
-	k = 0;
+	NORME;
 	while (str[i] == ' ' || str[i] == '\n' || str[i] == '\v'
 			|| str[i] == '\t' || str[i] == '\r' || str[i] == '\f')
 		i++;
@@ -55,35 +52,6 @@ FLOAT_SIZE	fatoi_aux(char *str, FLOAT_SIZE *si, FLOAT_SIZE *di)
 	*di = i;
 	return (k);
 }
-
-// FLOAT_SIZE	fatoi_aux(char *str, FLOAT_SIZE *si, FLOAT_SIZE *di)
-// {
-// 	int			i;
-// 	FLOAT_SIZE	k;
-
-// 	i = 0;
-// 	k = 0;
-// 	while (str[i] == ' ' || str[i] == '\n' || str[i] == '\v'
-// 			|| str[i] == '\t' || str[i] == '\r' || str[i] == '\f')
-// 		i++;
-// 	if (str[i] != '-' && str[i] != '+' && (str[i] < '0' || str[i] > '9'))
-// 		return (0);
-// 	if (str[i] == '-' || str[i] == '+')
-// 	{
-// 		i++;
-// 		if (str[i] < '0' || str[i] > '9')
-// 			return (0);
-// 	}
-// 	if (*si == 0)
-// 		*si = (str[i - 1] == '-') ? -1 : 1;
-// 	while (str[i] >= '0' && str[i] <= '9')
-// 	{
-// 		k = k * 10 + str[i] - '0';
-// 		i++;
-// 	}
-// 	*di = i;
-// 	return (k);
-// }
 
 FLOAT_SIZE	ft_fatoi(char *s)
 {

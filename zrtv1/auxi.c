@@ -37,7 +37,7 @@ FLOAT_SIZE	carre(FLOAT_SIZE x)
 	return (x * x);
 }
 
-void	swapniark(FLOAT_SIZE *a, FLOAT_SIZE *b)
+void		swapniark(FLOAT_SIZE *a, FLOAT_SIZE *b)
 {
 	FLOAT_SIZE c;
 

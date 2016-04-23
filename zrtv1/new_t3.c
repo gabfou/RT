@@ -39,3 +39,25 @@ t_trans		*new_t_trans(FLOAT_SIZE t, FLOAT_SIZE colabs)
 	trans->next = NULL;
 	return (trans);
 }
+
+t_env		*new_t_env(void)
+{
+	t_env	*env;
+
+	env = malloc(sizeof(t_env));
+	env->screen = new_t_screen();
+	env->image = NULL;
+	env->t = NULL;
+	env->endiant = 0;
+	env->limg = NULL;
+	env->cam = NULL;
+	env->item = NULL;
+	env->light = NULL;
+	env->fcolor = 0;
+	env->done = 0;
+	env->ft = 0;
+	env->nbr = 0;
+	env->prev = NULL;
+	env->next = NULL;
+	return (env);
+}

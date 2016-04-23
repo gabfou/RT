@@ -12,6 +12,25 @@
 
 #include "rtv1.h"
 
+void	pixel_to_image(int x, int y, unsigned int color, t_limg *limg)
+{
+	unsigned int	off;
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
+
+	r = (color >> 16) & 0xFF;
+	g = (color >> 8) & 0xFF;
+	b = (color >> 0) & 0xFF;
+	off = y * limg->sline + x * limg->bpp / 8;
+	if (x < 0 || y < 0
+		|| off > (unsigned int)(959 * limg->sline + 959 * limg->bpp / 8 - 2))
+		return ;
+	limg->img[off] = (r > 255) ? 255 : r;
+	limg->img[off + 1] = (g > 255) ? 255 : g;
+	limg->img[off + 2] = (b > 255) ? 255 : b;
+}
+
 int		itemadator(t_env *env, t_item *item)
 {
 	t_item		*copy;
@@ -33,7 +52,7 @@ int		itemadator(t_env *env, t_item *item)
 	return (i);
 }
 
-void		next_elem(t_list **elems)
+void	next_elem(t_list **elems)
 {
 	*elems = (*elems)->next;
 }

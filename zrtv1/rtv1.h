@@ -355,7 +355,7 @@ void				comander(int key, t_leviatenv *env);
 int					new_sphere(t_env *env);
 void				modif_item(t_env *env, int i, char **split);
 void				*imgcptor(t_leviatenv *env);
-void				*printmusicator(t_limg *addr, t_env *env);
+void				*printmusicator(t_limg *addr);
 
 t_limg				*new_t_limg(t_leviatenv *env);
 void				print_tokens(t_list *tokens);
@@ -393,5 +393,15 @@ t_thr				*new_t_thr(t_cor *c);
 void				swapniark(FLOAT_SIZE *a, FLOAT_SIZE *b);
 void				nextrack(t_leviatenv *env, int sens, char *son);
 void				initfmod(t_leviatenv *levia);
+int					key_down_hook(int keycode, t_leviatenv *levia);
+int					mouse_hook(int button, int x, int y, t_leviatenv *levia);
+int					expose_hook(t_leviatenv *levia);
+void				comadator(char *line, t_leviatenv *env);
+t_env				*new_t_env(void);
+void				modif_x(t_item *item, const float x);
+void				modif_y(t_item *item, const float y);
+void				modif_z(t_item *item, const float z);
+void				modif_dirx(t_item *item, const float x);
+void				modif_diry(t_item *item, const float y);
 
 #endif

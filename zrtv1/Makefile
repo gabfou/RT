@@ -52,6 +52,9 @@ SRC =  rtv1.c \
 	   calc2.c \
 	   fatoipos.c \
 	   creatorauxi.c \
+	   hook.c \
+	   comand.c \
+	   modifitem2.c \
 	  
 OBJ = $(SRC:.c=.o)
 CC = clang

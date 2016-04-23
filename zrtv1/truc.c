@@ -762,3 +762,76 @@ void			recuperator(t_env *e, char *name)
 	l = la_magicienne(name);
 	//mega_initiator(e, name);
 }
+
+t_limg	*readerbmp32(char *name)
+{
+	t_header		fh;
+	t_header_info	ih;
+	int				i;
+	int				j;
+	int				k;
+	t_limg			*ret;
+	int				fd_img;
+	char			*image;
+
+	ft_putendl(name);
+	fd_img = open(name, O_RDONLY);
+	read(fd_img, &fh, sizeof(t_header));
+	read(fd_img, &ih, sizeof(t_header_info));
+	printf("fM1 = %c, fM2 = %c, bfS = %u, un1 = %hu, un2 = %hu, iDO = %u\n",
+		fh.fileMarker1, fh.fileMarker2, fh.bfSize, fh.unused1, fh.unused2, fh.imageDataOffset);
+	printf("w = %d, h = %d, bsi = %d\n", ih.width, ih.height, ih.bitPix);
+	image = (char*)malloc(sizeof(char) * (fh.bfSize + 1));
+	ret = malloc(sizeof(t_limg));
+	ret->image = NULL;
+	ret->img = (char*)malloc(sizeof(char) * (fh.bfSize + 1));
+	ret->sline = ih.width;
+	ret->bpp = 4;
+	ret->prev = NULL;
+	ret->next = NULL;
+	read(fd_img, image, fh.bfSize);
+	i = -1;
+	j = -1;
+	while (++j < ih.width && i < (int)fh.bfSize)
+	{
+		k = -1;
+		while (++k < ih.height && i < (int)fh.bfSize)
+		{
+			ret->img[(ih.width - j) * ret->sline + k * ret->bpp / 8 + 3] = image[++i];
+			ret->img[(ih.width - j) * ret->sline + k * ret->bpp / 8 + 2] = image[++i];
+			ret->img[(ih.width - j) * ret->sline + k * ret->bpp / 8 + 1] = image[++i];
+			ret->img[(ih.width - j) * ret->sline + k * ret->bpp / 8 + 0] = image[++i];
+		}
+	}
+	return (ret);
+}
+
+
+// FLOAT_SIZE	fatoi_aux(char *str, FLOAT_SIZE *si, FLOAT_SIZE *di)
+// {
+// 	int			i;
+// 	FLOAT_SIZE	k;
+
+// 	i = 0;
+// 	k = 0;
+// 	while (str[i] == ' ' || str[i] == '\n' || str[i] == '\v'
+// 			|| str[i] == '\t' || str[i] == '\r' || str[i] == '\f')
+// 		i++;
+// 	if (str[i] != '-' && str[i] != '+' && (str[i] < '0' || str[i] > '9'))
+// 		return (0);
+// 	if (str[i] == '-' || str[i] == '+')
+// 	{
+// 		i++;
+// 		if (str[i] < '0' || str[i] > '9')
+// 			return (0);
+// 	}
+// 	if (*si == 0)
+// 		*si = (str[i - 1] == '-') ? -1 : 1;
+// 	while (str[i] >= '0' && str[i] <= '9')
+// 	{
+// 		k = k * 10 + str[i] - '0';
+// 		i++;
+// 	}
+// 	*di = i;
+// 	return (k);
+// }

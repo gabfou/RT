@@ -38,7 +38,7 @@ t_token	*get_token(t_list **tokens)
 	return (token);
 }
 
-void		free_tokens(t_list **tokens)
+void	free_tokens(t_list **tokens)
 {
 	t_list	*copy;
 	t_list	*tmp;
