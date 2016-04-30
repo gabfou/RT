@@ -78,6 +78,20 @@ typedef	struct		s_sphere
 	FLOAT_SIZE		ray;
 }					t_sphere;
 
+typedef struct		s_triangle
+{
+	t_vec			p1;
+	t_vec			p2;
+	t_vec			p3;
+	t_vec			u;
+	t_vec			v;
+	FLOAT_SIZE		D;
+	FLOAT_SIZE		uu;
+	FLOAT_SIZE		uv;
+	FLOAT_SIZE		vv;
+	t_vec			n;
+}					t_triangle;
+
 typedef	struct		s_cyl
 {
 	t_vec			pos;
@@ -131,6 +145,7 @@ typedef	struct		s_item
 	t_pd			*pl;
 	t_cyl			*cyl;
 	t_con			*con;
+	t_triangle		*tr;
 	t_mat			mat;
 	t_cnb			*cnb;
 	t_limg			*texture;
@@ -403,5 +418,12 @@ void				modif_y(t_item *item, const float y);
 void				modif_z(t_item *item, const float z);
 void				modif_dirx(t_item *item, const float x);
 void				modif_diry(t_item *item, const float y);
+void				normform(t_list **tokens, t_vec *dir, t_item *item);
+void				check_triangle(t_item *item, t_pd *s, t_inter *inter);
+void				set_triangle(t_triangle *tr);
+t_triangle			*new_t_triangle(void);
+void				set_triangle(t_triangle *tr);
+void				init_tr(t_env *env, t_list **tokens);
+
 
 #endif

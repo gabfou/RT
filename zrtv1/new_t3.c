@@ -61,3 +61,9 @@ t_env		*new_t_env(void)
 	env->next = NULL;
 	return (env);
 }
+
+// t_triangle	*new_t_triangle(void)
+// {
+	
+// }
+

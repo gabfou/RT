@@ -12,18 +12,6 @@
 
 #include "rtv1.h"
 
-void		normform(t_list **tokens, t_vec *dir, t_item *item)
-{
-	if (ft_strcmp(get_token(tokens)->lexeme, "dir_x") == 0)
-		dir->x = token_to_float(tokens);
-	else if (ft_strcmp(get_token(tokens)->lexeme, "dir_y") == 0)
-		dir->y = token_to_float(tokens);
-	else if (ft_strcmp(get_token(tokens)->lexeme, "dir_z") == 0)
-		dir->z = token_to_float(tokens);
-	else
-		initmat(tokens, item);
-}
-
 void		init_sphere(t_env *env, t_list **tokens)
 {
 	t_item		*item;
@@ -119,3 +107,40 @@ void		init_cyl(t_env *env, t_list **tokens)
 	normalizator(&(item->cyl->dir));
 	itemadator(env, item);
 }
+
+void	init_tr(t_env *env, t_list **tokens)
+{
+	t_item		*item;
+
+	item = new_t_item();
+	item->tr = new_t_triangle();
+	next_elem(tokens);
+	while (!terminal(&(*tokens), CLOSING_BRACKET))
+	{
+		if (ft_strcmp(get_token(tokens)->lexeme, "x1") == 0)
+			item->tr->p1.x = token_to_float(tokens);
+		else if (ft_strcmp(get_token(tokens)->lexeme, "y1") == 0)
+			item->tr->p1.y = token_to_float(tokens);
+		else if (ft_strcmp(get_token(tokens)->lexeme, "z1") == 0)
+			item->tr->p1.z = token_to_float(tokens);
+		else if (ft_strcmp(get_token(tokens)->lexeme, "x2") == 0)
+			item->tr->p2.x = token_to_float(tokens);
+		else if (ft_strcmp(get_token(tokens)->lexeme, "y2") == 0)
+			item->tr->p2.y = token_to_float(tokens);
+		else if (ft_strcmp(get_token(tokens)->lexeme, "z2") == 0)
+			item->tr->p2.z = token_to_float(tokens);
+		else if (ft_strcmp(get_token(tokens)->lexeme, "x3") == 0)
+			item->tr->p3.x = token_to_float(tokens);
+		else if (ft_strcmp(get_token(tokens)->lexeme, "y3") == 0)
+			item->tr->p3.y = token_to_float(tokens);
+		else if (ft_strcmp(get_token(tokens)->lexeme, "z3") == 0)
+			item->tr->p3.z = token_to_float(tokens);
+		else
+			initmat(tokens, item);
+		next_elem(tokens);
+	}
+	// normalizator(&(item->cyl->dir));
+	set_triangle(item->tr);
+	itemadator(env, item);
+}
+

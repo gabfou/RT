@@ -31,6 +31,8 @@ void		impactor(t_env *env, t_pd *pd, t_thr *f, t_inter *inter)
 				check_cyl(lst, pd, inter);
 			else if (lst->con != NULL)
 				check_con(lst, pd, inter);
+			else if (lst->tr != NULL)
+				check_triangle(lst, pd, inter);
 		}
 		lst = lst->next;
 	}

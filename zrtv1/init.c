@@ -85,6 +85,8 @@ void		init_all(t_env *env, t_list *tokens)
 			init_cyl(env, &copy);
 		else if (ft_strcmp(get_token(&copy)->lexeme, "screen") == 0)
 			init_screen(env, &copy);
+		else if (ft_strcmp(get_token(&copy)->lexeme, "triangle") == 0)
+			init_tr(env, &copy);
 		else
 			next_elem(&copy);
 	}
