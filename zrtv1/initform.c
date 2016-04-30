@@ -144,3 +144,20 @@ void	init_tr(t_env *env, t_list **tokens)
 	itemadator(env, item);
 }
 
+void	init_obj(t_env *env, t_list **tokens)
+{
+	t_item		*item;
+
+	item = new_t_item();
+	next_elem(tokens);
+	while (!terminal(&(*tokens), CLOSING_BRACKET))
+	{
+		if (ft_strcmp(get_token(tokens)->lexeme, "obj") == 0)
+		{
+			next_elem(tokens);
+			item->obj = objreader(get_token(tokens)->lexeme);
+		}
+		next_elem(tokens);
+	}
+	itemadator(env, item);
+}

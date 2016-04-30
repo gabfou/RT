@@ -45,6 +45,8 @@
 # define FLOAT_SIZE double
 # define B 0xFFFFFF
 
+typedef	struct		s_item t_item;
+
 typedef	struct		s_color
 {
 	FLOAT_SIZE		r;
@@ -139,6 +141,11 @@ typedef	struct		s_limg
 	struct s_limg	*next;
 }					t_limg;
 
+typedef	struct		s_obj
+{
+	t_item			*tr;
+}					t_obj;
+
 typedef	struct		s_item
 {
 	t_sphere		*sp;
@@ -146,6 +153,7 @@ typedef	struct		s_item
 	t_cyl			*cyl;
 	t_con			*con;
 	t_triangle		*tr;
+	t_obj			*obj;
 	t_mat			mat;
 	t_cnb			*cnb;
 	t_limg			*texture;
@@ -424,6 +432,7 @@ void				set_triangle(t_triangle *tr);
 t_triangle			*new_t_triangle(void);
 void				set_triangle(t_triangle *tr);
 void				init_tr(t_env *env, t_list **tokens);
-
+t_obj				*objreader(char *name);
+void				init_obj(t_env *env, t_list **tokens);
 
 #endif
