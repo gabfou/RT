@@ -178,13 +178,20 @@ lum {
 	b: 0
 }
 
-sphere {
-	x: 100,
-	y: 0,
-	z: 0,
-	rad: 3,
-	mat: 1,
-	ref: 1
+#sphere {
+#	x: 100,
+#	y: 0,
+#	z: 0,
+#	rad: 3,
+#	mat: 1,
+#	ref: 1
+#}
+
+obj {
+	x: 92,
+	y: -8,
+	z: -8,
+	obj: cube.obj,
 }
 
 cone {

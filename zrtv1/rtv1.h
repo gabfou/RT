@@ -31,6 +31,7 @@
 # include "fmod/inc/fmod_common.h"
 # include "fmod/inc/fmod_dsp_effects.h"
 # include "fmod/inc/fmod_output.h"
+# include <OpenCL/opencl.h>
 
 # define L_SIZEC	400
 # define L_SIZE		960
@@ -44,6 +45,7 @@
 # define NBTHREAD	4
 # define FLOAT_SIZE double
 # define B 0xFFFFFF
+# define NB_CARRE 200
 
 typedef	struct		s_item t_item;
 
@@ -250,6 +252,7 @@ typedef	struct		s_thr
 	FLOAT_SIZE		miny;
 	FLOAT_SIZE		maxy;
 	int				done;
+	int				impactmod;
 	unsigned int	fcolor;
 	t_inter			inter;
 	t_inter			liginter;
@@ -325,8 +328,8 @@ t_screen			new_t_screen();
 int					check_t(t_inter *inter, FLOAT_SIZE t,
 	FLOAT_SIZE trans, t_item *item);
 
-void				check_sphere(t_item *item, t_pd *s, t_inter *inter);
-void				check_plane(t_item *item, t_pd *s, t_inter *inter);
+void				check_sphere(t_item *item, t_pd *s, t_inter *inter, t_thr *f);
+void				check_plane(t_item *item, t_pd *s, t_inter *inter, t_thr *f);
 void				normalizator(t_vec *vec);
 t_vec				normalizator_ret(t_vec vec);
 FLOAT_SIZE			ft_fatoi(char *s);
@@ -348,14 +351,14 @@ FLOAT_SIZE			ft_min(const FLOAT_SIZE a, const FLOAT_SIZE b);
 t_vec				vec_mult(const t_vec v1, const FLOAT_SIZE x);
 t_vec				vector_proj_vector(const t_vec v1, const t_vec v2);
 
-void				check_con(t_item *item, t_pd *s, t_inter *inter);
+void				check_con(t_item *item, t_pd *s, t_inter *inter, t_thr *f);
 
 void				loadator(int h, int l, t_leviatenv *e, int nb);
 void				antialiasing(t_env *s);
 FLOAT_SIZE			get_dist(t_vec v1, t_vec v2);
 t_vec				set_new_pos(t_vec dir, t_vec pos, FLOAT_SIZE dist);
 
-void				check_cyl(t_item *item, t_pd *s, t_inter *inter);
+void				check_cyl(t_item *item, t_pd *s, t_inter *inter, t_thr *f);
 
 t_limg				*readerbmp32(char *name);
 void				enregistrator(t_env *env);
@@ -427,12 +430,16 @@ void				modif_z(t_item *item, const float z);
 void				modif_dirx(t_item *item, const float x);
 void				modif_diry(t_item *item, const float y);
 void				normform(t_list **tokens, t_vec *dir, t_item *item);
-void				check_triangle(t_item *item, t_pd *s, t_inter *inter);
+void				check_triangle(t_item *item, t_pd *s, t_inter *inter, t_thr *f);
 void				set_triangle(t_triangle *tr);
 t_triangle			*new_t_triangle(void);
 void				set_triangle(t_triangle *tr);
 void				init_tr(t_env *env, t_list **tokens);
-t_obj				*objreader(char *name);
+t_obj				*objreader(char *name, t_obj *obj);
 void				init_obj(t_env *env, t_list **tokens);
+void				check_obj(t_item *item, t_pd *s, t_inter *inter, t_thr *f);
+t_obj				*initobj(t_obj *obj);
+void				set_normal_triangle(t_inter *inter, t_triangle *tr);
+t_vec				set_dist_pos(FLOAT_SIZE dist, t_vec dir, t_vec o);
 
 #endif

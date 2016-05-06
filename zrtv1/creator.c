@@ -15,7 +15,7 @@
 void		impactor(t_env *env, t_pd *pd, t_thr *f, t_inter *inter)
 {
 	t_item	*lst;
-	int		cnb[200];
+	int		cnb[NB_CARRE + 1];
 
 	idciator(env, *pd, cnb);
 	lst = f->item;
@@ -24,15 +24,17 @@ void		impactor(t_env *env, t_pd *pd, t_thr *f, t_inter *inter)
 		if (lst->cnb == NULL || checkcarre(cnb, lst->cnb))
 		{
 			if (lst->sp != NULL)
-				check_sphere(lst, pd, inter);
+				check_sphere(lst, pd, inter, f);
 			else if (lst->pl != NULL)
-				check_plane(lst, pd, inter);
+				check_plane(lst, pd, inter, f);
 			else if (lst->cyl != NULL)
-				check_cyl(lst, pd, inter);
+				check_cyl(lst, pd, inter, f);
 			else if (lst->con != NULL)
-				check_con(lst, pd, inter);
+				check_con(lst, pd, inter, f);
 			else if (lst->tr != NULL)
-				check_triangle(lst, pd, inter);
+				check_triangle(lst, pd, inter, f);
+			else if (lst->obj != NULL)
+				check_obj(lst, pd, inter, f);
 		}
 		lst = lst->next;
 	}

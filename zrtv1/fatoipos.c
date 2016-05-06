@@ -36,14 +36,12 @@ FLOAT_SIZE	fatoi_aux(char *str, FLOAT_SIZE *si, FLOAT_SIZE *di)
 		return (0);
 	if (str[i] == '-' || str[i] == '+')
 	{
-		if (*si == 0)
-			*si = (str[i] == '-') ? -1 : 1;
 		i++;
 		if (str[i] < '0' || str[i] > '9')
 			return (0);
 	}
-	else
-		*si = 1;
+	if (*si == 0)
+		*si = (str[i - 1] == '-') ? -1 : 1;
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		k = k * 10 + str[i] - '0';

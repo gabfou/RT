@@ -30,7 +30,7 @@ void		set_normal_con(t_con *con, t_inter *inter)
 	normalizator_ret(sub_vec(con->pos, inter->pos))));
 }
 
-void		check_con(t_item *item, t_pd *s, t_inter *inter)
+void		check_con(t_item *item, t_pd *s, t_inter *inter, t_thr *f)
 {
 	FLOAT_SIZE	a;
 	FLOAT_SIZE	b;
@@ -50,7 +50,7 @@ void		check_con(t_item *item, t_pd *s, t_inter *inter)
 	if ((t = (b * b - 4.0 * a * c)) <= 0)
 		return ;
 	t = ft_min(((-b + sqrt(t)) / (2 * a)), ((-b - sqrt(t)) / (2 * a)));
-	if (check_t(inter, t, item->mat.trans, item) == 1)
+	if (check_t(inter, t, item->mat.trans, item) == 1 && f->impactmod)
 	{
 		set_inter_pos(inter, s);
 		set_normal_con(item->con, inter);

@@ -62,7 +62,7 @@ SRC =  rtv1.c \
 	  
 OBJ = $(SRC:.c=.o)
 CC = clang
-CFLAGS = -Wall -Wextra -Werror -g3 # -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -O3 # -fsanitize=address
 LFLAGS = -L libft -lpthread -lft -lmlx -framework OpenGL -framework AppKit
 
 all: $(NAME)

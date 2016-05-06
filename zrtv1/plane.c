@@ -44,7 +44,7 @@ t_pd	*t_plane_creator(t_vec v, t_vec vd, FLOAT_SIZE ray)
 	return (plane);
 }
 
-void	check_plane(t_item *item, t_pd *s, t_inter *inter)
+void	check_plane(t_item *item, t_pd *s, t_inter *inter, t_thr *f)
 {
 	FLOAT_SIZE	t;
 	FLOAT_SIZE	x;
@@ -57,7 +57,7 @@ void	check_plane(t_item *item, t_pd *s, t_inter *inter)
 	t = -((item->pl->dir.x * x + item->pl->dir.y * y + item->pl->dir.z * z)
 		/ (item->pl->dir.x * s->dir.x + item->pl->dir.y
 			* s->dir.y + item->pl->dir.z * s->dir.z));
-	if (check_t(inter, t, item->mat.trans, item) == 1)
+	if (check_t(inter, t, item->mat.trans, item) == 1 && f->impactmod)
 	{
 		set_normal_plane(item, inter);
 		set_inter_pos(inter, s);

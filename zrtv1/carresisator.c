@@ -12,13 +12,15 @@
 
 #include "rtv1.h"
 
+// nmap c cool
+
 inline int	checkcarre(int *tab, t_cnb *cnb)
 {
 	int		i;
 	t_cnb	*tmp;
 
 	i = -1;
-	while (tab[++i] && i < 200)
+	while (tab[++i] && i < NB_CARRE)
 	{
 		tmp = cnb;
 		while (tmp)
@@ -57,9 +59,9 @@ t_carre		*new_t_carrespe(FLOAT_SIZE size, t_vec pos)
 	return (carre);
 }
 
-void		divisecarrerisatorauxi(t_carre *tmp, t_carre *c2)
+t_carre		*divisecarrerisatorauxi(t_carre *tmp, t_carre *c2)
 {
-	register FLOAT_SIZE	size;
+	FLOAT_SIZE	size;
 
 	size = c2->size / 2.0;
 	tmp->next = new_t_carrespe(size,
@@ -82,6 +84,8 @@ void		divisecarrerisatorauxi(t_carre *tmp, t_carre *c2)
 	tmp = tmp->next;
 	tmp->next = new_t_carrespe(size,
 		new_t_vec(c2->pos.x + (size), c2->pos.y + (size), c2->pos.z + size));
+	return (tmp->next);
+
 }
 
 t_carre		*divisecarrerisator(t_carre *c2, t_env *env)
@@ -101,14 +105,14 @@ t_carre		*divisecarrerisator(t_carre *c2, t_env *env)
 	}
 	else
 	{
-		while (tmp->next && tmp->next->next)
+		while (tmp && tmp->next && tmp->next->next)
 			tmp = tmp->next;
 		tmp->next = c;
 	}
 	if (tmp->next)
 		tmp = tmp->next;
 	divisecarrerisatorauxi(tmp, c2);
-	free(c2);
+//	free(c2);
 	return (c);
 }
 
@@ -118,12 +122,17 @@ void		carresisator(t_env *env)
 	int		i;
 
 	i = -1;
-	env->carre = new_t_carrespe(2000, new_t_vec(-1000, -1000, -1000));
+	env->carre = new_t_carrespe(4000, new_t_vec(-2000, -2000, -2000));
 	c = env->carre;
-	while (c && ++i < 200)
+	while (c && i < NB_CARRE)
 	{
-		if (impactcarre(c, env) > 5)
+		if (impactcarre(c, env) > 30)
+		{
+			if (i >= NB_CARRE)
+				break;
+			i++;
 			c = divisecarrerisator(c, env);
+		}
 		else
 			c = c->next;
 	}

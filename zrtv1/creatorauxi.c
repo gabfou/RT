@@ -59,6 +59,7 @@ t_thr		*new_t_thr(t_cor *c)
 	f->light = f->env->light;
 	f->cam = f->env->cam;
 	f->limg = f->env->limg;
+	f->impactmod = 1;
 	return (f);
 }
 

@@ -147,17 +147,35 @@ void	init_tr(t_env *env, t_list **tokens)
 void	init_obj(t_env *env, t_list **tokens)
 {
 	t_item		*item;
+	t_item		*tmp;
+	t_vec		vec;
 
 	item = new_t_item();
+	vec = new_t_vec(0, 0, 0);
+	item->obj = initobj(item->obj);
 	next_elem(tokens);
 	while (!terminal(&(*tokens), CLOSING_BRACKET))
 	{
 		if (ft_strcmp(get_token(tokens)->lexeme, "obj") == 0)
 		{
 			next_elem(tokens);
-			item->obj = objreader(get_token(tokens)->lexeme);
+			item->obj = objreader(get_token(tokens)->lexeme, item->obj);
 		}
+		else if (ft_strcmp(get_token(tokens)->lexeme, "x") == 0)
+			vec.x = token_to_float(tokens);
+		else if (ft_strcmp(get_token(tokens)->lexeme, "y") == 0)
+			vec.y = token_to_float(tokens);
+		else if (ft_strcmp(get_token(tokens)->lexeme, "z") == 0)
+			vec.z = token_to_float(tokens);
 		next_elem(tokens);
+	}
+	tmp = item->obj->tr;
+	while(tmp)
+	{
+		tmp->tr->p1 = add_vec(tmp->tr->p1, vec);
+		// tmp->tr->p2 = add_vec(tmp->tr->p2, vec);
+		// tmp->tr->p3 = add_vec(tmp->tr->p3, vec);
+		tmp = tmp->next;
 	}
 	itemadator(env, item);
 }

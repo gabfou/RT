@@ -73,6 +73,7 @@ void		luminator(t_env *e, t_thr *f)
 		f->fcolor = 0x000000;
 		return ;
 	}
+	f->impactmod = 0;
 	while (f->light != NULL)
 	{
 	//	ft_putendl("light");
@@ -89,7 +90,7 @@ void		luminator(t_env *e, t_thr *f)
 			continue;
 		}
 		//ft_putendl("light 3");
-		normalizator(&(f->liginter.norm));
+		// normalizator(&(f->liginter.norm));
 		angle = M_PI_2 - acos(dot_prod(lvec.dir, f->inter.norm));
 		angle = (angle > 0) ? angle : -angle;
 		//ft_putendl("light 4");
@@ -110,6 +111,7 @@ void		luminator(t_env *e, t_thr *f)
 							(angle / 4 * ((f->light->color >> 16) & 0xFF) * 2 / M_PI) * f->liginter.diff.b);
 		f->light = f->light->next;
 	}
+	f->impactmod = 1;
 	f->light = ltmp;
 	trans = 0;
 	if (f->inter.trans != NULL)

@@ -11,3 +11,16 @@
 /* ************************************************************************** */
 
 #include "rtv1.h"
+
+void		check_obj(t_item *item, t_pd *s, t_inter *inter, t_thr *f)
+{
+	t_item *tmp;
+
+	tmp = item->obj->tr;
+	while(tmp)
+	{
+		if (tmp->cnb)
+			check_triangle(tmp, s, inter, f);
+		tmp = tmp->next;
+	}
+}

@@ -22,7 +22,7 @@
 // 	return (itemadator(env, item));
 // }
 
-t_vec		set_dist_pos(FLOAT_SIZE dist, t_vec dir, t_vec o)
+inline t_vec		set_dist_pos(FLOAT_SIZE dist, t_vec dir, t_vec o)
 {
 	t_vec r;
 
@@ -32,15 +32,12 @@ t_vec		set_dist_pos(FLOAT_SIZE dist, t_vec dir, t_vec o)
 	return (r);
 }
 
-void		set_normal_triangle(t_inter *inter, t_triangle *tr)
+inline void		set_normal_triangle(t_inter *inter, t_triangle *tr)
 {
-	inter->norm.x = tr->n.x;
-	inter->norm.y = tr->n.y;
-	inter->norm.z = tr->n.z;
-	normalizator(&(inter->norm));
+	inter->norm = tr->n;
 }
 
-t_triangle	*new_t_triangle(void)
+t_triangle		*new_t_triangle(void)
 {
 	t_triangle	*triangle;
 
@@ -51,18 +48,18 @@ t_triangle	*new_t_triangle(void)
 	return (triangle);
 }
 
-void		set_triangle(t_triangle *tr)
+void			set_triangle(t_triangle *tr)
 {
-	tr->u = normalizator_ret(sub_vec(tr->p2, tr->p1));
-	tr->v = normalizator_ret(sub_vec(tr->p3, tr->p1));
+	tr->u = (sub_vec(tr->p2, tr->p1));
+	tr->v = (sub_vec(tr->p3, tr->p1));
 	tr->uu = dot_prod(tr->u, tr->u);
 	tr->uv = dot_prod(tr->u, tr->v);
 	tr->vv = dot_prod(tr->v, tr->v);
 	tr->D = tr->uv * tr->uv - tr->uu * tr->vv;
-	tr->n = prod_vector(tr->u, tr->v);
+	tr->n = normalizator_ret(prod_vector(tr->u, tr->v));
 }
 
-void		check_triangle(t_item *item, t_pd *s, t_inter *inter)
+void		check_triangle(t_item *item, t_pd *s, t_inter *inter, t_thr *f)
 {
 	t_vec		n;
 	FLOAT_SIZE	c;
@@ -71,7 +68,7 @@ void		check_triangle(t_item *item, t_pd *s, t_inter *inter)
 	FLOAT_SIZE	t;
 
 	// ft_putendl("niark");
-	n = normalizator_ret(prod_vector(item->tr->u, item->tr->v));
+	n = (prod_vector(item->tr->u, item->tr->v));
 	a = -dot_prod(n, sub_vec(s->pos, item->tr->p1));
 	b = dot_prod(n, s->dir);
 	if (fabs(b) > 0 && (t = a / b) >= 0)
@@ -83,7 +80,7 @@ void		check_triangle(t_item *item, t_pd *s, t_inter *inter)
 		b = (item->tr->uv * a - item->tr->uu * b) / item->tr->D;
 		if (c < 0.0 || c > 1.0 || b < 0.0 || (b + c) > 1.0)
 			return ;
-		if (check_t(inter, t, item->mat.trans, item) == 1)
+		if (check_t(inter, t, item->mat.trans, item) == 1 && f->impactmod)
 		{
 			set_inter_pos(inter, s);
 			set_normal_triangle(inter, item->tr);

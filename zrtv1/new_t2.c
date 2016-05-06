@@ -20,6 +20,7 @@ t_item		*new_t_item(void)
 	item->pl = NULL;
 	item->sp = NULL;
 	item->cyl = NULL;
+	item->obj = NULL;
 	item->tr = NULL;
 	item->con = NULL;
 	item->next = NULL;
