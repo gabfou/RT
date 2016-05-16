@@ -105,14 +105,15 @@ t_carre		*divisecarrerisator(t_carre *c2, t_env *env)
 	}
 	else
 	{
-		while (tmp && tmp->next && tmp->next->next)
+		while (tmp && tmp->next != c2)
 			tmp = tmp->next;
 		tmp->next = c;
 	}
-	if (tmp->next)
-		tmp = tmp->next;
-	divisecarrerisatorauxi(tmp, c2);
-//	free(c2);
+	// if (tmp->next)
+	// 	tmp = tmp->next;
+	tmp = divisecarrerisatorauxi(tmp, c2);
+	tmp->next = c2->next;
+	free(c2);
 	return (c);
 }
 
@@ -126,7 +127,7 @@ void		carresisator(t_env *env)
 	c = env->carre;
 	while (c && i < NB_CARRE)
 	{
-		if (impactcarre(c, env) > 30)
+		if (impactcarre(c, env) > 30 && c->size > 0.001)
 		{
 			if (i >= NB_CARRE)
 				break;

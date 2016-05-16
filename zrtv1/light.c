@@ -12,8 +12,11 @@
 
 #include "rtv1.h"
 
-unsigned int	get_color(const int r, const int g, const int b)
+unsigned int	get_color(int r, int g, int b)
 {
+	r = (255 < r) ? 255 : r;
+	g = (255 < g) ? 255 : g;
+	b = (255 < b) ? 255 : b;
 	return ((r & 0xff) + ((g & 0xff) << 8) + ((b & 0xff) << 16));
 }
 
@@ -62,6 +65,7 @@ void		luminator(t_env *e, t_thr *f)
 {
 	t_pd			lvec;
 	FLOAT_SIZE		angle;
+	FLOAT_SIZE		angle2;
 	// t_inter			inter;
 	t_light			*ltmp;
 	FLOAT_SIZE		trans;
@@ -91,8 +95,10 @@ void		luminator(t_env *e, t_thr *f)
 		}
 		//ft_putendl("light 3");
 		// normalizator(&(f->liginter.norm));
+		angle2 = pow(dot_prod(lvec.dir, f->inter.norm), 50);
 		angle = M_PI_2 - acos(dot_prod(lvec.dir, f->inter.norm));
 		angle = (angle > 0) ? angle : -angle;
+		angle2 = (angle2 > 0) ? angle2 : -angle2;
 		//ft_putendl("light 4");
 		//printf("%f\n", angle);
 		// if (angle > 1.35)
@@ -100,15 +106,16 @@ void		luminator(t_env *e, t_thr *f)
 		// 	//ft_putendl("doublement");
 		// 	angle = angle * 1.5;
 		// }
+		// angle2 = (angle2 / 4 * ((f->light->color >> 0) & 0xFF) * 2 / M_PI);
 		trans = 0;
 		if (f->liginter.trans != NULL)
 		{
 			trans = trans_calculator(f->liginter.trans, f->liginter.t);
 		//	f->light->color = transparencator(f->light->color, trans);
 		}
-		f->fcolor += get_color((angle / 4 * ((f->light->color >> 0) & 0xFF) * 2 / M_PI) * f->liginter.diff.r,
-							(angle / 4 * ((f->light->color >> 8) & 0xFF) * 2 / M_PI) * f->liginter.diff.g,
-							(angle / 4 * ((f->light->color >> 16) & 0xFF) * 2 / M_PI) * f->liginter.diff.b);
+		f->fcolor = get_color(((angle / 4 * ((f->light->color >> 0) & 0xFF) * 2 / M_PI) * f->liginter.diff.r + (angle2 / 4 * ((f->light->color >> 0) & 0xFF) * 2 / M_PI)) + ((f->fcolor >> 0) & 0xFF),
+							((angle / 4 * ((f->light->color >> 8) & 0xFF) * 2 / M_PI) * f->liginter.diff.g + (angle2 / 4 * ((f->light->color >> 8) & 0xFF) * 2 / M_PI)) + ((f->fcolor >> 8) & 0xFF),
+							((angle / 4 * ((f->light->color >> 16) & 0xFF) * 2 / M_PI) * f->liginter.diff.b + (angle2 / 4 * ((f->light->color >> 16) & 0xFF) * 2 / M_PI)) + ((f->fcolor >> 16) & 0xFF));
 		f->light = f->light->next;
 	}
 	f->impactmod = 1;

@@ -47,6 +47,7 @@ t_env		*new_t_env(void)
 	env = malloc(sizeof(t_env));
 	env->screen = new_t_screen();
 	env->image = NULL;
+	env->carre = NULL;
 	env->t = NULL;
 	env->endiant = 0;
 	env->limg = NULL;

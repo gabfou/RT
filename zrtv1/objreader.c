@@ -112,13 +112,13 @@ t_obj	*objreader(char *name, t_obj *obj)
 			newtriangleobj(obj, &line[1], v);
 		free(line);
 	}
-	t_item *tmp;
-	tmp = obj->tr;
-	while(tmp)
-	{
-		printf("%lf, %lf, %lf, %lf, %lf, %lf, %lf, %lf, %lf\n", tmp->tr->p1.x, tmp->tr->p1.y, tmp->tr->p1.z, tmp->tr->p2.x, tmp->tr->p2.y, tmp->tr->p2.z, tmp->tr->p3.x, tmp->tr->p3.y, tmp->tr->p3.z);
-		tmp = tmp->next;
-	}
+	// t_item *tmp;
+	// tmp = obj->tr;
+	// while(tmp)
+	// {
+	// 	printf("%lf, %lf, %lf, %lf, %lf, %lf, %lf, %lf, %lf\n", tmp->tr->p1.x, tmp->tr->p1.y, tmp->tr->p1.z, tmp->tr->p2.x, tmp->tr->p2.y, tmp->tr->p2.z, tmp->tr->p3.x, tmp->tr->p3.y, tmp->tr->p3.z);
+	// 	tmp = tmp->next;
+	// }
 	free(v);
 	return(obj);
 }

@@ -45,7 +45,7 @@
 # define NBTHREAD	4
 # define FLOAT_SIZE double
 # define B 0xFFFFFF
-# define NB_CARRE 200
+# define NB_CARRE 20000
 
 typedef	struct		s_item t_item;
 
