@@ -34,34 +34,11 @@ void		nextcam(t_thr *f)
 	}
 }
 
-int			testuniverse(t_vec vec)
+void		setthrcnb(t_thr *f)
 {
-	FLOAT_SIZE lenght;
-
-	lenght = sqrt(carre(vec.x) + carre(vec.y) + carre(vec.z));
-	if (lenght == 0)
-		ft_putendl("dafuq universe");
-	return (lenght = sqrt(carre(vec.x) + carre(vec.y) + carre(vec.z)));
-}
-
-t_thr		*new_t_thr(t_cor *c)
-{
-	t_thr		*f;
 	t_item		*item;
 	int			i;
 
-	f = malloc(sizeof(t_thr));
-	f->done = 0;
-	f->env = c->env;
-	f->minx = c->minx;
-	f->maxx = c->maxx;
-	f->miny = c->miny;
-	f->maxy = c->maxy;
-	f->item = f->env->item;
-	f->light = f->env->light;
-	f->cam = f->env->cam;
-	f->limg = f->env->limg;
-	f->impactmod = 1;
 	f->cnb = malloc(sizeof(t_item*) * (f->env->nb_obj + 2));
 	f->use = malloc(sizeof(int) * (f->env->nb_obj + 2));
 	i = -1;
@@ -80,37 +57,36 @@ t_thr		*new_t_thr(t_cor *c)
 		item = item->next;
 	}
 	f->cnb[++i] = NULL;
+}
+
+t_thr		*new_t_thr(t_cor *c)
+{
+	t_thr		*f;
+
+	f = malloc(sizeof(t_thr));
+	f->done = 0;
+	f->env = c->env;
+	f->minx = c->minx;
+	f->maxx = c->maxx;
+	f->miny = c->miny;
+	f->maxy = c->maxy;
+	f->item = f->env->item;
+	f->light = f->env->light;
+	f->cam = f->env->cam;
+	f->limg = f->env->limg;
+	f->impactmod = 1;
+	setthrcnb(f);
 	return (f);
 }
 
 t_thr		*set_again_t_thr(t_thr *f)
 {
-	int 	i;
-	t_item	*item;
-
 	free(f->cnb);
 	free(f->use);
 	f->item = f->env->item;
 	f->light = f->env->light;
 	f->cam = f->env->cam;
 	f->limg = f->env->limg;
-		f->cnb = malloc(sizeof(t_item*) * (f->env->nb_obj + 2));
-	f->use = malloc(sizeof(int) * (f->env->nb_obj + 2));
-	i = -1;
-	while(++i < f->env->nb_obj + 2)
-		f->use[i] = 0;
-	item = f->item;
-	i = -1;
-	while(item)
-	{
-		if (item->pl != NULL)
-			f->cnb[++i] = item;
-		else if (item->cyl != NULL)
-			f->cnb[++i] = item;
-		else if (item->con != NULL)
-			f->cnb[++i] = item;
-		item = item->next;
-	}
-	f->cnb[++i] = NULL;
+	setthrcnb(f);
 	return (f);
 }
