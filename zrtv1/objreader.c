@@ -51,12 +51,12 @@ void	additem(t_obj *obj, t_item *item)
 	}
 }
 
-void	newtriangleobj(t_obj *obj, char *line, t_vec *v)
+void	newtriangleobj(t_obj *obj, char *line, t_vec *v, t_env *env)
 {
 	int		i;
 	t_item	*tr;
 
-	tr = new_t_item();
+	tr = new_t_item(env);
 	tr->tr = new_t_triangle();
 	while(ISWHITESPACE)
 		line++;
@@ -76,6 +76,7 @@ void	newtriangleobj(t_obj *obj, char *line, t_vec *v)
 		tr->tr->p3 = v[i];
 	i = 0;
 	set_triangle(tr->tr);
+	// env->nb_obj++;
 	additem(obj, tr);
 }
 
@@ -86,7 +87,7 @@ t_obj	*initobj(t_obj *obj)
 	return (obj);
 }
 
-t_obj	*objreader(char *name, t_obj *obj)
+t_obj	*objreader(char *name, t_obj *obj, t_env *env)
 {
 	int		fd;
 	char	*line;
@@ -109,7 +110,7 @@ t_obj	*objreader(char *name, t_obj *obj)
 		if (line[0] == 'v' && line[1] == ' ')
 			v[i++] = newobjvect(&line[1]);
 		else if (line[0] == 'f' && line[1] == ' ')
-			newtriangleobj(obj, &line[1], v);
+			newtriangleobj(obj, &line[1], v, env);
 		free(line);
 	}
 	// t_item *tmp;

@@ -14,29 +14,23 @@
 
 void		impactor(t_env *env, t_pd *pd, t_thr *f, t_inter *inter)
 {
-	t_item	*lst;
-	int		cnb[NB_CARRE + 1];
+	int				i;
 
-	idciator(env, *pd, cnb);
-	lst = f->item;
-	while (lst != NULL)
+	idciator(env, *pd, f->cnb, f->use);
+	i = -1;
+	while(f->cnb[++i])
 	{
-		if (lst->cnb == NULL || checkcarre(cnb, lst->cnb))
-		{
-			if (lst->sp != NULL)
-				check_sphere(lst, pd, inter, f);
-			else if (lst->pl != NULL)
-				check_plane(lst, pd, inter, f);
-			else if (lst->cyl != NULL)
-				check_cyl(lst, pd, inter, f);
-			else if (lst->con != NULL)
-				check_con(lst, pd, inter, f);
-			else if (lst->tr != NULL)
-				check_triangle(lst, pd, inter, f);
-			else if (lst->obj != NULL)
-				check_obj(lst, pd, inter, f);
-		}
-		lst = lst->next;
+			if (f->cnb[i]->sp != NULL)
+				check_sphere(f->cnb[i], pd, inter, f);
+			else if (f->cnb[i]->tr != NULL)
+				check_triangle(f->cnb[i], pd, inter, f);
+			else if (f->cnb[i]->pl != NULL)
+				check_plane(f->cnb[i], pd, inter, f);
+			else if (f->cnb[i]->cyl != NULL)
+				check_cyl(f->cnb[i], pd, inter, f);
+			else if (f->cnb[i]->con != NULL)
+				check_con(f->cnb[i], pd, inter, f);
+			f->use[f->cnb[i]->nb] = 0;
 	}
 }
 

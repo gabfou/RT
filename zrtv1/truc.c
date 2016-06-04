@@ -189,7 +189,7 @@ void			get_file(t_env *e, char *name)
 	check.cam = 0;
 	check.item = 0;
 	check.light = 0;
-	e->item = new_t_item();
+	e->item = new_t_item(env);
 	item = e->item;
 	e->light = new_t_light();
 	light = e->light;
@@ -225,7 +225,7 @@ void			get_file(t_env *e, char *name)
 			if (e->item->next != NULL)
 				e->item = e->item->next;
 			e->item = fill_t_item(t, e->item);
-			e->item->next = new_t_item();
+			e->item->next = new_t_item(env);
 		}
 		else if (strcmp(t[0], "lum") == 0)
 		{
@@ -357,7 +357,7 @@ void			get_file(t_env *e, char *name)
 
 // 	// ft_putendl("MEGA UNIT0");
 // 	i = 0;
-// 	e->item = new_t_item();
+// 	e->item = new_t_item(env);
 // 	item = e->item; 
 // 	e->light = new_t_light();
 // 	light = e->light;
@@ -401,7 +401,7 @@ void			get_file(t_env *e, char *name)
 // 			if (e->item->next != NULL)
 // 				e->item = e->item->next;
 // 			e->item = fill_t_item(line, e->item);
-// 			e->item->next = new_t_item();
+// 			e->item->next = new_t_item(env);
 // 		}
 // 		else if (ft_strcmp(line[0], "lum") == 0)
 // 		{
@@ -450,7 +450,7 @@ void			get_file(t_env *e, char *name)
 	check.cam = 0;
 	check.item = 0;
 	check.light = 0;
-	e->item = new_t_item();
+	e->item = new_t_item(env);
 	item = e->item;
 	e->light = new_t_light();
 	light = e->light;
@@ -486,7 +486,7 @@ void			get_file(t_env *e, char *name)
 			if (e->item->next != NULL)
 				e->item = e->item->next;
 			e->item = fill_t_item(t, e->item);
-			e->item->next = new_t_item();
+			e->item->next = new_t_item(env);
 		}
 		else if (ft_strcmp(t[0], "lum") == 0)
 		{

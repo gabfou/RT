@@ -12,7 +12,7 @@
 
 #include "rtv1.h"
 
-t_item		*new_t_item(void)
+t_item		*new_t_item(t_env *env)
 {
 	t_item	*item;
 
@@ -24,9 +24,10 @@ t_item		*new_t_item(void)
 	item->tr = NULL;
 	item->con = NULL;
 	item->next = NULL;
-	item->cnb = NULL;
+	// item->cnb = NULL;
 	item->texture = NULL;
 	item->mat = new_t_mat("niark");
+	item->nb = env->nb_obj++;
 	return (item);
 }
 
@@ -46,12 +47,13 @@ t_cam		*new_t_cam(void)
 	return (cam);
 }
 
-t_cnb		*new_t_cnb(int i)
+t_cnb		*new_t_cnb(t_item *item)
 {
 	t_cnb	*cnb;
 
 	cnb = (t_cnb*)malloc(sizeof(t_cnb));
-	cnb->i = i;
+	cnb->item = item;
+	// item->use = 0;
 	cnb->next = NULL;
 	return (cnb);
 }
@@ -61,6 +63,7 @@ t_carre		*new_t_carre(void)
 	t_carre	*carre;
 
 	carre = (t_carre*)malloc(sizeof(t_carre));
+	carre->cnb = NULL;
 	carre->pos.x = 0;
 	carre->pos.y = 0;
 	carre->pos.z = 0;

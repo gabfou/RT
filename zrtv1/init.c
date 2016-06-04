@@ -96,10 +96,13 @@ void		init_all(t_env *env, t_list *tokens)
 
 void		init(t_env *env, int argc, char *argv)
 {
-	int		fd;
-	t_list	*tokens;
-	t_list	*save;
+	int			fd;
+	t_list		*tokens;
+	t_list		*save;
+	// pthread_t	t;
 
+
+	env->nb_obj = 0;
 	env->cam = NULL;
 	env->light = NULL;
 	env->item = NULL;
@@ -119,6 +122,7 @@ void		init(t_env *env, int argc, char *argv)
 	}
 	delete_symbols(&save);
 	init_all(env, save);
+	// pthread_create(&t, NULL, (void*)&(carresisator), env);
 	carresisator(env);
 	free_tokens(&save);
 }

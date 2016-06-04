@@ -124,12 +124,6 @@ typedef	struct		s_pd
 	FLOAT_SIZE		ray;
 }					t_pd;
 
-typedef	struct		s_cnb
-{
-	int				i;
-	struct s_cnb	*next;
-}					t_cnb;
-
 typedef	struct		s_limg
 {
 	void			*image;
@@ -157,10 +151,16 @@ typedef	struct		s_item
 	t_triangle		*tr;
 	t_obj			*obj;
 	t_mat			mat;
-	t_cnb			*cnb;
+	int				nb;
 	t_limg			*texture;
 	struct s_item	*next;
 }					t_item;
+
+typedef	struct		s_cnb
+{
+	t_item			*item;
+	struct s_cnb	*next;
+}					t_cnb;
 
 typedef	struct		s_check
 {
@@ -188,13 +188,15 @@ typedef	struct		s_inter
 
 typedef	struct		s_carre
 {
+	t_cnb			*cnb;
 	t_vec			pos;
 	t_vec			dir;
 	t_vec			up;
 	t_vec			right;
 	FLOAT_SIZE		angle;
 	FLOAT_SIZE		size;
-	int				cnb;
+	// int				cnb;
+	int				nb_obj;
 	struct s_carre	*next;
 }					t_carre;
 
@@ -232,6 +234,7 @@ typedef	struct		s_env
 	t_screen		screen;
 	t_cam			*cam;
 	t_item			*item;
+	t_item			*iteminf;
 	t_light			*light;
 	t_inter			inter;
 	t_carre			*carre;
@@ -240,6 +243,9 @@ typedef	struct		s_env
 	int				nbr;
 	int				ft;
 	int				mircount;
+	int				infitem;
+	int				nb_obj;
+	int				nb_carre;
 	struct s_env	*prev;
 	struct s_env	*next;
 }					t_env;
@@ -260,6 +266,8 @@ typedef	struct		s_thr
 	t_light			*light;
 	t_limg			*limg;
 	t_cam			*cam;
+	t_item			**cnb;
+	int				*use;
 }					t_thr;
 
 typedef struct		s_cor
@@ -321,7 +329,7 @@ t_inter				new_t_inter();
 FLOAT_SIZE			carre(FLOAT_SIZE x);
 void				set_inter_pos(t_inter *inter, t_pd *pd);
 int					itemadator(t_env *env, t_item *item);
-t_item				*new_t_item();
+t_item				*new_t_item(t_env *env);
 t_cam				*new_t_cam();
 t_screen			new_t_screen();
 
@@ -405,9 +413,9 @@ void				init_camera(t_env *env, t_list **tokens);
 void				init_light(t_env *env, t_list **tokens);
 void				setcam(t_env *env, t_cam *cam);
 void				carresisator(t_env *env);
-int					impactcarre(t_carre *c, t_env *env);
-void				idciator(t_env *env, t_pd pd, int *niark);
-t_cnb				*new_t_cnb(int i);
+int					impactcarre(t_carre *c, t_env *env, int n);
+void				idciator(t_env *env, t_pd pd, t_item **niark, int *use);
+t_cnb				*new_t_cnb(t_item *item);
 void				print_carre(t_env env);
 int					checkcarre(int *tab, t_cnb *cnb);
 
@@ -435,9 +443,9 @@ void				set_triangle(t_triangle *tr);
 t_triangle			*new_t_triangle(void);
 void				set_triangle(t_triangle *tr);
 void				init_tr(t_env *env, t_list **tokens);
-t_obj				*objreader(char *name, t_obj *obj);
+t_obj				*objreader(char *name, t_obj *obj, t_env *env);
 void				init_obj(t_env *env, t_list **tokens);
-void				check_obj(t_item *item, t_pd *s, t_inter *inter, t_thr *f);
+void				check_obj(t_item *item, t_pd *s, t_inter *inter, t_thr *f, int *cnb);
 t_obj				*initobj(t_obj *obj);
 void				set_normal_triangle(t_inter *inter, t_triangle *tr);
 t_vec				set_dist_pos(FLOAT_SIZE dist, t_vec dir, t_vec o);

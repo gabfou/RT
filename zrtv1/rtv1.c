@@ -34,12 +34,19 @@ void		checkcamscreen(t_env *env)
 
 void		gpatrouverdnom(t_leviatenv *env, int argc, char *argv)
 {
+	static int  x = 0;
+
+
 	ft_putendl(argv);
 	init(env->lenv, argc, argv);
 	checkcamscreen(env->lenv);
 	setcamuplef(env->lenv);
-	env->win = mlx_new_window(env->mlx,
-		env->lenv->screen.l, env->lenv->screen.h, "RTV1");
+	if (x == 0)
+	{
+		env->win = mlx_new_window(env->mlx,
+			env->lenv->screen.l, env->lenv->screen.h, "RTV1");
+		x++;
+	}
 	t_limg_initator(env);
 }
 

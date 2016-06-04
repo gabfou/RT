@@ -60,7 +60,7 @@ void		delete_symbols(t_list **tokens)
 	t_list	*tmp;
 
 	copy = *tokens;
-	while (copy->next)
+	while (copy && copy->next)
 	{
 		if (!terminal(&copy->next, WORD)
 			&& !terminal(&copy->next, CLOSING_BRACKET))

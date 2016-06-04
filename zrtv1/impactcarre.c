@@ -31,40 +31,54 @@ int		carre_pd(t_carre *b, t_pd r)
 		fmax(tz1, (b->pos.z + b->size - r.pos.z) * -1 * r.dir.z))));
 }
 
-void	idciator(t_env *env, t_pd pd, int *niark)
+void	idciator(t_env *env, t_pd pd, t_item **niark, int *use)
 {
 	t_carre	*tmp;
 	int		i;
+	t_cnb	*tmp2;
 
+	// ft_bzero(niark, NB_CARRE);
+	ft_bzero(use, env->nb_obj + 1);
 	tmp = env->carre;
-	i = 0;
+	i = env->infitem;
 	if (tmp == NULL)
 		return ;
-	while (tmp && i < NB_CARRE)
+	while (tmp)
 	{
 		if (carre_pd(tmp, pd) == 1)
-			niark[i++] = tmp->cnb;
+		{
+			tmp2 = tmp->cnb;
+			while (tmp2)
+			{
+				if (use[tmp2->item->nb] == 0)
+				{
+					niark[i++] = tmp2->item;
+					use[tmp2->item->nb] = 1;
+				}
+				tmp2 = tmp2->next;
+			}
+		}
 		tmp = tmp->next;
 	}
-	niark[i] = 0;
+	niark[i] = NULL;
 }
 
-void	addcnb(t_item *item, t_cnb *cnb)
+void	addcnb(t_carre *carre, t_cnb *cnb)
 {
 	t_cnb	*copy;
 
-	if (!item->cnb)
-		item->cnb = cnb;
+	if (!carre->cnb)
+		carre->cnb = cnb;
 	else
 	{
-		copy = item->cnb;
+		copy = carre->cnb;
 		while (copy->next)
 			copy = copy->next;
 		copy->next = cnb;
 	}
 }
 
-int		carre_sphere(t_carre *c, t_item *item)
+int		carre_sphere(t_carre *c, t_item *item, int n)
 {
 	if (c->pos.x < item->sp->c.x + item->sp->ray
 		&& c->pos.y < item->sp->c.y + item->sp->ray
@@ -73,7 +87,8 @@ int		carre_sphere(t_carre *c, t_item *item)
 		&& c->pos.y + c->size > item->sp->c.y - item->sp->ray
 		&& c->pos.z + c->size > item->sp->c.z - item->sp->ray)
 	{
-		addcnb(item, new_t_cnb(c->cnb));
+		if (n)
+			addcnb(c, new_t_cnb(item));
 		return (1);
 	}
 	return (0);
@@ -138,151 +153,66 @@ int		carre_sphere(t_carre *c, t_item *item)
 // 	return 0;
 // }
 
-
-// /*======================== X-tests ========================*/
-// #define AXISTEST_X01(a, b, fa, fb)             \
-//     p0 = a*v0[Y] - b*v0[Z];                    \
-//     p2 = a*v2[Y] - b*v2[Z];                    \
-//         if(p0<p2) {min=p0; max=p2;} else {min=p2; max=p0;} \
-//     rad = fa * boxhalfsize[Y] + fb * boxhalfsize[Z];   \
-//     if(min>rad || max<-rad) return 0;
-
-// #define AXISTEST_X2(a, b, fa, fb)              \
-//     p0 = a*v0[Y] - b*v0[Z];                    \
-//     p1 = a*v1[Y] - b*v1[Z];                    \
-//         if(p0<p1) {min=p0; max=p1;} else {min=p1; max=p0;} \
-//     rad = fa * boxhalfsize[Y] + fb * boxhalfsize[Z];   \
-//     if(min>rad || max<-rad) return 0;
-
-// /*======================== Y-tests ========================*/
-// #define AXISTEST_Y02(a, b, fa, fb)             \
-//     p0 = -a*v0[X] + b*v0[Z];                   \
-//     p2 = -a*v2[X] + b*v2[Z];                       \
-//         if(p0<p2) {min=p0; max=p2;} else {min=p2; max=p0;} \
-//     rad = fa * boxhalfsize[X] + fb * boxhalfsize[Z];   \
-//     if(min>rad || max<-rad) return 0;
-
-// #define AXISTEST_Y1(a, b, fa, fb)              \
-//     p0 = -a*v0[X] + b*v0[Z];                   \
-//     p1 = -a*v1[X] + b*v1[Z];                       \
-//         if(p0<p1) {min=p0; max=p1;} else {min=p1; max=p0;} \
-//     rad = fa * boxhalfsize[X] + fb * boxhalfsize[Z];   \
-//     if(min>rad || max<-rad) return 0;
-
-// /*======================== Z-tests ========================*/
-
-// #define AXISTEST_Z12(a, b, fa, fb)             \
-//     p1 = a*v1[X] - b*v1[Y];                    \
-//     p2 = a*v2[X] - b*v2[Y];                    \
-//         if(p2<p1) {min=p2; max=p1;} else {min=p1; max=p2;} \
-//     rad = fa * boxhalfsize[X] + fb * boxhalfsize[Y];   \
-//     if(min>rad || max<-rad) return 0;
-
-// #define AXISTEST_Z0(a, b, fa, fb)              \
-//     p0 = a*v0[X] - b*v0[Y];                \
-//     p1 = a*v1[X] - b*v1[Y];                    \
-//         if(p0<p1) {min=p0; max=p1;} else {min=p1; max=p0;} \
-//     rad = fa * boxhalfsize[X] + fb * boxhalfsize[Y];   \
-//     if(min>rad || max<-rad) return 0;
-
-// int triBoxOverlap(float boxcenter[3],float boxhalfsize[3],float triverts[3][3])
-// {
-
-//   /*    use separating axis theorem to test overlap between triangle and box */
-//   /*    need to test for overlap in these directions: */
-//   /*    1) the {x,y,z}-directions (actually, since we use the AABB of the triangle */
-//   /*       we do not even need to test these) */
-//   /*    2) normal of the triangle */
-//   /*    3) crossproduct(edge from tri, {x,y,z}-directin) */
-//   /*       this gives 3x3=9 more tests */
-//    float v0[3],v1[3],v2[3];
-//    float min,max,d,p0,p1,p2,rad,fex,fey,fez;
-//    float normal[3],e0[3],e1[3],e2[3];
-
-//    /* This is the fastest branch on Sun */
-//    /* move everything so that the boxcenter is in (0,0,0) */
-//    v0 = sub_vec(triverts[0],boxcenter);
-//    v1 = sub_vec(triverts[1],boxcenter);
-//    v2 = sub_vec(triverts[2],boxcenter);
-
-//    /* compute triangle edges */
-//    e0 = sub_vec(v1,v0);      /* tri edge 0 */
-//    e1 = sub_vec(v2,v1);      /* tri edge 1 */
-//    e2 = sub_vec(v0,v2);      /* tri edge 2 */
-
-//    /* Bullet 3:  */
-//    /*  test the 9 tests first (this was faster) */
-//    fex = fabs(e0[X]);
-//    fey = fabs(e0[Y]);
-//    fez = fabs(e0[Z]);
-//    AXISTEST_X01(e0[Z], e0[Y], fez, fey);
-//    AXISTEST_Y02(e0[Z], e0[X], fez, fex);
-//    AXISTEST_Z12(e0[Y], e0[X], fey, fex);
-
-//    fex = fabs(e1[X]);
-//    fey = fabs(e1[Y]);
-//    fez = fabs(e1[Z]);
-//    AXISTEST_X01(e1[Z], e1[Y], fez, fey);
-//    AXISTEST_Y02(e1[Z], e1[X], fez, fex);
-//    AXISTEST_Z0(e1[Y], e1[X], fey, fex);
-
-//    fex = fabs(e2[X]);
-//    fey = fabs(e2[Y]);
-//    fez = fabs(e2[Z]);
-//    AXISTEST_X2(e2[Z], e2[Y], fez, fey);
-//    AXISTEST_Y1(e2[Z], e2[X], fez, fex);
-//    AXISTEST_Z12(e2[Y], e2[X], fey, fex);
-
-//    /* Bullet 1: */
-//    /*  first test overlap in the {x,y,z}-directions */
-//    /*  find min, max of the triangle each direction, and test for overlap in */
-//    /*  that direction -- this is equivalent to testing a minimal AABB around */
-//    /*  the triangle against the AABB */
-
-//    /* test in X-direction */
-//    FINDMINMAX(v0[X],v1[X],v2[X],min,max);
-//    if(min>boxhalfsize[X] || max<-boxhalfsize[X]) return 0;
-
-//    /* test in Y-direction */
-//    FINDMINMAX(v0[Y],v1[Y],v2[Y],min,max);
-//    if(min>boxhalfsize[Y] || max<-boxhalfsize[Y]) return 0;
-
-//    /* test in Z-direction */
-//    FINDMINMAX(v0[Z],v1[Z],v2[Z],min,max);
-//    if(min>boxhalfsize[Z] || max<-boxhalfsize[Z]) return 0;
-
-//    /* Bullet 2: */
-//    /*  test if the box intersects the plane of the triangle */
-//    /*  compute plane equation of triangle: normal*x+d=0 */
-//    CROSS(normal,e0,e1);
-//    d=-dot_prod(normal,v0);  /* plane eq: normal.x+d=0 */
-//    if(!planeBoxOverlap(normal,d,boxhalfsize)) return 0;
-
-//    return 1;   /* box and triangle overlaps */
-// }
-
-int		carre_triangle(t_carre *c, t_item *item)
+int		carre_triangle(t_carre *c, t_item *item, int n)
 {
-	FLOAT_SIZE d;
-	FLOAT_SIZE d2;
+	// FLOAT_SIZE	d;
+	// FLOAT_SIZE	d2;
+	t_vec		min;
+	t_vec		max;
+	// t_pd		pd;
 
-	d = get_dist(item->tr->p1, item->tr->p2);
-	d2 = get_dist(item->tr->p1, item->tr->p3);
-	d = (d > d2) ? d : d2;
-	if (c->pos.x < item->tr->p1.x + d
-		&& c->pos.y < item->tr->p1.y + d
-		&& c->pos.z < item->tr->p1.z + d
-		&& c->pos.x + c->size > item->tr->p1.x - d
-		&& c->pos.y + c->size > item->tr->p1.y - d
-		&& c->pos.z + c->size > item->tr->p1.z - d)
+	// d = get_dist(item->tr->p1, item->tr->p2);
+	// d2 = get_dist(item->tr->p1, item->tr->p3);
+	// d = (d > d2) ? d : d2;
+	// pd.pos = item->tr->p1;
+	// pd.dir  = normalizator_ret(sub_vec(item->tr->p1, item->tr->p2));
+	// d2 = carre_pd(c, pd) - 0.1;
+	// pd.dir  = normalizator_ret(sub_vec(item->tr->p1, item->tr->p3));
+	// d2 += carre_pd(c, pd);
+	// pd.pos = item->tr->p2;
+	// pd.dir  = normalizator_ret(sub_vec(item->tr->p2, item->tr->p3));
+	// d2 += carre_pd(c, pd);
+	// if (d2 < 0)
+	// 	return (0);
+	// if ((c->pos.x < item->tr->p1.x + d
+	// 	&& c->pos.y < item->tr->p1.y + d
+	// 	&& c->pos.z < item->tr->p1.z + d
+	// 	&& c->pos.x + c->size > item->tr->p1.x - d
+	// 	&& c->pos.y + c->size > item->tr->p1.y - d
+		// && c->pos.z + c->size > item->tr->p1.z - d))
+	min.x = fmin(fmin(item->tr->p1.x, item->tr->p2.x), item->tr->p3.x);
+	min.y = fmin(fmin(item->tr->p1.y, item->tr->p2.y), item->tr->p3.y);
+	min.z = fmin(fmin(item->tr->p1.z, item->tr->p2.z), item->tr->p3.z);
+	max.x = fmax(fmax(item->tr->p1.x, item->tr->p2.x), item->tr->p3.x);
+	max.y = fmax(fmax(item->tr->p1.y, item->tr->p2.y), item->tr->p3.y);
+	max.z = fmax(fmax(item->tr->p1.z, item->tr->p2.z), item->tr->p3.z);
+	if (c->pos.x > max.x
+		|| c->pos.y > max.y
+		|| c->pos.z > max.z
+		|| c->pos.x + c->size < min.x
+		|| c->pos.y + c->size < min.y
+		|| c->pos.z + c->size < min.z)
+		return (0);
+	else
 	{
-		addcnb(item, new_t_cnb(c->cnb));
+		if (n)
+			addcnb(c, new_t_cnb(item));
 		return (1);
 	}
 	return (0);
 }
 
-int		carre_obj(t_carre *c, t_item *item)
+// int		carre_triangle(t_carre *c, t_item *item, int n)
+// {
+// 	FLOAT_SIZE d;
+// 	FLOAT_SIZE d2;
+
+
+// 	return (0);
+// }
+
+
+int		carre_obj(t_carre *c, t_item *item, int n)
 {
 	t_item	*tmp;
 	int		i;
@@ -291,30 +221,35 @@ int		carre_obj(t_carre *c, t_item *item)
 	tmp = item->obj->tr;
 	while (tmp)
 	{
-		i += carre_triangle(c, tmp);
+		i += carre_triangle(c, tmp, n);
 		tmp = tmp->next;
 	}
 	return (i);
 }
 
-int		impactcarre(t_carre *c, t_env *env)
+int		impactcarre(t_carre *c, t_env *env, int n)
 {
 	t_item	*lst;
 	int		i;
 
 	(void)env;
 	i = 0;
+	// ft_putendl("niark");
 	lst = env->item;
-	while (env->item != NULL)
+	while (lst != NULL)
 	{
-		if (env->item->sp != NULL)
-			i += carre_sphere(c, env->item);
-		else if (env->item->tr != NULL)
-			i += carre_triangle(c, env->item);
-		else if (env->item->obj != NULL)
-			i += carre_obj(c, env->item);
-		env->item = env->item->next;
+		if (lst->sp != NULL)
+			i += carre_sphere(c, lst, n);
+		else if (lst->tr != NULL)
+			i += carre_triangle(c, lst, n);
+		else if (lst->obj != NULL)
+			i += carre_obj(c, lst, n);
+		lst = lst->next;
 	}
-	env->item = lst;
+	if (n == 1)
+	{
+		ft_putnbr(i);
+		ft_putendl ("");
+	}
 	return (i);
 }

@@ -30,7 +30,7 @@ int			new_sphere(t_env *env)
 {
 	t_item	*item;
 
-	item = new_t_item();
+	item = new_t_item(env);
 	item->sp = new_t_sphere(100, 0, 0, 3);
 	item->next = NULL;
 	return (itemadator(env, item));

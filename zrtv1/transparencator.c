@@ -38,6 +38,6 @@ FLOAT_SIZE	trans_calculator(t_trans *trans, FLOAT_SIZE	t)
 		tmp = tmp->next;
 	}
 	// ft_putendl("fin trans calc");
-	 //printf("ret = %f\n", ret);
+	// printf("ret = %f\n", ret);
 	return (ret);
 }

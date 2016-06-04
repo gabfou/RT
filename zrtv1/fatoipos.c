@@ -44,6 +44,8 @@ FLOAT_SIZE	fatoi_aux(char *str, FLOAT_SIZE *si, FLOAT_SIZE *di)
 		if (str[i] < '0' || str[i] > '9')
 			return (0);
 	}
+	// if (i < 1)
+	// 	i = 1;
 	if (*si == 0)
 		*si = (str[i - 1] == '-') ? -1 : 1;
 	while (str[i] >= '0' && str[i] <= '9')

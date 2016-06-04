@@ -58,6 +58,7 @@ t_env		*new_t_env(void)
 	env->done = 0;
 	env->ft = 0;
 	env->nbr = 0;
+	env->infitem = 0;
 	env->prev = NULL;
 	env->next = NULL;
 	return (env);
