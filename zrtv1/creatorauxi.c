@@ -64,7 +64,6 @@ t_thr		*new_t_thr(t_cor *c)
 	f->impactmod = 1;
 	f->cnb = malloc(sizeof(t_item*) * (f->env->nb_obj + 2));
 	f->use = malloc(sizeof(int) * (f->env->nb_obj + 2));
-	// ft_bzero(f->use, f->env->nb_obj + 1);
 	i = -1;
 	while(++i < f->env->nb_obj + 2)
 		f->use[i] = 0;
@@ -81,16 +80,37 @@ t_thr		*new_t_thr(t_cor *c)
 		item = item->next;
 	}
 	f->cnb[++i] = NULL;
-	ft_putnbr(i);
-	ft_putnbr(f->env->infitem);
 	return (f);
 }
 
 t_thr		*set_again_t_thr(t_thr *f)
 {
+	int 	i;
+	t_item	*item;
+
+	free(f->cnb);
+	free(f->use);
 	f->item = f->env->item;
 	f->light = f->env->light;
 	f->cam = f->env->cam;
 	f->limg = f->env->limg;
+		f->cnb = malloc(sizeof(t_item*) * (f->env->nb_obj + 2));
+	f->use = malloc(sizeof(int) * (f->env->nb_obj + 2));
+	i = -1;
+	while(++i < f->env->nb_obj + 2)
+		f->use[i] = 0;
+	item = f->item;
+	i = -1;
+	while(item)
+	{
+		if (item->pl != NULL)
+			f->cnb[++i] = item;
+		else if (item->cyl != NULL)
+			f->cnb[++i] = item;
+		else if (item->con != NULL)
+			f->cnb[++i] = item;
+		item = item->next;
+	}
+	f->cnb[++i] = NULL;
 	return (f);
 }
