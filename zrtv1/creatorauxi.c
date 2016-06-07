@@ -42,11 +42,11 @@ void		setthrcnb(t_thr *f)
 	f->cnb = malloc(sizeof(t_item*) * (f->env->nb_obj + 2));
 	f->use = malloc(sizeof(int) * (f->env->nb_obj + 2));
 	i = -1;
-	while(++i < f->env->nb_obj + 2)
+	while (++i < f->env->nb_obj + 2)
 		f->use[i] = 0;
 	item = f->item;
 	i = -1;
-	while(item)
+	while (item)
 	{
 		if (item->pl != NULL)
 			f->cnb[++i] = item;

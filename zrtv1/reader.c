@@ -122,7 +122,6 @@ void		comander(int key, t_leviatenv *env)
 	keyret = keytochar(key);
 	if (key != -3)
 		i = comanderauxi(keyret, stat, env, i);
-	// mlx_clear_window(env->mlx, env->win);
 	if (env->lenv->ft % 2 == 1)
 	{
 		imgcptor(env);

@@ -18,19 +18,19 @@ void		impactor(t_env *env, t_pd *pd, t_thr *f, t_inter *inter)
 
 	idciator(env, *pd, f->cnb, f->use);
 	i = -1;
-	while(f->cnb[++i])
+	while (f->cnb[++i])
 	{
-			if (f->cnb[i]->sp != NULL)
-				check_sphere(f->cnb[i], pd, inter, f);
-			else if (f->cnb[i]->tr != NULL)
-				check_triangle(f->cnb[i], pd, inter, f);
-			else if (f->cnb[i]->pl != NULL)
-				check_plane(f->cnb[i], pd, inter, f);
-			else if (f->cnb[i]->cyl != NULL)
-				check_cyl(f->cnb[i], pd, inter, f);
-			else if (f->cnb[i]->con != NULL)
-				check_con(f->cnb[i], pd, inter, f);
-			f->use[f->cnb[i]->nb] = 0;
+		if (f->cnb[i]->sp != NULL)
+			check_sphere(f->cnb[i], pd, inter, f);
+		else if (f->cnb[i]->tr != NULL)
+			check_triangle(f->cnb[i], pd, inter, f);
+		else if (f->cnb[i]->pl != NULL)
+			check_plane(f->cnb[i], pd, inter, f);
+		else if (f->cnb[i]->cyl != NULL)
+			check_cyl(f->cnb[i], pd, inter, f);
+		else if (f->cnb[i]->con != NULL)
+			check_con(f->cnb[i], pd, inter, f);
+		f->use[f->cnb[i]->nb] = 0;
 	}
 }
 

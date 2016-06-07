@@ -12,16 +12,6 @@
 
 #include "rtv1.h"
 
-// int			new_triangle(t_env *env)
-// {
-// 	t_item	*item;
-
-// 	item = new_t_item(env);
-// 	item->tr = new_t_triangle(100, 0, 0, 3);
-// 	item->next = NULL;
-// 	return (itemadator(env, item));
-// }
-
 inline t_vec		set_dist_pos(FLOAT_SIZE dist, t_vec dir, t_vec o)
 {
 	t_vec r;
@@ -67,7 +57,6 @@ void		check_triangle(t_item *item, t_pd *s, t_inter *inter, t_thr *f)
 	FLOAT_SIZE	b;
 	FLOAT_SIZE	t;
 
-	// ft_putendl("niark");
 	n = (prod_vector(item->tr->u, item->tr->v));
 	a = -dot_prod(n, sub_vec(s->pos, item->tr->p1));
 	b = dot_prod(n, s->dir);

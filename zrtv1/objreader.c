@@ -13,24 +13,24 @@
 #include "rtv1.h"
 #define LIMIT 20000000
 
-#define ISWHITESPACE (*line == '\v' || *line == '\t'  || *line == '\r' \
- || *line == '\f' || *line == ' ')
+#define ISWHITESPACEEND || *line == '\r' || *line == '\f' || *line == ' ')
+#define ISWHITESPACE (*line == '\v' || *line == '\t' ISWHITESPACEEND
 
 t_vec	newobjvect(char *line)
 {
 	t_vec v;
 
-	while(ISWHITESPACE)
+	while (ISWHITESPACE)
 		line++;
 	v.x = ft_fatoi(line);
-	while(!(ISWHITESPACE || *line == '\0'))
+	while (!(ISWHITESPACE || *line == '\0'))
 		line++;
-	while(ISWHITESPACE)
+	while (ISWHITESPACE)
 		line++;
 	v.y = ft_fatoi(line);
-	while(!(ISWHITESPACE || *line == '\0'))
+	while (!(ISWHITESPACE || *line == '\0'))
 		line++;
-	while(ISWHITESPACE)
+	while (ISWHITESPACE)
 		line++;
 	v.z = ft_fatoi(line);
 	return (v);
@@ -58,25 +58,24 @@ void	newtriangleobj(t_obj *obj, char *line, t_vec *v, t_env *env)
 
 	tr = new_t_item(env);
 	tr->tr = new_t_triangle();
-	while(ISWHITESPACE)
+	while (ISWHITESPACE)
 		line++;
-	if((i = ft_fatoi(line)) > 0 && i < LIMIT)
+	if ((i = ft_fatoi(line)) > 0 && i < LIMIT)
 		tr->tr->p1 = v[i];
-	while(!(ISWHITESPACE || *line == '\0'))
+	while (!(ISWHITESPACE || *line == '\0'))
 		line++;
-	while(ISWHITESPACE)
+	while (ISWHITESPACE)
 		line++;
-	if((i = ft_fatoi(line)) > 0 && i < LIMIT)
+	if ((i = ft_fatoi(line)) > 0 && i < LIMIT)
 		tr->tr->p2 = v[i];
-	while(!(ISWHITESPACE || *line == '\0'))
+	while (!(ISWHITESPACE || *line == '\0'))
 		line++;
-	while(ISWHITESPACE)
+	while (ISWHITESPACE)
 		line++;
-	if((i = ft_fatoi(line)) > 0 && i < LIMIT)
+	if ((i = ft_fatoi(line)) > 0 && i < LIMIT)
 		tr->tr->p3 = v[i];
 	i = 0;
 	set_triangle(tr->tr);
-	// env->nb_obj++;
 	additem(obj, tr);
 }
 
@@ -94,13 +93,12 @@ t_obj	*objreader(char *name, t_obj *obj, t_env *env)
 	t_vec	*v;
 	int		i;
 
-	fd = open(name, O_RDONLY);
 	v = malloc(sizeof(v) * (LIMIT + 1));
-	if (fd == -1)
+	if ((fd = open(name, O_RDONLY)) == -1)
 		ft_error("pas de .obj");
 	line = NULL;
 	i = 1;
-	while(get_next_line(fd, &line) > 0 && i < LIMIT)
+	while (get_next_line(fd, &line) > 0 && i < LIMIT)
 	{
 		if (line[0] != 'v' && line[0] != 'f')
 		{
@@ -113,13 +111,6 @@ t_obj	*objreader(char *name, t_obj *obj, t_env *env)
 			newtriangleobj(obj, &line[1], v, env);
 		free(line);
 	}
-	// t_item *tmp;
-	// tmp = obj->tr;
-	// while(tmp)
-	// {
-	// 	printf("%lf, %lf, %lf, %lf, %lf, %lf, %lf, %lf, %lf\n", tmp->tr->p1.x, tmp->tr->p1.y, tmp->tr->p1.z, tmp->tr->p2.x, tmp->tr->p2.y, tmp->tr->p2.z, tmp->tr->p3.x, tmp->tr->p3.y, tmp->tr->p3.z);
-	// 	tmp = tmp->next;
-	// }
 	free(v);
-	return(obj);
+	return (obj);
 }

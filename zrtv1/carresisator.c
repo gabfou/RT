@@ -14,7 +14,6 @@
 
 t_carre		*new_t_carrespe(FLOAT_SIZE size, t_vec pos)
 {
-	// static int	cnb = 1;
 	t_carre		*carre;
 
 	carre = (t_carre*)malloc(sizeof(t_carre));
@@ -84,8 +83,6 @@ t_carre		*divisecarrerisator(t_carre *c2, t_env *env)
 	tmp = c;
 	if (tmp == NULL)
 		ft_putendl("dafuq3");
-	// if (tmp->next)
-	// 	tmp = tmp->next;
 	tmp = divisecarrerisatorauxi(tmp, c2);
 	tmp->next = c2->next;
 	free(c2);

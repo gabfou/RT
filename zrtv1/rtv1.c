@@ -34,8 +34,7 @@ void		checkcamscreen(t_env *env)
 
 void		gpatrouverdnom(t_leviatenv *env, int argc, char *argv)
 {
-	static int  x = 0;
-
+	static int x = 0;
 
 	ft_putendl(argv);
 	init(env->lenv, argc, argv);

@@ -24,7 +24,6 @@ t_item		*new_t_item(t_env *env)
 	item->tr = NULL;
 	item->con = NULL;
 	item->next = NULL;
-	// item->cnb = NULL;
 	item->texture = NULL;
 	item->mat = new_t_mat("niark");
 	item->nb = env->nb_obj++;
@@ -53,7 +52,6 @@ t_cnb		*new_t_cnb(t_item *item)
 
 	cnb = (t_cnb*)malloc(sizeof(t_cnb));
 	cnb->item = item;
-	// item->use = 0;
 	cnb->next = NULL;
 	return (cnb);
 }

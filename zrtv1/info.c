@@ -16,7 +16,6 @@ void	print_params(t_env env)
 {
 	t_light	*light;
 	t_item	*item;
-	// t_cnb	*tmp;
 
 	light = env.light;
 	item = env.item;
@@ -43,12 +42,6 @@ void	print_params(t_env env)
 			printf("Cyl : x = %f; y = %f; z = %f;\n",
 		item->cyl->pos.x, item->cyl->pos.y, item->cyl->pos.z);
 		printf("cnb: ");
-		// tmp = item->cnb;
-		// while (tmp)
-		// {
-		// 	printf(" %d", tmp->i);
-		// 	tmp = tmp->next;
-		// } 
 		printf("\nColor : r = %f; g = %f; b = %f;\n\n",
 		item->mat.diff.r, item->mat.diff.g, item->mat.diff.b);
 		item = item->next;
