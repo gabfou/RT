@@ -12,25 +12,29 @@
 
 #include "rtv1.h"
 
-int carre_pd(t_carre b, t_pd r) {
-	double tmin = -INFINITY, tmax = INFINITY;
+int carre_pd(t_carre b, t_pd r)
+{
+	double	tmin = -INFINITY;
+	double	tmax = INFINITY;
+	double	t1;
+	double	t2;
 
-	if (r.dir.x != 0.0) {
-		double tx1 = (b.pos.x - r.pos.x)/r.dir.x;
-		double tx2 = (b.pos.x + b.size - r.pos.x)/r.dir.x;
- 
-		tmin = fmax(tmin, fmin(tx1, tx2));
-		tmax = fmin(tmax, fmax(tx1, tx2));
+	tmin = -INFINITY;
+	tmax = INFINITY;
+	if (r.dir.x != 0.0)
+	{
+		t1 = (b.pos.x - r.pos.x) / r.dir.x;
+		t2 = (b.pos.x + b.size - r.pos.x) / r.dir.x;
+		tmin = fmax(tmin, fmin(t1, t2));
+		tmax = fmin(tmax, fmax(t1, t2));
 	}
- 
-	if (r.dir.y != 0.0) {
-		double ty1 = (b.pos.y - r.pos.y)/r.dir.y;
-		double ty2 = (b.pos.y + b.size - r.pos.y)/r.dir.y;
- 
-		tmin = fmax(tmin, fmin(ty1, ty2));
-		tmax = fmin(tmax, fmax(ty1, ty2));
+	if (r.dir.y != 0.0)
+	{
+		t1 = (b.pos.y - r.pos.y) / r.dir.y;
+		t2 = (b.pos.y + b.size - r.pos.y) / r.dir.y;
+		tmin = fmax(tmin, fmin(t1, t2));
+		tmax = fmin(tmax, fmax(t1, t2));
 	}
- 
 	return tmax >= tmin;
 }
 
@@ -97,20 +101,9 @@ int		carre_sphere(t_carre *c, t_item *item, int n)
 
 int		carre_triangle(t_carre *c, t_item *item, int n)
 {
-	// FLOAT_SIZE	d;
-	// FLOAT_SIZE	d2;
 	t_vec		min;
 	t_vec		max;
 
-	// d = get_dist(item->tr->p1, item->tr->p2);
-	// d2 = get_dist(item->tr->p1, item->tr->p3);
-	// d = (d > d2) ? d : d2;
-	// if ((c->pos.x < item->tr->p1.x + d
-	// 	&& c->pos.y < item->tr->p1.y + d
-	// 	&& c->pos.z < item->tr->p1.z + d
-	// 	&& c->pos.x + c->size > item->tr->p1.x - d
-	// 	&& c->pos.y + c->size > item->tr->p1.y - d
-	// 	&& c->pos.z + c->size > item->tr->p1.z - d))
 	min.x = fmin(fmin(item->tr->p1.x, item->tr->p2.x), item->tr->p3.x);
 	min.y = fmin(fmin(item->tr->p1.y, item->tr->p2.y), item->tr->p3.y);
 	min.z = fmin(fmin(item->tr->p1.z, item->tr->p2.z), item->tr->p3.z);

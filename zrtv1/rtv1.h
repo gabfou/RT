@@ -32,6 +32,7 @@
 # include "fmod/inc/fmod_dsp_effects.h"
 # include "fmod/inc/fmod_output.h"
 # include <OpenCL/opencl.h>
+#include "norme.h"
 
 # define L_SIZEC	400
 # define L_SIZE		960
@@ -46,8 +47,6 @@
 # define FLOAT_SIZE double
 # define B 0xFFFFFF
 # define NB_CARRE 200000
-
-typedef	struct		s_item t_item;
 
 typedef	struct		s_color
 {
@@ -137,11 +136,6 @@ typedef	struct		s_limg
 	struct s_limg	*next;
 }					t_limg;
 
-typedef	struct		s_obj
-{
-	t_item			*tr;
-}					t_obj;
-
 typedef	struct		s_item
 {
 	t_sphere		*sp;
@@ -195,7 +189,6 @@ typedef	struct		s_carre
 	t_vec			right;
 	FLOAT_SIZE		angle;
 	FLOAT_SIZE		size;
-	// int				cnb;
 	int				nb_obj;
 	struct s_carre	*next;
 }					t_carre;
