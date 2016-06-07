@@ -35,7 +35,7 @@ obj {
 	x: 0,
 	y: 0,
 	z: -2000,
-	obj: MINIC3PO.obj,
+	obj: C3PO.obj,
 }
 
 lum {

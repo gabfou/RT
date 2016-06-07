@@ -144,13 +144,13 @@ void		carresisator(t_env *env)
 	while (c)
 	{
 		impactcarre(c, env, 1);
-		// if (c->cnb == NULL && tmp)
-		// {
-		// 	tmp->next = c->next;
-		// 	free(c);
-		// 	c = tmp->next;
-		// }
-		// else
+		if (c->cnb == NULL && tmp)
+		{
+			tmp->next = c->next;
+			free(c);
+			c = tmp->next;
+		}
+		else
 		{
 			env->nb_carre++;
 			tmp = c;
