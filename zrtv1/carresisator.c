@@ -43,52 +43,45 @@ t_carre		*divisecarrerisatorauxi(t_carre *tmp, t_carre *c2)
 
 	size = c2->size / 2.0;
 	tmp->next = new_t_carrespe(size,
-		new_t_vec(c2->pos.x + (size), c2->pos.y, c2->pos.z));
+		new_t_vec(c2->pos.x + size, c2->pos.y, c2->pos.z));
 	tmp = tmp->next;
 	tmp->next = new_t_carrespe(size,
-		new_t_vec(c2->pos.x, c2->pos.y + (size), c2->pos.z));
+		new_t_vec(c2->pos.x, c2->pos.y + size, c2->pos.z));
 	tmp = tmp->next;
 	tmp->next = new_t_carrespe(size,
-		new_t_vec(c2->pos.x + (size), c2->pos.y + (size), c2->pos.z));
+		new_t_vec(c2->pos.x + size, c2->pos.y + size, c2->pos.z));
 	tmp = tmp->next;
 	tmp->next = new_t_carrespe(size,
 		new_t_vec(c2->pos.x, c2->pos.y, c2->pos.z + size));
 	tmp = tmp->next;
 	tmp->next = new_t_carrespe(size,
-		new_t_vec(c2->pos.x + (size), c2->pos.y, c2->pos.z + size));
+		new_t_vec(c2->pos.x + size, c2->pos.y, c2->pos.z + size));
 	tmp = tmp->next;
 	tmp->next = new_t_carrespe(size,
-		new_t_vec(c2->pos.x, c2->pos.y + (size), c2->pos.z + size));
+		new_t_vec(c2->pos.x, c2->pos.y + size, c2->pos.z + size));
 	tmp = tmp->next;
 	tmp->next = new_t_carrespe(size,
-		new_t_vec(c2->pos.x + (size), c2->pos.y + (size), c2->pos.z + size));
+		new_t_vec(c2->pos.x + size, c2->pos.y + size, c2->pos.z + size));
 	return (tmp->next);
-
 }
 
 t_carre		*divisecarrerisator(t_carre *c2, t_env *env)
 {
 	t_carre	*c;
-	int		i;
 	t_carre	*tmp;
 
-	// break ;
-	i = -1;
 	tmp = env->carre;
 	c = new_t_carrespe(c2->size / 2.0,
 		new_t_vec(c2->pos.x, c2->pos.y, c2->pos.z));
 	if (env->carre == c2)
-	{
 		env->carre = c;
-		tmp = c;
-	}
 	else
 	{
 		while (tmp && tmp->next != c2)
 			tmp = tmp->next;
 		tmp->next = c;
-		tmp = tmp->next;
 	}
+	tmp = c;
 	if (tmp == NULL)
 		ft_putendl("dafuq3");
 	// if (tmp->next)
@@ -113,7 +106,7 @@ void		carresisator(t_env *env)
 	i = -1;
 	test3 = env->nb_obj * 1.5 + 5;
 	test2 = env->nb_obj / 10 + 30;
-	env->carre = new_t_carrespe(10000, new_t_vec(-5000, -5000, -5000));
+	env->carre = new_t_carrespe(1000000, new_t_vec(-500000, -500000, -500000));
 	c = env->carre;
 	while (c && i < NB_CARRE - 17)
 	{
@@ -125,8 +118,8 @@ void		carresisator(t_env *env)
 			// 	c = c->next;
 			// 	continue;
 			// }
-			// i += 7;
-			printf("test = %d\n", test);
+			i += 7;
+			// printf("test = %d\n", test);
 			c = divisecarrerisator(c, env);
 			test3 = test;
 			// break;

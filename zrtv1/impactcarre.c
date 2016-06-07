@@ -12,23 +12,47 @@
 
 #include "rtv1.h"
 
-int		carre_pd(t_carre *b, t_pd r)
-{
-	double tx1;
-	double tx2;
-	double ty1;
-	double ty2;
-	double tz1;
+// int		carre_pd(t_carre *b, t_pd r)
+// {
+// 	double tx1;
+// 	double tx2;
+// 	double ty1;
+// 	double ty2;
+// 	double tz1;
 
-	tx1 = (b->pos.x - r.pos.x) * -1 * r.dir.x;
-	tx2 = (b->pos.x + b->size - r.pos.x) * -1 * r.dir.x;
-	ty1 = (b->pos.y - r.pos.y) * -1 * r.dir.y;
-	ty2 = (b->pos.y + b->size - r.pos.y) * -1 * r.dir.y;
-	tz1 = (b->pos.z - r.pos.z) * -1 * r.dir.z;
-	return (fmax(fmin(tx1, tx2), fmax(fmin(ty1, ty2),
-		fmin(tz1, (b->pos.z + b->size - r.pos.z) * -1 * r.dir.z)))
-		<= 0 + fmin(fmax(tx1, tx2), fmin(fmax(ty1, ty2),
-		fmax(tz1, (b->pos.z + b->size - r.pos.z) * -1 * r.dir.z))));
+// 	r.pos = sub_vec(b->pos, r.pos);
+// 	tx1 = r.pos.x * r.dir.x;
+// 	tx2 = (r.pos.x + b->size) * r.dir.x;
+// 	ty1 = r.pos.y * r.dir.y;
+// 	ty2 = (r.pos.y + b->size) * r.dir.y;
+// 	tz1 = r.pos.z * r.dir.z;
+// 	return (fmax(fmin(tx1, tx2), fmax(fmin(ty1, ty2),
+// 		fmin(tz1, (r.pos.z + b->size) * r.dir.z)))
+// 		<= 1 + fmin(fmax(tx1, tx2), fmin(fmax(ty1, ty2),
+// 		fmax(tz1, (r.pos.z + b->size) * r.dir.z))));
+// }
+
+
+int carre_pd(t_carre b, t_pd r) {
+	double tmin = -INFINITY, tmax = INFINITY;
+
+	if (r.dir.x != 0.0) {
+		double tx1 = (b.pos.x - r.pos.x)/r.dir.x;
+		double tx2 = (b.pos.x + b.size - r.pos.x)/r.dir.x;
+ 
+		tmin = fmax(tmin, fmin(tx1, tx2));
+		tmax = fmin(tmax, fmax(tx1, tx2));
+	}
+ 
+	if (r.dir.y != 0.0) {
+		double ty1 = (b.pos.y - r.pos.y)/r.dir.y;
+		double ty2 = (b.pos.y + b.size - r.pos.y)/r.dir.y;
+ 
+		tmin = fmax(tmin, fmin(ty1, ty2));
+		tmax = fmin(tmax, fmax(ty1, ty2));
+	}
+ 
+	return tmax >= tmin;
 }
 
 void	idciator(t_env *env, t_pd pd, t_item **niark, int *use)
@@ -37,15 +61,13 @@ void	idciator(t_env *env, t_pd pd, t_item **niark, int *use)
 	int		i;
 	t_cnb	*tmp2;
 
-	// ft_bzero(niark, NB_CARRE);
-	ft_bzero(use, env->nb_obj + 1);
 	tmp = env->carre;
 	i = env->infitem;
 	if (tmp == NULL)
 		return ;
 	while (tmp)
 	{
-		if (carre_pd(tmp, pd) == 1)
+		if (carre_pd(*tmp, pd) == 1)
 		{
 			tmp2 = tmp->cnb;
 			while (tmp2)
@@ -99,9 +121,9 @@ int		carre_sphere(t_carre *c, t_item *item, int n)
 // #define Z 2
 
 // #define CROSS(dest,v1,v2) \
-//           dest[0]=v1[1]*v2[2]-v1[2]*v2[1]; \
-//           dest[1]=v1[2]*v2[0]-v1[0]*v2[2]; \
-//           dest[2]=v1[0]*v2[1]-v1[1]*v2[0];
+//		   dest[0]=v1[1]*v2[2]-v1[2]*v2[1]; \
+//		   dest[1]=v1[2]*v2[0]-v1[0]*v2[2]; \
+//		   dest[2]=v1[0]*v2[1]-v1[1]*v2[0];
 
 // #define FINDMINMAX(x0,x1,x2,min,max) \
 //   min = max = x0;   \
@@ -155,15 +177,15 @@ int		carre_sphere(t_carre *c, t_item *item, int n)
 
 int		carre_triangle(t_carre *c, t_item *item, int n)
 {
-	// FLOAT_SIZE	d;
-	// FLOAT_SIZE	d2;
-	t_vec		min;
-	t_vec		max;
+	FLOAT_SIZE	d;
+	FLOAT_SIZE	d2;
+	// t_vec		min;
+	// t_vec		max;
 	// t_pd		pd;
 
-	// d = get_dist(item->tr->p1, item->tr->p2);
-	// d2 = get_dist(item->tr->p1, item->tr->p3);
-	// d = (d > d2) ? d : d2;
+	d = get_dist(item->tr->p1, item->tr->p2);
+	d2 = get_dist(item->tr->p1, item->tr->p3);
+	d = (d > d2) ? d : d2;
 	// pd.pos = item->tr->p1;
 	// pd.dir  = normalizator_ret(sub_vec(item->tr->p1, item->tr->p2));
 	// d2 = carre_pd(c, pd) - 0.1;
@@ -174,26 +196,26 @@ int		carre_triangle(t_carre *c, t_item *item, int n)
 	// d2 += carre_pd(c, pd);
 	// if (d2 < 0)
 	// 	return (0);
-	// if ((c->pos.x < item->tr->p1.x + d
-	// 	&& c->pos.y < item->tr->p1.y + d
-	// 	&& c->pos.z < item->tr->p1.z + d
-	// 	&& c->pos.x + c->size > item->tr->p1.x - d
-	// 	&& c->pos.y + c->size > item->tr->p1.y - d
-		// && c->pos.z + c->size > item->tr->p1.z - d))
-	min.x = fmin(fmin(item->tr->p1.x, item->tr->p2.x), item->tr->p3.x);
-	min.y = fmin(fmin(item->tr->p1.y, item->tr->p2.y), item->tr->p3.y);
-	min.z = fmin(fmin(item->tr->p1.z, item->tr->p2.z), item->tr->p3.z);
-	max.x = fmax(fmax(item->tr->p1.x, item->tr->p2.x), item->tr->p3.x);
-	max.y = fmax(fmax(item->tr->p1.y, item->tr->p2.y), item->tr->p3.y);
-	max.z = fmax(fmax(item->tr->p1.z, item->tr->p2.z), item->tr->p3.z);
-	if (c->pos.x > max.x
-		|| c->pos.y > max.y
-		|| c->pos.z > max.z
-		|| c->pos.x + c->size < min.x
-		|| c->pos.y + c->size < min.y
-		|| c->pos.z + c->size < min.z)
-		return (0);
-	else
+	if ((c->pos.x < item->tr->p1.x + d
+		&& c->pos.y < item->tr->p1.y + d
+		&& c->pos.z < item->tr->p1.z + d
+		&& c->pos.x + c->size > item->tr->p1.x - d
+		&& c->pos.y + c->size > item->tr->p1.y - d
+		&& c->pos.z + c->size > item->tr->p1.z - d))
+	// min.x = fmin(fmin(item->tr->p1.x, item->tr->p2.x), item->tr->p3.x);
+	// min.y = fmin(fmin(item->tr->p1.y, item->tr->p2.y), item->tr->p3.y);
+	// min.z = fmin(fmin(item->tr->p1.z, item->tr->p2.z), item->tr->p3.z);
+	// max.x = fmax(fmax(item->tr->p1.x, item->tr->p2.x), item->tr->p3.x);
+	// max.y = fmax(fmax(item->tr->p1.y, item->tr->p2.y), item->tr->p3.y);
+	// max.z = fmax(fmax(item->tr->p1.z, item->tr->p2.z), item->tr->p3.z);
+	// if (c->pos.x > max.x
+	// 	|| c->pos.y > max.y
+	// 	|| c->pos.z > max.z
+	// 	|| c->pos.x + c->size < min.x
+	// 	|| c->pos.y + c->size < min.y
+	// 	|| c->pos.z + c->size < min.z)
+	// 	return (0);
+	// else
 	{
 		if (n)
 			addcnb(c, new_t_cnb(item));

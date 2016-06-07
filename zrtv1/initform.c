@@ -176,6 +176,8 @@ void	init_obj(t_env *env, t_list **tokens)
 	while(tmp)
 	{
 		tmp->tr->p1 = add_vec(tmp->tr->p1, vec);
+		tmp->tr->p2 = add_vec(tmp->tr->p2, vec);
+		tmp->tr->p3 = add_vec(tmp->tr->p3, vec);
 		tmp = tmp->next;
 	}
 	itemadator(env, item);

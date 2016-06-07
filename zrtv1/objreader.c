@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "rtv1.h"
-#define LIMIT 200000
+#define LIMIT 20000000
 
 #define ISWHITESPACE (*line == '\v' || *line == '\t'  || *line == '\r' \
  || *line == '\f' || *line == ' ')
