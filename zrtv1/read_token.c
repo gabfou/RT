@@ -12,6 +12,11 @@
 
 #include "rtv1.h"
 
+void		next_elem(t_list **elems)
+{
+	*elems = (*elems)->next;
+}
+
 static int	is_word_char(char c)
 {
 	return (ft_isalnum(c) || ft_strchr(WORD_CHARS, c));
@@ -62,7 +67,8 @@ static int	read_word(char **stream, t_token *token)
 static int	read_token(char **stream, t_token *token, int line_number)
 {
 	size_t					i;
-	static t_stream_reader	stream_readers[] = {
+	static t_stream_reader	stream_readers[] =
+	{
 		read_symbol,
 		read_word
 	};
@@ -100,7 +106,7 @@ t_list		*tokenize(char *string, int line_number)
 		ft_putstr_fd("' line ", STDERR);
 		ft_putnbr_fd(token.line, STDERR);
 		WRITE(STDERR, "\n");
-		exit(0);
+		exit (0);
 	}
 	return (tokens);
 }

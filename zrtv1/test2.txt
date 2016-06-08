@@ -5,8 +5,7 @@ cam {
 	dir_x: 1,
 	dir_y: 0,
 	dir_z: 0,
-	rot: 0,
-	zebre: 1,
+	rot: 0
 }
 
 cam {
@@ -16,7 +15,7 @@ cam {
 	dir_x: 2,
 	dir_y: 0,
 	dir_z: -1,
-	rot: 0,
+	rot: 0
 }
 
 cam {
@@ -179,27 +178,13 @@ lum {
 	b: 0
 }
 
-#sphere {
-#	x: 100,
-#	y: 0,
-#	z: 0,
-#	rad: 3,
-#	ref: 1
-#}
-
-obj {
-	x: 92,
-	y: -8,
-	z: -8,
-	obj: cube.obj,
-}
-
 sphere {
 	x: 100,
 	y: 0,
 	z: 0,
-	nega: 1,
-	rad: 10,
+	rad: 3,
+	mat: 1,
+	ref: 0
 }
 
 cone {
@@ -210,6 +195,7 @@ cone {
 	dir_y: 1,
 	dir_z: 0,
 	angle: 10,
+	mat: 1
 }
 
 
@@ -221,6 +207,7 @@ cone {
 	dir_y: 1,
 	dir_z: 1,
 	angle: 10,
+	mat: 1
 }
 
 cone {
@@ -231,6 +218,7 @@ cone {
 	dir_y: 0,
 	dir_z: 1,
 	angle: 10,
+	mat: 1
 }
 
 
@@ -242,6 +230,7 @@ cone {
 	dir_y: 1,
 	dir_z: -1,
 	angle: 10,
+	mat: 1
 }
 
 plane {
@@ -251,6 +240,7 @@ plane {
 	dir_x: -1,
 	dir_y: 0,
 	dir_z: 0,
+	mat: 1
 }
 
 plane {
@@ -260,4 +250,5 @@ plane {
 	dir_x: 1,
 	dir_y: 0,
 	dir_z: 0,
+	mat: 1
 }

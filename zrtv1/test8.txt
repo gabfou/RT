@@ -8,30 +8,34 @@ cam {
 	rot: 0
 }
 
-plane {
-	x: 25,
-	y: 13,
+cam {
+	x: 0,
+	y: 0,
 	z: 0,
-	dir_x: 1,
+	dir_x: -1,
 	dir_y: 0,
-	dir_z: 0
+	dir_z: 0,
+	rot: 0
 }
 
-sphere {
+cam {
 	x: 15,
 	y: 0,
-	z: 5,
-	rad: 2
+	z: 0,
+	dir_x: -1,
+	dir_y: 0,
+	dir_z: 0,
+	rot: 0
 }
 
-cyl {
-	x: 20,
-	y: 0,
-	z: -2,
-	dir_x: 0,
-	dir_y: 1,
-	dir_z: 0,
-	rad: 1
+
+lum {
+	x: -200,
+	y: 200,
+	z: 200,
+	r: 255,
+	g: 255,
+	b: 255
 }
 
 lum {
@@ -43,11 +47,66 @@ lum {
 	b: 255
 }
 
-#lum {
-#	x: 0,
-#	y: 0,
-#	z: 0,
-#	r: 255,
-#	g: 255,
-#	b: 255
-#}
+lum {
+	x: 19,
+	y: 0,
+	z: 0,
+	r: 255,
+	g: 255,
+	b: 255
+}
+
+sphere {
+	x: 8,
+	y: 0,
+	z: 0,
+	rad: 1,
+	ref: 1
+}
+
+sphere {
+	x: -50,
+	y: 0,
+	z: 0,
+	rad: 22,
+	ref: 0
+}
+
+
+sphere {
+	x: 200,
+	y: 1,
+	z: 0,
+	rad: 2,
+	ref: 0
+}
+
+plane {
+	x: 20,
+	y: 0,
+	z: 0,
+	dir_x: -1,
+	dir_y: 0,
+	dir_z: 1,
+	ref: 1
+}
+
+plane {
+	x: 20,
+	y: 0,
+	z: 0,
+	dir_x: -1,
+	dir_y: 0,
+	dir_z: -1,
+	ref: 1
+}
+
+plane {
+	x: 20,
+	y: -2,
+	z: 0,
+	dir_x: -2,
+	dir_y: 10,
+	dir_z: 0,
+	ref: 0
+}

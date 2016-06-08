@@ -15,32 +15,31 @@
 void	loadatorprovisoirauxi(int k, int l, int h, t_leviatenv *e)
 {
 	int i;
-	int l2;
 
 	i = 0;
-	l2 = l / 2;
 	while (++i <= k)
 	{
-		mlx_pixel_put(e->mlx, e->win, l2 - 150 + i * 3, h - h / 10, B);
-		mlx_pixel_put(e->mlx, e->win, l2 - 150 + i * 3, h - h / 10 + 1, B);
-		mlx_pixel_put(e->mlx, e->win, l2 - 150 + i * 3, h - h / 10 + 2, B);
-		mlx_pixel_put(e->mlx, e->win, l2 - 150 + i * 3, h - h / 10 + 3, B);
-		mlx_pixel_put(e->mlx, e->win, l2 - 150 + i * 3, h - h / 10 + 4, B);
-		mlx_pixel_put(e->mlx, e->win, l2 - 150 + i * 3 + 1, h - h / 10, B);
-		mlx_pixel_put(e->mlx, e->win, l2 - 150 + i * 3 + 1, h - h / 10 + 1, B);
-		mlx_pixel_put(e->mlx, e->win, l2 - 150 + i * 3 + 1, h - h / 10 + 2, B);
-		mlx_pixel_put(e->mlx, e->win, l2 - 150 + i * 3 + 1, h - h / 10 + 3, B);
-		mlx_pixel_put(e->mlx, e->win, l2 - 150 + i * 3 + 1, h - h / 10 + 4, B);
-		mlx_pixel_put(e->mlx, e->win, l2 - 150 + i * 3 + 2, h - h / 10, B);
-		mlx_pixel_put(e->mlx, e->win, l2 - 150 + i * 3 + 2, h - h / 10 + 1, B);
-		mlx_pixel_put(e->mlx, e->win, l2 - 150 + i * 3 + 2, h - h / 10 + 2, B);
-		mlx_pixel_put(e->mlx, e->win, l2 - 150 + i * 3 + 2, h - h / 10 + 3, B);
-		mlx_pixel_put(e->mlx, e->win, l2 - 150 + i * 3 + 2, h - h / 10 + 4, B);
+		mlx_pixel_put(e->mlx, e->win, l / 2 - 150 + i * 3, h - h / 10, 0xFFFFFF);
+		mlx_pixel_put(e->mlx, e->win, l / 2 - 150 + i * 3, h - h / 10 + 1, 0xFFFFFF);
+		mlx_pixel_put(e->mlx, e->win, l / 2 - 150 + i * 3, h - h / 10 + 2, 0xFFFFFF);
+		mlx_pixel_put(e->mlx, e->win, l / 2 - 150 + i * 3, h - h / 10 + 3, 0xFFFFFF);
+		mlx_pixel_put(e->mlx, e->win, l / 2 - 150 + i * 3, h - h / 10 + 4, 0xFFFFFF);
+		mlx_pixel_put(e->mlx, e->win, l / 2 - 150 + i * 3 + 1, h - h / 10, 0xFFFFFF);
+		mlx_pixel_put(e->mlx, e->win, l / 2 - 150 + i * 3 + 1, h - h / 10 + 1, 0xFFFFFF);
+		mlx_pixel_put(e->mlx, e->win, l / 2 - 150 + i * 3 + 1, h - h / 10 + 2, 0xFFFFFF);
+		mlx_pixel_put(e->mlx, e->win, l / 2 - 150 + i * 3 + 1, h - h / 10 + 3, 0xFFFFFF);
+		mlx_pixel_put(e->mlx, e->win, l / 2 - 150 + i * 3 + 1, h - h / 10 + 4, 0xFFFFFF);
+		mlx_pixel_put(e->mlx, e->win, l / 2 - 150 + i * 3 + 2, h - h / 10, 0xFFFFFF);
+		mlx_pixel_put(e->mlx, e->win, l / 2 - 150 + i * 3 + 2, h - h / 10 + 1, 0xFFFFFF);
+		mlx_pixel_put(e->mlx, e->win, l / 2 - 150 + i * 3 + 2, h - h / 10 + 2, 0xFFFFFF);
+		mlx_pixel_put(e->mlx, e->win, l / 2 - 150 + i * 3 + 2, h - h / 10 + 3, 0xFFFFFF);
+		mlx_pixel_put(e->mlx, e->win, l / 2 - 150 + i * 3 + 2, h - h / 10 + 4, 0xFFFFFF);
 	}
 }
 
-void	loadator(int h, int l, t_leviatenv *e, int nb)
+void	loadator(int h, int l, t_leviatenv *e, int nb) // ca c est la bar
 {
+//	static int k = 1;
 	char r[4];
 
 	if (h == -1)
@@ -48,18 +47,22 @@ void	loadator(int h, int l, t_leviatenv *e, int nb)
 		e->lenv->limg->k = 1;
 		return ;
 	}
-	if (nb > ((int)(h * l) / 100) * e->lenv->limg->k
-		&& e->lenv->limg->i != NBTHREAD + 1)
+	if (nb > ((int)(h * l) / 100) * e->lenv->limg->k && e->lenv->limg->i != NBTHREAD + 1)
 	{
 		while (nb > ((int)(h * l) / 100) * e->lenv->limg->k)
 			e->lenv->limg->k++;
+		///if (e->lenv->limg->k >= 100)
+		//	e->lenv->limg->k = 99;
+		// ft_putnbr(e->lenv->limg->k);
+		// ft_putendl("%");
+		// e->lenv->limg->k++;
 		mlx_clear_window(e->mlx, e->win);
 		loadatorprovisoirauxi(e->lenv->limg->k, l, h, e);
 		r[0] = (e->lenv->limg->k / 10) % 10 + '0';
 		r[1] = e->lenv->limg->k % 10 + '0';
 		r[2] = '%';
 		r[3] = 0;
-		mlx_string_put(e->mlx, e->win, l / 2 - 130, h - h / 10 + 5, B, r);
+		mlx_string_put(e->mlx, e->win, l / 2 - 130, h - h / 10 + 5, 0xFFFFFF, r);
 		mlx_do_sync(e->mlx);
 	}
 }

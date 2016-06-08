@@ -6,7 +6,7 @@
 /*   By: ibuchwal <ibuchwal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 21:20:47 by ibuchwal          #+#    #+#             */
-/*   Updated: 2016/04/06 23:31:29 by ibuchwal         ###   ########.fr       */
+/*   Updated: 2016/02/25 21:20:56 by ibuchwal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,21 +36,4 @@ t_token	*get_token(t_list **tokens)
 
 	token = (t_token*)((*tokens)->content);
 	return (token);
-}
-
-void	free_tokens(t_list **tokens)
-{
-	t_list	*copy;
-	t_list	*tmp;
-
-	copy = *tokens;
-	while (copy)
-	{
-		free(get_token(&copy)->lexeme);
-		free(copy->content);
-		tmp = copy;
-		next_elem(&copy);
-		free(tmp);
-	}
-	*tokens = NULL;
 }

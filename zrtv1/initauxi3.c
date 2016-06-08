@@ -12,14 +12,25 @@
 
 #include "rtv1.h"
 
+void		rotationator(t_vec *vec , double angle)
+{
+	t_vec tmp;
+
+	if (angle == 0)
+		return ;
+	tmp.x = vec->z;
+	tmp.y = vec->y;
+	vec->z = cos(angle) * tmp.x - sin(angle) * tmp.y;
+	vec->y = sin(angle) * tmp.x + cos(angle) * tmp.y;
+}
+
 void		setcam(t_env *env, t_cam *cam)
 {
 	t_cam	*copy;
 
 	cam->angle = cam->angle * M_PI / 180;
 	normalizator(&(cam->dir));
-	if (cam->dir.x == 0 && cam->dir.z == 0
-		&& (cam->dir.y == 1 || cam->dir.y == -1))
+	if (cam->dir.x == 0 && cam->dir.z == 0 && (cam->dir.y == 1 || cam->dir.y == -1))
 		cam->up = new_t_vec(cam->dir.y, 0, 0);
 	else
 		cam->up = new_t_vec(0, 1, 0);
@@ -38,14 +49,6 @@ void		setcam(t_env *env, t_cam *cam)
 			copy = copy->next;
 		copy->next = cam;
 	}
-}
-
-void		camstupid(t_cam *cam, t_list **tokens)
-{
-	if (ft_strcmp(get_token(tokens)->lexeme, "zebre") == 0)
-		cam->zebre = token_to_float(tokens);
-	else if (ft_strcmp(get_token(tokens)->lexeme, "rfu") == 0)
-		cam->rfu = token_to_float(tokens);
 }
 
 void		init_camera(t_env *env, t_list **tokens)
@@ -70,18 +73,15 @@ void		init_camera(t_env *env, t_list **tokens)
 			cam->dir.z = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "rot") == 0)
 			cam->angle = token_to_float(tokens);
-		else
-			camstupid(cam, tokens);
 		next_elem(tokens);
 	}
 	setcam(env, cam);
 }
 
-void		addlight(t_env *env, t_light *light, t_color rgb)
-{
+void	addlight(t_env *env, t_light *light)
+{	
 	t_light	*copy;
 
-	light->color = get_color(rgb.r, rgb.g, rgb.b);
 	if (!env->light)
 		env->light = light;
 	else
@@ -111,13 +111,17 @@ void		init_light(t_env *env, t_list **tokens)
 			light->pos.y = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "z") == 0)
 			light->pos.z = token_to_float(tokens);
+		else if (ft_strcmp(get_token(tokens)->lexeme, "photon") == 0)
+			light->photon = (int)token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "r") == 0)
-			rgb.r = token_to_float(tokens);
+			light->rcolor.r = (int)token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "g") == 0)
-			rgb.g = token_to_float(tokens);
+			light->rcolor.g = (int)token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "b") == 0)
-			rgb.b = token_to_float(tokens);
+			light->rcolor.b = (int)token_to_float(tokens);
 		next_elem(tokens);
 	}
-	addlight(env, light, rgb);
+	printf("%f  %f  %f\n", light->rcolor.r, light->rcolor.g, light->rcolor.b);
+	printf("%d\n", get_color(light->rcolor.r, light->rcolor.g, light->rcolor.b));
+	addlight(env, light);
 }

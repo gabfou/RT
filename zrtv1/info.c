@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   info.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibuchwal <ibuchwal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gfournie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 00:20:30 by gfournie          #+#    #+#             */
-/*   Updated: 2016/04/09 20:14:39 by ibuchwal         ###   ########.fr       */
+/*   Updated: 2016/03/28 00:20:32 by gfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	print_params(t_env env)
 	while (light)
 	{
 		printf("Light : x = %f; y = %f; z = %f; color = %d;\n",
-		light->pos.x, light->pos.y, light->pos.z, light->color);
+		light->pos.x, light->pos.y, light->pos.z, get_color(light->rcolor.r,
+		 light->rcolor.g, light->rcolor.b));
 		light = light->next;
 	}
 	while (item)
@@ -41,22 +42,8 @@ void	print_params(t_env env)
 		if (item->cyl)
 			printf("Cyl : x = %f; y = %f; z = %f;\n",
 		item->cyl->pos.x, item->cyl->pos.y, item->cyl->pos.z);
-		printf("cnb: ");
-		printf("\nColor : r = %f; g = %f; b = %f;\n\n",
+		printf("Color : r = %f; g = %f; b = %f;\n",
 		item->mat.diff.r, item->mat.diff.g, item->mat.diff.b);
 		item = item->next;
-	}
-}
-
-void	print_carre(t_env env)
-{
-	t_carre	*carre;
-
-	carre = env.carre;
-	while (carre)
-	{
-		printf("carre d : x = %f; y = %f; z = %f; size = %f;\n",
-		carre->pos.x, carre->pos.y, carre->pos.z, carre->size);
-		carre = carre->next;
 	}
 }

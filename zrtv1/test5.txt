@@ -13,8 +13,8 @@ lum {
 	y: 0,
 	z: 0,
 	r: 255,
-	g: 255,
-	b: 255
+	g: 0,
+	b: 0
 }
 
 sphere {
@@ -38,6 +38,5 @@ sphere {
 	y: -2,
 	z: 0,
 	rad: 1,
-	mat: 1,
-	texture: niark3.xpm
+	mat: 1
 }
