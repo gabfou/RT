@@ -24,7 +24,8 @@ void	print_params(t_env env)
 	while (light)
 	{
 		printf("Light : x = %f; y = %f; z = %f; color = %d;\n",
-		light->pos.x, light->pos.y, light->pos.z, light->color);
+		light->pos.x, light->pos.y, light->pos.z, get_color(light->rcolor.r,
+		 light->rcolor.g, light->rcolor.b));
 		light = light->next;
 	}
 	while (item)

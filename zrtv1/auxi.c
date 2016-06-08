@@ -182,32 +182,34 @@ void	set_inter_pos(t_inter *inter, t_pd *pd)
 	inter->pos.z = (pd->pos.z + (pd->dir.z * inter->t));
 }
 
-int		check_t(t_inter *inter, FLOAT_SIZE t, FLOAT_SIZE trans, t_item *item)
+int		check_t(t_inter *inter, FLOAT_SIZE t, t_item *item)
 {
-	t_trans	*tmp;
+	// t_trans	*tmp;
 	//ft_putendl("check t");
 //	printf("IUHIPUHGIUO%f %f\n", inter->t, t);
-	if (trans > 0)
-	{
-	//	ft_putendl("check trans");
-		tmp = inter->trans;
-		if (inter->trans == NULL)
-		{
-			inter->trans = new_t_trans(t, trans);
-	//		ft_putendl("FIN 1");
-			return (0);
-		}
-		while (tmp->next != NULL)
-			tmp = tmp->next;
-		tmp->next = new_t_trans(t, trans);
-		//ft_putendl("FIN 2");
-		return (0);
-	}
-	if ((inter->t > t && t > 0) || inter->t < 0)
+
+	if ((inter->t > t && t > 0.0001) || inter->t < 0.0001)
 	{
 		inter->t = t;
 		inter->ref = item->mat.ref;
 		inter->diff = item->mat.diff;
+		inter->trans = item->mat.trans;
+	// 	if (inter->trans > 0)
+	// 	{
+	// //		ft_putendl("check trans");
+	// 		tmp = inter->trans;
+	// 		if (inter->trans == NULL)
+	// 		{
+	// 			inter->trans = new_t_trans(t, trans);
+	// //			ft_putendl("FIN 1");
+	// 		}
+	// 		while (tmp->next != NULL)
+	// 			tmp = tmp->next;
+	// 		tmp->next = new_t_trans(t, trans);
+	// 	//ft_putendl("FIN 2");
+	// 	}
+		// inter->preidr = inter->postidr;
+		// inter->postidr = item->mat.idr;
 		// printf("%f\n", item->mat.diff.r);
 		//ft_putstr(".");
 		//printf("%f\n", inter->t);

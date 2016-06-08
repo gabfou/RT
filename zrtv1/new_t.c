@@ -108,6 +108,7 @@ t_mat		new_t_mat(char *name)
 	mat.trans = 0;
 	mat.ref = -1;
 	mat.diff = new_t_color(1, 1, 1);
+	mat.idr = 1;
 	return (mat);
 }
 
@@ -118,8 +119,10 @@ t_inter		new_t_inter()
 	inter.t = -1;
 	inter.norm = new_t_vec(0, 0, 0);
 	inter.pos = new_t_vec(0, 0, 0);
-	inter.trans = NULL;
+	inter.trans = 0;
 	inter.ref = -1;
 	inter.diff = new_t_color(1, 1, 1);
+	inter.preidr = 1;
+	inter.postidr = 1;
 	return (inter);
 }

@@ -184,7 +184,7 @@ sphere {
 	z: 0,
 	rad: 3,
 	mat: 1,
-	ref: 1
+	ref: 0
 }
 
 cone {

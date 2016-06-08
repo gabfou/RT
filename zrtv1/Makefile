@@ -44,11 +44,14 @@ SRC =  rtv1.c \
 	   initform.c \
 	   initauxi3.c \
 	   info.c \
-	   modifitem.c	\
+	   modifitem.c \
+	   helios.c \
+	   helios_2.c
+
 	  
 OBJ = $(SRC:.c=.o)
 CC = clang
-CFLAGS = -Wall -Wextra -Werror -g3
+CFLAGS = -Wall -Wextra -Werror -g3 -ferror-limit=999
 LFLAGS = -L libft -lpthread -lft -lmlx -framework OpenGL -framework AppKit
 
 all: $(NAME)

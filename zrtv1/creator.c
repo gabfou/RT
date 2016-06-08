@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+ /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   creator.c                                          :+:      :+:    :+:   */
@@ -12,33 +12,32 @@
 
 #include "rtv1.h"
 
-void		impactor(t_env *env, t_pd *pd, t_thr *f, t_inter *inter)
+void		impactor(t_pd *pd, t_item *item, t_inter *inter)
 {
 	t_item	*lst;
 
-	(void)env;
-	lst = f->item;
-	while (f->item != NULL)
+	lst = item;
+	while (item != NULL)
 	{
-		if (f->item->sp != NULL)
+		if (item->sp != NULL)
 		{
-			check_sphere(f->item, pd, inter);
+			check_sphere(item, pd, inter);
 		}
-		else if (f->item->pl != NULL)
+		else if (item->pl != NULL)
 		{
-			check_plane(f->item, pd, inter);
+			check_plane(item, pd, inter);
 		}
-		else if (f->item->cyl != NULL)
+		else if (item->cyl != NULL)
 		{
-			check_cyl(f->item, pd, inter);
+			check_cyl(item, pd, inter);
 		}
-		else if (f->item->con != NULL)
+		else if (item->con != NULL)
 		{
-			check_con(f->item, pd, inter);
+			check_con(item, pd, inter);
 		}
-		f->item = f->item->next;
+		item = item->next;
 	}
-	f->item = lst;
+	item = lst;
 }
 
 void		t_inter_set(t_inter *inter)
@@ -50,7 +49,7 @@ void		t_inter_set(t_inter *inter)
 	inter->pos.y = 0;
 	inter->pos.z = 0;
 	inter->t = -1;
-	inter->trans = NULL;
+	inter->trans = 0;
 	inter->diff = new_t_color(1, 1, 1);
 }
 
@@ -215,16 +214,23 @@ void		creator(t_cor *c)
 				x = f->minx;
 				while (x < f->maxx)
 				{
+					// printf("%f\n", x);
 					pd->pos = f->cam->pos;
 					f->fcolor = 0x000000;
 					t_inter_set(&(f->inter));
+
 					calc_dir(&(pd->dir), x, y, f);
-					impactor(f->env, pd, f, &(f->inter));
-					c->env->mircount = 0;
-					if (f->inter.ref > 0 && c->env->mircount++ < 8)
-						ref(f, c, pd);
-					set_inter_pos(&(f->inter), pd);
-					luminator(f->env, f);
+					impactor(pd, f->item, &(f->inter));
+					if (f->inter.ref > 0)
+					{
+						set_inter_pos(&(f->inter), pd);
+						f->fcolor = transroitor(&(f->inter), f, pd);
+					}
+					else
+					{
+						set_inter_pos(&(f->inter), pd);
+						f->fcolor = amaterasu(f, &f->inter);
+					}
 					pixel_to_image(x, y, f->fcolor, f->limg);
 					f->limg->l++;
 					//free(f->inter);
@@ -247,6 +253,7 @@ void		creator(t_cor *c)
 	free(f);
 	pthread_exit(NULL);
 }
+
 // void		creator(t_cor *c)
 // {
 // 	double		x;

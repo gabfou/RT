@@ -158,6 +158,7 @@ t_env		*new_t_env()
 	env->nbr = 0;
 	env->prev = NULL;
 	env->next = NULL;
+	env->prototree = NULL;
 	return (env);
 }
 
@@ -193,6 +194,7 @@ void		gpatrouverdnom(t_leviatenv *env, int argc, char *argv)
 	// ft_putendl("pastrouvednom 1 2");
 	env->win = mlx_new_window(env->mlx, env->lenv->screen.l, env->lenv->screen.h, "RTV1");
 	t_limg_initator(env);
+	env->lenv->prototree = helios(env->lenv->item, env->lenv->light, env->lenv->prototree);
 	// ft_putendl("pastrouvednom 1 3");
 }
 

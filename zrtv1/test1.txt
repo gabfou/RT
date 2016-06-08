@@ -246,7 +246,7 @@ plane {
 	z: 0,
 	dir_x: 1,
 	dir_y: 0,
-	dir_z: 0,
+	dir_z: 0
 }
 
 

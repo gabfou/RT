@@ -23,6 +23,7 @@
 # include <stdio.h>
 # include <errno.h>
 # include <pthread.h>
+# include <time.h>
 
 # define L_SIZEC	400
 # define L_SIZE		960
@@ -36,6 +37,11 @@
 # define NBTHREAD	4
 # define FLOAT_SIZE double
 
+# define AIR_INCI 1
+# define GLASS_INCI 1.51
+
+
+
 typedef	struct		s_color
 {
 	FLOAT_SIZE		r;
@@ -46,14 +52,22 @@ typedef	struct		s_color
 typedef	struct		s_mat
 {
 	char			*name;
-	t_color			spec;
+	t_color			specular;
 	t_color			diff;
-	t_color			amb;
-	t_color			selfi;
+	t_color			ambiant;
+	t_color			selfillum;
+
 	FLOAT_SIZE		shiny;
 	FLOAT_SIZE		shinystr;
+
 	FLOAT_SIZE		trans;
+	FLOAT_SIZE		coefref;
+	FLOAT_SIZE		coeftrans;
+	FLOAT_SIZE		coefdiffuse;
+
 	FLOAT_SIZE		ref;
+
+	FLOAT_SIZE		idr;
 }					t_mat;
 
 typedef	struct		s_vec
@@ -62,6 +76,13 @@ typedef	struct		s_vec
 	FLOAT_SIZE		y;
 	FLOAT_SIZE		z;
 }					t_vec;
+
+typedef	struct		s_phcol
+{
+	t_color			color;
+	FLOAT_SIZE		dist;
+	struct s_phcol	*next;
+}					t_phcol;
 
 typedef	struct		s_sphere
 {
@@ -86,7 +107,8 @@ typedef	struct		s_con
 typedef	struct		s_light
 {
 	t_vec			pos;
-	unsigned int	color;
+	t_color			rcolor;
+	int				photon;
 	struct s_light	*next;
 }					t_light;
 
@@ -121,64 +143,28 @@ typedef struct		s_trans
 	struct		s_trans			*next;
 }					t_trans;
 
+typedef struct		s_proto
+{
+	t_color			color;
+	FLOAT_SIZE		x;
+	FLOAT_SIZE		y;
+	FLOAT_SIZE		z;
+	t_vec			inc;
+	struct		s_proto		*droite;
+	struct		s_proto		*gauche;
+}					t_proto;
+
 typedef	struct		s_inter
 {
 	double			t;
 	t_vec			norm;
 	t_vec			pos;
-	t_trans			*trans;
+	FLOAT_SIZE		trans;
 	t_color			diff;
 	FLOAT_SIZE		ref;
+	FLOAT_SIZE		preidr;
+	FLOAT_SIZE		postidr;
 }					t_inter;
-
-// typedef	struct		s_screen
-// {
-// 	t_vec			upleft;
-// }					t_screen;
-
-// typedef	struct		s_cam
-// {
-// 	t_vec			pos;
-// 	t_vec			dir;
-// 	t_vec			up;
-// 	t_vec			right;
-// 	FLOAT_SIZE			angle;
-// }					t_cam;
-
-// typedef	struct		s_thr
-// {
-// 	FLOAT_SIZE			minx;
-// 	FLOAT_SIZE			maxx;
-// 	FLOAT_SIZE			miny;
-// 	FLOAT_SIZE			maxy;
-// 	unsigned int	fcolor;
-// 	t_inter			inter;
-// 	t_item			*item;
-// 	t_light			*light;
-// }				t_thr;
-
-// typedef	struct		s_env
-// {
-// 	void			*mlx;
-// 	void			*win;
-// 	void			*image;
-// 	char			*img;
-// 	int				**t;
-// 	int				bpp;
-// 	int				endiant;
-// 	int				sline;
-
-// 	t_cam			*cam;
-// 	t_screen		*screen;
-// 	t_item			*item;
-// 	t_light			*light;
-// 	t_inter			inter;
-// 	unsigned int	fcolor;
-// 	int				done;
-// 	int				l;
-// 	int				i;
-	
-// }					t_env
 
 typedef	struct			s_limg
 {
@@ -229,7 +215,9 @@ typedef	struct		s_env
 	t_cam			*cam;
 	t_item			*item;
 	t_light			*light;
+	t_proto			*prototree;
 	t_inter			inter;
+	t_trans			*translist;
 	unsigned int	fcolor;
 	int				done;
 	int				nbr;
@@ -299,7 +287,7 @@ t_item			*new_t_item();
 t_cam			*new_t_cam();
 t_screen		new_t_screen();
 
-int				check_t(t_inter *inter, FLOAT_SIZE t, FLOAT_SIZE trans, t_item *item);
+int				check_t(t_inter *inter, FLOAT_SIZE t , t_item *item);
 
 void			check_sphere(t_item *item, t_pd *s, t_inter *inter);
 void			check_plane(t_item *item, t_pd *s, t_inter *inter);
@@ -307,9 +295,9 @@ void			normalizator(t_vec *vec);
 t_vec			normalizator_ret(t_vec vec);
 FLOAT_SIZE		ft_fatoi(char *s);
 
-void			impactor(t_env *env, t_pd *pd, t_thr *f, t_inter *inter);
+void			impactor(t_pd *pd, t_item *item, t_inter *inter);
 
-void			luminator(t_env *e, t_thr *f);
+t_color		luminator(t_thr *f/*, t_inter *inter*/);
 
 t_light			*fill_t_light(char **t, t_light *light);
 void			print_vec(t_vec vec);
@@ -339,7 +327,7 @@ int				thread_master(t_env *env);
 
 t_trans			*new_t_trans(FLOAT_SIZE t, FLOAT_SIZE colabs);
 FLOAT_SIZE		transparencator(unsigned int color, FLOAT_SIZE trans);
-FLOAT_SIZE		trans_calculator(t_trans *trans, FLOAT_SIZE	t);
+//FLOAT_SIZE		trans_calculator(t_trans *trans, FLOAT_SIZE	t);
 
 int				tlen(char **tab);
 
@@ -368,7 +356,7 @@ t_vec			set_screen(t_cam *cam, t_screen screen);
 void			initmat(t_list	**tokens, t_item *item);
 int				get_t_cam_lenght(t_cam *cam);
 void			init_env(t_leviatenv *levia);
-void			ref(t_thr *f, t_cor *c, t_pd *pd);
+//void			ref(t_thr *f, t_pd *pd);
 
 void			init_sphere(t_env *env, t_list **tokens);
 void			init_plane(t_env *env, t_list **tokens);
@@ -378,5 +366,10 @@ void			init_camera(t_env *env, t_list **tokens);
 void			init_light(t_env *env, t_list **tokens);
 void			setcam(t_env *env, t_cam *cam);
 
-
+t_vec			miroiratorvcalculator(t_vec ray, t_vec norm);
+unsigned int	transroitor(t_inter *inter, t_thr *f, t_pd *pd);
+t_proto			*helios(t_item *item, t_light *light, t_proto *prototree);
+unsigned int	amaterasu(t_thr *f, t_inter *inter);
+unsigned int		color_mult(unsigned int color, FLOAT_SIZE r, FLOAT_SIZE g, FLOAT_SIZE b);
+t_vec		conseiller_d_orientation_protonique_alcolique();
 #endif

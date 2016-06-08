@@ -111,14 +111,17 @@ void		init_light(t_env *env, t_list **tokens)
 			light->pos.y = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "z") == 0)
 			light->pos.z = token_to_float(tokens);
+		else if (ft_strcmp(get_token(tokens)->lexeme, "photon") == 0)
+			light->photon = (int)token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "r") == 0)
-			rgb.r = token_to_float(tokens);
+			light->rcolor.r = (int)token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "g") == 0)
-			rgb.g = token_to_float(tokens);
+			light->rcolor.g = (int)token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "b") == 0)
-			rgb.b = token_to_float(tokens);
+			light->rcolor.b = (int)token_to_float(tokens);
 		next_elem(tokens);
 	}
-	light->color = get_color(rgb.r, rgb.g, rgb.b);
+	printf("%f  %f  %f\n", light->rcolor.r, light->rcolor.g, light->rcolor.b);
+	printf("%d\n", get_color(light->rcolor.r, light->rcolor.g, light->rcolor.b));
 	addlight(env, light);
 }

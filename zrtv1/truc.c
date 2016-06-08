@@ -251,4 +251,55 @@ void			get_file(t_env *e, char *name)
 	e->light = light;
 	e->item = item;
 	check_check(check);
-}*/
+}
+
+
+
+// typedef	struct		s_screen
+// {
+// 	t_vec			upleft;
+// }					t_screen;
+
+// typedef	struct		s_cam
+// {
+// 	t_vec			pos;
+// 	t_vec			dir;
+// 	t_vec			up;
+// 	t_vec			right;
+// 	FLOAT_SIZE			angle;
+// }					t_cam;
+
+// typedef	struct		s_thr
+// {
+// 	FLOAT_SIZE			minx;
+// 	FLOAT_SIZE			maxx;
+// 	FLOAT_SIZE			miny;
+// 	FLOAT_SIZE			maxy;
+// 	unsigned int	fcolor;
+// 	t_inter			inter;
+// 	t_item			*item;
+// 	t_light			*light;
+// }				t_thr;
+
+// typedef	struct		s_env
+// {
+// 	void			*mlx;
+// 	void			*win;
+// 	void			*image;
+// 	char			*img;
+// 	int				**t;
+// 	int				bpp;
+// 	int				endiant;
+// 	int				sline;
+
+// 	t_cam			*cam;
+// 	t_screen		*screen;
+// 	t_item			*item;
+// 	t_light			*light;
+// 	t_inter			inter;
+// 	unsigned int	fcolor;
+// 	int				done;
+// 	int				l;
+// 	int				i;
+	
+// }		
