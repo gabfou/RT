@@ -61,6 +61,16 @@ static int		str_split_new(char **head, char **left, int index)
 	return (1);
 }
 
+void			check_nope(char *b, int i)
+{
+	while (i >= 0)
+	{
+		if (b[i] == '\0')
+			ft_error("nope.");
+		i--;
+	}
+}
+
 int				get_next_line(const int fd, char **line)
 {
 	static char	*remains = 0;
@@ -75,6 +85,7 @@ int				get_next_line(const int fd, char **line)
 	{
 		if ((size_read = read(fd, buff, BUFF_SIZE)) == -1)
 			return (-1);
+		check_nope(buff, size_read - 1);
 		if (size_read > 0)
 			str_append_new(&remains, buff, size_read);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initauxi.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfournie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ibuchwal <ibuchwal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 19:53:34 by gfournie          #+#    #+#             */
-/*   Updated: 2016/03/21 19:53:35 by gfournie         ###   ########.fr       */
+/*   Updated: 2016/04/06 23:31:34 by ibuchwal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,28 +56,32 @@ t_list		*get_tokens(int fd)
 
 void		delete_symbols(t_list **tokens)
 {
-	t_list	*save;
+	t_list	*copy;
+	t_list	*tmp;
 
-	save = *tokens;
-	while ((*tokens)->next)
+	copy = *tokens;
+	while (copy && copy->next)
 	{
-		if (!terminal(&(*tokens)->next, WORD)
-			&& !terminal(&(*tokens)->next, CLOSING_BRACKET))
+		if (!terminal(&copy->next, WORD)
+			&& !terminal(&copy->next, CLOSING_BRACKET))
 		{
-			if ((*tokens)->next->next)
-				(*tokens)->next = (*tokens)->next->next;
+			tmp = copy->next;
+			if (copy->next->next)
+				copy->next = copy->next->next;
 			else
-				(*tokens)->next = NULL;
+				copy->next = NULL;
+			free(get_token(&tmp)->lexeme);
+			free(tmp->content);
+			free(tmp);
 		}
-		if ((*tokens)->next)
-			next_elem(tokens);
+		if (copy->next)
+			next_elem(&copy);
 		else
 			break ;
 	}
-	(*tokens) = save;
 }
 
-FLOAT_SIZE		token_to_float(t_list **tokens)
+FLOAT_SIZE	token_to_float(t_list **tokens)
 {
 	next_elem(tokens);
 	return (ft_fatoi(get_token(tokens)->lexeme));

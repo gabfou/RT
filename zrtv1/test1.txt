@@ -12,6 +12,28 @@ cam {
 	x: 0,
 	y: 0,
 	z: 0,
+	dir_x: 1,
+	dir_y: 0,
+	dir_z: 0,
+	rot: 0,
+	rfu: 1,
+}
+
+cam {
+	x: 0,
+	y: 0,
+	z: 0,
+	dir_x: 1,
+	dir_y: 0,
+	dir_z: 0,
+	rot: 0,
+	zebre: 1,
+}
+
+cam {
+	x: 0,
+	y: 0,
+	z: 0,
 	dir_x: -1,
 	dir_y: 0,
 	dir_z: 0,
@@ -246,7 +268,7 @@ plane {
 	z: 0,
 	dir_x: 1,
 	dir_y: 0,
-	dir_z: 0
+	dir_z: 0,
 }
 
 

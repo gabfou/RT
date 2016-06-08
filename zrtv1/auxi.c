@@ -12,86 +12,12 @@
 
 #include "rtv1.h"
 
-inline FLOAT_SIZE		get_dist(const t_vec v1, const t_vec v2)
-{
-	return (sqrt(carre(v2.x - v1.x) + carre(v2.y - v1.y) + carre(v2.z - v1.z)));
-}
-
-inline t_vec		vec_mult(const t_vec v1, const FLOAT_SIZE x)
-{
-	return (new_t_vec(v1.x * x , v1.y * x, v1.z * x));
-}
-
-inline t_vec		prod_vector(const t_vec v1, const t_vec v2)
-{
-	return (new_t_vec(v1.y * v2.z - v1.z * v2.y, v1.z * v2.x - v1.x * v2.z,  v1.x * v2.y - v1.y * v2.x));
-}
-
-inline t_vec		sub_vec(const t_vec v1, const t_vec v2)
-{
-	return (new_t_vec(v1.x - v2.x , v1.y - v2.y, v1.z - v2.z));
-}
-
-inline t_vec		add_vec(const t_vec v1, const t_vec v2)
-{
-	return (new_t_vec(v1.x + v2.x , v1.y + v2.y, v1.z + v2.z));
-}
-
-inline FLOAT_SIZE		dot_prod(const t_vec v1, const t_vec v2)
-{
-	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
-}
-
-inline t_vec		vector_proj_vector(const t_vec v1, const t_vec v2) // project vector 1 in vector 2
-{
-	t_vec	ret;
-
-	ret = vec_mult(v2, dot_prod(v1, v2) / dot_prod(v2, v2));
-	return (ret);
-}
-
-inline FLOAT_SIZE		ft_min(const FLOAT_SIZE a, const FLOAT_SIZE b)
-{
-	if (a > b)
-		return (b);
-	return (a);
-}
-
-t_vec	normalizator_ret(t_vec vec)
-{
-	long double	lenght;
-
-	lenght = sqrt(carre(vec.x) + carre(vec.y) + carre(vec.z));
-	// if (lenght == 0)
-	// 	ft_error("i just saved the universe!");
-	if (lenght == 0.0)
-		ft_putendl("i just saved the universe!");
-	vec.x = vec.x / lenght;
-	vec.y = vec.y / lenght;
-	vec.z = vec.z / lenght;
-	return (vec);
-}
-
-void	normalizator(t_vec *vec)
-{
-	long double	lenght;
-
-	lenght = sqrt(carre(vec->x) + carre(vec->y) + carre(vec->z));
-	// if (lenght == 0)
-	// 	ft_error("i just saved the universe!");
-	if (lenght == 0.0)
-		ft_putendl("i just saved the universe!");
-	vec->x = vec->x / lenght;
-	vec->y = vec->y / lenght;
-	vec->z = vec->z / lenght;
-}
-
 void		ft_puttab(char **tab)
 {
 	int	i;
 
 	i = 0;
-	while(tab[i])
+	while (tab[i])
 	{
 		printf("tab[%d] = %s\n", i, tab[i]);
 		i++;
@@ -101,68 +27,9 @@ void		ft_puttab(char **tab)
 void		print_vec(t_vec vec)
 {
 	(void)vec;
-	// printf("x = [%f]\n", vec.x);
-	// printf("y = [%f]\n", vec.y);
-	// printf("z = [%f]\n\n", vec.z);
-}
-
-FLOAT_SIZE	fatoi_aux(char *str, FLOAT_SIZE *si, FLOAT_SIZE *di)
-{
-	int	i;
-	FLOAT_SIZE	k;
-
-	i = 0;
-	k = 0;
-	while (str[i] == ' ' || str[i] == '\n' || str[i] == '\v'
-			|| str[i] == '\t' || str[i] == '\r' || str[i] == '\f')
-		i++;
-	if (str[i] != '-' && str[i] != '+' && (str[i] < '0' || str[i] > '9'))
-		return (0);
-	if (str[i] == '-' || str[i] == '+')
-	{
-		i++;
-		if (str[i] < '0' || str[i] > '9')
-			return (0);
-	}
-	if (*si == 0)
-		*si = (str[i - 1] == '-') ? -1 : 1;
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		k = k * 10 + str[i] - '0';
-		i++;
-	}
-	*di = i;
-	// printf("di =%f\n", *di);
-	return (k);
-}
-
-FLOAT_SIZE	ft_fatoi(char *s)
-{
-	FLOAT_SIZE	d1;
-	FLOAT_SIZE	d2;
-	int		i;
-	FLOAT_SIZE	si;
-	FLOAT_SIZE	di;
-
-	i = 0;
-	d2 = 0;
-	si = 0;
-	d1 = fatoi_aux(s, &si, &di);
-	while(s[i] && s[i] != '.')
-		i++;
-	di = 0;
-	if (s[i] && s[i] == '.')
-		d2 = fatoi_aux(&s[i + 1], &si, &di);
-	// printf("s = %f d1 = %f d2 = %f\n",si, d1 ,d2);
-	// printf("di =%f\n", di);
-	while (di > 0)
-	{
-		d2 = d2 / 10;
-		di--;
-	}
-	// printf("s = %f d1 = %f d2 = %f\n",si, d1 ,d2);
-	// printf("fatoi = %f\n", si * (d1 + d2));
-	return (si * (d1 + d2));
+	printf("x = [%f]\n", vec.x);
+	printf("y = [%f]\n", vec.y);
+	printf("z = [%f]\n\n", vec.z);
 }
 
 FLOAT_SIZE	carre(FLOAT_SIZE x)
@@ -170,53 +37,46 @@ FLOAT_SIZE	carre(FLOAT_SIZE x)
 	return (x * x);
 }
 
-t_vec	set_new_pos(t_vec dir, t_vec pos, FLOAT_SIZE dist)
+void		swapniark(FLOAT_SIZE *a, FLOAT_SIZE *b)
 {
-	return (new_t_vec(pos.x + (dir.x * dist), pos.y + (dir.y * dist), pos.z + (dir.z * dist)));
+	FLOAT_SIZE c;
+
+	c = *a;
+	*a = *b;
+	*b = c;
 }
 
-void	set_inter_pos(t_inter *inter, t_pd *pd)
+int			check_t(t_inter *inter, FLOAT_SIZE t,
+	t_pd *s, t_item *item)
 {
-	inter->pos.x = (pd->pos.x + (pd->dir.x * inter->t));
-	inter->pos.y = (pd->pos.y + (pd->dir.y * inter->t));
-	inter->pos.z = (pd->pos.z + (pd->dir.z * inter->t));
-}
+	t_trans	*tmp;
+	t_vec	pos;
 
-int		check_t(t_inter *inter, FLOAT_SIZE t, t_item *item)
-{
-	// t_trans	*tmp;
-	//ft_putendl("check t");
-//	printf("IUHIPUHGIUO%f %f\n", inter->t, t);
-
-	if ((inter->t > t && t > 0.0001) || inter->t < 0.0001)
+	pos = add_vec(s->pos, vec_mult(s->dir, t));
+	if (pos.x > item->mat.max.x || pos.x < item->mat.min.x
+		|| pos.y > item->mat.max.y || pos.y < item->mat.min.y
+		|| pos.z > item->mat.max.z || pos.z < item->mat.min.z)
+		return (0);
+	if (item->mat.trans > 0)
+	{
+		tmp = inter->trans;
+		if (inter->trans == NULL)
+		{
+			inter->trans = new_t_trans(t, item->mat.trans);
+			return (0);
+		}
+		while (tmp->next != NULL)
+			tmp = tmp->next;
+		tmp->next = new_t_trans(t, item->mat.trans);
+		return (0);
+	}
+	if ((inter->t > t && t > 0) || inter->t < 0)
 	{
 		inter->t = t;
 		inter->ref = item->mat.ref;
 		inter->diff = item->mat.diff;
-		inter->trans = item->mat.trans;
-	// 	if (inter->trans > 0)
-	// 	{
-	// //		ft_putendl("check trans");
-	// 		tmp = inter->trans;
-	// 		if (inter->trans == NULL)
-	// 		{
-	// 			inter->trans = new_t_trans(t, trans);
-	// //			ft_putendl("FIN 1");
-	// 		}
-	// 		while (tmp->next != NULL)
-	// 			tmp = tmp->next;
-	// 		tmp->next = new_t_trans(t, trans);
-	// 	//ft_putendl("FIN 2");
-	// 	}
-		// inter->preidr = inter->postidr;
-		// inter->postidr = item->mat.idr;
-		// printf("%f\n", item->mat.diff.r);
-		//ft_putstr(".");
-		//printf("%f\n", inter->t);
-	//	ft_putendl("FIN 3");
+		inter->pos = pos;
 		return (1);
 	}
-	//ft_putendl("pas contact");
-//	ft_putendl("FIN 4");
 	return (0);
 }

@@ -40,7 +40,7 @@ int		parse_properties(t_list **tokens, t_env *par)
 	return (1);
 }
 
-int		parse_shape(t_list	**tokens, t_env *par)
+int		parse_shape(t_list **tokens, t_env *par)
 {
 	t_list	*save;
 

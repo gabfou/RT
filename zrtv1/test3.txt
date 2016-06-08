@@ -499,72 +499,63 @@ sphere {
 	x: 15,
 	y: 0,
 	z: 0,
-	rad: 3,
-	ref: 1
+	rad: 1
 }
 
 sphere {
 	x: 20,
 	y: -3,
 	z: 3,
-	rad: 3,
-	ref: 1
+	rad: 3
 }
 
 sphere {
 	x: 20,
 	y: 3,
 	z: -3,
-	rad: 3,
-	ref: 1
+	rad: 3
 }
 
 sphere {
 	x: 20,
 	y: -3,
 	z: -3,
-	rad: 3,
-	ref: 1
+	rad: 3
 }
 
 sphere {
 	x: 20,
 	y: 3,
 	z: 3,
-	rad: 3,
-	ref: 1
+	rad: 3
 }
 
 sphere {
 	x: 20,
 	y: 0,
 	z: 3,
-	rad: 2,
-	ref: 1
+	rad: 2
 }
 
 sphere {
 	x: 20,
 	y: 0,
 	z: -3,
-	rad: 2,
-	ref: 1
+	rad: 2
 }
 
 sphere {
 	x: 20,
 	y: -3,
 	z: 0,
-	rad: 2,
-	ref: 1
+	rad: 2
 }
 
 sphere {
 	x: 20,
 	y: 3,
 	z: 0,
-	rad: 2,
-	ref: 1
+	rad: 2
 }
 
 plane {
