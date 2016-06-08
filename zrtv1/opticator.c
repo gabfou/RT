@@ -10,13 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "rtv1.h"
 
 t_vec	miroiratorvcalculator(t_vec ray, t_vec norm)
 {
-
-	return (normalizator_ret(add_vec(norm, normalizator_ret(add_vec(ray, norm)))));
+	return (normalizator_ret(add_vec(norm,
+		normalizator_ret(add_vec(ray, norm)))));
 }
 
 void	ref(t_thr *f, t_cor *c, t_pd *pd)

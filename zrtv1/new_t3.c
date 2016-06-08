@@ -46,6 +46,7 @@ t_env		*new_t_env(void)
 
 	env = malloc(sizeof(t_env));
 	env->screen = new_t_screen();
+	env->nega = NULL;
 	env->image = NULL;
 	env->carre = NULL;
 	env->t = NULL;
@@ -62,4 +63,41 @@ t_env		*new_t_env(void)
 	env->prev = NULL;
 	env->next = NULL;
 	return (env);
+}
+
+t_light		*new_t_light(void)
+{
+	t_light	*light;
+
+	light = malloc(sizeof(t_light));
+	light->pos.x = 0;
+	light->pos.y = 0;
+	light->pos.z = 0;
+	light->color = 0xFFFFFF;
+	light->next = NULL;
+	return (light);
+}
+
+t_carre		*new_t_carrespe(FLOAT_SIZE size, t_vec pos)
+{
+	t_carre		*carre;
+
+	carre = (t_carre*)malloc(sizeof(t_carre));
+	if (size == 0)
+		ft_putendl("dafuq?");
+	carre->cnb = NULL;
+	carre->pos = pos;
+	carre->dir.x = 0;
+	carre->dir.y = 0;
+	carre->dir.z = 1;
+	carre->up.x = 0;
+	carre->up.y = 1;
+	carre->up.z = 0;
+	carre->right.x = 1;
+	carre->right.y = 0;
+	carre->right.z = 0;
+	carre->angle = 0;
+	carre->size = size;
+	carre->next = NULL;
+	return (carre);
 }

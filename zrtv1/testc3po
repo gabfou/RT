@@ -28,13 +28,17 @@ cam {
 	dir_x: 0,
 	dir_y: 0,
 	dir_z: -1,
-	rot: 0
+	rot: 0,
+	zebre: 1
 }
 
 obj {
 	x: 0,
 	y: 0,
 	z: -2000,
+	r: 1,
+	g: 0,
+	b: 0,
 	obj: C3PO.obj,
 }
 

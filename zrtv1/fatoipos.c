@@ -30,7 +30,7 @@ FLOAT_SIZE	fatoi_aux(char *str, FLOAT_SIZE *si, FLOAT_SIZE *di)
 {
 	NORME;
 	if (!str)
-		return(0);
+		return (0);
 	while (str[i] == ' ' || str[i] == '\n' || str[i] == '\v'
 			|| str[i] == '\t' || str[i] == '\r' || str[i] == '\f')
 		i++;

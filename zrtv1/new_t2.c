@@ -25,6 +25,8 @@ t_item		*new_t_item(t_env *env)
 	item->con = NULL;
 	item->next = NULL;
 	item->texture = NULL;
+	item->negal = NULL;
+	item->nega = 0;
 	item->mat = new_t_mat("niark");
 	item->nb = env->nb_obj++;
 	return (item);
@@ -42,6 +44,8 @@ t_cam		*new_t_cam(void)
 	cam->dir.y = 0;
 	cam->dir.z = 1;
 	cam->angle = 0;
+	cam->zebre = 0;
+	cam->rfu = 0;
 	cam->next = NULL;
 	return (cam);
 }

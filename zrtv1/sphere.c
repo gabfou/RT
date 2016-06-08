@@ -33,7 +33,8 @@ int			new_sphere(t_env *env)
 	item = new_t_item(env);
 	item->sp = new_t_sphere(100, 0, 0, 3);
 	item->next = NULL;
-	return (itemadator(env, item));
+	itemadator(env, item);
+	return (0);
 }
 
 void		set_normal_sphere(t_inter *inter, t_item *item)
@@ -73,9 +74,8 @@ void		check_sphere(t_item *item, t_pd *s, t_inter *inter, t_thr *f)
 	{
 		t = ((-b + sqrt(del)) / (2 * a) > (-b - sqrt(del)) / (2 * a)) ?
 		(-b - sqrt(del)) / (2 * a) : (-b + sqrt(del)) / (2 * a);
-		if (check_t(inter, t, item->mat.trans, item) == 1 && f->impactmod)
+		if (check_t(inter, t, s, item) == 1 && f->impactmod)
 		{
-			set_inter_pos(inter, s);
 			set_normal_sphere(inter, item);
 			if (item->texture)
 				set_texture_sphere(inter, item);

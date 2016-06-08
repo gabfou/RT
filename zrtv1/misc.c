@@ -31,28 +31,48 @@ void	pixel_to_image(int x, int y, unsigned int color, t_limg *limg)
 	limg->img[off + 2] = (b > 255) ? 255 : b;
 }
 
-int		itemadator(t_env *env, t_item *item)
+void	itemadator(t_env *env, t_item *item)
 {
 	t_item		*copy;
-	int			i;
 
-	i = 1;
+	if (item->nega == 0)
+	{
+		if (!env->item)
+			env->item = item;
+		else
+		{
+			copy = env->item;
+			while (copy->next)
+				copy = copy->next;
+			copy->next = item;
+		}
+		return ;
+	}
 	if (!env->item)
-		env->item = item;
+		ft_error("object negatif no parrent");
 	else
 	{
 		copy = env->item;
 		while (copy->next)
-		{
-			i++;
 			copy = copy->next;
-		}
-		copy->next = item;
+		item->next = copy->negal;
+		copy->negal = item;
 	}
-	return (i);
 }
 
 void	next_elem(t_list **elems)
 {
 	*elems = (*elems)->next;
+}
+
+void	rotationator(t_vec *vec, double angle)
+{
+	t_vec tmp;
+
+	if (angle == 0)
+		return ;
+	tmp.x = vec->z;
+	tmp.y = vec->y;
+	vec->z = cos(angle) * tmp.x - sin(angle) * tmp.y;
+	vec->y = sin(angle) * tmp.x + cos(angle) * tmp.y;
 }

@@ -57,10 +57,9 @@ void	check_plane(t_item *item, t_pd *s, t_inter *inter, t_thr *f)
 	t = -((item->pl->dir.x * x + item->pl->dir.y * y + item->pl->dir.z * z)
 		/ (item->pl->dir.x * s->dir.x + item->pl->dir.y
 			* s->dir.y + item->pl->dir.z * s->dir.z));
-	if (check_t(inter, t, item->mat.trans, item) == 1 && f->impactmod)
+	if (check_t(inter, t, s, item) == 1 && f->impactmod)
 	{
 		set_normal_plane(item, inter);
-		set_inter_pos(inter, s);
 		if (item->texture)
 			set_texture_plane(inter, item);
 	}

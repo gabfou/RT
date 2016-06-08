@@ -12,18 +12,6 @@
 
 #include "rtv1.h"
 
-void		rotationator(t_vec *vec, double angle)
-{
-	t_vec tmp;
-
-	if (angle == 0)
-		return ;
-	tmp.x = vec->z;
-	tmp.y = vec->y;
-	vec->z = cos(angle) * tmp.x - sin(angle) * tmp.y;
-	vec->y = sin(angle) * tmp.x + cos(angle) * tmp.y;
-}
-
 void		setcam(t_env *env, t_cam *cam)
 {
 	t_cam	*copy;
@@ -52,6 +40,14 @@ void		setcam(t_env *env, t_cam *cam)
 	}
 }
 
+void		camstupid(t_cam *cam, t_list **tokens)
+{
+	if (ft_strcmp(get_token(tokens)->lexeme, "zebre") == 0)
+		cam->zebre = token_to_float(tokens);
+	else if (ft_strcmp(get_token(tokens)->lexeme, "rfu") == 0)
+		cam->rfu = token_to_float(tokens);
+}
+
 void		init_camera(t_env *env, t_list **tokens)
 {
 	t_cam	*cam;
@@ -74,6 +70,8 @@ void		init_camera(t_env *env, t_list **tokens)
 			cam->dir.z = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "rot") == 0)
 			cam->angle = token_to_float(tokens);
+		else
+			camstupid(cam, tokens);
 		next_elem(tokens);
 	}
 	setcam(env, cam);

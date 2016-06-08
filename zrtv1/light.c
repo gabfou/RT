@@ -12,28 +12,7 @@
 
 #include "rtv1.h"
 
-unsigned int	get_color(int r, int g, int b)
-{
-	r = (255 < r) ? 255 : r;
-	g = (255 < g) ? 255 : g;
-	b = (255 < b) ? 255 : b;
-	return ((r & 0xff) + ((g & 0xff) << 8) + ((b & 0xff) << 16));
-}
-
-t_light			*new_t_light()
-{
-	t_light	*light;
-
-	light = malloc(sizeof(t_light));
-	light->pos.x = 0;
-	light->pos.y = 0;
-	light->pos.z = 0;
-	light->color = 0xFFFFFF;
-	light->next = NULL;
-	return (light);
-}
-
-t_light			*fill_t_light(char **t, t_light *light)
+t_light		*fill_t_light(char **t, t_light *light)
 {
 	light->pos = new_t_vec(ft_fatoi(t[1]), ft_fatoi(t[2]), ft_fatoi(t[3]));
 	light->color = get_color(ft_fatoi(t[4]), ft_fatoi(t[5]), ft_fatoi(t[6]));
@@ -44,17 +23,19 @@ t_light			*fill_t_light(char **t, t_light *light)
 FLOAT_SIZE	l_color(const FLOAT_SIZE i, const FLOAT_SIZE a)
 {
 	return (i * (a / 255));
-//	printf("i = %f a = %f\n",i, a);
 	if ((i - a) > 0)
 		return (i - a);
 	return (0);
 }
 
-int		comparator_pos(const t_inter *inter, const t_inter *einter)
+int			comparator_pos(const t_inter *inter, const t_inter *einter)
 {
-	if ((inter->pos.x > einter->pos.x - 0.00001 && inter->pos.x < einter->pos.x + 0.00001) 
-		&& (inter->pos.y > einter->pos.y - 0.00001 && inter->pos.y < einter->pos.y + 0.00001) 
-		&& (inter->pos.z > einter->pos.z - 0.00001 && inter->pos.z < einter->pos.z + 0.00001))
+	if ((inter->pos.x > einter->pos.x - 0.00001
+		&& inter->pos.x < einter->pos.x + 0.00001)
+		&& (inter->pos.y > einter->pos.y - 0.00001
+			&& inter->pos.y < einter->pos.y + 0.00001)
+		&& (inter->pos.z > einter->pos.z - 0.00001
+			&& inter->pos.z < einter->pos.z + 0.00001))
 	{
 		return (1);
 	}
@@ -64,58 +45,25 @@ int		comparator_pos(const t_inter *inter, const t_inter *einter)
 void		luminator(t_env *e, t_thr *f)
 {
 	t_pd			lvec;
-	FLOAT_SIZE		angle;
-	FLOAT_SIZE		angle2;
-	// t_inter			inter;
 	t_light			*ltmp;
 	FLOAT_SIZE		trans;
 
-	//ft_putendl("light");
 	ltmp = f->light;
-	if (f->inter.t <= 0)
-	{
-		f->fcolor = 0x000000;
-		return ;
-	}
 	f->impactmod = 0;
-	while (f->light != NULL)
+	while (f->light)
 	{
-	//	ft_putendl("light");
 		t_inter_set(&(f->liginter));
 		lvec.pos = f->light->pos;
-		lvec.dir = new_t_vec(f->inter.pos.x - f->light->pos.x, f->inter.pos.y - f->light->pos.y, f->inter.pos.z - f->light->pos.z);
-		normalizator(&(lvec.dir));
+		lvec.dir = normalizator_ret(new_t_vec(f->inter.pos.x - f->light->pos.x,
+		f->inter.pos.y - f->light->pos.y, f->inter.pos.z - f->light->pos.z));
 		impactor(e, &lvec, f, &(f->liginter));
-		//ft_putendl("light 2");
 		set_inter_pos(&(f->liginter), &lvec);
 		if (comparator_pos(&(f->liginter), &(f->inter)) == 0)
 		{
 			f->light = f->light->next;
 			continue;
 		}
-		//ft_putendl("light 3");
-		// normalizator(&(f->liginter.norm));
-		angle2 = pow(dot_prod(lvec.dir, f->inter.norm), 50);
-		angle = M_PI_2 - acos(dot_prod(lvec.dir, f->inter.norm));
-		angle = (angle > 0) ? angle : -angle;
-		angle2 = (angle2 > 0) ? angle2 : -angle2;
-		//ft_putendl("light 4");
-		//printf("%f\n", angle);
-		// if (angle > 1.35)
-		// {
-		// 	//ft_putendl("doublement");
-		// 	angle = angle * 1.5;
-		// }
-		// angle2 = (angle2 / 4 * ((f->light->color >> 0) & 0xFF) * 2 / M_PI);
-		trans = 0;
-		if (f->liginter.trans != NULL)
-		{
-			trans = trans_calculator(f->liginter.trans, f->liginter.t);
-		//	f->light->color = transparencator(f->light->color, trans);
-		}
-		f->fcolor = get_color(((angle / 4 * ((f->light->color >> 0) & 0xFF) * 2 / M_PI) * f->liginter.diff.r + (angle2 / 4 * ((f->light->color >> 0) & 0xFF) * 2 / M_PI)) + ((f->fcolor >> 0) & 0xFF),
-							((angle / 4 * ((f->light->color >> 8) & 0xFF) * 2 / M_PI) * f->liginter.diff.g + (angle2 / 4 * ((f->light->color >> 8) & 0xFF) * 2 / M_PI)) + ((f->fcolor >> 8) & 0xFF),
-							((angle / 4 * ((f->light->color >> 16) & 0xFF) * 2 / M_PI) * f->liginter.diff.b + (angle2 / 4 * ((f->light->color >> 16) & 0xFF) * 2 / M_PI)) + ((f->fcolor >> 16) & 0xFF));
+		colorcalculator(f, lvec, &trans);
 		f->light = f->light->next;
 	}
 	f->impactmod = 1;
@@ -126,9 +74,4 @@ void		luminator(t_env *e, t_thr *f)
 		trans = trans_calculator(f->inter.trans, f->inter.t);
 		f->fcolor = transparencator(f->fcolor, trans);
 	}
-		// f->fcolor = get_color(((f->fcolor >> 0) & 0xFF)  * f->inter.colorabs->r / 100,
-		// 					((f->fcolor >> 8) & 0xFF)  * f->inter.colorabs->g / 100,
-	// 						((f->fcolor >> 16) & 0xFF)  * f->inter.colorabs->b / 100);
-	//printf("%d\n", f->fcolor);
-	return ;
 }

@@ -12,30 +12,6 @@
 
 #include "rtv1.h"
 
-t_carre		*new_t_carrespe(FLOAT_SIZE size, t_vec pos)
-{
-	t_carre		*carre;
-
-	carre = (t_carre*)malloc(sizeof(t_carre));
-	if (size == 0)
-		ft_putendl("dafuq?");
-	carre->cnb = NULL;
-	carre->pos = pos;
-	carre->dir.x = 0;
-	carre->dir.y = 0;
-	carre->dir.z = 1;
-	carre->up.x = 0;
-	carre->up.y = 1;
-	carre->up.z = 0;
-	carre->right.x = 1;
-	carre->right.y = 0;
-	carre->right.z = 0;
-	carre->angle = 0;
-	carre->size = size;
-	carre->next = NULL;
-	return (carre);
-}
-
 t_carre		*divisecarrerisatorauxi(t_carre *tmp, t_carre *c2)
 {
 	FLOAT_SIZE	size;
@@ -93,13 +69,11 @@ void		carresisator(t_env *env)
 {
 	t_carre	*c;
 	int		i;
-	int		test;
 	int		test2;
 	int		test3;
 	t_carre	*tmp;
 
 	ft_putendl("carresisator");
-	// env->nb_obj = env->nb_obj / 100 + 30;
 	i = -1;
 	test3 = env->nb_obj * 1.5 + 5;
 	test2 = env->nb_obj / 10 + 30;
@@ -107,37 +81,17 @@ void		carresisator(t_env *env)
 	c = env->carre;
 	while (c && i < NB_CARRE - 17)
 	{
-		if ((test = impactcarre(c, env, 0)) > test2 && c->size > 1)
+		if ((impactcarre(c, env, 0)) > test2 && c->size > 1)
 		{
-			// if (!(test3 > test * 1.4))
-			// {
-			// 	test3 = env->nb_obj * 1.5 + 5;
-			// 	c = c->next;
-			// 	continue;
-			// }
 			i += 7;
-			// printf("test = %d\n", test);
 			c = divisecarrerisator(c, env);
-			test3 = test;
-			// break;
 		}
-		// else if (test > test2)
-		// {
-		// 	test2 = env->nb_obj * 1.5 + 5;
-		// 	c = c->next;
-		// }
 		else
-		{
-			// if (c->next && c->size < c->next->size)
-			// 	test3 = -1;
-			// test2 = test;
 			c = c->next;
-		}
 	}
 	c = env->carre;
 	tmp = NULL;
 	env->nb_carre = 0;
-	ft_putnbr(i);
 	while (c)
 	{
 		impactcarre(c, env, 1);

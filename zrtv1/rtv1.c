@@ -28,8 +28,6 @@ void		checkcamscreen(t_env *env)
 {
 	if (!(env->cam))
 		setcam(env, new_t_cam());
-	// if (!(env->screen))
-	// 	env->screen = new_t_screen();
 }
 
 void		gpatrouverdnom(t_leviatenv *env, int argc, char *argv)

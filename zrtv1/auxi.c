@@ -47,21 +47,27 @@ void		swapniark(FLOAT_SIZE *a, FLOAT_SIZE *b)
 }
 
 int			check_t(t_inter *inter, FLOAT_SIZE t,
-	FLOAT_SIZE trans, t_item *item)
+	t_pd *s, t_item *item)
 {
 	t_trans	*tmp;
+	t_vec	pos;
 
-	if (trans > 0)
+	pos = add_vec(s->pos, vec_mult(s->dir, t));
+	if (pos.x > item->mat.max.x || pos.x < item->mat.min.x
+		|| pos.y > item->mat.max.y || pos.y < item->mat.min.y
+		|| pos.z > item->mat.max.z || pos.z < item->mat.min.z)
+		return (0);
+	if (item->mat.trans > 0)
 	{
 		tmp = inter->trans;
 		if (inter->trans == NULL)
 		{
-			inter->trans = new_t_trans(t, trans);
+			inter->trans = new_t_trans(t, item->mat.trans);
 			return (0);
 		}
 		while (tmp->next != NULL)
 			tmp = tmp->next;
-		tmp->next = new_t_trans(t, trans);
+		tmp->next = new_t_trans(t, item->mat.trans);
 		return (0);
 	}
 	if ((inter->t > t && t > 0) || inter->t < 0)
@@ -69,6 +75,7 @@ int			check_t(t_inter *inter, FLOAT_SIZE t,
 		inter->t = t;
 		inter->ref = item->mat.ref;
 		inter->diff = item->mat.diff;
+		inter->pos = pos;
 		return (1);
 	}
 	return (0);

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "rtv1.h"
+#define NORMEIA4 item->obj = initobj(item->obj);item->mat = new_t_mat("niark")
 
 void	normform(t_list **tokens, t_vec *dir, t_item *item)
 {
@@ -24,7 +25,7 @@ void	normform(t_list **tokens, t_vec *dir, t_item *item)
 		initmat(tokens, item);
 }
 
-void	init_obj_aux(t_item *item, t_vec vec)
+void	init_obj_aux(t_item *item, t_vec vec, t_env *env)
 {
 	t_item *tmp;
 
@@ -34,8 +35,10 @@ void	init_obj_aux(t_item *item, t_vec vec)
 		tmp->tr->p1 = add_vec(tmp->tr->p1, vec);
 		tmp->tr->p2 = add_vec(tmp->tr->p2, vec);
 		tmp->tr->p3 = add_vec(tmp->tr->p3, vec);
+		tmp->mat = item->mat;
 		tmp = tmp->next;
 	}
+	itemadator(env, item);
 }
 
 void	init_obj(t_env *env, t_list **tokens)
@@ -45,7 +48,7 @@ void	init_obj(t_env *env, t_list **tokens)
 
 	item = new_t_item(env);
 	vec = new_t_vec(0, 0, 0);
-	item->obj = initobj(item->obj);
+	NORMEIA4;
 	next_elem(tokens);
 	while (!terminal(&(*tokens), CLOSING_BRACKET))
 	{
@@ -60,10 +63,11 @@ void	init_obj(t_env *env, t_list **tokens)
 			vec.y = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "z") == 0)
 			vec.z = token_to_float(tokens);
+		else
+			initmat(tokens, item);
 		next_elem(tokens);
 	}
-	init_obj_aux(item, vec);
-	itemadator(env, item);
+	init_obj_aux(item, vec, env);
 }
 
 void	init_tr_aux(t_list **tokens, t_item *item)

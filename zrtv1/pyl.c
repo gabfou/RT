@@ -48,9 +48,8 @@ void		check_cyl(t_item *item, t_pd *s, t_inter *inter, t_thr *f)
 	if ((t = (b * b - 4.0 * a * c)) <= 0)
 		return ;
 	t = ft_min(((-b + sqrt(t)) / (2 * a)), ((-b - sqrt(t)) / (2 * a)));
-	if (check_t(inter, t, item->mat.trans, item) == 1 && f->impactmod)
+	if (check_t(inter, t, s, item) == 1 && f->impactmod)
 	{
-		set_inter_pos(inter, s);
 		set_normal_cyl(item->cyl, inter);
 	}
 	return ;

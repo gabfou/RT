@@ -50,6 +50,8 @@ t_mat		new_t_mat(char *name)
 	mat.trans = 0;
 	mat.ref = -1;
 	mat.diff = new_t_color(1, 1, 1);
+	mat.min = new_t_vec(-INFINITY, -INFINITY, -INFINITY);
+	mat.max = new_t_vec(INFINITY, INFINITY, INFINITY);
 	return (mat);
 }
 

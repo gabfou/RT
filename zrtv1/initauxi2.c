@@ -72,6 +72,8 @@ inline void			initmat(t_list **tokens, t_item *item)
 		next_elem(tokens);
 		item->texture = readerxpm(get_token(tokens)->lexeme);
 	}
+	else
+		initmatauxi(tokens, item);
 	item->mat.diff.r = (item->mat.diff.r > 1) ? 1 : item->mat.diff.r;
 	item->mat.diff.g = (item->mat.diff.g > 1) ? 1 : item->mat.diff.g;
 	item->mat.diff.b = (item->mat.diff.b > 1) ? 1 : item->mat.diff.b;

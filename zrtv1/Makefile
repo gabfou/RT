@@ -59,6 +59,9 @@ SRC =  rtv1.c \
 	   triangle.c \
 	   objreader.c \
 	   obj.c \
+	   initauxi4.c \
+	   carreform.c \
+	   lightauxi.c \
 	  
 OBJ = $(SRC:.c=.o)
 CC = clang
