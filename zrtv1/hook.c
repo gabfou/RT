@@ -77,9 +77,8 @@ int		key_down_hook(int keycode, t_leviatenv *levia)
 	if ((int)keycode == 53)
 		exit(0);
 	if (keycode == 50)
-	{
 		changesize(levia);
-	}
 	comander(keycode, levia);
+	// usleep(10);
 	return (0);
 }

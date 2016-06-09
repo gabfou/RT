@@ -61,13 +61,30 @@ void		calc_dir(t_vec *dir, FLOAT_SIZE x, FLOAT_SIZE y, t_thr *f)
 	normalizator(dir);
 }
 
+void		pixelator(t_thr *f, t_pd *pd, int x, int y)
+{
+	pd->pos = f->cam->pos;
+	f->fcolor = 0x000000;
+	t_inter_set(&(f->inter));
+	calc_dir(&(pd->dir), x, y, f);
+	impactor(f->env, pd, f, &(f->inter));
+	set_inter_pos(&(f->inter), pd);
+	if (f->inter.ref > 0)
+		// f->fcolor = transroitor(&(f->inter), f, pd);
+		ref2(f, pd);
+	// else
+		f->fcolor = amaterasu(f, &f->inter);
+	pixel_to_image(x, y, f->fcolor, f->limg);
+	f->limg->l++;
+}
+
 void		creator(t_cor *c)
 {
 	double		x;
 	double		y;
-	t_pd		*pd;
 	t_thr		*f;
 	int			l;
+	t_pd		*pd;
 
 	f = new_t_thr(c);
 	l = 0;
@@ -84,20 +101,7 @@ void		creator(t_cor *c)
 			{
 				x = f->minx;
 				while (x++ < f->maxx)
-				{
-					pd->pos = f->cam->pos;
-					f->fcolor = 0x000000;
-					t_inter_set(&(f->inter));
-					calc_dir(&(pd->dir), x, y, f);
-					impactor(f->env, pd, f, &(f->inter));
-					set_inter_pos(&(f->inter), pd);
-					if (f->inter.ref > 0)
-						f->fcolor = transroitor(&(f->inter), f, pd);
-					else
-						f->fcolor = amaterasu(f, &f->inter);
-					pixel_to_image(x, y, f->fcolor, f->limg);
-					f->limg->l++;
-				}
+					pixelator(f, pd, x, y);
 			}
 			nextcam(f);
 			ft_putstr("NEXTEUH");

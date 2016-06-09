@@ -49,9 +49,6 @@ void		swapniark(FLOAT_SIZE *a, FLOAT_SIZE *b)
 int			check_t(t_inter *inter, FLOAT_SIZE t,
 	t_pd *s, t_item *item)
 {
-	// t_trans	*tmp;
-	//ft_putendl("check t");
-//	printf("IUHIPUHGIUO%f %f\n", inter->t, t);
 	t_vec	pos;
 
 	pos = add_vec(s->pos, vec_mult(s->dir, t));

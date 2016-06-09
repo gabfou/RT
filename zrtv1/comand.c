@@ -26,6 +26,8 @@ void		comadator(char *line, t_leviatenv *env)
 	static int	i = -1;
 	char		**split;
 
+	if (!line || !line[0])
+		return ;
 	if (ft_strcmp(line, "reset") == 0)
 		ft_strcpy(last, "reset");
 	if (ft_strcmp(line, "printlast") == 0)

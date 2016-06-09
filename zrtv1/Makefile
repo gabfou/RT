@@ -64,6 +64,7 @@ SRC =  rtv1.c \
 	   lightauxi.c \
 	   helios.c \
 	   helios_2.c \
+	   opticatorancien.c \
 	  
 OBJ = $(SRC:.c=.o)
 CC = clang

@@ -12,30 +12,6 @@
 
 #include "rtv1.h"
 
-// t_env		*new_t_env()
-// {
-// 	t_env	*env;
-
-// 	env = malloc(sizeof(t_env));
-// 	env->screen = new_t_screen();
-// 	env->image = NULL;
-// 	env->t = NULL;
-// 	env->endiant = 0;
-
-// 	env->limg = NULL;
-// 	env->cam = NULL;
-// 	env->item = NULL;
-// 	env->light = NULL;
-// 	env->fcolor = 0;
-// 	env->done = 0;
-// 	env->ft = 0;
-// 	env->nbr = 0;
-// 	env->prev = NULL;
-// 	env->next = NULL;
-// 	env->prototree = NULL;
-// 	return (env);
-// }
-
 void		setcamuplef(t_env *env)
 {
 	t_cam *cam;
@@ -69,7 +45,7 @@ void		gpatrouverdnom(t_leviatenv *env, int argc, char *argv)
 		x++;
 	}
 	t_limg_initator(env);
-	env->lenv->prototree = helios(env->lenv->item, env->lenv->light, env->lenv->prototree);
+	// env->lenv->prototree = helios(env->lenv->item, env->lenv->light, env->lenv->prototree);
 }
 
 void		filllevia(t_leviatenv *levia, char **argv, t_env *first, int argc)

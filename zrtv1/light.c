@@ -46,6 +46,7 @@ int			comparator_pos(const t_inter *inter, const t_inter *einter)
 
 t_color		lumi_calc(t_thr *f, t_pd *lvec, FLOAT_SIZE angle[2], t_color color)
 {
+	luminatorstupid(f, lvec);
 	angle[0] = M_PI_2 - acos(dot_prod(lvec->dir, f->inter.norm));
 	angle[1] = pow(dot_prod(lvec->dir, f->inter.norm), 50);
 	angle[0] = (angle[0] > 0) ? angle[0] : -angle[0];
@@ -82,7 +83,6 @@ t_color			luminator(t_thr *f)
 
 	ltmp = f->light;
 	retcolor = new_t_color(0, 0, 0);
-	//retcolor = new_t_color(0, 0, 0);
 	f->impactmod = 0;
 	if (f->inter.t <= 0 || f->light == NULL)
 	{
@@ -105,52 +105,3 @@ t_color			luminator(t_thr *f)
 	f->light = ltmp;
 	return (retcolor);
 }
-
-
-
-// unsigned int		luminator(t_thr *f, t_inter *inter)
-// {
-// 	t_pd			lvec;
-// 	FLOAT_SIZE		angle;
-// 	// t_inter			inter;
-// 	t_light			*ltmp;
-// //	FLOAT_SIZE		trans;
-// 	t_color			retcolor;
-
-// 	//ft_putendl("light");
-// 	ltmp = f->light;
-// 	retcolor = new_t_color(0, 0, 0);
-// 	if (inter->t <= 0)
-// 	{
-// 		retcolor = new_t_color(0, 0, 0);
-// 		return (get_color(retcolor.r, retcolor.g, retcolor.b));
-// 	}
-// 	while (f->light != NULL)
-// 	{
-// 	//	ft_putendl("light");
-// 		t_inter_set(&(f->liginter));
-// 		lvec.pos = f->light->pos;
-// 		lvec.dir = new_t_vec(inter->pos.x - f->light->pos.x, inter->pos.y - f->light->pos.y, inter->pos.z - f->light->pos.z);
-// 		normalizator(&(lvec.dir));
-// 		impactor(&lvec, f->item, &(f->liginter));
-// 		//ft_putendl("light 2");
-// 		set_inter_pos(&(f->liginter), &lvec);
-// 		if (comparator_pos(&(f->liginter), inter) == 0)
-// 		{
-// 			f->light = f->light->next;
-// 			continue;
-// 		}
-// 		//ft_putendl("light 3");
-// 		normalizator(&(f->liginter.norm));
-// 		angle = M_PI_2 - acos(dot_prod(lvec.dir, inter->norm));
-// 		angle = (angle > 0) ? angle : -angle;
-
-// 		retcolor.r += (angle / 4) * (f->light->rcolor.r * 2 / M_PI) * f->liginter.diff.r;
-// 		retcolor.g += (angle / 4) * (f->light->rcolor.g * 2 / M_PI) * f->liginter.diff.g;
-// 		retcolor.b += (angle / 4) * (f->light->rcolor.b * 2 / M_PI) * f->liginter.diff.b;
-// 		f->light = f->light->next;
-// 	}
-// 	f->light = ltmp;
-// 	printf("%d\n", get_color(retcolor.r, retcolor.g, retcolor.b));
-// 	return (get_color(retcolor.r, retcolor.g, retcolor.b));
-// }

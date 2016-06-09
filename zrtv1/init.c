@@ -100,10 +100,6 @@ void		init(t_env *env, int argc, char *argv)
 	t_list		*tokens;
 	t_list		*save;
 
-	env->nb_obj = 0;
-	env->cam = NULL;
-	env->light = NULL;
-	env->item = NULL;
 	fd = access_file(argc, argv);
 	tokens = get_tokens(fd);
 	save = tokens;

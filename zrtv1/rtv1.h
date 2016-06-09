@@ -509,5 +509,7 @@ int				carre_obj(t_carre *c, t_item *item, int n);
 void			addcnb(t_carre *carre, t_cnb *cnb);
 void			rotationator(t_vec *vec, double angle);
 t_carre			*new_t_carrespe(FLOAT_SIZE size, t_vec pos);
+void			ref2(t_thr *f, t_pd *pd);
+void			luminatorstupid(t_thr *f, t_pd *lvec);
 
 #endif
