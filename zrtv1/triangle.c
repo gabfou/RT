@@ -68,7 +68,7 @@ int				point_triangle(t_vec pos, t_triangle *p)
 		return (1);
 }
 
-void		check_triangle(t_item *item, t_pd *s, t_inter *inter, t_thr *f)
+void			check_triangle(t_item *item, t_pd *s, t_inter *inter, t_thr *f)
 {
 	t_vec		n;
 	t_vec		a;

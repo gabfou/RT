@@ -16,40 +16,28 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-/*
-** Macros
-*/
 # define ABS(x) ((x) > 0 ? (x) : (-x))
 # define UNUSED(x) ((void)(x))
 # define WRITE(fd, what) (write(fd, what, sizeof(what) - 1))
 
-/*
-** Standard File descriptors
-*/
 # define STDIN	0
 # define STDOUT	1
 # define STDERR	2
 
-/*
-** Typedefs
-*/
 typedef unsigned char	t_uchar;
 typedef int				t_int32;
 typedef unsigned int	t_uint32;
 typedef long			t_int64;
 typedef unsigned long	t_uint64;
 
-typedef void (*t_deleter)(void *, size_t);
-typedef void (*t_map_deleter)(void *, void *);
-typedef void (*t_functor)(void *, size_t, void *);
-typedef void (*t_simple_functor)(void *, void *);
-typedef int (*t_comparator)(void *, size_t, void *, size_t);
-typedef t_uint64 (*t_hash_func)(const void *, size_t);
-typedef t_uint64 (*t_simple_hash_func)(const void *);
+typedef void		(*t_deleter)(void *, size_t);
+typedef void		(*t_map_deleter)(void *, void *);
+typedef void		(*t_functor)(void *, size_t, void *);
+typedef void		(*t_simple_functor)(void *, void *);
+typedef int 		(*t_comparator)(void *, size_t, void *, size_t);
+typedef t_uint64	(*t_hash_func)(const void *, size_t);
+typedef t_uint64	(*t_simple_hash_func)(const void *);
 
-/*
-** Standard library
-*/
 void		*ft_memset(void *b, int c, size_t n);
 void		ft_bzero(void *s, size_t n);
 void		*ft_memcpy(void *s1, const void *s2, size_t n);
@@ -108,17 +96,12 @@ void		ft_putendl_fd(const char *str, int fd);
 void		ft_putnbr_fd(int n, int fd);
 int			ft_max(int a, int b);
 size_t		ft_umax(size_t a, size_t b);
-// int			ft_min(int a, int b);
 size_t		ft_umin(size_t a, size_t b);
 # define BUFF_SIZE 4096
 int			get_next_line(const int fd, char **line);
 
 void		ft_error(char *str);
 
-
-/*
-** Lists
-*/
 typedef struct		s_list
 {
 	void			*content;
@@ -219,4 +202,4 @@ void		ft_setfgcolor(t_uchar color);
 void		ft_setbgcolor(t_uchar color);
 void		ft_resetcolor(void);
 
-#endif /* LIBFT_H */
+#endif

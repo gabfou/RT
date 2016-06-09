@@ -116,7 +116,5 @@ void		init_light(t_env *env, t_list **tokens)
 			light->rcolor.b = (int)token_to_float(tokens);
 		next_elem(tokens);
 	}
-	printf("%f  %f  %f\n", light->rcolor.r, light->rcolor.g, light->rcolor.b);
-	printf("%d\n", get_color(light->rcolor.r, light->rcolor.g, light->rcolor.b));
 	addlight(env, light);
 }

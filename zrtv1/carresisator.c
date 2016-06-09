@@ -65,30 +65,11 @@ t_carre		*divisecarrerisator(t_carre *c2, t_env *env)
 	return (c);
 }
 
-void		carresisator(t_env *env)
+void		carresisatorauxi(t_env *env)
 {
-	t_carre	*c;
-	int		i;
-	int		test2;
-	int		test3;
-	t_carre	*tmp;
+	t_carre *c;
+	t_carre *tmp;
 
-	ft_putendl("carresisator");
-	i = -1;
-	test3 = env->nb_obj * 1.5 + 5;
-	test2 = env->nb_obj / 10 + 30;
-	env->carre = new_t_carrespe(1000000, new_t_vec(-500000, -500000, -500000));
-	c = env->carre;
-	while (c && i < NB_CARRE - 17)
-	{
-		if ((impactcarre(c, env, 0)) > test2 && c->size > 1)
-		{
-			i += 7;
-			c = divisecarrerisator(c, env);
-		}
-		else
-			c = c->next;
-	}
 	c = env->carre;
 	tmp = NULL;
 	env->nb_carre = 0;
@@ -108,7 +89,31 @@ void		carresisator(t_env *env)
 			c = c->next;
 		}
 	}
+}
+
+void		carresisator(t_env *env)
+{
+	t_carre	*c;
+	int		i;
+	int		test2;
+	int		test3;
+
+	i = -1;
+	test3 = env->nb_obj * 1.5 + 5;
+	test2 = env->nb_obj / 10 + 30;
+	env->carre = new_t_carrespe(1000000, new_t_vec(-500000, -500000, -500000));
+	c = env->carre;
+	while (c && i < NB_CARRE - 17)
+	{
+		if ((impactcarre(c, env, 0)) > test2 && c->size > 10)
+		{
+			i += 7;
+			c = divisecarrerisator(c, env);
+		}
+		else
+			c = c->next;
+	}
+	carresisatorauxi(env);
 	print_carre(*env);
 	ft_putnbr(env->nb_obj);
-	ft_putendl("carresisatorfin");
 }

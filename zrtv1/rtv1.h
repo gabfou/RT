@@ -418,7 +418,6 @@ int				thread_master(t_env *env);
 
 t_trans			*new_t_trans(FLOAT_SIZE t, FLOAT_SIZE colabs);
 FLOAT_SIZE		transparencator(unsigned int color, FLOAT_SIZE trans);
-//FLOAT_SIZE		trans_calculator(t_trans *trans, FLOAT_SIZE	t);
 
 int				tlen(char **tab);
 

@@ -22,14 +22,6 @@ t_light		*fill_t_light(char **t, t_light *light)
 	return (light);
 }
 
-FLOAT_SIZE	l_color(const FLOAT_SIZE i, const FLOAT_SIZE a)
-{
-	return (i * (a / 255));
-	if ((i - a) > 0)
-		return (i - a);
-	return (0);
-}
-
 int			comparator_pos(const t_inter *inter, const t_inter *einter)
 {
 	if ((inter->pos.x > einter->pos.x - 0.00001
@@ -51,15 +43,15 @@ t_color		lumi_calc(t_thr *f, t_pd *lvec, FLOAT_SIZE angle[2], t_color color)
 	angle[1] = pow(dot_prod(lvec->dir, f->inter.norm), 50);
 	angle[0] = (angle[0] > 0) ? angle[0] : -angle[0];
 	angle[1] = (angle[1] > 0) ? angle[1] : -angle[1];
-	color.r = ((angle[0] / 4 * ((f->light->rcolor.r))* 2 / M_PI) +
-	 (angle[1] / 4 * ((f->light->rcolor.r))* 2 / M_PI)) * f->liginter.diff.b + 
-	(color.r),
-
-	color.g =((angle[0] / 4 * ((f->light->rcolor.g))* 2 / M_PI) + (angle[1] / 4 * ((f->light->rcolor.g))* 2 / M_PI)) *
-	 f->liginter.diff.g + (color.g),
-
-	 color.b =((angle[0] / 4 * ((f->light->rcolor.b))* 2 / M_PI) + (angle[1] / 4 * 
-	 	((f->light->rcolor.b))* 2 / M_PI)) * f->liginter.diff.r + (color.b);
+	color.r = ((angle[0] / 4 * ((f->light->rcolor.r)) * 2 / M_PI) +
+	(angle[1] / 4 * ((f->light->rcolor.r)) * 2 / M_PI)) * f->liginter.diff.b +
+	(color.r);
+	color.g = ((angle[0] / 4 * ((f->light->rcolor.g)) * 2 / M_PI)
+		+ (angle[1] / 4 * ((f->light->rcolor.g)) * 2 / M_PI))
+		* f->liginter.diff.g + (color.g);
+	color.b = ((angle[0] / 4 * ((f->light->rcolor.b)) * 2 / M_PI)
+		+ (angle[1] / 4 * ((f->light->rcolor.b)) * 2 / M_PI))
+		* f->liginter.diff.r + (color.b);
 	return (color);
 }
 
@@ -74,7 +66,7 @@ void		lumi_auxi(t_thr *f, t_pd *lvec)
 	set_inter_pos(&f->liginter, lvec);
 }
 
-t_color			luminator(t_thr *f)
+t_color		luminator(t_thr *f)
 {
 	t_pd			lvec;
 	FLOAT_SIZE		angle[2];
@@ -85,10 +77,7 @@ t_color			luminator(t_thr *f)
 	retcolor = new_t_color(0, 0, 0);
 	f->impactmod = 0;
 	if (f->inter.t <= 0 || f->light == NULL)
-	{
-		ft_putendl("dafuq37");
 		return (retcolor);
-	}
 	while (f->light != NULL)
 	{
 		lumi_auxi(f, &lvec);
@@ -98,7 +87,6 @@ t_color			luminator(t_thr *f)
 			continue;
 		}
 		retcolor = lumi_calc(f, &lvec, angle, retcolor);
-		// colorcalculator(f, lvec, &trans);
 		f->light = f->light->next;
 	}
 	f->impactmod = 1;

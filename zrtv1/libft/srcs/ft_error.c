@@ -15,8 +15,8 @@
 void		ft_error(char *str)
 {
 	if (str == NULL)
-		exit (1);
+		exit(1);
 	ft_putstr_fd("ERROR is : ", 2);
 	ft_putendl_fd(str, 2);
-	exit (1);
+	exit(1);
 }

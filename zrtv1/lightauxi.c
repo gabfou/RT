@@ -35,3 +35,11 @@ unsigned int	get_color(int r, int g, int b)
 	b = (255 < b) ? 255 : b;
 	return ((r & 0xff) + ((g & 0xff) << 8) + ((b & 0xff) << 16));
 }
+
+FLOAT_SIZE		l_color(const FLOAT_SIZE i, const FLOAT_SIZE a)
+{
+	return (i * (a / 255));
+	if ((i - a) > 0)
+		return (i - a);
+	return (0);
+}

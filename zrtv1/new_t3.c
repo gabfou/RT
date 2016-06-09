@@ -66,7 +66,7 @@ t_env		*new_t_env(void)
 	return (env);
 }
 
-t_light			*new_t_light()
+t_light		*new_t_light(void)
 {
 	t_light	*light;
 

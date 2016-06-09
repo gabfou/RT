@@ -32,4 +32,3 @@ void		ft_map_insert(t_map map, t_map_entry entry, t_simple_hash_func h_f)
 	node = ft_btree_new(&entry, sizeof(t_map_entry));
 	ft_btree_insert(&map[entry._hash % MAP_TREE_SIZE], node, insert_cmp);
 }
-

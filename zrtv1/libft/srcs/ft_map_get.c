@@ -26,7 +26,6 @@ static t_map_entry	*recurse_get(t_btree *node, t_uint64 hash)
 	return (recurse_get(node->right, hash));
 }
 
-
 void				*ft_map_get(t_map map, void *key, t_simple_hash_func h_f)
 {
 	t_map_entry		*entry;
@@ -46,4 +45,3 @@ t_map_entry			*ft_map_get_p(t_map map, void *key, t_simple_hash_func h_f)
 	entry = recurse_get(map[hash % MAP_TREE_SIZE], hash);
 	return (entry);
 }
-
