@@ -514,7 +514,10 @@ t_proto		*helios(t_item *item, t_light *light, t_proto *prototree)
 	//print_proto_list(protolis);
 
 	if (protolis == NULL)
+	{
 		ft_putendl("NUUUUUUULLLLLLLLLL");
+		return (NULL);
+	}
 	ft_putendl("GROW PLZ TREE");
 	prototree = photosynthetisator_spatial(protolis);
 	ft_putendl("HELIOS IS FINISHED");
