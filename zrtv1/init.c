@@ -6,11 +6,12 @@
 /*   By: ibuchwal <ibuchwal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 21:18:43 by ibuchwal          #+#    #+#             */
-/*   Updated: 2016/03/24 17:45:41 by ibuchwal         ###   ########.fr       */
+/*   Updated: 2016/04/06 23:31:25 by ibuchwal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
+#define COPY t_list *copy
 
 void		t_limg_initator(t_leviatenv *levia)
 {
@@ -54,10 +55,6 @@ void		init_screen(t_env *env, t_list **tokens)
 			env->screen.scrl = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "scr_h") == 0)
 			env->screen.scrh = token_to_float(tokens);
-		// else if (ft_strcmp(get_token(tokens)->lexeme, "res_l") == 0)
-		// 	env->screen.resl = token_to_float(tokens);
-		// else if (ft_strcmp(get_token(tokens)->lexeme, "res_h") == 0)
-		// 	env->screen.resh = token_to_float(tokens);
 		else if (ft_strcmp(get_token(tokens)->lexeme, "scr_d") == 0)
 			env->screen.scrd = token_to_float(tokens);
 		next_elem(tokens);
@@ -65,14 +62,12 @@ void		init_screen(t_env *env, t_list **tokens)
 	env->screen.resh = env->screen.h / 2;
 	env->screen.resl = env->screen.l / 2;
 	env->screen.li = env->screen.scrl / env->screen.resl;
-	env->screen.hi =  env->screen.scrh / env->screen.resl;
+	env->screen.hi = env->screen.scrh / env->screen.resl;
 }
-
 
 void		init_all(t_env *env, t_list *tokens)
 {
-	t_list	*copy;
-
+	COPY;
 	copy = tokens;
 	while (copy)
 	{
@@ -90,6 +85,10 @@ void		init_all(t_env *env, t_list *tokens)
 			init_cyl(env, &copy);
 		else if (ft_strcmp(get_token(&copy)->lexeme, "screen") == 0)
 			init_screen(env, &copy);
+		else if (ft_strcmp(get_token(&copy)->lexeme, "triangle") == 0)
+			init_tr(env, &copy);
+		else if (ft_strcmp(get_token(&copy)->lexeme, "obj") == 0)
+			init_obj(env, &copy);
 		else
 			next_elem(&copy);
 	}
@@ -97,10 +96,11 @@ void		init_all(t_env *env, t_list *tokens)
 
 void		init(t_env *env, int argc, char *argv)
 {
-	int		fd;
-	t_list	*tokens;
-	t_list	*save;
+	int			fd;
+	t_list		*tokens;
+	t_list		*save;
 
+	env->nb_obj = 0;
 	env->cam = NULL;
 	env->light = NULL;
 	env->item = NULL;
@@ -120,4 +120,6 @@ void		init(t_env *env, int argc, char *argv)
 	}
 	delete_symbols(&save);
 	init_all(env, save);
+	carresisator(env);
+	free_tokens(&save);
 }

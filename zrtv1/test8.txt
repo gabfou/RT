@@ -72,7 +72,6 @@ sphere {
 	ref: 0
 }
 
-
 sphere {
 	x: 200,
 	y: 1,

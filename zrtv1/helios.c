@@ -14,6 +14,34 @@
 //photonic_yolo_director
 
 
+void		impactoralancienne(t_pd *pd, t_item *item, t_inter *inter)
+{
+	t_item	*lst;
+
+	lst = item;
+	while (item != NULL)
+	{
+		if (item->sp != NULL)
+		{
+			check_sphere(item, pd, inter, 1);
+		}
+		else if (item->pl != NULL)
+		{
+			check_plane(item, pd, inter, 1);
+		}
+		else if (item->cyl != NULL)
+		{
+			check_cyl(item, pd, inter, 1);
+		}
+		else if (item->con != NULL)
+		{
+			check_con(item, pd, inter, 1);
+		}
+		item = item->next;
+	}
+	item = lst;
+}
+
 void		print_tout_tree(t_proto *tmp)
 {
 	static int x = -1;
@@ -408,7 +436,7 @@ t_proto			*lance_soleil(t_pd *pd, t_proto	*protolis, t_item *item, t_color licol
 	{
 		test++;
 		t_inter_set(&inter);
-		impactor(pd, item , &inter);
+		impactoralancienne(pd, item , &inter);
 		set_inter_pos(&inter, pd);
 		bang = ((float)rand()/(float)(RAND_MAX));
 	//	printf("bang = %f\n", bang);

@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "rtv1.h"
 
 unsigned int	color_mult(unsigned int color, FLOAT_SIZE r, FLOAT_SIZE g, FLOAT_SIZE b)
@@ -43,14 +42,14 @@ double 	trans_calculator(t_thr *f, t_inter *inter, t_inter *transinter, t_pd *pd
 	t.z = ((AIR_INCI / GLASS_INCI) * pd->dir.z) + ((AIR_INCI / GLASS_INCI) * cos(angle) - fabs(1 - scalc)) *  inter->norm.z;
 	transpd->dir = /*normalizator_ret(sub_vec(*/normalizator_ret(t)/*, inter->pos))*/;
 	transpd->pos = inter->pos;
-
-	impactor(transpd, f->item, transinter);
+	impactor(f->env, transpd, f, transinter);
 	return (0);
 }
 
 t_vec	miroiratorvcalculator(t_vec ray, t_vec norm)
 {
-	return (normalizator_ret(add_vec(norm, normalizator_ret(add_vec(ray, norm)))));
+	return (normalizator_ret(add_vec(norm,
+		normalizator_ret(add_vec(ray, norm)))));
 }
 
 void	ref(t_thr *f, t_inter *inter, t_inter *mirinter, t_pd *pd, t_pd	*mirpd)
@@ -62,7 +61,7 @@ void	ref(t_thr *f, t_inter *inter, t_inter *mirinter, t_pd *pd, t_pd	*mirpd)
 	mirpd->pos = inter->pos;
 	// pd->pos = add_vec(inter.pos, vec_mult(pd->dir, -1));
 
-	impactor(mirpd, f->item, mirinter);
+	impactor(f->env, mirpd, f, mirinter);
 	return ;
 }
 
@@ -123,9 +122,3 @@ unsigned int	transroitor(t_inter *inter, t_thr *f, t_pd *pd)
 	p--;
 	return (tmpcolor);
 }
-
-
-
-
-
-

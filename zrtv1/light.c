@@ -12,33 +12,7 @@
 
 #include "rtv1.h"
 
-unsigned int	get_color(int r, int g, int b)
-{
-	unsigned int	ret;
-	r = (r > 255) ? 255 : r;
-	g = (g > 255) ? 255 : g;
-	b = (b > 255) ? 255 : b;
-//	printf("\n%d %d %d\n", r, g, b);
-	ret = ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
-//	printf("%d\n", ret);
-	return (ret);
-}
-
-t_light			*new_t_light()
-{
-	t_light	*light;
-
-	light = malloc(sizeof(t_light));
-	light->pos.x = 0;
-	light->pos.y = 0;
-	light->pos.z = 0;
-	light->photon = 10000;
-	light->rcolor = new_t_color(0, 0, 0);
-	light->next = NULL;
-	return (light);
-}
-
-t_light			*fill_t_light(char **t, t_light *light)
+t_light		*fill_t_light(char **t, t_light *light)
 {
 	light->pos = new_t_vec(ft_fatoi(t[1]), ft_fatoi(t[2]), ft_fatoi(t[3]));
 	light->rcolor.r = ft_fatoi(t[4]);
@@ -51,17 +25,19 @@ t_light			*fill_t_light(char **t, t_light *light)
 FLOAT_SIZE	l_color(const FLOAT_SIZE i, const FLOAT_SIZE a)
 {
 	return (i * (a / 255));
-//	printf("i = %f a = %f\n",i, a);
-	// if ((i - a) > 0)
-	// 	return (i - a);
-	// return (0);
+	if ((i - a) > 0)
+		return (i - a);
+	return (0);
 }
 
-int		comparator_pos(const t_inter *inter, const t_inter *einter)
+int			comparator_pos(const t_inter *inter, const t_inter *einter)
 {
-	if ((inter->pos.x > einter->pos.x - 0.00001 && inter->pos.x < einter->pos.x + 0.00001) 
-		&& (inter->pos.y > einter->pos.y - 0.00001 && inter->pos.y < einter->pos.y + 0.00001) 
-		&& (inter->pos.z > einter->pos.z - 0.00001 && inter->pos.z < einter->pos.z + 0.00001))
+	if ((inter->pos.x > einter->pos.x - 0.00001
+		&& inter->pos.x < einter->pos.x + 0.00001)
+		&& (inter->pos.y > einter->pos.y - 0.00001
+			&& inter->pos.y < einter->pos.y + 0.00001)
+		&& (inter->pos.z > einter->pos.z - 0.00001
+			&& inter->pos.z < einter->pos.z + 0.00001))
 	{
 		return (1);
 	}
@@ -93,7 +69,7 @@ void		lumi_auxi(t_thr *f, t_pd *lvec)
 	lvec->dir = new_t_vec(f->inter.pos.x - f->light->pos.x, f->inter.pos.y
 	- f->light->pos.y, f->inter.pos.z - f->light->pos.z);
 	normalizator(&lvec->dir);
-	impactor(lvec, f->item, &f->liginter);
+	impactor(f->env, lvec, f, &f->liginter);
 	set_inter_pos(&f->liginter, lvec);
 }
 
@@ -107,8 +83,10 @@ t_color			luminator(t_thr *f)
 	ltmp = f->light;
 	retcolor = new_t_color(0, 0, 0);
 	//retcolor = new_t_color(0, 0, 0);
-	if (f->inter.t <= 0)
+	f->impactmod = 0;
+	if (f->inter.t <= 0 || f->light == NULL)
 	{
+		ft_putendl("dafuq37");
 		return (retcolor);
 	}
 	while (f->light != NULL)
@@ -120,8 +98,10 @@ t_color			luminator(t_thr *f)
 			continue;
 		}
 		retcolor = lumi_calc(f, &lvec, angle, retcolor);
+		// colorcalculator(f, lvec, &trans);
 		f->light = f->light->next;
 	}
+	f->impactmod = 1;
 	f->light = ltmp;
 	return (retcolor);
 }
