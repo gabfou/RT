@@ -86,33 +86,6 @@ void		print_proto_list(t_proto *protolis)
 	}
 }
 
-int			compx(t_proto *proto1, t_proto *proto2)
-{
-	if (!proto1 || !proto2)
-		return (0);
-	if (proto1->x > proto2->x )
-		return (1);
-	return (0);
-}
-
-int			compy(t_proto *proto1, t_proto *proto2)
-{
-	if (!proto1 || !proto2)
-		return (2);
-	if (proto1->y > proto2->y)
-		return (1);
-	return (0);
-}
-
-int			compz(t_proto *proto1, t_proto *proto2)
-{
-	if (!proto1 || !proto2)
-		return (2);
-	if (proto1->z > proto2->z)
-		return (1);
-	return (0);
-}
-
 int			proto_counter(t_proto *protolis)
 {
 	int		i;

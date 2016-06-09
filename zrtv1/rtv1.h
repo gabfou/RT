@@ -461,7 +461,7 @@ unsigned int	transroitor(t_inter *inter, t_thr *f, t_pd *pd);
 t_proto			*helios(t_item *item, t_light *light, t_proto *prototree);
 unsigned int	amaterasu(t_thr *f, t_inter *inter);
 unsigned int	color_mult(unsigned int color, FLOAT_SIZE r, FLOAT_SIZE g, FLOAT_SIZE b);
-t_vec			conseiller_d_orientation_protonique_alcolique();
+t_vec			conseiller_d_orientation_protonique_alcolique(void);
 void			carresisator(t_env *env);
 int				impactcarre(t_carre *c, t_env *env, int n);
 void			idciator(t_env *env, t_pd pd, t_item **niark, int *use);
@@ -510,5 +510,11 @@ void			rotationator(t_vec *vec, double angle);
 t_carre			*new_t_carrespe(FLOAT_SIZE size, t_vec pos);
 void			ref2(t_thr *f, t_pd *pd);
 void			luminatorstupid(t_thr *f, t_pd *lvec);
+int				compx(t_proto *proto1, t_proto *proto2);
+int				compy(t_proto *proto1, t_proto *proto2);
+int				compz(t_proto *proto1, t_proto *proto2);
+FLOAT_SIZE		get_sqr_dist(t_vec v1, t_vec v2);
+t_color			t_color_add(t_color c1, t_color c2);
+t_color			t_color_mult(t_color c1, FLOAT_SIZE i);
 
 #endif

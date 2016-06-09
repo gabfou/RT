@@ -170,11 +170,6 @@ t_phcol		*range_in_pile(t_phcol *tab, t_phcol *ins)
 	return (tab);
 }
 
-FLOAT_SIZE	get_sqr_dist(t_vec v1, t_vec v2)
-{
-	return (carre(v2.x - v1.x) + carre(v2.y - v1.y) + carre(v2.z - v1.z));
-}
-
 FLOAT_SIZE	get_node_dist(t_vec ph_pos, t_vec pos, int profmod)
 {
 	if (profmod == 0)
@@ -342,25 +337,6 @@ t_color		el_subluminor(t_vec pos, t_env *env)
 	// }
 //	printf("%d\n", i);
 	return (color);
-}
-
-t_color			t_color_add(t_color c1, t_color c2)
-{
-	int	r;
-	int	g;
-	int	b;
-
-	r = c1.r + c2.r;
-	g = c1.g + c2.g;
-	b = c1.b + c2.b;
-//	printf("\n LA%d %d %d\n", r, g, b);
-	return(new_t_color(r, g, b));
-}
-
-t_color			t_color_mult(t_color c1, FLOAT_SIZE i)
-{
-	//printf("\n____ %f %f %f %d\n", c1.r, c1.g, c1.b, i);
-	return(new_t_color(c1.r * i, c1.g * i, c1.b * i));
 }
 
 
