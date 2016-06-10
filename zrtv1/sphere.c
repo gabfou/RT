@@ -72,8 +72,7 @@ void		check_sphere(t_item *item, t_pd *s, t_inter *inter, int impactmod)
 	del = carre(b) - (4 * a * c);
 	if (del > 0)
 	{
-		t = ((-b + sqrt(del)) / (2 * a) > (-b - sqrt(del)) / (2 * a)) ?
-		(-b - sqrt(del)) / (2 * a) : (-b + sqrt(del)) / (2 * a);
+		t = ft_minspe((-b - sqrt(del)) / (2 * a), (-b + sqrt(del)) / (2 * a));
 		if (check_t(inter, t, s, item) == 1 && impactmod)
 		{
 			set_normal_sphere(inter, item);

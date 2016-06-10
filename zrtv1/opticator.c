@@ -12,7 +12,8 @@
 
 #include "rtv1.h"
 
-double 	trans_calculator(t_thr *f, t_inter *inter, t_inter *transinter, t_pd *pd, t_pd	*transpd)
+double 	trans_calculator(t_thr *f, t_inter *inter,
+	t_inter *transinter, t_pd *pd, t_pd	*transpd)
 {
 	FLOAT_SIZE	scalc;
 	FLOAT_SIZE	angle;
@@ -30,9 +31,12 @@ double 	trans_calculator(t_thr *f, t_inter *inter, t_inter *transinter, t_pd *pd
 	if (sin(angle) > (AIR_INCI / GLASS_INCI))
 		return (1);
 	scalc = carre(AIR_INCI / GLASS_INCI) * carre(1 - carre(cos(angle)));
-	t.x = ((AIR_INCI / GLASS_INCI) * pd->dir.x) + ((AIR_INCI / GLASS_INCI) * cos(angle) - fabs(1 - scalc)) *  inter->norm.x;
-	t.y = ((AIR_INCI / GLASS_INCI) * pd->dir.y) + ((AIR_INCI / GLASS_INCI) * cos(angle) - fabs(1 - scalc)) *  inter->norm.y;
-	t.z = ((AIR_INCI / GLASS_INCI) * pd->dir.z) + ((AIR_INCI / GLASS_INCI) * cos(angle) - fabs(1 - scalc)) *  inter->norm.z;
+	t.x = ((AIR_INCI / GLASS_INCI) * pd->dir.x) + ((AIR_INCI / GLASS_INCI)
+		* cos(angle) - fabs(1 - scalc)) * inter->norm.x;
+	t.y = ((AIR_INCI / GLASS_INCI) * pd->dir.y) + ((AIR_INCI / GLASS_INCI)
+		* cos(angle) - fabs(1 - scalc)) * inter->norm.y;
+	t.z = ((AIR_INCI / GLASS_INCI) * pd->dir.z) + ((AIR_INCI / GLASS_INCI)
+		* cos(angle) - fabs(1 - scalc)) * inter->norm.z;
 	transpd->dir = normalizator_ret(t);//normalizator_ret(sub_vec((t), inter->pos));
 	transpd->pos = inter->pos;
 	impactor(f->env, transpd, f, transinter);
@@ -76,27 +80,25 @@ unsigned int	transroitor(t_inter *inter, t_thr *f, t_pd *pd, int p)
 {
 	t_transroi	n;
 
-	n.schlick = 0;
+	n.nat = 0;
 	n.tmpcolor = 0x000000;
 	n.mircolor = 0x000000;
 	n.transcolor = 0x000000;
 	t_inter_set(&n.transinter);
 	t_inter_set(&n.mirinter);
-	if (inter->ref > 0 && p < 8)
+	if ((n.nat += inter->ref) > 0 && p < 8)
 	{
 		ref(f, inter, &n, pd);
 		n.mircolor = transroitor(&n.mirinter, f, &n.mirpd, p + 1);
+		n.tmpcolor += color_mult(n.mircolor , inter->ref, inter->ref, inter->ref);
+	}
+	if ((n.nat += inter->trans) > 0 && p < 8)
+	{
 		if ((n.i = trans_calculator(f, inter, &n.transinter, pd, &n.transpd)) == 0)
 			n.transcolor = transroitor(&n.transinter, f, &n.transpd, p + 1);
-		// printf("i = %d\n", n.i);
-		// n.schlick = get_schlick(pd, inter);
-	//	printf("sch = %f\n", n.schlick);
-		n.schlick = 0;
-		n.tmpcolor = color_mult(n.mircolor , n.schlick, n.schlick, n.schlick)
-		+ color_mult(n.transcolor , 1 - n.schlick, 1 - n.schlick, 1 - n.schlick);
+		n.tmpcolor += color_mult(n.transcolor, inter->trans, inter->trans, inter->trans);
 	}
-	else
-		n.tmpcolor = amaterasu(f, inter);
-//	printf("%d\n", p);
+	if ((n.nat < 1) || p >= 8)
+		n.tmpcolor += color_mult(amaterasu(f, inter), 1 - n.nat, 1 - n.nat, 1 - n.nat);
 	return (n.tmpcolor);
 }

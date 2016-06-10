@@ -48,7 +48,8 @@ t_mat		new_t_mat(char *name)
 	mat.shiny = 0;
 	mat.shinystr = 0;
 	mat.trans = 0;
-	mat.ref = -1;
+	mat.ref = 0;
+	mat.trans = 0;
 	mat.diff = new_t_color(1, 1, 1);
 	mat.idr = 1;
 	mat.min = new_t_vec(-INFINITY, -INFINITY, -INFINITY);

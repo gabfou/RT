@@ -206,7 +206,7 @@ sphere {
 	y: -3,
 	z: 3,
 	rad: 3,
-	ref: 1
+	ref: 0.2
 }
 
 sphere {
@@ -214,7 +214,7 @@ sphere {
 	y: 3,
 	z: -3,
 	rad: 3,
-	ref: 1
+	ref: 0.2
 }
 
 sphere {
@@ -222,7 +222,7 @@ sphere {
 	y: -3,
 	z: -3,
 	rad: 3,
-	ref: 1
+	ref: 0.2
 }
 
 sphere {
@@ -230,7 +230,7 @@ sphere {
 	y: 3,
 	z: 3,
 	rad: 3,
-	ref: 1
+	ref: 0.2
 }
 
 sphere {
@@ -325,7 +325,7 @@ cone {
 	dir_y: 1,
 	dir_z: -1,
 	angle: 10,
-	ref: 1
+	ref: 0.2
 }
 
 cone {
@@ -336,7 +336,7 @@ cone {
 	dir_y: -1,
 	dir_z: 1,
 	angle: 10,
-	ref: 1
+	ref: 0.2
 }
 
 cone {
@@ -347,7 +347,7 @@ cone {
 	dir_y: 1,
 	dir_z: 1,
 	angle: 10,
-	ref: 1
+	ref: 0.2
 }
 
 cone {
@@ -358,7 +358,7 @@ cone {
 	dir_y: -1,
 	dir_z: -1,
 	angle: 10,
-	ref: 1
+	ref: 0.2
 }
 
 cyl {

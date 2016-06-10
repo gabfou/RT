@@ -47,7 +47,7 @@ void		check_cyl(t_item *item, t_pd *s, t_inter *inter, int impactmod)
 		* dot_prod(l, item->cyl->dir)) - item->cyl->ray * item->cyl->ray;
 	if ((t = (b * b - 4.0 * a * c)) <= 0)
 		return ;
-	t = ft_min(((-b + sqrt(t)) / (2 * a)), ((-b - sqrt(t)) / (2 * a)));
+	t = ft_minspe(((-b + sqrt(t)) / (2 * a)), ((-b - sqrt(t)) / (2 * a)));
 	if (check_t(inter, t, s, item) == 1 && impactmod)
 		set_normal_cyl(item->cyl, inter);
 	return ;

@@ -44,14 +44,14 @@ t_color		lumi_calc(t_thr *f, t_pd *lvec, FLOAT_SIZE angle[2], t_color color, t_i
 	angle[0] = (angle[0] > 0) ? angle[0] : -angle[0];
 	angle[1] = (angle[1] > 0) ? angle[1] : -angle[1];
 	color.r = ((angle[0] / 4 * ((f->light->rcolor.r)) * 2 / M_PI) +
-	(angle[1] / 4 * ((f->light->rcolor.r)) * 2 / M_PI)) * f->liginter.diff.b +
-	(color.r);
+	(angle[1] / 4 * ((f->light->rcolor.r)) * 2 / M_PI))
+	* f->liginter.diff.r + (color.r);
 	color.g = ((angle[0] / 4 * ((f->light->rcolor.g)) * 2 / M_PI)
 		+ (angle[1] / 4 * ((f->light->rcolor.g)) * 2 / M_PI))
 		* f->liginter.diff.g + (color.g);
 	color.b = ((angle[0] / 4 * ((f->light->rcolor.b)) * 2 / M_PI)
 		+ (angle[1] / 4 * ((f->light->rcolor.b)) * 2 / M_PI))
-		* f->liginter.diff.r + (color.b);
+		* f->liginter.diff.b + (color.b);
 	return (color);
 }
 

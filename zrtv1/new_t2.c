@@ -90,5 +90,6 @@ t_screen	new_t_screen(void)
 	screen.hi = SCR_H / H_RES;
 	screen.resl = L_RES;
 	screen.resh = H_RES;
+	screen.color = new_t_color(0, 0, 0);
 	return (screen);
 }

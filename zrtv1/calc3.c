@@ -43,3 +43,13 @@ inline FLOAT_SIZE	get_sqr_dist(t_vec v1, t_vec v2)
 {
 	return (carre(v2.x - v1.x) + carre(v2.y - v1.y) + carre(v2.z - v1.z));
 }
+
+inline FLOAT_SIZE	ft_minspe(const register FLOAT_SIZE a,
+	const register FLOAT_SIZE b)
+{
+	// if (a < 0)
+	// 	return (b);
+	// if (b < 0)
+	// 	return (a);
+	return (a < b ? a : b);
+}

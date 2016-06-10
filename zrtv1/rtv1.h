@@ -265,6 +265,7 @@ typedef	struct		s_transroi
 	unsigned int	transcolor;
 	double			schlick;
 	int				i;
+	FLOAT_SIZE		nat;
 }					t_transroi;
 
 typedef	struct		s_screen
@@ -278,6 +279,7 @@ typedef	struct		s_screen
 	FLOAT_SIZE			hi;
 	FLOAT_SIZE			resl;
 	FLOAT_SIZE			resh;
+	t_color				color;
 }					t_screen;
 
 typedef	struct		s_env
@@ -543,5 +545,9 @@ float			get_color_str(t_color *color);
 void			print_phcol(t_phcol *t);
 t_phcol			*new_phcol(t_color color, FLOAT_SIZE dist);
 int				da_color_lenght(t_phcol *tab);
+FLOAT_SIZE		ft_minspe(const register FLOAT_SIZE a,\
+	const register FLOAT_SIZE b);
+unsigned int	color_add(unsigned int color,\
+	FLOAT_SIZE r, FLOAT_SIZE g, FLOAT_SIZE b);
 
 #endif

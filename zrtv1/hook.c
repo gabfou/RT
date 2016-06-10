@@ -61,7 +61,8 @@ int		mouse_hook(int button, int x, int y, t_leviatenv *levia)
 		nextrack(levia, 0, NULL);
 		comander(-3, levia);
 	}
-	if (button == 1)
+	if (button == 1 && levia && levia->lenv && levia->lenv->limg
+		&& levia->lenv->limg->cam)
 	{
 		pd.pos = levia->lenv->limg->cam->pos;
 		t_inter_set(&(inter));

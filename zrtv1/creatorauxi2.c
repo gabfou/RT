@@ -22,5 +22,6 @@ void		t_inter_set(t_inter *inter)
 	inter->pos.z = 0;
 	inter->t = -1;
 	inter->trans = 0;
+	inter->ref = 0;
 	inter->diff = new_t_color(1, 1, 1);
 }
