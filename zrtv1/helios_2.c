@@ -288,21 +288,57 @@ t_color		el_subluminor(t_vec pos, t_thr *f)
 	while (i < PHOTOSTACK)
 	{
 		pd.dir = conseiller_d_orientation_protonique_alcolique();
+		//print_vec(pd.dir);
 		t_inter_set(&inter);
-		impactor(f->env, &pd, f, &(f->inter));
+		impactor(f->env, &pd, f, &(inter));
 		set_inter_pos(&inter, &pd);
-		color = el_luminor(f->env->prototree, pos);
+		color = el_luminor(f->env->prototree, inter.pos);
 		ret.r += color.r / PHOTOSTACK;
 		ret.g += color.g / PHOTOSTACK;
 		ret.b += color.b / PHOTOSTACK;
+	//	printf("\n\n RET STACK = %d\n", get_color(ret.r, ret.g, ret.b));
 		i++;
 	}
+//	
 //	printf("%d\n", i);
-	return (color);
+	return (ret);
 }
 
+// t_color		el_subluminor(t_vec pos, t_thr *f)
+// {
+// 	t_phcol	*tab;
+// 	int		i;
+// 	t_inter	inter;
+// 	t_pd	pd;
+// 	t_color	color;
+// //	t_color	ret;
 
-unsigned int	amaterasu(t_thr *f, t_inter *inter)
+// 	i = 0;
+// 	color = new_t_color(0, 0, 0);
+// //	ret = new_t_color(0, 0, 0);
+// 	pd.pos = pos;
+// 	tab = NULL;
+// 	while (i < PHOTOSTACK)
+// 	{
+// 		pd.dir = conseiller_d_orientation_protonique_alcolique();
+// 		//print_vec(pd.dir);
+// 		t_inter_set(&inter);
+// 		impactor(f->env, &pd, f, &(f->inter));
+// 		set_inter_pos(&inter, &pd);
+// 		color = t_color_add(el_luminor(f->env->prototree, pos), color);
+// 		// ret.r += color.r / PHOTOSTACK;
+// 		// ret.g += color.g / PHOTOSTACK;
+// 		// ret.b += color.b / PHOTOSTACK;
+// 		//printf("\n\n RET STACK = %d\n", get_color(ret.r, ret.g, ret.b));
+// 		i++;
+// 	}
+// 	color = t_color_mult(color, 1 / PHOTOSTACK);
+// //	printf("%d\n", i);
+// 	return (color);
+// }
+
+
+unsigned int	amaterasu(t_thr *f, t_inter *inter, int i)
 {
 	t_color	ret;
 	t_color		global_color;
@@ -318,8 +354,10 @@ unsigned int	amaterasu(t_thr *f, t_inter *inter)
 	direct_color = new_t_color(0, 0, 0);
 	global_color = new_t_color(0, 0, 0);
 	direct_color = luminator(f, inter);
-	if (x != 0)
+	if (x > 0 && i == 1)
 		global_color = el_subluminor(inter->pos, f);
+	else
+		return (get_color(direct_color.r, direct_color.g, direct_color.b));
 	 // printf("global c = %d\n", global_color);
 	 // printf("dirsct c = %d\n", direct_color);
 	//printf("\n%f %f %f\n", direct_color.r, direct_color.g, direct_color.b);
