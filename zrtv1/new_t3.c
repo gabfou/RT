@@ -24,6 +24,7 @@ t_limg		*new_t_limg(t_leviatenv *env)
 	ret->i = 1;
 	ret->l = 0;
 	ret->k = 1;
+	ret->cam = NULL;
 	ret->prev = NULL;
 	ret->next = NULL;
 	return (ret);
