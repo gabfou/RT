@@ -1,0 +1,96 @@
+cam {
+	x: 0,
+	y: 0,
+	z: 0,
+	dir_x: 1,
+	dir_y: 0,
+	dir_z: 0,
+	rot: 0
+}
+
+lum {
+	x: 15,
+	y: 4,
+	z: 4,
+	r: 255,
+	g: 255,
+	b: 255
+}
+
+lum {
+	x: 15,
+	y: 4,
+	z: 4,
+	r: 255,
+	g: 255,
+	b: 255
+}
+
+plane {
+	x: 16,
+	y: 0,
+	z: 0,
+	dir_x: -1,
+	dir_y: 0,
+	dir_z: 0,
+}
+
+plane {
+	x: -1,
+	y: 0,
+	z: 0,
+	dir_x: 1,
+	dir_y: 0,
+	dir_z: 0,
+}
+
+plane {
+	x: 15,
+	y: 0,
+	z: -5,
+	dir_x: -1,
+	dir_y: 0,
+	dir_z: 4,
+}
+
+plane {
+	x: 15,
+	y: 0,
+	z: 5,
+	dir_x: -1,
+	dir_y: 0,
+	dir_z: -4,
+}
+
+
+plane {
+	x: 0,
+	y: -5,
+	z: 0,
+	dir_x: 0,
+	dir_y: 1,
+	dir_z: 0,
+}
+
+plane {
+	x: 0,
+	y: 5,
+	z: 0,
+	dir_x: 0,
+	dir_y: 10,
+	dir_z: 1,
+}
+
+sphere {
+	x: 14,
+	y: -3,
+	z: -1,
+	rad: 1.8,
+}
+
+sphere {
+	x: 11,
+	y: -3,
+	z: 2,
+	rad: 1.8,
+}
