@@ -360,6 +360,7 @@ typedef	struct		s_leviatenv
 	void			*mlx;
 	void			*win;
 	t_env			*lenv;
+	t_item			*current;
 	t_fmod			fmod;
 }					t_leviatenv;
 
@@ -443,7 +444,7 @@ void			free_tokens(t_list **tokens);
 char			keytochar(int key);
 void			comander(int key, t_leviatenv *env);
 int				new_sphere(t_env *env);
-void			modif_item(t_env *env, int i, char **split);
+void			modif_item(t_item *current, char **split);
 void			*imgcptor(t_leviatenv *env);
 void			*printmusicator(t_limg *addr);
 

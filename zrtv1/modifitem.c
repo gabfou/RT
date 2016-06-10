@@ -34,25 +34,22 @@ void		modif_ray(t_item *item, const float ray)
 		return ;
 }
 
-void		modif_item(t_env *env, int i, char **split)
+void		modif_item(t_item *current, char **split)
 {
-	t_item	*item;
-
-	item = env->item;
-	while (item && i-- > 0)
-		item = item->next;
+	if (!current)
+		return ;
 	if (ft_strcmp(split[2], "x") == 0)
-		modif_x(item, ft_fatoi(split[3]));
+		modif_x(current, ft_fatoi(split[3]));
 	else if (ft_strcmp(split[2], "y") == 0)
-		modif_y(item, ft_fatoi(split[3]));
+		modif_y(current, ft_fatoi(split[3]));
 	else if (ft_strcmp(split[2], "z") == 0)
-		modif_z(item, ft_fatoi(split[3]));
+		modif_z(current, ft_fatoi(split[3]));
 	else if (ft_strcmp(split[2], "dirx") == 0)
-		modif_dirx(item, ft_fatoi(split[3]));
+		modif_dirx(current, ft_fatoi(split[3]));
 	else if (ft_strcmp(split[2], "diry") == 0)
-		modif_diry(item, ft_fatoi(split[3]));
+		modif_diry(current, ft_fatoi(split[3]));
 	else if (ft_strcmp(split[2], "dirz") == 0)
-		modif_dirz(item, ft_fatoi(split[3]));
+		modif_dirz(current, ft_fatoi(split[3]));
 	else if (ft_strcmp(split[2], "ray") == 0)
-		modif_ray(item, ft_fatoi(split[3]));
+		modif_ray(current, ft_fatoi(split[3]));
 }

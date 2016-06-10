@@ -34,19 +34,6 @@ void		impactor(t_env *env, t_pd *pd, t_thr *f, t_inter *inter)
 	}
 }
 
-void		t_inter_set(t_inter *inter)
-{
-	inter->norm.x = 0;
-	inter->norm.y = 0;
-	inter->norm.z = 0;
-	inter->pos.x = 0;
-	inter->pos.y = 0;
-	inter->pos.z = 0;
-	inter->t = -1;
-	inter->trans = 0;
-	inter->diff = new_t_color(1, 1, 1);
-}
-
 void		calc_dir(t_vec *dir, FLOAT_SIZE x, FLOAT_SIZE y, t_thr *f)
 {
 	dir->x = (f->cam->upleft.x +
@@ -71,38 +58,41 @@ void		pixelator(t_thr *f, t_pd *pd, int x, int y)
 	set_inter_pos(&(f->inter), pd);
 	if (f->inter.ref > 0)
 		f->fcolor = transroitor(&(f->inter), f, pd, 0);
-		// ref2(f, pd);
 	else
 		f->fcolor = amaterasu(f, &f->inter);
 	pixel_to_image(x, y, f->fcolor, f->limg);
 	f->limg->l++;
 }
 
-void		creator(t_cor *c)
+void		panoramiquator(t_thr *f)
 {
 	double		x;
 	double		y;
+	t_pd		pd;
+
+	y = f->miny;
+	while (y++ < f->maxy)
+	{
+		x = f->minx;
+		while (x++ < f->maxx)
+			pixelator(f, &pd, x, y);
+	}
+}
+
+void		creator(t_cor *c)
+{
 	t_thr		*f;
 	int			l;
-	t_pd		*pd;
 
 	f = new_t_thr(c);
 	l = 0;
-	pd = new_t_pd();
-	pd->dir = new_t_vec(0, 0, 0);
 	f->inter = new_t_inter();
 	f->liginter = new_t_inter();
 	while (f->env->nbr > f->done)
 	{
 		while (f->cam != NULL)
 		{
-			y = f->miny;
-			while (y++ < f->maxy)
-			{
-				x = f->minx;
-				while (x++ < f->maxx)
-					pixelator(f, pd, x, y);
-			}
+			panoramiquator(f);
 			nextcam(f);
 			ft_putstr("NEXTEUH");
 		}

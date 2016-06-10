@@ -113,4 +113,5 @@ inline void			init_env(t_leviatenv *levia)
 {
 	levia->mlx = mlx_init();
 	levia->lenv = NULL;
+	levia->current = NULL;
 }
