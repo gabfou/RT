@@ -63,6 +63,7 @@ int			check_t(t_inter *inter, FLOAT_SIZE t,
 		inter->diff = item->mat.diff;
 		inter->trans = item->mat.trans;
 		inter->pos = pos;
+		inter->item = item;
 		return (1);
 	}
 	return (0);

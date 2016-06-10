@@ -147,6 +147,19 @@ typedef	struct		s_pd
 	FLOAT_SIZE		ray;
 }					t_pd;
 
+typedef	struct		s_cam
+{
+	t_vec			pos;
+	t_vec			dir;
+	t_vec			up;
+	t_vec			right;
+	FLOAT_SIZE		angle;
+	t_vec			upleft;
+	int				zebre;
+	int				rfu;
+	struct s_cam	*next;
+}					t_cam;
+
 typedef	struct		s_limg
 {
 	void			*image;
@@ -156,6 +169,7 @@ typedef	struct		s_limg
 	int				i;
 	int				l;
 	int				k;
+	t_cam			*cam;
 	struct s_limg	*prev;
 	struct s_limg	*next;
 }					t_limg;
@@ -222,6 +236,7 @@ typedef	struct		s_inter
 	FLOAT_SIZE		trans;
 	t_color			diff;
 	FLOAT_SIZE		ref;
+	t_item			*item;
 	FLOAT_SIZE		preidr;
 	FLOAT_SIZE		postidr;
 }					t_inter;
@@ -251,19 +266,6 @@ typedef	struct		s_transroi
 	double			schlick;
 	int				i;
 }					t_transroi;
-
-typedef	struct		s_cam
-{
-	t_vec			pos;
-	t_vec			dir;
-	t_vec			up;
-	t_vec			right;
-	FLOAT_SIZE		angle;
-	t_vec			upleft;
-	int				zebre;
-	int				rfu;
-	struct s_cam	*next;
-}					t_cam;
 
 typedef	struct		s_screen
 {
@@ -390,6 +392,8 @@ void			itemadator(t_env *env, t_item *item);
 t_item			*new_t_item(t_env *env);
 t_cam			*new_t_cam();
 t_screen		new_t_screen();
+void			calc_dir(t_vec *dir, FLOAT_SIZE x, FLOAT_SIZE y, t_thr *f);
+void			impactoralancienne(t_pd *pd, t_item *item, t_inter *inter);
 
 int				check_t(t_inter *inter, FLOAT_SIZE t,
 	t_pd *s, t_item *item);
@@ -529,5 +533,15 @@ int				compz(t_proto *proto1, t_proto *proto2);
 FLOAT_SIZE		get_sqr_dist(t_vec v1, t_vec v2);
 t_color			t_color_add(t_color c1, t_color c2);
 t_color			t_color_mult(t_color c1, FLOAT_SIZE i);
+unsigned int	color_mult(unsigned int color,\
+	FLOAT_SIZE r, FLOAT_SIZE g, FLOAT_SIZE b);
+void			print_tout_tree(t_proto *tmp);
+void			print_proto(t_proto *tmp);
+void			print_proto_list(t_proto *protolis);
+t_proto			*new_t_proto();
+float			get_color_str(t_color *color);
+void			print_phcol(t_phcol *t);
+t_phcol			*new_phcol(t_color color, FLOAT_SIZE dist);
+int				da_color_lenght(t_phcol *tab);
 
 #endif

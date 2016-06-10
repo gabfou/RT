@@ -20,48 +20,6 @@
 
 # define COLORSTACK 50
 
-t_phcol		*new_phcol(t_color color, FLOAT_SIZE dist)
-{
-	t_phcol	*tmp;
-
-	//printf("color =%d\n", get_color(color.r, color.g, color.b));
-//	printf("dist =%f\n\n", dist);
-	tmp = malloc(sizeof(t_phcol));
-	tmp->color = new_t_color(color.r, color.g, color.b);
-	tmp->dist = dist;
-	tmp->next = NULL;
-	return (tmp);
-}
-
-void		print_phcol(t_phcol *t)
-{
-	t_phcol	*tmp;
-
-	tmp = t;
-	printf(" NEW LISTUH \n");
-	while (tmp != NULL)
-	{
-		printf("dist = %f\n", tmp->dist);
-		tmp = tmp->next;
-	}
-	ft_putendl("");
-}
-
-int				da_color_lenght(t_phcol *tab)
-{
-	t_phcol	*tmp;
-	int		i;
-
-	i = 0;
-	tmp = tab;
-	while (tmp != NULL)
-	{
-		tmp = tmp->next;
-		i++;
-	}
-	return (i);
-}
-
 t_color		gimme_da_color(t_phcol *tab)
 {
 	t_color		color;

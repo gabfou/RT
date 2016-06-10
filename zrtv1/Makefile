@@ -68,6 +68,8 @@ SRC =  rtv1.c \
 	   calc3.c \
 	   calc4.c \
 	   creatorauxi2.c \
+	   infohelios.c \
+	   new_t4.c \
 	  
 OBJ = $(SRC:.c=.o)
 CC = clang

@@ -28,6 +28,7 @@ void		nextcam(t_thr *f)
 {
 	if (f)
 	{
+		f->limg->cam = f->cam;
 		f->cam = f->cam->next;
 		f->limg->i++;
 		f->limg = f->limg->next;

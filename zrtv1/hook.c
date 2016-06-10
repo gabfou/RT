@@ -25,11 +25,31 @@ int		expose_hook(t_leviatenv *levia)
 		loadator(levia->lenv->screen.h, levia->lenv->screen.l,
 			levia, levia->lenv->limg->l);
 	}
+	comander(-3, levia);
 	return (0);
+}
+
+t_vec	calc_dir2(t_screen screen, FLOAT_SIZE x, FLOAT_SIZE y, t_cam *cam)
+{
+	t_vec dir;
+
+	dir.x = (cam->upleft.x +
+		(cam->up.x * screen.scrh * y / screen.resh)
+		+ (cam->right.x * screen.scrl * x / screen.resl));
+	dir.y = (cam->upleft.y +
+		(cam->up.y * screen.scrh * y / screen.resh)
+		+ (cam->right.y * screen.scrl * x / screen.resl));
+	dir.z = (cam->upleft.z +
+		(cam->up.z * screen.scrh * y / screen.resh)
+		+ (cam->right.z * screen.scrl * x / screen.resl));
+	return (normalizator_ret(dir));
 }
 
 int		mouse_hook(int button, int x, int y, t_leviatenv *levia)
 {
+	t_pd	pd;
+	t_inter	inter;
+
 	printf("x = %d, y = %d, button = %d\n", x, y, button);
 	if (button == 1 && (x > 1085 && x < 1112 && y > 150 && y < 200))
 	{
@@ -41,6 +61,14 @@ int		mouse_hook(int button, int x, int y, t_leviatenv *levia)
 		nextrack(levia, 0, NULL);
 		comander(-3, levia);
 	}
+	if (button == 1)
+	{
+		pd.pos = levia->lenv->limg->cam->pos;
+		t_inter_set(&(inter));
+		pd.dir = calc_dir2(levia->lenv->screen, x, y, levia->lenv->limg->cam);
+		impactoralancienne(&pd, levia->lenv->item, &inter);
+		levia->current = inter.item;
+	}
 	return (0);
 }
 
@@ -48,12 +76,12 @@ void	changesize(t_leviatenv *levia)
 {
 	mlx_destroy_window(levia->mlx, levia->win);
 	levia->win = (levia->lenv->ft++ % 2 == 0) ?
-		mlx_new_window(levia->mlx, levia->lenv->screen.l + L_SIZEC,
-		levia->lenv->screen.h, "RTV1") :
-		mlx_new_window(levia->mlx, levia->lenv->screen.l,
-		levia->lenv->screen.h, "RTV1");
+	mlx_new_window(levia->mlx, levia->lenv->screen.l + L_SIZEC,
+	levia->lenv->screen.h, "RTV1") :
+	mlx_new_window(levia->mlx, levia->lenv->screen.l,
+	levia->lenv->screen.h, "RTV1");
 	mlx_put_image_to_window(levia->mlx, levia->win,
-		levia->lenv->limg->image, 0, 0);
+	levia->lenv->limg->image, 0, 0);
 	imgcptor(levia);
 	mlx_mouse_hook(levia->win, mouse_hook, levia);
 	mlx_hook(levia->win, 2, 1, key_down_hook, levia);

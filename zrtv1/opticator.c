@@ -12,13 +12,6 @@
 
 #include "rtv1.h"
 
-unsigned int	color_mult(unsigned int color, FLOAT_SIZE r, FLOAT_SIZE g, FLOAT_SIZE b)
-{
-	return (get_color(((color >> 16) & 0xFF)  * r,
-	 					((color >> 8) & 0xFF)  * g,
-	 					((color >> 0) & 0xFF)  * b));
-}
-
 double 	trans_calculator(t_thr *f, t_inter *inter, t_inter *transinter, t_pd *pd, t_pd	*transpd)
 {
 	FLOAT_SIZE	scalc;
@@ -30,8 +23,8 @@ double 	trans_calculator(t_thr *f, t_inter *inter, t_inter *transinter, t_pd *pd
 	t.z = 0;
 	angle = 0;
 	scalc = 0;
-	//t_inter_set(&(f->inter));
-	//set_inter_pos(&(f->inter), pd);
+	// t_inter_set(&(f->inter));
+	// set_inter_pos(&(f->inter), pd);
 	angle = M_PI_2 - acos(dot_prod(pd->dir, inter->norm));
 	angle = (angle > 0) ? -angle : angle;
 	if (sin(angle) > (AIR_INCI / GLASS_INCI))
@@ -40,7 +33,7 @@ double 	trans_calculator(t_thr *f, t_inter *inter, t_inter *transinter, t_pd *pd
 	t.x = ((AIR_INCI / GLASS_INCI) * pd->dir.x) + ((AIR_INCI / GLASS_INCI) * cos(angle) - fabs(1 - scalc)) *  inter->norm.x;
 	t.y = ((AIR_INCI / GLASS_INCI) * pd->dir.y) + ((AIR_INCI / GLASS_INCI) * cos(angle) - fabs(1 - scalc)) *  inter->norm.y;
 	t.z = ((AIR_INCI / GLASS_INCI) * pd->dir.z) + ((AIR_INCI / GLASS_INCI) * cos(angle) - fabs(1 - scalc)) *  inter->norm.z;
-	transpd->dir = /*normalizator_ret(sub_vec(*/normalizator_ret(t)/*, inter->pos))*/;
+	transpd->dir = normalizator_ret(t);//normalizator_ret(sub_vec((t), inter->pos));
 	transpd->pos = inter->pos;
 	impactor(f->env, transpd, f, transinter);
 	return (0);
@@ -95,9 +88,10 @@ unsigned int	transroitor(t_inter *inter, t_thr *f, t_pd *pd, int p)
 		n.mircolor = transroitor(&n.mirinter, f, &n.mirpd, p + 1);
 		if ((n.i = trans_calculator(f, inter, &n.transinter, pd, &n.transpd)) == 0)
 			n.transcolor = transroitor(&n.transinter, f, &n.transpd, p + 1);
+		// printf("i = %d\n", n.i);
 		// n.schlick = get_schlick(pd, inter);
 	//	printf("sch = %f\n", n.schlick);
-		n.schlick = 1;
+		n.schlick = 0;
 		n.tmpcolor = color_mult(n.mircolor , n.schlick, n.schlick, n.schlick)
 		+ color_mult(n.transcolor , 1 - n.schlick, 1 - n.schlick, 1 - n.schlick);
 	}

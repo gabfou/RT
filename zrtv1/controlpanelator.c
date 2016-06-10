@@ -12,6 +12,27 @@
 
 #include "rtv1.h"
 
+void		printcurrent(t_leviatenv *levia)
+{
+	mlx_string_put(levia->mlx, levia->win, levia->lenv->screen.l
+		+ 30, 300, 0xFFFFFF, "current :");
+	if (levia->current == NULL)
+		mlx_string_put(levia->mlx, levia->win, levia->lenv->screen.l
+		+ 131, 300, 0xFFFFFF, "NULL");
+	else if (levia->current->sp)
+		mlx_string_put(levia->mlx, levia->win, levia->lenv->screen.l
+		+ 131, 300, 0xFFFFFF, "sphere");
+	else if (levia->current->con)
+		mlx_string_put(levia->mlx, levia->win, levia->lenv->screen.l
+		+ 131, 300, 0xFFFFFF, "cone");
+	else if (levia->current->pl)
+		mlx_string_put(levia->mlx, levia->win, levia->lenv->screen.l
+		+ 131, 300, 0xFFFFFF, "plan");
+	else if (levia->current->cyl)
+		mlx_string_put(levia->mlx, levia->win, levia->lenv->screen.l
+		+ 131, 300, 0xFFFFFF, "cylindre");
+}
+
 inline void	*imgcptor(t_leviatenv *levia)
 {
 	static t_limg	*limg = NULL;
@@ -31,5 +52,6 @@ inline void	*imgcptor(t_leviatenv *levia)
 		levia->lenv->screen.l, 0);
 	mlx_string_put(levia->mlx, levia->win, levia->lenv->screen.l
 		+ 151, 165, 0xFFFFFF, levia->fmod.listmusic->name);
+	printcurrent(levia);
 	return (NULL);
 }

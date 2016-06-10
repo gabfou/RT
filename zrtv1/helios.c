@@ -42,50 +42,6 @@ void		impactoralancienne(t_pd *pd, t_item *item, t_inter *inter)
 	item = lst;
 }
 
-void		print_tout_tree(t_proto *tmp)
-{
-	static int x = -1;
-	static int prof = 0;
-
-	x++;
-	printf("prof %d proto %d = %f] [y = %f] [z = %f]\n", prof, x, tmp->x , tmp->y, tmp->z);
-	printf("color = %d\n", get_color(tmp->color.r, tmp->color.g, tmp->color.b));
-	if (tmp->gauche)
-	{
-		prof++;
-		print_tout_tree(tmp->gauche);
-	}
-	if (tmp->droite)
-	{
-		prof++;
-		print_tout_tree(tmp->droite);
-	}
-	prof--;
-}
-
-void		print_proto(t_proto *tmp)
-{
-		ft_putstr("maillon protolis");
-		printf("proto = x = %f] [y = %f] [z = %f]\n", tmp->x , tmp->y, tmp->z);
-}
-
-void		print_proto_list(t_proto *protolis)
-{
-	t_proto	*tmp;
-	int		i;
-
-	i = 0;
-	tmp = protolis;
-	ft_putstr("\n");
-	while (tmp != NULL)
-	{
-		i++;
-		ft_putstr("maillon protolis = ");
-		printf("%d = [x = %f] [y = %f] [z = %f]\n", i, tmp->x , tmp->y, tmp->z);
-		tmp = tmp->droite;
-	}
-}
-
 int			proto_counter(t_proto *protolis)
 {
 	int		i;
@@ -114,21 +70,6 @@ void	proto_fill(t_inter *inter, t_proto *proto, t_color color)
 	proto->color.b = color.b;
 	proto->droite = NULL;
 	proto->gauche = NULL;
-}
-
-t_proto		*new_t_proto()
-{
-	t_proto	*proto;
-
-//	ft_putendl("\nNEW PROTO");
-	proto = malloc(sizeof(t_proto));
-	proto->x = 0;
-	proto->y = 0;
-	proto->z = 0;
-	proto->color = new_t_color(0, 0, 0);
-	proto->droite = NULL;
-	proto->gauche = NULL;
-	return (proto);
 }
 
 t_vec		conseiller_d_orientation_protonique_alcolique()
@@ -377,17 +318,6 @@ t_vec 	trans_calculator_ret(t_inter *inter, t_pd *pd)
 	t.z = ((AIR_INCI / GLASS_INCI) * pd->dir.z) + ((AIR_INCI / GLASS_INCI) * cos(angle) - fabs(1 - scalc)) *  inter->norm.z;
 	return (normalizator_ret(t));
 }
-
-
-float		get_color_str(t_color *color)
-{
-	float	sub;
-
-	sub = color->r + color->g + color->b;
-	return (sub / 768 * 100);
-}
-
-
 
 t_proto			*lance_soleil(t_pd *pd, t_proto	*protolis, t_item *item, t_color licolor)
 {
