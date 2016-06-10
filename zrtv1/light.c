@@ -36,11 +36,11 @@ int			comparator_pos(const t_inter *inter, const t_inter *einter)
 	return (0);
 }
 
-t_color		lumi_calc(t_thr *f, t_pd *lvec, FLOAT_SIZE angle[2], t_color color)
+t_color		lumi_calc(t_thr *f, t_pd *lvec, FLOAT_SIZE angle[2], t_color color, t_inter inter)
 {
 	luminatorstupid(f, lvec);
-	angle[0] = M_PI_2 - acos(dot_prod(lvec->dir, f->inter.norm));
-	angle[1] = pow(dot_prod(lvec->dir, f->inter.norm), 50);
+	angle[0] = M_PI_2 - acos(dot_prod(lvec->dir, inter.norm));
+	angle[1] = pow(dot_prod(lvec->dir, inter.norm), 50);
 	angle[0] = (angle[0] > 0) ? angle[0] : -angle[0];
 	angle[1] = (angle[1] > 0) ? angle[1] : -angle[1];
 	color.r = ((angle[0] / 4 * ((f->light->rcolor.r)) * 2 / M_PI) +
@@ -55,18 +55,18 @@ t_color		lumi_calc(t_thr *f, t_pd *lvec, FLOAT_SIZE angle[2], t_color color)
 	return (color);
 }
 
-void		lumi_auxi(t_thr *f, t_pd *lvec)
+void		lumi_auxi(t_thr *f, t_pd *lvec, t_inter inter)
 {
 	t_inter_set(&f->liginter);
 	lvec->pos = f->light->pos;
-	lvec->dir = new_t_vec(f->inter.pos.x - f->light->pos.x, f->inter.pos.y
-	- f->light->pos.y, f->inter.pos.z - f->light->pos.z);
+	lvec->dir = new_t_vec(inter.pos.x - f->light->pos.x, inter.pos.y
+	- f->light->pos.y, inter.pos.z - f->light->pos.z);
 	normalizator(&lvec->dir);
 	impactor(f->env, lvec, f, &f->liginter);
 	set_inter_pos(&f->liginter, lvec);
 }
 
-t_color		luminator(t_thr *f)
+t_color		luminator(t_thr *f, t_inter *inter)
 {
 	t_pd			lvec;
 	FLOAT_SIZE		angle[2];
@@ -76,17 +76,17 @@ t_color		luminator(t_thr *f)
 	ltmp = f->light;
 	retcolor = new_t_color(0, 0, 0);
 	f->impactmod = 0;
-	if (f->inter.t <= 0 || f->light == NULL)
+	if (inter->t <= 0 || f->light == NULL)
 		return (retcolor);
 	while (f->light != NULL)
 	{
-		lumi_auxi(f, &lvec);
-		if (comparator_pos(&(f->liginter), &(f->inter)) == 0)
+		lumi_auxi(f, &lvec, *inter);
+		if (comparator_pos(&(f->liginter), (inter)) == 0)
 		{
 			f->light = f->light->next;
 			continue;
 		}
-		retcolor = lumi_calc(f, &lvec, angle, retcolor);
+		retcolor = lumi_calc(f, &lvec, angle, retcolor, *inter);
 		f->light = f->light->next;
 	}
 	f->impactmod = 1;

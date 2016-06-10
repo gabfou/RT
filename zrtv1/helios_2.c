@@ -351,7 +351,7 @@ unsigned int	amaterasu(t_thr *f, t_inter *inter)
 	ret = new_t_color(0, 0, 0);
 	direct_color = new_t_color(0, 0, 0);
 	global_color = new_t_color(0, 0, 0);
-	direct_color = luminator(f/*, inter*/);
+	direct_color = luminator(f, inter);
 	if (x != 0)
 		global_color = el_subluminor(inter->pos, f->env);
 	 // printf("global c = %d\n", global_color);

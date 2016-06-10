@@ -52,16 +52,12 @@ t_vec	miroiratorvcalculator(t_vec ray, t_vec norm)
 		normalizator_ret(add_vec(ray, norm)))));
 }
 
-void	ref(t_thr *f, t_inter *inter, t_inter *mirinter, t_pd *pd, t_pd	*mirpd)
+void	ref(t_thr *f, t_inter *inter, t_transroi *n, t_pd *pd)
 {
-	// ft_putendl("niark");
 	set_inter_pos(inter, pd);
-	mirpd->dir = normalizator_ret(miroiratorvcalculator(pd->dir, inter->norm));
-	// pd->dir = normalizator_ret(inter.norm);
-	mirpd->pos = inter->pos;
-	// pd->pos = add_vec(inter.pos, vec_mult(pd->dir, -1));
-	
-	impactor(f->env, mirpd, f, mirinter);
+	n->mirpd.dir = normalizator_ret(miroiratorvcalculator(pd->dir, inter->norm));
+	n->mirpd.pos = inter->pos;
+	impactor(f->env, &n->mirpd, f, &n->mirinter);
 	return ;
 }
 
@@ -83,42 +79,30 @@ double			get_schlick(t_pd *pd, t_inter *inter)
 
 }
 
-unsigned int	transroitor(t_inter *inter, t_thr *f, t_pd *pd)
+unsigned int	transroitor(t_inter *inter, t_thr *f, t_pd *pd, int p)
 {
-	static int		p = 0;
-	unsigned int	tmpcolor;
-	t_inter			mirinter;
-	// t_inter			transinter;
-	t_pd			mirpd;
-	// t_pd			transpd;
-	unsigned int	mircolor;
-	// unsigned int	transcolor;
-	double			schlick;
-	// int				i;
+	t_transroi	n;
 
-	p++;
-	schlick = 0;
-	tmpcolor = 0x000000;
-	mircolor = 0x000000;
-	// transcolor = 0x000000;
-	// t_inter_set(&transinter);
-	t_inter_set(&mirinter);
-	if (inter->ref > 0 && p < 5000)
+	n.schlick = 0;
+	n.tmpcolor = 0x000000;
+	n.mircolor = 0x000000;
+	n.transcolor = 0x000000;
+	t_inter_set(&n.transinter);
+	t_inter_set(&n.mirinter);
+	if (inter->ref > 0 && p < 8)
 	{
-		ref(f, inter, &mirinter, pd, &mirpd);
-		mircolor = transroitor(&mirinter, f, &mirpd);
-		// if ((i = trans_calculator(f, inter, &transinter, pd, &transpd)) == 0)
-		// 	transcolor = transroitor(&transinter, f, &transpd);
-		// schlick = get_schlick(pd, inter);
-	//	printf("sch = %f\n", schlick);
-		schlick = 0.5;
-		tmpcolor = color_mult(mircolor , schlick, schlick, schlick);// + color_mult(transcolor , 1 - schlick, 1 - schlick, 1 - schlick);
+		ref(f, inter, &n, pd);
+		n.mircolor = transroitor(&n.mirinter, f, &n.mirpd, p + 1);
+		if ((n.i = trans_calculator(f, inter, &n.transinter, pd, &n.transpd)) == 0)
+			n.transcolor = transroitor(&n.transinter, f, &n.transpd, p + 1);
+		// n.schlick = get_schlick(pd, inter);
+	//	printf("sch = %f\n", n.schlick);
+		n.schlick = 1;
+		n.tmpcolor = color_mult(n.mircolor , n.schlick, n.schlick, n.schlick)
+		+ color_mult(n.transcolor , 1 - n.schlick, 1 - n.schlick, 1 - n.schlick);
 	}
 	else
-	{
-		tmpcolor = amaterasu(f, inter);
-	}
+		n.tmpcolor = amaterasu(f, inter);
 //	printf("%d\n", p);
-	p--;
-	return (tmpcolor);
+	return (n.tmpcolor);
 }

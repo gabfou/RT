@@ -14,9 +14,7 @@
 
 void		modif_dirz(t_item *item, const float z)
 {
-	if (item->sp != NULL)
-		return ;
-	else if (item->pl != NULL)
+	if (item->pl != NULL)
 		item->pl->dir.z = z;
 	else if (item->cyl != NULL)
 		item->cyl->dir.z = z;

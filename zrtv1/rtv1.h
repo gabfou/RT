@@ -239,6 +239,19 @@ typedef	struct		s_carre
 	struct s_carre	*next;
 }					t_carre;
 
+typedef	struct		s_transroi
+{
+	unsigned int	tmpcolor;
+	t_inter			mirinter;
+	t_inter			transinter;
+	t_pd			mirpd;
+	t_pd			transpd;
+	unsigned int	mircolor;
+	unsigned int	transcolor;
+	double			schlick;
+	int				i;
+}					t_transroi;
+
 typedef	struct		s_cam
 {
 	t_vec			pos;
@@ -388,7 +401,7 @@ FLOAT_SIZE		ft_fatoi(char *s);
 
 void			impactor(t_env *env, t_pd *pd, t_thr *f, t_inter *inter);
 
-t_color			luminator(t_thr *f/*, t_inter *inter*/);
+t_color			luminator(t_thr *f, t_inter *inter);
 
 t_light			*fill_t_light(char **t, t_light *light);
 void			print_vec(t_vec vec);
@@ -446,7 +459,6 @@ t_vec			set_screen(t_cam *cam, t_screen screen);
 void			initmat(t_list	**tokens, t_item *item);
 int				get_t_cam_lenght(t_cam *cam);
 void			init_env(t_leviatenv *levia);
-//void			ref(t_thr *f, t_pd *pd);
 
 void			init_sphere(t_env *env, t_list **tokens);
 void			init_plane(t_env *env, t_list **tokens);
@@ -457,7 +469,7 @@ void			init_light(t_env *env, t_list **tokens);
 void			setcam(t_env *env, t_cam *cam);
 
 t_vec			miroiratorvcalculator(t_vec ray, t_vec norm);
-unsigned int	transroitor(t_inter *inter, t_thr *f, t_pd *pd);
+unsigned int	transroitor(t_inter *inter, t_thr *f, t_pd *pd, int p);
 t_proto			*helios(t_item *item, t_light *light, t_proto *prototree);
 unsigned int	amaterasu(t_thr *f, t_inter *inter);
 unsigned int	color_mult(unsigned int color, FLOAT_SIZE r, FLOAT_SIZE g, FLOAT_SIZE b);

@@ -50,9 +50,7 @@ void		modif_z(t_item *item, const float z)
 
 void		modif_dirx(t_item *item, const float x)
 {
-	if (item->sp != NULL)
-		return ;
-	else if (item->pl != NULL)
+	if (item->pl != NULL)
 		item->pl->dir.x = x;
 	else if (item->cyl != NULL)
 		item->cyl->dir.x = x;
@@ -62,9 +60,7 @@ void		modif_dirx(t_item *item, const float x)
 
 void		modif_diry(t_item *item, const float y)
 {
-	if (item->sp != NULL)
-		return ;
-	else if (item->pl != NULL)
+	if (item->pl != NULL)
 		item->pl->dir.y = y;
 	else if (item->cyl != NULL)
 		item->cyl->dir.y = y;

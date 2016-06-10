@@ -70,9 +70,9 @@ void		pixelator(t_thr *f, t_pd *pd, int x, int y)
 	impactor(f->env, pd, f, &(f->inter));
 	set_inter_pos(&(f->inter), pd);
 	if (f->inter.ref > 0)
-		// f->fcolor = transroitor(&(f->inter), f, pd);
-		ref2(f, pd);
-	// else
+		f->fcolor = transroitor(&(f->inter), f, pd, 0);
+		// ref2(f, pd);
+	else
 		f->fcolor = amaterasu(f, &f->inter);
 	pixel_to_image(x, y, f->fcolor, f->limg);
 	f->limg->l++;
