@@ -56,7 +56,7 @@ int			check_t(t_inter *inter, FLOAT_SIZE t,
 		|| pos.y > item->mat.max.y || pos.y < item->mat.min.y
 		|| pos.z > item->mat.max.z || pos.z < item->mat.min.z)
 		return (0);
-	if ((inter->t > t && t > 0) || inter->t < 0)
+	if ((inter->t > t && t > 0.0001) || inter->t < 0.0001)
 	{
 		inter->t = t;
 		inter->ref = item->mat.ref;

@@ -52,6 +52,9 @@
 # define AIR_INCI 1
 # define GLASS_INCI 1.51
 
+# define MAPPING 0.2
+# define PHOTOSTACK 10
+# define COLORSTACK 50
 
 
 typedef	struct		s_color
@@ -477,7 +480,7 @@ void			setcam(t_env *env, t_cam *cam);
 
 t_vec			miroiratorvcalculator(t_vec ray, t_vec norm);
 unsigned int	transroitor(t_inter *inter, t_thr *f, t_pd *pd, int p);
-t_proto			*helios(t_item *item, t_light *light, t_proto *prototree);
+t_proto			*helios(t_item *item, t_light *light, t_proto *prototree, t_env *env);
 unsigned int	amaterasu(t_thr *f, t_inter *inter);
 unsigned int	color_mult(unsigned int color, FLOAT_SIZE r, FLOAT_SIZE g, FLOAT_SIZE b);
 t_vec			conseiller_d_orientation_protonique_alcolique(void);
@@ -549,5 +552,6 @@ FLOAT_SIZE		ft_minspe(const register FLOAT_SIZE a,\
 	const register FLOAT_SIZE b);
 unsigned int	color_add(unsigned int color,\
 	FLOAT_SIZE r, FLOAT_SIZE g, FLOAT_SIZE b);
+void			setthrcnb(t_thr *f);
 
 #endif

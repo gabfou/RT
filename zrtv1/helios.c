@@ -319,7 +319,7 @@ t_vec 	trans_calculator_ret(t_inter *inter, t_pd *pd)
 	return (normalizator_ret(t));
 }
 
-t_proto			*lance_soleil(t_pd *pd, t_proto	*protolis, t_item *item, t_color licolor)
+t_proto			*lance_soleil(t_pd *pd, t_proto	*protolis, t_thr *f, t_color licolor)
 {
 	static int		test = 0;
 	t_inter			inter;
@@ -339,7 +339,7 @@ t_proto			*lance_soleil(t_pd *pd, t_proto	*protolis, t_item *item, t_color licol
 	{
 		test++;
 		t_inter_set(&inter);
-		impactoralancienne(pd, item , &inter);
+		impactor(f->env, pd, f , &inter);
 		set_inter_pos(&inter, pd);
 		bang = ((float)rand()/(float)(RAND_MAX));
 	//	printf("bang = %f\n", bang);
@@ -389,13 +389,35 @@ t_proto			*lance_soleil(t_pd *pd, t_proto	*protolis, t_item *item, t_color licol
 	return (protolis);
 }
 
-t_proto		*helios(t_item *item, t_light *light, t_proto *prototree)
+t_thr		new_t_thr_spec(t_env *env)
+{
+	t_thr		f;
+
+	f.done = 0;
+	f.env = env;
+	f.minx = 0;
+	f.maxx = 0;
+	f.miny = 0;
+	f.maxy = 0;
+	f.item = env->item;
+	f.light = env->light;
+	f.cam = env->cam;
+	f.limg = env->limg;
+	f.impactmod = 1;
+	setthrcnb(&f);
+	return (f);
+}
+
+t_proto		*helios(t_item *item, t_light *light, t_proto *prototree, t_env *env)
 {
 	int		photon;
 	t_pd	pd;
 	t_proto	*protolis;
+	t_thr	f;
 
+	(void)item;
 	ft_putendl("PRAISE THE SUUUUUUUN !!");
+	f = new_t_thr_spec(env);
 	protolis = NULL;
 	srand(time(NULL));
 	while (light != NULL)
@@ -407,7 +429,7 @@ t_proto		*helios(t_item *item, t_light *light, t_proto *prototree)
 			//ft_putendl("BOUCLE2");
 			pd.pos = light->pos;
 			pd.dir = normalizator_ret(conseiller_d_orientation_protonique_alcolique());
-			protolis = lance_soleil(&pd, protolis, item, light->rcolor);
+			protolis = lance_soleil(&pd, protolis, &f, light->rcolor);
 			photon++;
 		}
 		ft_putendl("BOUCLE fin");

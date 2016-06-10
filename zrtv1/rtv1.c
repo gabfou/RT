@@ -45,8 +45,9 @@ void		gpatrouverdnom(t_leviatenv *env, int argc, char *argv)
 		x++;
 	}
 	t_limg_initator(env);
-	// env->lenv->prototree = helios(env->lenv->item,
-	// 	env->lenv->light, env->lenv->prototree);
+	if (MAPPING > 0)
+	env->lenv->prototree = helios(env->lenv->item,
+	 	env->lenv->light, env->lenv->prototree, env->lenv);
 }
 
 void		filllevia(t_leviatenv *levia, char **argv, t_env *first, int argc)

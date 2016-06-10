@@ -13,12 +13,12 @@
 #include "rtv1.h"
 
 # define PHOTODIST 50
-# define PHOTOSTACK 100
+
 # define PHOTONBR 50
 # define PHOTODIV 1 / PHOTOSTACK
 # define PHOTONBRDIV 1 / PHOTONBR
 
-# define COLORSTACK 50
+
 
 t_color		gimme_da_color(t_phcol *tab)
 {
@@ -271,28 +271,32 @@ t_color		el_luminor(t_proto *rtmp, t_vec pos)
 // }
 
 
-t_color		el_subluminor(t_vec pos, t_env *env)
+t_color		el_subluminor(t_vec pos, t_thr *f)
 {
 	t_phcol	*tab;
-//	int		i;
-//	t_inter	inter;
+	int		i;
+	t_inter	inter;
 	t_pd	pd;
 	t_color	color;
+	t_color	ret;
 
-//	i = 0;
+	i = 0;
 	color = new_t_color(0, 0, 0);
+	ret = new_t_color(0, 0, 0);
 	pd.pos = pos;
 	tab = NULL;
-	// while (i < PHOTOSTACK)
-	// {
-		// pd.dir = conseiller_d_orientation_protonique_alcolique();
-		// t_inter_set(&inter);
-		// impactor(&pd, env->item, &inter);
-		// set_inter_pos(&inter, &pd);
-		color = el_luminor(env->prototree, pos);
-		//color += color_mult(gimme_da_color(tab) , PHOTONBRDIV, PHOTONBRDIV, PHOTONBRDIV);
-	// 	i++;
-	// }
+	while (i < PHOTOSTACK)
+	{
+		pd.dir = conseiller_d_orientation_protonique_alcolique();
+		t_inter_set(&inter);
+		impactor(f->env, &pd, f, &(f->inter));
+		set_inter_pos(&inter, &pd);
+		color = el_luminor(f->env->prototree, pos);
+		ret.r += color.r / PHOTOSTACK;
+		ret.g += color.g / PHOTOSTACK;
+		ret.b += color.b / PHOTOSTACK;
+		i++;
+	}
 //	printf("%d\n", i);
 	return (color);
 }
@@ -305,13 +309,17 @@ unsigned int	amaterasu(t_thr *f, t_inter *inter)
 	t_color		direct_color;
 	FLOAT_SIZE		x;
 
-	x = 0;
+	x = MAPPING;
+	if (x > 1)
+		x = 1;
+	if (x < 0)
+		x = 0;
 	ret = new_t_color(0, 0, 0);
 	direct_color = new_t_color(0, 0, 0);
 	global_color = new_t_color(0, 0, 0);
 	direct_color = luminator(f, inter);
 	if (x != 0)
-		global_color = el_subluminor(inter->pos, f->env);
+		global_color = el_subluminor(inter->pos, f);
 	 // printf("global c = %d\n", global_color);
 	 // printf("dirsct c = %d\n", direct_color);
 	//printf("\n%f %f %f\n", direct_color.r, direct_color.g, direct_color.b);
