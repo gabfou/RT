@@ -56,7 +56,7 @@ void		pixelator(t_thr *f, t_pd *pd, int x, int y)
 	calc_dir(&(pd->dir), x, y, f);
 	impactor(f->env, pd, f, &(f->inter));
 	set_inter_pos(&(f->inter), pd);
-	if (f->inter.ref > 0)
+	if (f->inter.ref > 0 || f->inter.trans > 0)
 		f->fcolor = transroitor(&(f->inter), f, pd, 0);
 	else
 		f->fcolor = amaterasu(f, &f->inter);

@@ -38,3 +38,22 @@ t_phcol		*new_phcol(t_color color, FLOAT_SIZE dist)
 	tmp->next = NULL;
 	return (tmp);
 }
+
+t_thr		new_t_thr_spec(t_env *env)
+{
+	t_thr		f;
+
+	f.done = 0;
+	f.env = env;
+	f.minx = 0;
+	f.maxx = 0;
+	f.miny = 0;
+	f.maxy = 0;
+	f.item = env->item;
+	f.light = env->light;
+	f.cam = env->cam;
+	f.limg = env->limg;
+	f.impactmod = 1;
+	setthrcnb(&f);
+	return (f);
+}

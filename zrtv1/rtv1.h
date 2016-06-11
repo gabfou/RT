@@ -480,7 +480,7 @@ void			setcam(t_env *env, t_cam *cam);
 
 t_vec			miroiratorvcalculator(t_vec ray, t_vec norm);
 unsigned int	transroitor(t_inter *inter, t_thr *f, t_pd *pd, int p);
-t_proto			*helios(t_item *item, t_light *light, t_proto *prototree, t_env *env);
+t_proto			*helios(t_light *light, t_proto *prototree, t_env *env);
 unsigned int	amaterasu(t_thr *f, t_inter *inter);
 unsigned int	color_mult(unsigned int color, FLOAT_SIZE r, FLOAT_SIZE g, FLOAT_SIZE b);
 t_vec			conseiller_d_orientation_protonique_alcolique(void);
@@ -553,5 +553,20 @@ FLOAT_SIZE		ft_minspe(const register FLOAT_SIZE a,\
 unsigned int	color_add(unsigned int color,\
 	FLOAT_SIZE r, FLOAT_SIZE g, FLOAT_SIZE b);
 void			setthrcnb(t_thr *f);
+t_proto			*lance_soleil(t_pd *pd, t_proto	*protolis,\
+	t_thr *f, t_color licolor);
+void			proto_fill(t_inter *inter, t_proto *proto,\
+	t_color color);
+t_proto			*range_proton(t_proto *protolis, t_proto *proto,\
+	int (*comp)(t_proto *, t_proto *));
+t_vec 			trans_calculator_ret(t_inter *inter, t_pd *pd);
+t_vec			ref_ret(t_inter *inter, t_pd *pd);
+int				proto_counter(t_proto *protolis);
+t_proto			*protocopieur(t_proto *protolis);
+t_proto			*photoinsertor(t_proto *list, int (*comptr)(t_proto *, t_proto *));
+t_proto			*photosynthetisator_spatial(t_proto *protolis);
+t_vec			ref_ret(t_inter *inter, t_pd *pd);
+t_thr			new_t_thr_spec(t_env *env);
+t_proto			*photon_branch(t_proto *protolis, int prof, int (**comptr)(t_proto *, t_proto *));
 
 #endif

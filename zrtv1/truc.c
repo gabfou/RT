@@ -10,7 +10,47 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+// t_proto		*photon_branch(t_proto *protolis, int prof, int i, int (**comptr)(t_proto *, t_proto *))
+// {
+// 	t_proto	*start;
+// 	t_proto	*tmp;
+// 	t_proto	*pre;
+// 	t_proto *tree;
+// 	int		profmod;
+// 	int		count;
 
+// 	ft_putendl("\nBRAMCH BRANCH");
+// 	printf("count = %d\n", i);
+// 	start = NULL;
+// 	tmp = NULL;
+// 	pre = NULL;
+// 	count = i / 2;
+// 	profmod = prof % 3;
+// 	printf("prof mod = %d\n", profmod);
+
+// 	tmp = photoinsertor(protolis, comptr[profmod]);
+
+// 	start = tmp;
+// 	while (count > 0)
+// 	{
+// 		pre = tmp;
+// 		tmp = tmp->droite;
+// 		count--;
+// 	}
+// 	tree = protocopieur(tmp);
+// 	pre->droite = NULL;
+// 	tmp = tmp->droite;
+// 	if (start->gauche != NULL)
+// 		tree->gauche = photon_branch(start, profmod + 1, i / 2 , comptr);
+// 	else
+// 		tree->gauche = start;
+// 	if (tmp->droite != NULL)
+// 		tree->droite = photon_branch(tmp, profmod + 1, i / 2 , comptr);
+// 	else
+// 		tree->droite = tmp;
+// 	ft_putendl("return tree");
+// 	return (tree);
+// }
 
 void			matrix_printator(FLOAT_SIZE **mat, int i, int j)
 {

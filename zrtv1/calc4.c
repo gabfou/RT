@@ -52,18 +52,3 @@ float			get_color_str(t_color *color)
 	sub = color->r + color->g + color->b;
 	return (sub / 768 * 100);
 }
-
-int			da_color_lenght(t_phcol *tab)
-{
-	t_phcol	*tmp;
-	int		i;
-
-	i = 0;
-	tmp = tab;
-	while (tmp != NULL)
-	{
-		tmp = tmp->next;
-		i++;
-	}
-	return (i);
-}
