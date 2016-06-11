@@ -70,11 +70,10 @@ t_color		el_luminor(t_proto *rtmp, t_vec pos)
 		el.gdist = get_sqr_dist(el.gpos, pos);
 		el.ddist = get_sqr_dist(el.dpos, pos);
 		if (el_luminorauxi(&el))
-		 	return (gimme_da_color(el.list));
+		 	break ;
 		el.i++;
 	}
 	return (gimme_da_color(el.list));
-
 }
 
 t_color		el_subluminor(t_vec pos, t_thr *f)

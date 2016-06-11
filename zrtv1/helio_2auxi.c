@@ -52,8 +52,9 @@ FLOAT_SIZE	get_node_dist(t_vec ph_pos, t_vec pos, int profmod)
 t_color		gimme_da_color(t_phcol *tab)
 {
 	t_color		color;
-	t_phcol			*tmp;
-	int				i;
+	t_phcol		*tmp;
+	t_phcol		*tmp2;
+	int			i;
 
 	color = new_t_color(0, 0, 0);
 	if (tab == NULL)
@@ -66,6 +67,13 @@ t_color		gimme_da_color(t_phcol *tab)
 		color.g += tab->color.g / i;
 		color.b += tab->color.b / i;
 		tmp = tmp->next;
+	}
+	tmp = tab;
+	while (tmp)
+	{
+		tmp2 = tmp;
+		tmp = tmp->next;
+		free(tmp2);
 	}
 	return (color);
 }
