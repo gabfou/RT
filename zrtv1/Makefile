@@ -73,6 +73,7 @@ SRC =  rtv1.c \
 	   lance_soleil.c \
 	   heliosauxi.c \
 	   calc5.c \
+	   helio_2auxi.c \
 	  
 OBJ = $(SRC:.c=.o)
 CC = clang

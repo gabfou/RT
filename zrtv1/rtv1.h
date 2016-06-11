@@ -271,6 +271,20 @@ typedef	struct		s_transroi
 	FLOAT_SIZE		nat;
 }					t_transroi;
 
+typedef	struct		s_ellumi
+{
+	t_vec		dpos;
+	t_vec		gpos;
+	FLOAT_SIZE	ddist;
+	FLOAT_SIZE	gdist;
+	FLOAT_SIZE	dist;
+	t_color		color;
+	t_proto		*tmp;
+	t_phcol		*list;
+	t_phcol		*ins;
+	int			i;
+}					t_ellumi;
+
 typedef	struct		s_screen
 {
 	int					h;
@@ -568,5 +582,10 @@ t_proto			*photosynthetisator_spatial(t_proto *protolis);
 t_vec			ref_ret(t_inter *inter, t_pd *pd);
 t_thr			new_t_thr_spec(t_env *env);
 t_proto			*photon_branch(t_proto *protolis, int prof, int (**comptr)(t_proto *, t_proto *));
+t_color			gimme_da_color(t_phcol *tab);
+void			free_phcol(t_phcol *tmp);
+t_phcol			*trimlast(t_phcol *tab);
+t_phcol			*range_in_pile(t_phcol *tab, t_phcol *ins);
+FLOAT_SIZE		get_node_dist(t_vec ph_pos, t_vec pos, int profmod);
 
 #endif
