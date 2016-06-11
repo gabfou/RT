@@ -28,3 +28,31 @@ void	ref2(t_thr *f, t_pd *pd)
 	t_inter_set(&(f->inter));
 	impactor(f->env, pd, f, &(f->inter));
 }
+
+void		impactoralancienne(t_pd *pd, t_item *item, t_inter *inter)
+{
+	t_item	*lst;
+
+	lst = item;
+	while (item != NULL)
+	{
+		if (item->sp != NULL)
+		{
+			check_sphere(item, pd, inter, 1);
+		}
+		else if (item->pl != NULL)
+		{
+			check_plane(item, pd, inter, 1);
+		}
+		else if (item->cyl != NULL)
+		{
+			check_cyl(item, pd, inter, 1);
+		}
+		else if (item->con != NULL)
+		{
+			check_con(item, pd, inter, 1);
+		}
+		item = item->next;
+	}
+	item = lst;
+}

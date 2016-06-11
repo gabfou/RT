@@ -206,7 +206,8 @@ sphere {
 	y: -3,
 	z: 3,
 	rad: 3,
-	ref: 1
+	ref: 0.5,
+	trans: 0.5
 }
 
 sphere {
@@ -214,7 +215,8 @@ sphere {
 	y: 3,
 	z: -3,
 	rad: 3,
-	ref: 1
+	ref: 0.5,
+	trans: 0.5
 }
 
 sphere {
@@ -222,7 +224,8 @@ sphere {
 	y: -3,
 	z: -3,
 	rad: 3,
-	ref: 1
+	ref: 0.5,
+	trans: 0.5
 }
 
 sphere {
@@ -230,7 +233,8 @@ sphere {
 	y: 3,
 	z: 3,
 	rad: 3,
-	ref: 1
+	ref: 0.5,
+	trans: 0.5
 }
 
 sphere {

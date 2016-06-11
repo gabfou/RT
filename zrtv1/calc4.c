@@ -32,9 +32,9 @@ inline t_color	t_color_mult(t_color c1, FLOAT_SIZE i)
 unsigned int	color_mult(unsigned int color,
 	FLOAT_SIZE r, FLOAT_SIZE g, FLOAT_SIZE b)
 {
-	return (get_color(((color >> 0) & 0xFF)  * r,
+	return (get_color(((color >> 16) & 0xFF)  * r,
 	 					((color >> 8) & 0xFF)  * g,
-	 					((color >> 16) & 0xFF)  * b));
+	 					((color >> 0) & 0xFF)  * b));
 }
 
 unsigned int	color_add(unsigned int color,

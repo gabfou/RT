@@ -86,7 +86,7 @@ unsigned int	transroitor(t_inter *inter, t_thr *f, t_pd *pd, int p)
 	n.transcolor = 0x000000;
 	t_inter_set(&n.transinter);
 	t_inter_set(&n.mirinter);
-	if ((n.nat += inter->ref) > 0 && p < 8)
+	if ((n.nat += inter->ref) > 0 && p < 100)
 	{
 		ref(f, inter, &n, pd);
 		n.mircolor = transroitor(&n.mirinter, f, &n.mirpd, p + 1);
@@ -99,6 +99,6 @@ unsigned int	transroitor(t_inter *inter, t_thr *f, t_pd *pd, int p)
 		n.tmpcolor += color_mult(n.transcolor, inter->trans, inter->trans, inter->trans);
 	}
 	if ((n.nat < 1) || p >= 8)
-		n.tmpcolor += color_mult(amaterasu(f, inter), 1 - n.nat, 1 - n.nat, 1 - n.nat);
+		n.tmpcolor += color_mult(amaterasu(f, inter, 0), 1 - n.nat, 1 - n.nat, 1 - n.nat);
 	return (n.tmpcolor);
 }
