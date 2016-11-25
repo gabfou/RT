@@ -1,3 +1,4 @@
+#
 cam {
 	x: 0,
 	y: 0,
@@ -32,7 +33,7 @@ plane {
 	z: 0,
 	dir_x: -1,
 	dir_y: 0,
-	dir_z: 0,
+	dir_z: 0
 }
 
 plane {
@@ -41,7 +42,7 @@ plane {
 	z: 0,
 	dir_x: 1,
 	dir_y: 0,
-	dir_z: 0,
+	dir_z: 0
 }
 
 plane {
@@ -50,7 +51,7 @@ plane {
 	z: -5,
 	dir_x: -1,
 	dir_y: 0,
-	dir_z: 4,
+	dir_z: 4
 }
 
 plane {
@@ -59,7 +60,7 @@ plane {
 	z: 5,
 	dir_x: -1,
 	dir_y: 0,
-	dir_z: -4,
+	dir_z: -4
 }
 
 
@@ -69,7 +70,7 @@ plane {
 	z: 0,
 	dir_x: 0,
 	dir_y: 1,
-	dir_z: 0,
+	dir_z: 0
 }
 
 plane {
@@ -78,7 +79,7 @@ plane {
 	z: 0,
 	dir_x: 0,
 	dir_y: 10,
-	dir_z: 1,
+	dir_z: 1
 }
 
 sphere {

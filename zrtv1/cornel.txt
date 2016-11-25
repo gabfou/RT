@@ -9,39 +9,45 @@ cam {
 }
 
 lum {
-	x: 0,
-	y: 0,
+	x: 10,
+	y: 10,
 	z: 0,
 	r: 255,
 	g: 255,
 	b: 255
 }
 
+lum {
+	x: 10,
+	y: 10,
+	z: 0,
+	r: 255,
+	g: 255,
+	b: 255
+}
+
+plane {
+	x: 20,
+	y: 0,
+	z: 0,
+	dir_x: -1,
+	dir_y: 0,
+	dir_z: 1,
+	ref: 1
+}
+
 sphere {
 	x: 10,
 	y: 0,
 	z: 0,
 	rad: 1,
-	mat: 1
+	ref: 1
 }
 
 sphere {
 	x: 10,
-	y: 2,
-	z: 0,
+	y: 0,
+	z: 2,
 	rad: 1,
-	mat: 1
-}
-
-sphere {
-	x: 10,
-	y: -2,
-	z: 0,
-	rad: 1,
-	mat: 1,
-	texture: niark3.xpm
-}
-
-plane {
-x: 100
+	ref: 1
 }

@@ -22,7 +22,7 @@ int			thread_master(t_env *env)
 	while (++i < NBTHREAD)
 	{
 		tab[i].minx = i * (env->screen.l / NBTHREAD);
-		tab[i].maxx = (i + 1) * (env->screen.l / NBTHREAD);
+		tab[i].maxx = (i + 1) * (env->screen.l / NBTHREAD) + 1;
 		tab[i].miny = 0;
 		tab[i].maxy = env->screen.h;
 		tab[i].env = env;

@@ -26,7 +26,7 @@ void		set_texture_sphere(t_inter *inter, t_item *item)
 	inter->diff.r = (unsigned char)item->texture->img[(tv + tu) + 2] / 255.0;
 }
 
-int			new_sphere(t_env *env)
+t_item		*new_sphere(t_env *env)
 {
 	t_item	*item;
 
@@ -34,7 +34,7 @@ int			new_sphere(t_env *env)
 	item->sp = new_t_sphere(100, 0, 0, 3);
 	item->next = NULL;
 	itemadator(env, item);
-	return (0);
+	return (item);
 }
 
 void		set_normal_sphere(t_inter *inter, t_item *item)
@@ -64,6 +64,7 @@ void		check_sphere(t_item *item, t_pd *s, t_inter *inter, int impactmod)
 	FLOAT_SIZE	del;
 	FLOAT_SIZE	t;
 
+	(void)impactmod;
 	a = carre(s->dir.x) + carre(s->dir.y) + carre(s->dir.z);
 	b = 2 * (s->dir.x * (s->pos.x - item->sp->c.x) + s->dir.y
 	* (s->pos.y - item->sp->c.y) + s->dir.z * (s->pos.z - item->sp->c.z));
@@ -73,7 +74,7 @@ void		check_sphere(t_item *item, t_pd *s, t_inter *inter, int impactmod)
 	if (del > 0)
 	{
 		t = ft_minspe((-b - sqrt(del)) / (2 * a), (-b + sqrt(del)) / (2 * a));
-		if (check_t(inter, t, s, item) == 1 && impactmod)
+		if (check_t(inter, t, s, item) == 1 && 1)
 		{
 			set_normal_sphere(inter, item);
 			if (item->texture)

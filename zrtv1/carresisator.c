@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   carresisator.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfournie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ibuchwal <ibuchwal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/02 22:26:28 by gfournie          #+#    #+#             */
-/*   Updated: 2016/04/02 22:26:29 by gfournie         ###   ########.fr       */
+/*   Updated: 2016/06/11 21:57:43 by ibuchwal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,4 @@ void		carresisator(t_env *env)
 			c = c->next;
 	}
 	carresisatorauxi(env);
-	print_carre(*env);
-	ft_putnbr(env->nb_obj);
 }

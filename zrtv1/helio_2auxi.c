@@ -21,7 +21,7 @@ t_phcol		*range_in_pile(t_phcol *tab, t_phcol *ins)
 	tmp = tab;
 	if (tab == NULL)
 		return (ins);
-	while(tmp != NULL)
+	while (tmp != NULL)
 	{
 		if (tmp && ins && ins->dist <= tmp->dist)
 		{
@@ -32,7 +32,7 @@ t_phcol		*range_in_pile(t_phcol *tab, t_phcol *ins)
 			}
 			pre->next = ins;
 			ins->next = tmp;
-			return (tab); 
+			return (tab);
 		}
 		pre = tmp;
 		tmp = tmp->next;

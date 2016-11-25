@@ -19,9 +19,9 @@ static t_map_entry	*recurse_get(t_btree *node, t_uint64 hash)
 	if (!node)
 		return (0);
 	entry = (t_map_entry *)node->content;
-	if (hash == entry->_hash)
+	if (hash == entry->hash)
 		return (entry);
-	else if (hash < entry->_hash)
+	else if (hash < entry->hash)
 		return (recurse_get(node->left, hash));
 	return (recurse_get(node->right, hash));
 }

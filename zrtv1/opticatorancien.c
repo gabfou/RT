@@ -12,13 +12,13 @@
 
 #include "rtv1.h"
 
-t_vec	miroiratorvcalculator2(t_vec ray, t_vec norm)
+t_vec		miroiratorvcalculator2(t_vec ray, t_vec norm)
 {
 	return (normalizator_ret(add_vec(norm,
 		normalizator_ret(add_vec(ray, norm)))));
 }
 
-void	ref2(t_thr *f, t_pd *pd)
+void		ref2(t_thr *f, t_pd *pd)
 {
 	set_inter_pos(&(f->inter), pd);
 	pd->dir = normalizator_ret(miroiratorvcalculator2(pd->dir, f->inter.norm));

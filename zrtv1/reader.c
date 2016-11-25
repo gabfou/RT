@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   reader.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfournie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ibuchwal <ibuchwal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 16:18:29 by gfournie          #+#    #+#             */
-/*   Updated: 2016/04/23 16:18:32 by gfournie         ###   ########.fr       */
+/*   Updated: 2016/06/11 21:57:08 by ibuchwal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "reader.h"
 #include <unistd.h>
 #include <fcntl.h>
 #include <stdio.h>
@@ -97,9 +96,7 @@ int			comanderauxi(char keyret, char *stat, t_leviatenv *env, int i)
 		ft_bzero(stat, 10000);
 	if (i == -1)
 		i = 0;
-	if (keyret == 0 || i > 9998)
-		ft_putendl("what?");
-	else if (keyret == -1)
+	if (keyret == -1)
 	{
 		write(1, "\n", 1);
 		comadator(stat, env);

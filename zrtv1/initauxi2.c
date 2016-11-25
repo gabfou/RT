@@ -58,17 +58,6 @@ inline void			initmat(t_list **tokens, t_item *item)
 		item->mat.diff.g = token_to_float(tokens);
 	else if (ft_strcmp(get_token(tokens)->lexeme, "b") == 0)
 		item->mat.diff.b = token_to_float(tokens);
-	// if (ft_strcmp(get_token(tokens)->lexeme, "tr") == 0)
-	// 	item->mat.trans.r = token_to_float(tokens);
-	// else if (ft_strcmp(get_token(tokens)->lexeme, "tg") == 0)
-	// 	item->mat.trans.g = token_to_float(tokens);
-	// else if (ft_strcmp(get_token(tokens)->lexeme, "tb") == 0)
-	// 	item->mat.trans.b = token_to_float(tokens);
-	else if (ft_strcmp(get_token(tokens)->lexeme, "mat") == 0)
-	{
-		next_elem(tokens);
-		item->mat = new_t_mat(get_token(tokens)->lexeme);
-	}
 	else if (ft_strcmp(get_token(tokens)->lexeme, "shiny") == 0)
 		item->mat.shiny = token_to_float(tokens);
 	else if (ft_strcmp(get_token(tokens)->lexeme, "shinystr") == 0)
@@ -79,19 +68,11 @@ inline void			initmat(t_list **tokens, t_item *item)
 		item->mat.idr = token_to_float(tokens);
 	else if (ft_strcmp(get_token(tokens)->lexeme, "trans") == 0)
 		item->mat.trans = token_to_float(tokens);
-	else if (ft_strcmp(get_token(tokens)->lexeme, "texture") == 0)
-	{
-		next_elem(tokens);
-		item->texture = readerxpm(get_token(tokens)->lexeme);
-	}
 	else
 		initmatauxi(tokens, item);
 	item->mat.diff.r = (item->mat.diff.r > 1) ? 1 : item->mat.diff.r;
 	item->mat.diff.g = (item->mat.diff.g > 1) ? 1 : item->mat.diff.g;
 	item->mat.diff.b = (item->mat.diff.b > 1) ? 1 : item->mat.diff.b;
-	// item->mat.trans.r = (item->mat.trans.r > 1) ? 1 : item->mat.trans.r;
-	// item->mat.trans.g = (item->mat.trans.g > 1) ? 1 : item->mat.trans.g;
-	// item->mat.trans.b = (item->mat.trans.b > 1) ? 1 : item->mat.trans.b;
 }
 
 inline int			get_t_cam_lenght(t_cam *cam)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pyl.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jromagna <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ibuchwal <ibuchwal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/23 22:17:03 by jromagna          #+#    #+#             */
-/*   Updated: 2015/10/23 22:17:04 by jromagna         ###   ########.fr       */
+/*   Updated: 2016/06/11 19:23:22 by ibuchwal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,17 @@ void		set_normal_cyl(t_cyl *cyl, t_inter *inter)
 	inter->norm = normalizator_ret(sub_vec(vector_proj_vector(
 		normalizator_ret(sub_vec(cyl->pos, inter->pos)), cyl->dir),
 	normalizator_ret(sub_vec(cyl->pos, inter->pos))));
+}
+
+t_item		*new_cyl(t_env *env)
+{
+	t_item	*item;
+
+	item = new_t_item(env);
+	item->cyl = t_cyl_creator(new_t_vec(0, 0, 0), new_t_vec(1, 0, 0), 3);
+	item->next = NULL;
+	itemadator(env, item);
+	return (item);
 }
 
 void		check_cyl(t_item *item, t_pd *s, t_inter *inter, int impactmod)

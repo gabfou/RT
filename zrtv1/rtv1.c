@@ -6,7 +6,7 @@
 /*   By: ibuchwal <ibuchwal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/23 22:07:13 by jromagna          #+#    #+#             */
-/*   Updated: 2016/03/14 23:49:26 by ibuchwal         ###   ########.fr       */
+/*   Updated: 2016/06/11 22:06:19 by ibuchwal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,18 @@ void		gpatrouverdnom(t_leviatenv *env, int argc, char *argv)
 {
 	static int x = 0;
 
-	ft_putendl(argv);
 	init(env->lenv, argc, argv);
 	checkcamscreen(env->lenv);
 	setcamuplef(env->lenv);
 	if (x == 0)
 	{
 		env->win = mlx_new_window(env->mlx,
-			env->lenv->screen.l, env->lenv->screen.h, "RTV1");
+			env->lenv->screen.l, env->lenv->screen.h, "RT");
 		x++;
 	}
 	t_limg_initator(env);
-	if (MAPPING > 0)
-	env->lenv->prototree = helios(env->lenv->light,
-		env->lenv->prototree, env->lenv);
+	if (env->lenv->screen.map > 0)
+		env->lenv->prototree = helios(env->lenv->light, env->lenv);
 }
 
 void		filllevia(t_leviatenv *levia, char **argv, t_env *first, int argc)
@@ -59,14 +57,12 @@ void		filllevia(t_leviatenv *levia, char **argv, t_env *first, int argc)
 	{
 		if (!levia->lenv)
 		{
-			ft_putendl("choix 1 1");
 			levia->lenv = new_t_env();
 			levia->lenv->nbr = i;
 			first = levia->lenv;
 		}
 		else
 		{
-			ft_putendl("choix 2 1");
 			levia->lenv->next = new_t_env();
 			levia->lenv->next->nbr = i;
 			levia->lenv->next->prev = levia->lenv;
@@ -85,6 +81,8 @@ int			main(int argc, char **argv)
 	t_env		*first;
 	int			i;
 
+	if (argc == 1)
+		ft_error("no argument");
 	initfmod(&levia);
 	first = NULL;
 	ft_puttab(argv);

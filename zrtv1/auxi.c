@@ -19,17 +19,19 @@ void		ft_puttab(char **tab)
 	i = 0;
 	while (tab[i])
 	{
-		printf("tab[%d] = %s\n", i, tab[i]);
 		i++;
 	}
 }
 
 void		print_vec(t_vec vec)
 {
-	(void)vec;
-	printf("x = [%f]\n", vec.x);
-	printf("y = [%f]\n", vec.y);
-	printf("z = [%f]\n\n", vec.z);
+	ft_putstr("x = [");
+	ft_putnbr(vec.x);
+	ft_putstr("] y = [");
+	ft_putnbr(vec.y);
+	ft_putstr("] z = [");
+	ft_putnbr(vec.z);
+	ft_putendl("]");
 }
 
 FLOAT_SIZE	carre(FLOAT_SIZE x)

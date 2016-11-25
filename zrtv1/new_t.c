@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_t.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jromagna <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ibuchwal <ibuchwal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/23 22:07:27 by jromagna          #+#    #+#             */
-/*   Updated: 2015/10/23 22:07:28 by jromagna         ###   ########.fr       */
+/*   Updated: 2016/06/11 22:56:16 by ibuchwal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,6 @@ t_inter		new_t_inter(void)
 	inter.diff = new_t_color(1, 1, 1);
 	inter.preidr = 1;
 	inter.postidr = 1;
+	inter.item = NULL;
 	return (inter);
 }

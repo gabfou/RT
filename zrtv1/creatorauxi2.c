@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   creatorauxi2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfournie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ibuchwal <ibuchwal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/10 05:43:16 by gfournie          #+#    #+#             */
-/*   Updated: 2016/06/10 05:43:17 by gfournie         ###   ########.fr       */
+/*   Updated: 2016/06/11 22:58:38 by ibuchwal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ void		t_inter_set(t_inter *inter)
 	inter->t = -1;
 	inter->trans = 0;
 	inter->ref = 0;
+	inter->item = NULL;
 	inter->diff = new_t_color(1, 1, 1);
 }

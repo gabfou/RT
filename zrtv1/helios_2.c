@@ -12,13 +12,13 @@
 
 #include "rtv1.h"
 
-# define PHOTODIST 50
+#define PHOTODIST 50
 
-# define PHOTONBR 50
-# define PHOTODIV 1 / PHOTOSTACK
-# define PHOTONBRDIV 1 / PHOTONBR
+#define PHOTONBR 50
+#define PHOTODIV 1 / PHOTOSTACK
+#define PHOTONBRDIV 1 / PHOTONBR
 
-void		init_el_luminor(t_ellumi *el, t_proto *rtmp)
+void			init_el_luminor(t_ellumi *el, t_proto *rtmp)
 {
 	el->i = 0;
 	el->color = new_t_color(0, 0, 0);
@@ -33,13 +33,14 @@ void		init_el_luminor(t_ellumi *el, t_proto *rtmp)
 	el->tmp = rtmp;
 }
 
-int		el_luminorauxi(t_ellumi *el)
+int				el_luminorauxi(t_ellumi *el)
 {
 	if (el->gdist < el->ddist && el->gdist < el->dist)
 	{
 		el->dist = el->gdist;
 		el->tmp = el->tmp->gauche;
-		el->color = new_t_color(el->tmp->color.r, el->tmp->color.g, el->tmp->color.b);
+		el->color = new_t_color(el->tmp->color.r,
+			el->tmp->color.g, el->tmp->color.b);
 		el->ins = new_phcol(el->color, el->dist);
 		el->list = range_in_pile(el->list, el->ins);
 	}
@@ -47,7 +48,8 @@ int		el_luminorauxi(t_ellumi *el)
 	{
 		el->dist = el->ddist;
 		el->tmp = el->tmp->droite;
-		el->color = new_t_color(el->tmp->color.r, el->tmp->color.g, el->tmp->color.b);
+		el->color = new_t_color(el->tmp->color.r,
+			el->tmp->color.g, el->tmp->color.b);
 		el->ins = new_phcol(el->color, el->dist);
 		el->list = range_in_pile(el->list, el->ins);
 	}
@@ -56,29 +58,30 @@ int		el_luminorauxi(t_ellumi *el)
 	return (0);
 }
 
-t_color		el_luminor(t_proto *rtmp, t_vec pos)
+t_color			el_luminor(t_proto *rtmp, t_vec pos)
 {
 	t_ellumi	el;
 
 	init_el_luminor(&el, rtmp);
 	while (el.tmp && el.tmp->gauche && el.tmp->gauche)
 	{
-		if(el.tmp->gauche)
-			el.gpos = new_t_vec(el.tmp->gauche->x, el.tmp->gauche->y, el.tmp->gauche->z);
-		if(el.tmp->droite)
-			el.dpos = new_t_vec(el.tmp->droite->x, el.tmp->droite->y, el.tmp->droite->z);
+		if (el.tmp->gauche)
+			el.gpos = new_t_vec(el.tmp->gauche->x,
+				el.tmp->gauche->y, el.tmp->gauche->z);
+		if (el.tmp->droite)
+			el.dpos = new_t_vec(el.tmp->droite->x,
+				el.tmp->droite->y, el.tmp->droite->z);
 		el.gdist = get_sqr_dist(el.gpos, pos);
 		el.ddist = get_sqr_dist(el.dpos, pos);
 		if (el_luminorauxi(&el))
-		 	break ;
+			break ;
 		el.i++;
 	}
 	return (gimme_da_color(el.list));
 }
 
-t_color		el_subluminor(t_vec pos, t_thr *f)
+t_color			el_subluminor(t_vec pos, t_thr *f)
 {
-	t_phcol	*tab;
 	int		i;
 	t_inter	inter;
 	t_pd	pd;
@@ -89,7 +92,6 @@ t_color		el_subluminor(t_vec pos, t_thr *f)
 	color = new_t_color(0, 0, 0);
 	ret = new_t_color(0, 0, 0);
 	pd.pos = pos;
-	tab = NULL;
 	while (i < PHOTOSTACK)
 	{
 		pd.dir = conseiller_d_orientation_protonique_alcolique();
@@ -107,12 +109,12 @@ t_color		el_subluminor(t_vec pos, t_thr *f)
 
 unsigned int	amaterasu(t_thr *f, t_inter *inter, int i)
 {
-	t_color	ret;
+	t_color		ret;
 	t_color		global_color;
 	t_color		direct_color;
-	FLOAT_SIZE		x;
+	FLOAT_SIZE	x;
 
-	x = MAPPING;
+	x = f->env->screen.map;
 	if (x > 1)
 		x = 1;
 	if (x < 0)
@@ -125,8 +127,7 @@ unsigned int	amaterasu(t_thr *f, t_inter *inter, int i)
 		global_color = el_subluminor(inter->pos, f);
 	else
 		return (get_color(direct_color.r, direct_color.g, direct_color.b));
-	ret = t_color_add(t_color_mult(global_color, x), t_color_mult(direct_color, 1 - x));
+	ret = t_color_add(t_color_mult(global_color, x),
+		t_color_mult(direct_color, 1 - x));
 	return (get_color(ret.r, ret.g, ret.b));
 }
-
-

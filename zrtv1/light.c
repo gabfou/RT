@@ -36,8 +36,11 @@ int			comparator_pos(const t_inter *inter, const t_inter *einter)
 	return (0);
 }
 
-t_color		lumi_calc(t_thr *f, t_pd *lvec, FLOAT_SIZE angle[2], t_color color, t_inter inter)
+t_color		lumi_calc(t_thr *f, t_pd *lvec,
+	t_color color, t_inter inter)
 {
+	FLOAT_SIZE		angle[2];
+
 	luminatorstupid(f, lvec);
 	angle[0] = M_PI_2 - acos(dot_prod(lvec->dir, inter.norm));
 	angle[1] = pow(dot_prod(lvec->dir, inter.norm), 50);
@@ -69,7 +72,6 @@ void		lumi_auxi(t_thr *f, t_pd *lvec, t_inter inter)
 t_color		luminator(t_thr *f, t_inter *inter)
 {
 	t_pd			lvec;
-	FLOAT_SIZE		angle[2];
 	t_light			*ltmp;
 	t_color			retcolor;
 
@@ -86,7 +88,7 @@ t_color		luminator(t_thr *f, t_inter *inter)
 			f->light = f->light->next;
 			continue;
 		}
-		retcolor = lumi_calc(f, &lvec, angle, retcolor, *inter);
+		retcolor = lumi_calc(f, &lvec, retcolor, *inter);
 		f->light = f->light->next;
 	}
 	f->impactmod = 1;

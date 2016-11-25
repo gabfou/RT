@@ -1563,6 +1563,24 @@ typedef struct FMOD_REVERB_PROPERTIES
     float        WetLevel;          /* [r/w] -80.0  20.0    -6.0    Room effect level (at mid frequencies)                                */
 } FMOD_REVERB_PROPERTIES;
 
+typedef struct      s_lm
+{
+    char            *name;
+    struct s_lm     *next;
+    struct s_lm     *previous;
+}                   t_lm;
+
+typedef struct      s_fmod
+{
+    void            *handle;
+    void            (*System_Create)(FMOD_SYSTEM**);
+    void            (*System_Init)(FMOD_SYSTEM*, int, FMOD_INITFLAGS, void*);
+    void            (*System_CreateSound)(FMOD_SYSTEM*, const char*, FMOD_MODE, FMOD_CREATESOUNDEXINFO*, FMOD_SOUND**);
+    void            (*Sound_SetLoopCount)(FMOD_SOUND *, int);
+    void            (*System_PlaySound)(FMOD_SYSTEM*, FMOD_SOUND*, void*, FMOD_BOOL, FMOD_CHANNEL**);
+    t_lm            *listmusic;
+
+}                   t_fmod;
 
 /*
 [DEFINE] 

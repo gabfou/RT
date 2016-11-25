@@ -12,8 +12,8 @@
 
 #include "rtv1.h"
 
-double 	trans_calculator(t_thr *f, t_inter *inter,
-	t_inter *transinter, t_pd *pd, t_pd	*transpd)
+double			trans_calculator(t_thr *f, t_inter *inter,
+	t_transroi *n, t_pd *pd)
 {
 	FLOAT_SIZE	scalc;
 	FLOAT_SIZE	angle;
@@ -24,8 +24,6 @@ double 	trans_calculator(t_thr *f, t_inter *inter,
 	t.z = 0;
 	angle = 0;
 	scalc = 0;
-	// t_inter_set(&(f->inter));
-	// set_inter_pos(&(f->inter), pd);
 	angle = M_PI_2 - acos(dot_prod(pd->dir, inter->norm));
 	angle = (angle > 0) ? -angle : angle;
 	if (sin(angle) > (AIR_INCI / GLASS_INCI))
@@ -37,22 +35,23 @@ double 	trans_calculator(t_thr *f, t_inter *inter,
 		* cos(angle) - fabs(1 - scalc)) * inter->norm.y;
 	t.z = ((AIR_INCI / GLASS_INCI) * pd->dir.z) + ((AIR_INCI / GLASS_INCI)
 		* cos(angle) - fabs(1 - scalc)) * inter->norm.z;
-	transpd->dir = normalizator_ret(t);//normalizator_ret(sub_vec((t), inter->pos));
-	transpd->pos = inter->pos;
-	impactor(f->env, transpd, f, transinter);
+	n->transpd.dir = normalizator_ret(t);
+	n->transpd.pos = inter->pos;
+	impactor(f->env, &n->transpd, f, &n->transinter);
 	return (0);
 }
 
-t_vec	miroiratorvcalculator(t_vec ray, t_vec norm)
+t_vec			miroiratorvcalculator(t_vec ray, t_vec norm)
 {
 	return (normalizator_ret(add_vec(norm,
 		normalizator_ret(add_vec(ray, norm)))));
 }
 
-void	ref(t_thr *f, t_inter *inter, t_transroi *n, t_pd *pd)
+void			ref(t_thr *f, t_inter *inter, t_transroi *n, t_pd *pd)
 {
 	set_inter_pos(inter, pd);
-	n->mirpd.dir = normalizator_ret(miroiratorvcalculator(pd->dir, inter->norm));
+	n->mirpd.dir = normalizator_ret(
+		miroiratorvcalculator(pd->dir, inter->norm));
 	n->mirpd.pos = inter->pos;
 	impactor(f->env, &n->mirpd, f, &n->mirinter);
 	return ;
@@ -60,11 +59,11 @@ void	ref(t_thr *f, t_inter *inter, t_transroi *n, t_pd *pd)
 
 double			get_schlick(t_pd *pd, t_inter *inter)
 {
-	double 	ro;
+	double	ro;
 	double	cosi;
 	double	cost;
 
-	ro = carre (AIR_INCI - GLASS_INCI / AIR_INCI + GLASS_INCI);
+	ro = carre(AIR_INCI - GLASS_INCI / AIR_INCI + GLASS_INCI);
 	cosi = dot_prod(vec_mult(pd->dir, -1), inter->norm);
 	cost = fabs(1 - (carre(AIR_INCI / GLASS_INCI) * (1 - carre(cosi))));
 	if (AIR_INCI <= GLASS_INCI)
@@ -73,10 +72,9 @@ double			get_schlick(t_pd *pd, t_inter *inter)
 		return (ro + (1 - ro) * pow(1 - cost, 5));
 	else
 		return (1);
-
 }
 
-unsigned int	transroitor(t_inter *inter, t_thr *f, t_pd *pd, int p)
+unsigned int	transroitor(t_inter *i, t_thr *f, t_pd *pd, int p)
 {
 	t_transroi	n;
 
@@ -86,19 +84,21 @@ unsigned int	transroitor(t_inter *inter, t_thr *f, t_pd *pd, int p)
 	n.transcolor = 0x000000;
 	t_inter_set(&n.transinter);
 	t_inter_set(&n.mirinter);
-	if ((n.nat += inter->ref) > 0 && p < 100)
+	if ((n.nat += i->ref) > 0 && p < 100)
 	{
-		ref(f, inter, &n, pd);
+		ref(f, i, &n, pd);
 		n.mircolor = transroitor(&n.mirinter, f, &n.mirpd, p + 1);
-		n.tmpcolor += color_mult(n.mircolor , inter->ref, inter->ref, inter->ref);
+		n.tmpcolor += color_mult(n.mircolor, i->ref, i->ref, i->ref);
 	}
-	if ((n.nat += inter->trans) > 0 && p < 8)
+	if (i->trans > 0 && p < 8)
 	{
-		if ((n.i = trans_calculator(f, inter, &n.transinter, pd, &n.transpd)) == 0)
+		if ((n.i = trans_calculator(f, i, &n, pd)) == 0)
 			n.transcolor = transroitor(&n.transinter, f, &n.transpd, p + 1);
-		n.tmpcolor += color_mult(n.transcolor, inter->trans, inter->trans, inter->trans);
+		n.tmpcolor += color_mult(n.transcolor, i->trans, i->trans, i->trans);
 	}
+	n.nat += i->trans;
 	if ((n.nat < 1) || p >= 8)
-		n.tmpcolor += color_mult(amaterasu(f, inter, 0), 1 - n.nat, 1 - n.nat, 1 - n.nat);
+		n.tmpcolor += color_mult(amaterasu(f, i, 0),
+			1 - n.nat, 1 - n.nat, 1 - n.nat);
 	return (n.tmpcolor);
 }

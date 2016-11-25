@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_map_remove.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gudepard <gudepard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibuchwal <ibuchwal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/01/19 13:36:09 by gudepard          #+#    #+#             */
-/*   Updated: 2014/01/21 17:14:16 by gudepard         ###   ########.fr       */
+/*   Updated: 2016/06/11 21:17:16 by ibuchwal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int		remove_cmp(void *c, size_t c_s, void *n, size_t n_s)
 	UNUSED(n_s);
 	c_entry = (t_map_entry *)c;
 	n_entry = (t_map_entry *)n;
-	return (c_entry->_hash - n_entry->_hash);
+	return (c_entry->hash - n_entry->hash);
 }
 
 void			ft_map_remove(t_map map, void *key, t_simple_hash_func f,
@@ -33,8 +33,8 @@ void			ft_map_remove(t_map map, void *key, t_simple_hash_func f,
 	t_uint64	tree_idx;
 
 	entry.key = key;
-	entry._hash = f(key);
-	tree_idx = entry._hash % MAP_TREE_SIZE;
+	entry.hash = f(key);
+	tree_idx = entry.hash % MAP_TREE_SIZE;
 	removed = ft_btree_remove(map + tree_idx, &entry, 0, remove_cmp);
 	if (removed)
 	{

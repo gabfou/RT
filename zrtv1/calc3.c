@@ -16,7 +16,7 @@ inline int			compx(t_proto *proto1, t_proto *proto2)
 {
 	if (!proto1 || !proto2)
 		return (0);
-	if (proto1->x > proto2->x )
+	if (proto1->x > proto2->x)
 		return (1);
 	return (0);
 }
@@ -47,9 +47,5 @@ inline FLOAT_SIZE	get_sqr_dist(t_vec v1, t_vec v2)
 inline FLOAT_SIZE	ft_minspe(const register FLOAT_SIZE a,
 	const register FLOAT_SIZE b)
 {
-	// if (a < 0)
-	// 	return (b);
-	// if (b < 0)
-	// 	return (a);
 	return (a < b ? a : b);
 }

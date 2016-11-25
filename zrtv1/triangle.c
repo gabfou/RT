@@ -87,11 +87,7 @@ void			check_triangle(t_item *item, t_pd *s, t_inter *inter, t_thr *f)
 		if (a.z < 0.0 || a.z > 1.0 || a.y < 0.0 || (a.y + a.z) > 1.0)
 			return ;
 		if (check_t(inter, t, s, item) == 1 && f->impactmod)
-		{
 			inter->norm = item->tr->n;
-			// if (texture)
-			// 	set_texture_triangle(inter, item);
-		}
 	}
 	return ;
 }

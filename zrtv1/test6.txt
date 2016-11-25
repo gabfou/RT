@@ -1,3 +1,8 @@
+screen {
+	mapping: 0,
+	r: 30,
+}
+
 cam {
 	x: 0,
 	y: 0,
@@ -5,18 +10,16 @@ cam {
 	dir_x: 1,
 	dir_y: 0,
 	dir_z: 0,
-
 }
 
-lum {
-	x: 0,
-	y: -2,
-	z: 0,
-	r: 255,
-	g: 0,
-	b: 0
+cam {
+    x: 12,
+    y: 0,
+    z: 0,
+    dir_x: 1,
+    dir_y: 0,
+    dir_z: 0,
 }
-
 
 lum {
 	x: 0,
@@ -31,16 +34,7 @@ sphere {
 	x: 10,
 	y: 0,
 	z: 0,
-	rad: 4,
-	trans: 50
-}
-
-sphere {
-	x: 20,
-	y: 0,
-	z: 0,
-	rad: 4,
-	ref: 0
+	rad: 2,
 }
 
 plane {

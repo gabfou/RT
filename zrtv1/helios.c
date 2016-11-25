@@ -3,29 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   helios.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jromagna <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ibuchwal <ibuchwal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/11 16:59:53 by jromagna          #+#    #+#             */
-/*   Updated: 2016/04/11 16:59:54 by jromagna         ###   ########.fr       */
+/*   Updated: 2016/06/11 22:07:20 by ibuchwal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-t_vec		conseiller_d_orientation_protonique_alcolique()
+t_vec		conseiller_d_orientation_protonique_alcolique(void)
 {
-	return (new_t_vec(((((float)rand()/(float)(RAND_MAX)) * 2) - 1),
-		((((float)rand()/(float)(RAND_MAX)) * 2) - 1),
-		((((float)rand()/(float)(RAND_MAX)) * 2) - 1)));
+	return (new_t_vec(((((float)rand() / (float)(RAND_MAX)) * 2) - 1),
+		((((float)rand() / (float)(RAND_MAX)) * 2) - 1),
+		((((float)rand() / (float)(RAND_MAX)) * 2) - 1)));
 }
 
-t_proto		*range_proton(t_proto *protolis, t_proto *proto, int (*comp)(t_proto *, t_proto *))
+t_proto		*range_proton(t_proto *protolis, t_proto *proto,
+	int (*comp)(t_proto *, t_proto *))
 {
-	t_proto *tmp;
-	t_proto	*pre;
-	static int x = 0;
-	static int y = 0;
-	static int z = 0;
+	t_proto		*tmp;
+	t_proto		*pre;
+	static int	x = 0;
+	static int	y = 0;
+	static int	z = 0;
 
 	pre = NULL;
 	if (++x && proto == NULL && ++y)
@@ -54,7 +55,8 @@ void		photon_branchauxi(t_proto **tmp, t_proto **pre)
 	*tmp = (*tmp)->droite;
 }
 
-t_proto		*photon_branch(t_proto *protolis, int prof, int (**comptr)(t_proto *, t_proto *))
+t_proto		*photon_branch(t_proto *protolis, int prof,
+	int (**comptr)(t_proto *, t_proto *))
 {
 	t_proto	*start;
 	t_proto	*tmp;
@@ -65,7 +67,7 @@ t_proto		*photon_branch(t_proto *protolis, int prof, int (**comptr)(t_proto *, t
 	pre = NULL;
 	profmod = prof % 3;
 	tmp = photoinsertor(protolis, comptr[profmod]);
-	prof = proto_counter(tmp) / 2;	
+	prof = proto_counter(tmp) / 2;
 	start = tmp;
 	while (prof-- > 0)
 		photon_branchauxi(&tmp, &pre);
@@ -83,7 +85,7 @@ t_proto		*photon_branch(t_proto *protolis, int prof, int (**comptr)(t_proto *, t
 	return (tree);
 }
 
-t_proto		*helios(t_light *light, t_proto *prototree, t_env *env)
+t_proto		*helios(t_light *light, t_env *env)
 {
 	int		photon;
 	t_pd	pd;
@@ -96,25 +98,17 @@ t_proto		*helios(t_light *light, t_proto *prototree, t_env *env)
 	srand(time(NULL));
 	while (light != NULL)
 	{
-		ft_putendl("BOUCLE");
 		photon = 0;
-		while (photon < light->photon)
+		while (photon++ < light->photon)
 		{
 			pd.pos = light->pos;
-			pd.dir = normalizator_ret(conseiller_d_orientation_protonique_alcolique());
+			pd.dir = normalizator_ret(
+				conseiller_d_orientation_protonique_alcolique());
 			protolis = lance_soleil(&pd, protolis, &f, light->rcolor);
-			photon++;
 		}
 		light = light->next;
 	}
 	if (protolis == NULL)
 		return (NULL);
-	ft_putendl("GROW PLZ TREE");
-	prototree = photosynthetisator_spatial(protolis);
-	ft_putendl("HELIOS IS FINISHED");
-	return (prototree);
+	return (photosynthetisator_spatial(protolis));
 }
-
-
-
-

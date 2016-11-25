@@ -12,15 +12,14 @@
 
 #include "rtv1.h"
 
-void	proto_fill(t_inter *inter, t_proto *proto, t_color color)
+void		proto_fill(t_inter *inter, t_proto *proto, t_color color)
 {
-
 	(void)color;
 	proto->x = inter->pos.x;
 	proto->y = inter->pos.y;
 	proto->z = inter->pos.z;
 	proto->color.r = color.r;
-	proto->color.g = color.g; 
+	proto->color.g = color.g;
 	proto->color.b = color.b;
 	proto->droite = NULL;
 	proto->gauche = NULL;
@@ -73,13 +72,14 @@ t_proto		*photoinsertor(t_proto *list, int (*comptr)(t_proto *, t_proto *))
 t_proto		*photosynthetisator_spatial(t_proto *protolis)
 {
 	t_proto	*prototree;
-	int 	(*comptr[3])(t_proto *, t_proto *);
-	
-	prototree = NULL;
+	int		(*comptr[3])(t_proto *, t_proto *);
 
+	ft_putendl("GROW PLZ TREE");
+	prototree = NULL;
 	comptr[0] = compx;
 	comptr[1] = compy;
 	comptr[2] = compz;
 	prototree = photon_branch(protolis, 0, comptr);
+	ft_putendl("HELIOS IS FINISHED");
 	return (prototree);
 }

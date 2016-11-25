@@ -38,9 +38,9 @@ float			lance_soleilauxi2(t_inter *inter,
 	t_pd *pd, t_thr *f, float *bang)
 {
 	t_inter_set(inter);
-	impactor(f->env, pd, f , inter);
+	impactor(f->env, pd, f, inter);
 	set_inter_pos(inter, pd);
-	*bang = ((float)rand()/(float)(RAND_MAX));
+	*bang = ((float)rand() / (float)(RAND_MAX));
 	return (get_color_str(&inter->diff));
 }
 
@@ -53,14 +53,13 @@ void			lance_soleilauxiset_pd(t_inter *inter, t_pd *pd)
 t_proto			*lance_soleilauxinit(float *diffpow, int *i,
 	float *bang)
 {
-
 	*diffpow = 0;
 	*i = -1;
-	*bang = ((float)rand()/(float)(RAND_MAX));
+	*bang = ((float)rand() / (float)(RAND_MAX));
 	return (NULL);
 }
 
-t_proto			*lance_soleil(t_pd *pd, t_proto	*protolis,
+t_proto			*lance_soleil(t_pd *pd, t_proto *protolis,
 	t_thr *f, t_color licolor)
 {
 	t_inter			inter;
@@ -84,7 +83,7 @@ t_proto			*lance_soleil(t_pd *pd, t_proto	*protolis,
 			protolis = range_proton(protolis, proto, &compx);
 			return (protolis);
 		}
-		else 
+		else
 			return (protolis);
 	}
 	return (protolis);

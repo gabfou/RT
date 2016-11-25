@@ -6,7 +6,7 @@
 /*   By: ibuchwal <ibuchwal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 19:53:34 by gfournie          #+#    #+#             */
-/*   Updated: 2016/04/06 23:31:34 by ibuchwal         ###   ########.fr       */
+/*   Updated: 2016/06/11 21:39:02 by ibuchwal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_list		*get_tokens(int fd)
 
 	line_number = 1;
 	tokens = 0;
-	while (get_next_line(fd, &line))
+	while (get_next_line(fd, &line) > 0)
 	{
 		if (line[0] != '#')
 			ft_lstappend(&tokens, tokenize(line, line_number));

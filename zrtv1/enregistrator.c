@@ -1,28 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   enregistator.c                                     :+:      :+:    :+:   */
+/*   enregistrator.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jromagna <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ibuchwal <ibuchwal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 20:11:12 by jromagna          #+#    #+#             */
-/*   Updated: 2016/03/03 20:11:15 by jromagna         ###   ########.fr       */
+/*   Updated: 2016/06/11 21:21:46 by ibuchwal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
-
-void		ft_putstr_l(char *str, int lenght)
-{
-	int	i;
-
-	i = 0;
-	while (i < lenght)
-	{
-		printf("i = %d = %d\n", i, str[i]);
-		i = i + 4;
-	}
-}
 
 int			bmpprepa(t_env *env, int size, unsigned char *bmp)
 {

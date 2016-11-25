@@ -28,4 +28,9 @@ inline void			initmatauxi(t_list **tokens, t_item *item)
 		item->mat.min.z = token_to_float(tokens);
 	else if (ft_strcmp(get_token(tokens)->lexeme, "nega") == 0)
 		item->nega = token_to_float(tokens);
+	else if (ft_strcmp(get_token(tokens)->lexeme, "texture") == 0)
+	{
+		next_elem(tokens);
+		item->texture = readerxpm(get_token(tokens)->lexeme);
+	}
 }

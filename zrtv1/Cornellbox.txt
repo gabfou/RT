@@ -1,3 +1,7 @@
+screen{
+	mapping: 2.1
+}
+
 cam {
 	x: 0,
 	y: 0,

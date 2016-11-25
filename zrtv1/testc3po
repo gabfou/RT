@@ -1,3 +1,7 @@
+screen{
+	mapping: 0,	
+}
+
 #sphere {
 #	x: 0,
 #	y: 0,
@@ -29,7 +33,6 @@ cam {
 	dir_y: 0,
 	dir_z: -1,
 	rot: 0,
-	zebre: 1
 }
 
 obj {

@@ -12,7 +12,7 @@
 
 #include "rtv1.h"
 
-t_proto		*new_t_proto()
+t_proto		*new_t_proto(void)
 {
 	t_proto	*proto;
 
@@ -30,8 +30,6 @@ t_phcol		*new_phcol(t_color color, FLOAT_SIZE dist)
 {
 	t_phcol	*tmp;
 
-	//printf("color =%d\n", get_color(color.r, color.g, color.b));
-//	printf("dist =%f\n\n", dist);
 	tmp = malloc(sizeof(t_phcol));
 	tmp->color = new_t_color(color.r, color.g, color.b);
 	tmp->dist = dist;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfournie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ibuchwal <ibuchwal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 16:04:59 by gfournie          #+#    #+#             */
-/*   Updated: 2016/04/23 16:05:00 by gfournie         ###   ########.fr       */
+/*   Updated: 2016/06/11 21:59:43 by ibuchwal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ int		mouse_hook(int button, int x, int y, t_leviatenv *levia)
 	t_pd	pd;
 	t_inter	inter;
 
-	printf("x = %d, y = %d, button = %d\n", x, y, button);
 	if (button == 1 && (x > 1085 && x < 1112 && y > 150 && y < 200))
 	{
 		nextrack(levia, 0, NULL);
@@ -78,9 +77,9 @@ void	changesize(t_leviatenv *levia)
 	mlx_destroy_window(levia->mlx, levia->win);
 	levia->win = (levia->lenv->ft++ % 2 == 0) ?
 	mlx_new_window(levia->mlx, levia->lenv->screen.l + L_SIZEC,
-	levia->lenv->screen.h, "RTV1") :
+	levia->lenv->screen.h, "RT") :
 	mlx_new_window(levia->mlx, levia->lenv->screen.l,
-	levia->lenv->screen.h, "RTV1");
+	levia->lenv->screen.h, "RT");
 	mlx_put_image_to_window(levia->mlx, levia->win,
 	levia->lenv->limg->image, 0, 0);
 	imgcptor(levia);
@@ -90,7 +89,6 @@ void	changesize(t_leviatenv *levia)
 
 int		key_down_hook(int keycode, t_leviatenv *levia)
 {
-	printf("keycode = %d\n", keycode);
 	if (keycode == 124)
 		levia->lenv->limg = levia->lenv->limg->next;
 	if (keycode == 123)
